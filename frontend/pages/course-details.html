@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="icon" href="../imgs/icon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>EZLËARN</title>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 74px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <main>
+      <!-- banner -->
+      <div
+        class="relative lg:bg-[#1C1D1F] min-h-[380px] bg-white lg:flex-row flex flex-col lg:justify-center items-center text-[#2D2F31] lg:py-12 lg:px-20 px-8 z-[1]"
+      >
+        <!-- preview for mobile device -->
+        <div
+          class="lg:my-0 my-4 relative cursor-pointer lg:hidden coursePreviewImg border border-gray-400"
+        >
+          <img
+            class="md:w-[700px] lg:w-[340px]"
+            src="https://www.sunucuteknik.com/wp-content/uploads/2022/02/java.jpg"
+            alt=""
+          />
+          <div
+            class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 mix-blend-multiply"
+          ></div>
+          <i
+            class="bi bi-play-circle-fill absolute top-1/2 left-1/2 text-gray-200 transform -translate-x-1/2 -translate-y-1/2 text-5xl"
+          ></i>
+          <p
+            class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-200 font-bold"
+          >
+            預覽此課程
+          </p>
+        </div>
+
+        <!-- course introduction -->
+        <div class="lg:w-2/3 lg:mr-6">
+          <div class="lg:text-white text-[#2D2F31]">
+            <h1 class="text-[32px] font-bold">
+              2024 Java 入門到精通課程
+            </h1>
+            <p class="text-[18px] my-4">
+              從入門開始學習Java語法，課程包含Java
+              8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
+            </p>
+            <p class="text-[14px]">
+              評價：<span class="text-[#F69C08] font-bold"
+                >4.6</span
+              >
+              <span class="text-[#F69C08]">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+              </span>
+            </p>
+            <p class="text-[14px]">作者：Wilson</p>
+            <p class="text-[14px]">更新日期：2024/9</p>
+          </div>
+        </div>
+
+        <!-- cart for mobile device -->
+        <div class="lg:hidden w-full">
+          <div class="p-4">
+            <p class="font-bold text-2xl mb-4">$2,090</p>
+            <div class="flex mb-4">
+              <a
+                class="w-11/12 mr-auto text-center rounded border border-indigo-600 p-3 text-sm font-bold text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:text-indigo-500 transition duration-300"
+                href="#"
+              >
+                加入購物車
+              </a>
+
+              <a
+                class="w-auto ml-2 px-3 flex text-center justify-center items-center rounded border border-current text-sm font-medium text-red-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+                href="#"
+              >
+                <i
+                  class="bi bi-heart-fill text-2xl"
+                  title="願望清單"
+                ></i>
+              </a>
+            </div>
+
+            <div>
+              <a
+                class="w-full group relative justify-center inline-flex items-center overflow-hidden rounded border border-current py-3 text-white focus:outline-none focus:ring active:text-indigo-500 bg-[#F79720]"
+                href="#"
+              >
+                <span
+                  class="absolute -end-full transition-all group-hover:end-4"
+                >
+                  <svg
+                    class="size-5 rtl:rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </span>
+
+                <span
+                  class="text-sm text-center font-bold transition-all group-hover:me-4"
+                >
+                  立即購買
+                </span>
+              </a>
+            </div>
+
+            <p class="text-xs text-center m-2">
+              30 天退款保證
+            </p>
+          </div>
+        </div>
+
+        <!-- course preview aria -->
+        <div
+          class="lg:w-[340px] lg:my-0 my-4 lg:relative lg:flex opacity-0 lg:justify-center cursor-pointer hidden coursePreviewImg"
+        ></div>
+
+        <!-- product card -->
+        <div
+          id="productCard"
+          class="absolute w-full top-4 lg:py-12 lg:px-20 px-8 lg:flex lg:justify-center z-[-1] hidden"
+        >
+          <div
+            class="lg:w-2/3 lg:mr-6 h-48 top-10 lg:flex"
+          ></div>
+
+          <div
+            class="relative lg:flex hidden flex-col border border-gray-400 p-2 bg-white z-[2]"
+          >
+            <!-- course preview -->
+            <div
+              class="mb-4 lg:relative lg:justify-center cursor-pointer coursePreviewImg"
+            >
+              <img
+                class="lg:w-[340px]"
+                src="https://www.sunucuteknik.com/wp-content/uploads/2022/02/java.jpg"
+                alt=""
+              />
+              <div
+                class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 mix-blend-multiply"
+              ></div>
+              <i
+                class="bi bi-play-circle-fill absolute top-1/2 left-1/2 text-gray-200 transform -translate-x-1/2 -translate-y-1/2 text-5xl"
+              ></i>
+              <p
+                class="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-gray-200 font-bold"
+              >
+                預覽此課程
+              </p>
+            </div>
+
+            <!-- add to cart -->
+            <div class="p-4">
+              <p class="font-bold text-2xl mb-4">$2,090</p>
+              <p class="font-bold text-lg mb-4">
+                2024 Java入門到精通課程
+              </p>
+
+              <div class="flex mb-4">
+                <a
+                  class="w-5/6 mr-2 text-center rounded border border-indigo-600 py-3 text-sm font-bold text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:text-indigo-500 transition duration-300"
+                  href="#"
+                >
+                  加入購物車
+                </a>
+
+                <a
+                  class="w-1/6 flex text-center justify-center items-center rounded border border-current text-sm font-medium text-red-600 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+                  href="#"
+                >
+                  <i
+                    class="bi bi-heart-fill text-2xl"
+                    title="願望清單"
+                  ></i>
+                </a>
+              </div>
+
+              <div>
+                <a
+                  class="w-full group relative justify-center inline-flex items-center overflow-hidden rounded border border-current py-3 text-white focus:outline-none focus:ring active:text-indigo-500 bg-[#F79720]"
+                  href="#"
+                >
+                  <span
+                    class="absolute -end-full transition-all group-hover:end-4"
+                  >
+                    <svg
+                      class="size-5 rtl:rotate-180"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </span>
+
+                  <span
+                    class="text-sm text-center font-bold transition-all group-hover:me-4"
+                  >
+                    立即購買
+                  </span>
+                </a>
+              </div>
+
+              <p class="text-xs text-center m-2">
+                30 天退款保證
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- overview -->
+      <div class="flex justify-center lg:px-20 px-8">
+        <div
+          class="sm:block lg:w-2/3 lg:mr-6 min-h-[500px] sticky z-[1]"
+        >
+          <div class="border-b border-gray-400">
+            <nav
+              class="-mb-px flex space-x-8 justify-start font-bold"
+              aria-label="Tabs"
+            >
+              <!-- Tab buttons -->
+              <a
+                href="#tab-1"
+                class="tab-link whitespace-nowrap border-b-2 px-1 py-4 text-sm border-indigo-500 text-indigo-600 hover:border-gray-300 hover:text-gray-700"
+                data-target="tab-1"
+                >總覽</a
+              >
+              <a
+                href="#tab-2"
+                class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                data-target="tab-2"
+                >介紹</a
+              >
+              <a
+                href="#tab-3"
+                class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                data-target="tab-3"
+                >講師</a
+              >
+              <a
+                href="#tab-4"
+                class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                data-target="tab-4"
+                >評論</a
+              >
+              <a
+                href="#tab-5"
+                class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                data-target="tab-5"
+                >常見問題</a
+              >
+            </nav>
+          </div>
+
+          <!-- Tab content -->
+          <!-- 總覽 -->
+          <div
+            id="tab-1"
+            class="tab-content border-b border-gray-400 py-8 px-4"
+          >
+            <h1
+              class="text-2xl font-bold text-[#212529] mb-4"
+            >
+              課程總覽
+            </h1>
+            <article class="text-[#495057]">
+              2024 Java
+              入門到精通課程從頭開始學習Java語法，內容包含基本語法、物件導向的程式架構、解決問題的邏輯思路、遇到問題狀況的處理、Debug技巧，建立扎實的Java必備知識。此外，也帶你從無到有開發完整的Java桌機遊戲，練習物件導向的程式設計，寫出商業與便捷功能，可連結資料庫、高可讀性、高維護性以及高功能性的程式碼。此課程會不斷更新以提供新的內容，根據學生的狀況與開發趨勢，不斷更新讓知識保持新鮮且豐富。
+              基礎課程包含：<br />
+              1. Java Primitive Data type (Byte, Short,
+              Long,Integer, Character, Boolean, Float,
+              Double)<br />
+              2. Reference Data Type(Class, Array,
+              ArrayList, ...)<br />
+              3. 物件導向語法, Fields, Scope,Static<br />
+              4. 物件導向的三大要素：Polymorphism(多型),
+              Inheritance(繼承),Encapsulation(封裝)<br />
+              5. Abstract Class, Interface<br />
+              6. Method Override,Method Overloading, Method
+              Chaining三種比較與使用時機<br />
+              7.KeyListener、MouseListener<br />
+              8. toString(), equals() method覆寫、switch
+              statement撰寫<br />
+              9.
+              NullPointerException、ConcurrentModification
+              Exception 問題處理<br />
+            </article>
+          </div>
+
+          <!-- 介紹 -->
+          <div
+            id="tab-2"
+            class="tab-content border-b border-gray-400 py-8 px-4"
+          >
+            <h1
+              class="text-2xl font-bold text-[#212529] mb-4"
+            >
+              介紹
+            </h1>
+            <article class="text-[#495057] mt-4">
+              Java
+              是一種廣泛使用的電腦程式設計語言，擁有跨平台、物件導向等特性，廣泛應用於企業級Web應用開發和各種行動應用開發。例如:
+              Android
+              Apps,數據中心和超級計算機,桌面應用程序,數據庫連接,
+              資料視覺化,
+              以及數據分析，都可以見到Java的應用。許多政府機關、醫療、
+              教育、
+              國防，以及的電子交易的系統也是用Java做成的！
+              Java
+              是非常受歡迎的程式語言，可以運用在各種領域，支援性非常強大！此外，
+              Java是跨平台的程式語言，寫一份程式碼，就可以在多個平台上運行！現在許多開發工作與需要維護的程式碼，都需要擁有Java專業知識的工程師，因此，Java為目前業界非常熱門的程式開發語言。
+            </article>
+          </div>
+
+          <!-- 講師 -->
+          <div
+            id="tab-3"
+            class="tab-content border-b border-gray-400 py-8 px-4"
+          >
+            <h1
+              class="text-2xl font-bold text-[#212529] mb-4"
+            >
+              講師
+            </h1>
+            <div class="flex flex-row items-center">
+              <img
+                class="rounded-full w-24 mr-4"
+                src="https://static.popdaily.com.tw/u/202409/152f0428-90b6-489d-be69-17ed0b670c18.jpeg"
+                alt=""
+              />
+
+              <a
+                href=""
+                class="font-bold text-lg text-[#2383E2]"
+                >Wilson</a
+              >
+            </div>
+            <article class="text-[#495057] mt-4">
+              曾就讀於美國楊百翰大學夏威夷分校，主修讀電腦科學。我相信，透過清楚的講解與示範，任何人都可以學好編寫程式與電腦科學中的複雜概念。我透過錄製課程來實現我的理想。目前我有九堂課程，分別為「2024
+              Python全攻略」、「2024 網頁開發」、「2024
+              Java課程」、「Android開發全攻略」、「2022網頁全端攻略」、「離散數學」、「數論與密碼學」、「資料結構與演算法」，以及「線性代數」。
+              在到美國之前，完全沒有寫過程式的經驗。在眾多不同的主修當中，我選擇電腦科學(台灣的資訊工程系)來當作主修，因為我從小就對電腦有濃厚的興趣。在此之後，我寫過無數網頁、開發過許多不同的樣板以及網頁架構，也在課外之餘在許多不同的線上學習資源當中學習更新穎更多樣的網頁設計技巧。
+            </article>
+          </div>
+
+          <!-- 評論 -->
+          <div
+            id="tab-4"
+            class="tab-content border-b border-gray-400 py-8 px-4"
+          >
+            <h1
+              class="text-2xl font-bold text-[#212529] mb-4"
+            >
+              評論
+            </h1>
+
+            <div class="flex flex-row">
+              <div
+                class="w-1/2 flex items-center mr-8 border-b border-gray-300 p-4"
+              >
+                <div class="mr-4">
+                  <img
+                    class="rounded-full w-24"
+                    src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <p class="text-[14px]">
+                    <span class="text-[#F69C08]">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                  </p>
+                  <p class="font-bold text-[#212529]">
+                    烏薩奇
+                  </p>
+                  <p class="text-[#495057]">
+                    嗚啦，呀哈，嗚啦
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="w-1/2 flex items-center border-b border-gray-300 p-4"
+              >
+                <div class="mr-4">
+                  <img
+                    class="rounded-full w-24"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCMeb0ErrciOplYitlaV2dVCRdc9_QZUlM-gtnXG5oPu_BG2hXfsbbfv3BkKmm0fxtbFY&usqp=CAU"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <p class="text-[14px]">
+                    <span class="text-[#F69C08]">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                  </p>
+                  <p class="font-bold text-[#212529]">
+                    吉伊卡哇
+                  </p>
+                  <p class="text-[#495057]">嚕啪嚕啪</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-row">
+              <div
+                class="w-1/2 flex items-center mr-8 border-b border-gray-300 p-4"
+              >
+                <div class="mr-4">
+                  <img
+                    class="rounded-full w-24"
+                    src="https://stickershop.line-scdn.net/stickershop/v1/sticker/452840469/android/sticker.png"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <p class="text-[14px]">
+                    <span class="text-[#F69C08]">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                  </p>
+                  <p class="font-bold text-[#212529]">
+                    小八
+                  </p>
+                  <p class="text-[#495057]">
+                    很適合初學者學習！
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="w-1/2 flex items-center border-b border-gray-300 p-4"
+              >
+                <div class="mr-4">
+                  <img
+                    class="rounded-full w-24"
+                    src="https://media.karousell.com/media/photos/products/2024/11/29/___1732876368_204c1971_progressive.jpg"
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <p class="text-[14px]">
+                    <span class="text-[#F69C08]">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                  </p>
+                  <p class="font-bold text-[#212529]">
+                    獅薩
+                  </p>
+                  <p class="text-[#495057]">謝謝老師！</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 常見問題 -->
+          <div
+            id="tab-5"
+            class="tab-content border-b border-gray-400 py-8 px-4 mb-12"
+          >
+            <h1
+              class="text-2xl font-bold text-[#212529] mb-4"
+            >
+              常見問題
+            </h1>
+            <div class="space-y-4">
+              <details
+                class="group [&_summary::-webkit-details-marker]:hidden"
+                open
+              >
+                <summary
+                  class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-gray-100 p-4 text-gray-900"
+                >
+                  <h2 class="font-medium">
+                    AI
+                    工具已經可以做網站了，為什麼還要學自己寫程式？
+                  </h2>
+
+                  <svg
+                    class="size-5 shrink-0 transition duration-300 group-open:-rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+
+                <p
+                  class="mt-4 px-4 leading-relaxed text-gray-700"
+                >
+                  AI
+                  工具只是工具，並沒辦法真的做出可以運行的網站！我們可以使用
+                  AI
+                  來加速我們的工作流程，但專業能力是無法被取代的。
+                </p>
+              </details>
+
+              <details
+                class="group [&_summary::-webkit-details-marker]:hidden"
+              >
+                <summary
+                  class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-gray-100 p-4 text-gray-900"
+                >
+                  <h2 class="font-medium">
+                    線上課程是不限次數觀看嗎？是直播嗎？
+                  </h2>
+
+                  <svg
+                    class="size-5 shrink-0 transition duration-300 group-open:-rotate-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </summary>
+
+                <p
+                  class="mt-4 px-4 leading-relaxed text-gray-700"
+                >
+                  本課程為線上預錄好的影片，並非直播，同學可以在任意的時間、地點、不限次數觀看。
+                </p>
+              </details>
+            </div>
+          </div>
+        </div>
+        <div class="w-[340px] hidden lg:flex"></div>
+      </div>
+
+      <!-- Modal Course Preview -->
+      <div
+        id="coursePreviewModal"
+        class="relative z-20 hidden"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          class="fixed inset-0 bg-gray-500/75 transition-opacity"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          class="fixed inset-0 z-10 w-screen overflow-y-auto"
+        >
+          <div
+            class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0"
+          >
+            <div
+              class="relative transform bg-[#1C1D1F] px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6"
+            >
+              <div
+                class="absolute right-0 top-0 pr-4 pt-4 sm:block"
+              >
+                <button
+                  id="modal-bg"
+                  type="button"
+                  class="rounded-md bg-[#1C1D1F] text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-indigo-500"
+                >
+                  <span class="sr-only">Close</span>
+                  <svg
+                    class="size-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                    data-slot="icon"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 18 18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Modal Content -->
+              <div class="flex flex-col justify-center">
+                <p class="text-[#D1D7DC]">課程預覽</p>
+                <h1
+                  class="text-white text-[18px] font-bold"
+                >
+                  2024 Java 入門到精通課程
+                </h1>
+                <video
+                  class="mt-6"
+                  id="previewVideo"
+                  controls
+                  src="https://yuchehsu7331awsbucket.s3.ap-southeast-2.amazonaws.com/java-master-chinese-preview.mp4"
+                ></video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+    <script>
+      $(document).ready(function () {
+        fetch("../components/navbar.html")
+          .then((response) => response.text())
+          .then((data) => {
+            $("#navbar").html(data);
+          });
+
+        fetch("../components/footer.html")
+          .then((response) => response.text())
+          .then((data) => {
+            $("#footer").html(data);
+          });
+
+        $(".coursePreviewImg").on("click", function () {
+          $("#coursePreviewModal").removeClass("hidden");
+        });
+
+        $("#modal-bg").on("click", function () {
+          $("#coursePreviewModal").addClass("hidden");
+
+          let previewVideo = $("#previewVideo")[0];
+          if (previewVideo) {
+            previewVideo.pause();
+            previewVideo.currentTime = 0;
+          }
+        });
+
+        $(".tab-link").on("click", function (e) {
+          //e.preventDefault();
+
+          $(".tab-link").removeClass(
+            "border-indigo-500 text-indigo-600"
+          );
+          $(".tab-link").addClass(
+            "border-transparent text-gray-500"
+          );
+
+          $(this).removeClass(
+            "border-transparent text-gray-500"
+          );
+          $(this).addClass(
+            "border-indigo-500 text-indigo-600"
+          );
+        });
+
+        $(window).on("scroll resize", function () {
+          let scrollTop = $(window).scrollTop();
+          let footerTop = $("#footer").offset().top;
+          let windowHeight = $(window).height();
+
+          if ($(window).scrollTop() > 80) {
+            $("#productCard")
+              .addClass("fixed top-6")
+              .removeClass("absolute top-4");
+            if (
+              scrollTop + windowHeight - 68 >=
+              footerTop
+            ) {
+              $("#productCard")
+                .removeClass("top-6")
+                .css(
+                  "bottom",
+                  `${
+                    scrollTop + windowHeight - footerTop
+                  }px`
+                );
+            } else {
+              $("#productCard")
+                .css("bottom", "")
+                .addClass("top-6");
+            }
+          } else {
+            $("#productCard")
+              .removeClass("fixed top-6")
+              .addClass("absolute top-4");
+          }
+        });
+      });
+
+      $("#user-menu-button").click(function (event) {
+        event.stopPropagation(); // 防止事件冒泡，這樣點擊按鈕不會觸發 document 的點擊事件
+        $(this).next('[role="menu"]').toggleClass("hidden"); // 切換隱藏/顯示菜單
+      });
+
+      // 當用戶點擊頁面其他地方時，隱藏下拉菜單
+      $(document).click(function (event) {
+        if (
+          !$(event.target).closest(
+            '#user-menu-button, [role="menu"]'
+          ).length
+        ) {
+          $('[role="menu"]').addClass("hidden"); // 隱藏所有的下拉菜單
+        }
+      });
+    </script>
+  </body>
+</html>

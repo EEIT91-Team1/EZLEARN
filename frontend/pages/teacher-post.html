@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>公告</title>
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <main>
+        <div class="flex mx-auto" style="min-height: 80vh;">
+            <div id="aside"></div>
+
+            <div class="flex-1 bg-red-300 shadow-md p-6">
+                <div>
+                    <h1 class="text-2xl font-bold mb-4">發布公告</h1>
+                    <div class="border border-black p-4 mb-8">
+                        <div class="mb-4">
+                            <label for="title" class="block font-medium mb-1">公告標題</label>
+                            <input type="text" id="title" class="border border-gray-400 rounded-lg w-full px-3 py-2">
+                        </div>
+                        <div>
+                            <label for="content" class="block font-medium mb-1">公告內容</label>
+                            <textarea id="content" class="border border-gray-400 rounded-lg w-full px-3 py-2 h-32"></textarea>
+                        </div>
+                        <div class="mt-4 text-right">
+                          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">發布</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">已發布公告</h2>
+                    <div class="border border-black p-4">
+                        <div class="mb-4">
+                            <p class="text-xl font-medium">公告標題</p>
+                            <p>公告內容</p>
+                        </div>
+                        <div class="mt-4 pt-4">
+                            <p class="text-xl font-medium">公告標題2</p>
+                            <p>公告內容2</p>
+                        </div>
+                        <div class="mt-4 pt-4">
+                            <p class="text-xl font-medium">公告標題3</p>
+                            <p>公告內容3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="footer"></div>
+    <script>
+        fetch("../components/navbar.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#navbar").html(data);
+            });
+        fetch("../components/teacher_aside.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#aside").html(data);
+            });
+
+        fetch("../components/footer.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#footer").html(data);
+            });
+    </script>
+</body>
+
+</html>

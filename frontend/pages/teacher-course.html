@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>課程</title>
+</head>
+
+<body>
+    <div id="navbar"></div>
+
+    <main>
+        <div class="flex mx-auto" style="min-height: 80vh;">
+            <div id="aside"></div>
+
+            <div class="flex-1 bg-red-300 p-6">
+                <div class="mb-6 border-black border px-14 py-2 w-auto h-36 min-w-80 relative ">
+                    <span class="border-black border px-2 py-2 bottom-3 left-3 bg-blue-500 absolute">
+                        <a class="text-xl font-bold mb-4" href="google.com.tw">建立課程</a>
+                    </span>
+                    <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
+                        class="w-48  right-3 absolute">
+                </div>
+
+                <div class="mb-6">
+                    <h1 class="text-2xl font-bold mb-4">如何開始？</h1>
+                    <div class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal">
+                        <div class="border border-black p-4 flex col-span-2">
+                            <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
+                                class="h-16 my-auto">
+                            <p class="my-auto">創建引人入勝的課程</p>
+                        </div>
+                        <div class="border border-black p-4 row-span-2 flex items-center justify-center" style="text-align: center;">
+                            <div>
+                                <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png"
+                                    alt="" class="h-20 m-auto">
+                                <p class="">建立您的受眾</p>
+                            </div>
+                        </div>
+                        <div class="border border-black p-4 flex col-span-2">
+                            <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
+                                class="h-16 my-auto">
+                            <p class="my-auto">開始學習影片</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-xl font-bold mb-4">我的課程</h2>
+                    <div class="border border-black p-4">
+                        <div class="flex items-center">
+                            <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
+                                class="h-16 my-auto">
+                            <div>
+                                <h3 class="text-lg font-medium">2024 Java 入門到精通課程</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+    <script>
+        fetch("../components/navbar.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#navbar").html(data);
+            });
+        fetch("../components/teacher_aside.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#aside").html(data);
+            });
+        fetch("../components/post.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#post").html(data);
+            });
+        fetch("../components/footer.html")
+            .then((response) => response.text())
+            .then((data) => {
+                $("#footer").html(data);
+            });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+.progressbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 4rem 0;
+    width: 50vw;
+    counter-reset: step;
+  }
+  .progress-step {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    background: #dcdcdc;
+    border-radius: 50px;
+    align-items: center;
+    z-index: 2;
+  }
+  .progress-step::before {
+    counter-increment: step;
+    content: counter(step);
+  }
+  .progress-step.active {
+    background-color: black;
+    color: white;
+  }
+  /* .form-step {
+    display: none;
+    transform-origin: top;
+    animation: animate 0.5s;
+  } */
+  /* @keyframes animate {
+    from {
+      transform: scale(1, 0);
+    }
+    to {
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+  }
+   */
+  .progress-step::after {
+    /* content: attr(data-title); */
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    font-size: 0.8rem;
+    color: #666666;
+  }
+  .progressbar::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px; /* 背景條高度 */
+    width: 100%; /* 背景條全寬 */
+    background-color: #dcdcdc; /* 灰色背景條 */
+    z-index: 1;
+  }
+  .progress {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0%; /* 預設寬度為 0 */
+    background-color: black; /* 黑色進度條 */
+    z-index: 2; /* 置於背景條上方 */
+    transition: width 0.4s ease-in-out;
+  }
+  
