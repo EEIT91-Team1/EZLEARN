@@ -2,7 +2,11 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -15,19 +19,32 @@
     <div id="navbar"></div>
 
     <main class="container mx-auto px-4 py-8">
-      <div class="max-w-lg mx-auto bg-white rounded-lg shadow p-8 text-center">
+      <div
+        class="max-w-lg mx-auto bg-white rounded-lg shadow p-8 text-center"
+      >
         <div id="successState" class="hidden">
           <div class="text-green-500 text-6xl mb-4">
             <i class="bi bi-check-circle"></i>
           </div>
-          <h1 class="text-2xl font-bold mb-4">付款成功！</h1>
-          <p class="text-gray-600 mb-8">您的訂單已完成付款，感謝您的購買。</p>
+          <h1 class="text-2xl font-bold mb-4">
+            付款成功！
+          </h1>
+          <p class="text-gray-600 mb-8">
+            您的訂單已完成付款，感謝您的購買。
+          </p>
           <div class="bg-gray-50 rounded-lg p-4 mb-8">
             <p class="text-gray-600">
-              訂單編號：<span id="orderNumber" class="font-medium"></span>
+              訂單編號：<span
+                id="orderNumber"
+                class="font-medium"
+              ></span>
             </p>
             <p class="text-gray-600">
-              付款金額：NT$ <span id="paymentAmount" class="font-medium"></span>
+              付款金額：NT$
+              <span
+                id="paymentAmount"
+                class="font-medium"
+              ></span>
             </p>
           </div>
         </div>
@@ -37,8 +54,13 @@
             <i class="bi bi-x-circle"></i>
           </div>
           <h1 class="text-2xl font-bold mb-4">付款失敗</h1>
-          <p class="text-gray-600 mb-8">很抱歉，您的付款未能完成。</p>
-          <p class="text-gray-600 mb-8" id="errorMessage"></p>
+          <p class="text-gray-600 mb-8">
+            很抱歉，您的付款未能完成。
+          </p>
+          <p
+            class="text-gray-600 mb-8"
+            id="errorMessage"
+          ></p>
         </div>
 
         <div class="flex flex-col gap-4">
@@ -73,42 +95,63 @@
           $("#footer").html(data);
         });
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get("status");
-        const amount = parseInt(urlParams.get("amount"));
-        const orderNumber = urlParams.get("orderNumber");
-        const errorMsg = urlParams.get("error");
-
-        if (status === "success") {
-          document.getElementById("successState").classList.remove("hidden");
-          document.getElementById("orderNumber").textContent = orderNumber;
-          document.getElementById("paymentAmount").textContent =
-            amount.toLocaleString();
-
-          const orderData = {
-            orderNumber: orderNumber,
-            date: new Date().toISOString(),
-            status: "success",
-            amount: amount,
-            items: JSON.parse(localStorage.getItem("cartItems") || "[]"),
-          };
-
-          const orders = JSON.parse(
-            localStorage.getItem("orderHistory") || "[]"
+      document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+          const urlParams = new URLSearchParams(
+            window.location.search
           );
-          orders.unshift(orderData);
-          localStorage.setItem("orderHistory", JSON.stringify(orders));
+          const status = urlParams.get("status");
+          const amount = parseInt(urlParams.get("amount"));
+          const orderNumber = urlParams.get("orderNumber");
+          const errorMsg = urlParams.get("error");
 
-          localStorage.removeItem("cartItems");
-          localStorage.removeItem("cartTotal");
-        } else {
-          document.getElementById("failureState").classList.remove("hidden");
-          document.getElementById("retryButton").classList.remove("hidden");
-          document.getElementById("errorMessage").textContent =
-            errorMsg || "請稍後再試，或聯繫客服人員。";
+          if (status === "success") {
+            document
+              .getElementById("successState")
+              .classList.remove("hidden");
+            document.getElementById(
+              "orderNumber"
+            ).textContent = orderNumber;
+            document.getElementById(
+              "paymentAmount"
+            ).textContent = amount.toLocaleString();
+
+            const orderData = {
+              orderNumber: orderNumber,
+              date: new Date().toISOString(),
+              status: "success",
+              amount: amount,
+              items: JSON.parse(
+                localStorage.getItem("cartItems") || "[]"
+              ),
+            };
+
+            const orders = JSON.parse(
+              localStorage.getItem("orderHistory") || "[]"
+            );
+            orders.unshift(orderData);
+            localStorage.setItem(
+              "orderHistory",
+              JSON.stringify(orders)
+            );
+
+            localStorage.removeItem("cartItems");
+            localStorage.removeItem("cartTotal");
+          } else {
+            document
+              .getElementById("failureState")
+              .classList.remove("hidden");
+            document
+              .getElementById("retryButton")
+              .classList.remove("hidden");
+            document.getElementById(
+              "errorMessage"
+            ).textContent =
+              errorMsg || "請稍後再試，或聯繫客服人員。";
+          }
         }
-      });
+      );
     </script>
   </body>
 </html>

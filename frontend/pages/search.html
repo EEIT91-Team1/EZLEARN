@@ -2,9 +2,12 @@
 <html lang="zh-Hants">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>EZLEARN</title>
-    <link rel="icon" href="../imgs/icon.ico" />
+    <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -24,7 +27,10 @@
 
     <main>
       <div class="flex justify-center relative h-72">
-        <form action="" class="flex items-center justify-center w-3/4">
+        <form
+          action=""
+          class="flex items-center justify-center w-3/4"
+        >
           <input
             type="text"
             placeholder="想搜尋更多課程？"
@@ -45,7 +51,10 @@
             id="searchPic7"
             class="hidden xl:block"
           />
-          <img src="../imgs/searchPic5.png" id="searchPic5" />
+          <img
+            src="../imgs/searchPic5.png"
+            id="searchPic5"
+          />
           <img
             src="../imgs/searchPic6.png"
             id="searchPic6"
@@ -61,7 +70,9 @@
       <div
         class="my-2 flex flex-wrap justify-between mx-8 lg:mx-16 xl:mx-32 2xl:mx-56 items-center"
       >
-        <p class="text-2xl sm:mx-12 my-8">「java」有 10,000 個結果</p>
+        <p class="text-2xl sm:mx-12 my-8">
+          「java」有 10,000 個結果
+        </p>
         <div class="mx-12 my-2 flex items-center ml-auto">
           <div class="flex justify-center items-center">
             <div
@@ -84,13 +95,23 @@
           class="hidden my-5 px-2 justify-end-end lg:flex ml-auto mr-6 text-gray-500 flex-wrap"
           id="sortOption"
         >
-          <a class="sortTarget hover:text-black duration-300" href=""
+          <a
+            class="sortTarget hover:text-black duration-300"
+            href=""
             >默認排序</a
-          >｜<a class="hover:text-black duration-300" href="">最高評分</a>｜<a
+          >｜<a
+            class="hover:text-black duration-300"
+            href=""
+            >最高評分</a
+          >｜<a
             class="hover:text-black duration-300"
             href=""
             >最多購買</a
-          >｜<a class="hover:text-black duration-300" href="">最新課程</a>
+          >｜<a
+            class="hover:text-black duration-300"
+            href=""
+            >最新課程</a
+          >
         </div>
       </div>
       <div class="flex mx-8 lg:mx-16 xl:mx-32 2xl:mx-56">
@@ -98,7 +119,9 @@
           id="divLeft"
           class="bg-white flex-col text-xl tracking-wide leading-10 fixed top-0 left-0 p-6 h-full shadow-lg hidden lg:flex lg:static lg:shadow-none"
         >
-          <div class="justify-between mb-10 text-xl flex lg:hidden">
+          <div
+            class="justify-between mb-10 text-xl flex lg:hidden"
+          >
             <i class="bi bi-funnel"></i>篩選條件<i
               id="closeDivLeft"
               class="bi bi-x-lg cursor-pointer hover:text-blue-400 duration-300"
@@ -108,13 +131,22 @@
             class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
             id="theme"
           >
-            <span>主題</span><i class="bi bi-chevron-down"></i>
+            <span>主題</span
+            ><i class="bi bi-chevron-down"></i>
           </div>
           <div class="hidden" id="themeOption">
-            <input type="checkbox" name="language" id="language" />
+            <input
+              type="checkbox"
+              name="language"
+              id="language"
+            />
             <label for="language">語言學習</label>
             <br />
-            <input type="checkbox" name="program" id="program" />
+            <input
+              type="checkbox"
+              name="program"
+              id="program"
+            />
             <label for="program">程式設計</label>
             <br />
             <input type="checkbox" name="cook" id="cook" />
@@ -123,10 +155,18 @@
             <input type="checkbox" name="art" id="art" />
             <label for="art">藝術創作</label>
             <br />
-            <input type="checkbox" name="sport" id="sport" />
+            <input
+              type="checkbox"
+              name="sport"
+              id="sport"
+            />
             <label for="sport">運動健身</label>
             <br />
-            <input type="checkbox" name="finance" id="finance" />
+            <input
+              type="checkbox"
+              name="finance"
+              id="finance"
+            />
             <label for="finance">理財投資</label>
             <br />
           </div>
@@ -134,34 +174,62 @@
             class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
             id="review"
           >
-            <span>評分</span><i class="bi bi-chevron-down"></i>
+            <span>評分</span
+            ><i class="bi bi-chevron-down"></i>
           </div>
-          <div class="hidden text-lg leading-10" id="reviewOption">
-            <input type="radio" name="review" id="review4" />
+          <div
+            class="hidden text-lg leading-10"
+            id="reviewOption"
+          >
+            <input
+              type="radio"
+              name="review"
+              id="review4"
+            />
             <label for="review4"
-              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
               ><i class="bi bi-star"></i
             ></label>
             <br />
-            <input type="radio" name="review" id="review3" />
+            <input
+              type="radio"
+              name="review"
+              id="review3"
+            />
             <label for="review3"
-              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i><i class="bi bi-star"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i
               ><i class="bi bi-star"></i
             ></label>
             <br />
-            <input type="radio" name="review" id="review2" />
+            <input
+              type="radio"
+              name="review"
+              id="review2"
+            />
             <label for="review2"
-              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star"></i><i class="bi bi-star"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i
+              ><i class="bi bi-star"></i
               ><i class="bi bi-star"></i
             ></label>
             <br />
-            <input type="radio" name="review" id="review1" />
+            <input
+              type="radio"
+              name="review"
+              id="review1"
+            />
             <label for="review1"
-              ><i class="bi bi-star-fill"></i><i class="bi bi-star"></i
-              ><i class="bi bi-star"></i><i class="bi bi-star"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i
+              ><i class="bi bi-star"></i
+              ><i class="bi bi-star"></i
               ><i class="bi bi-star"></i
             ></label>
           </div>
@@ -169,13 +237,22 @@
             class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
             id="price"
           >
-            <span>價格</span><i class="bi bi-chevron-down"></i>
+            <span>價格</span
+            ><i class="bi bi-chevron-down"></i>
           </div>
           <div id="priceOption" class="hidden">
-            <input type="checkbox" name="price" id="d1000" />
+            <input
+              type="checkbox"
+              name="price"
+              id="d1000"
+            />
             <label for="d1000">$1000以下</label>
             <br />
-            <input type="checkbox" name="price" id="u1000" />
+            <input
+              type="checkbox"
+              name="price"
+              id="u1000"
+            />
             <label for="u1000">$1000以上</label>
           </div>
         </div>
@@ -187,15 +264,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -210,15 +291,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -233,15 +318,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -256,15 +345,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -279,15 +372,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -302,15 +399,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -325,15 +426,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -348,15 +453,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -371,15 +480,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -394,15 +507,19 @@
               />
             </div>
             <div class="divText">
-              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h1>
+                從零開始學JAVA｜零基礎10小時變成JAVA大師
+              </h1>
               <h2>
                 從入門開始學習Java語法，課程包含Java
                 8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
               </h2>
               <h3>brad Chao</h3>
               <h4>
-                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                <i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i
                 ><i class="bi bi-star"></i>
               </h4>
             </div>
@@ -419,7 +536,9 @@
         >
           ＜
         </button>
-        <span class="flex items-center m-4" id="pageNumber">1</span>
+        <span class="flex items-center m-4" id="pageNumber"
+          >1</span
+        >
         <button
           id="btnPageNext"
           class="bg-white p-3 rounded-md shadow-lg border focus:outline-none my-4 hover:bg-blue-400 hover:text-white duration-300"
