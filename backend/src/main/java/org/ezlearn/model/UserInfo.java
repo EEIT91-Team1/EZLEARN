@@ -1,0 +1,76 @@
+package org.ezlearn.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "user_info")
+public class UserInfo {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long userId;
+	private String gender;
+	private String birthday;
+	private byte[] avatar;
+	private String userName;
+	private String userIntro;
+	
+	public Long getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public byte[] getAvatar() {
+		return avatar;
+	}
+	
+	public void setAvatar(byte[] avatar) {
+		this.avatar = avatar;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getUserIntro() {
+		return userIntro;
+	}
+	
+	public void setUserIntro(String userIntro) {
+		this.userIntro = userIntro;
+	}
+	
+	@OneToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	private Users users;
+
+}
