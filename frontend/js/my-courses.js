@@ -17,6 +17,7 @@ $(document).ready(function () {
 
       const data = await response.json();
       if (data.length > 0) {
+        console.log(data);
         $("#browseCourse").addClass("hidden");
         $.each(data, function (index, item) {
           let courseImg = $("<img>")
@@ -31,7 +32,7 @@ $(document).ready(function () {
             .addClass("font-bold text-[#2D2F31] mt-2");
 
           let teacherName = $("<p>")
-            .text(`老師：${item.courses.teachers.userName}`)
+            .text(`老師：${item.courses.userInfo.userName}`)
             .addClass("text-xs text-[#494847] mb-2");
 
           let playIcon = $("<i>").addClass(
