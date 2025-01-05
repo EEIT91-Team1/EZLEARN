@@ -27,6 +27,7 @@ build/
 
 # Java 和 Maven 相關的檔案
 /target/             
+bin/
 *.class              
 *.log                
 *.jar                
