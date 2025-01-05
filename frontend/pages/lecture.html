@@ -13,6 +13,7 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/lecture.js"></script>
 
     <title>學習影片 | EZLËARN</title>
 
@@ -24,7 +25,6 @@
     </style>
   </head>
   <body>
-    <!-- <div id="navbar"></div> -->
     <header>
       <div
         class="flex items-center w-full bg-[#1C1D1F] h-[74px] border-b border-gray-600"
@@ -45,12 +45,10 @@
     </header>
 
     <main>
-      <div class="flex w-full">
-        <div class="w-[calc(100vw-400px)]">
+      <div class="lg:flex w-full">
+        <div class="lg:w-[calc(100vw-400px)]">
           <!-- video player -->
-          <div
-            class="bg-black flex justify-center h-1/2 xl:h-2/5"
-          >
+          <div class="bg-black flex justify-center">
             <video
               id="previewVideo"
               controls
@@ -60,7 +58,7 @@
 
           <!-- tab -->
           <div class="flex justify-center px-8">
-            <div class="min-h-[500px] z-[1] w-full">
+            <div class="z-[1] w-full">
               <!-- nav -->
               <div class="border-b border-gray-400">
                 <nav
@@ -105,7 +103,7 @@
               <!-- 筆記 -->
               <div
                 id="tab-2"
-                class="tab-content py-4 hidden p-4 my-4"
+                class="tab-content hidden py-4 p-4 my-4"
               >
                 <h1
                   class="text-2xl font-bold text-[#212529] mb-4"
@@ -113,28 +111,21 @@
                   課程筆記
                 </h1>
 
-                <form action="#" class="relative">
+                <!-- add note -->
+                <div class="relative">
                   <div
                     class="bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
                   >
-                    <label for="title" class="sr-only"
-                      >Title</label
-                    >
                     <input
                       type="text"
-                      name="title"
-                      id="title"
+                      id="add-note-title"
                       class="block w-full px-4 pt-2.5 text-lg font-bold text-gray-800 placeholder:text-gray-400 focus:outline focus:outline-0"
                       placeholder="＃標題"
                     />
-                    <label for="description" class="sr-only"
-                      >Description</label
-                    >
+
                     <textarea
-                      rows="2"
-                      name="description"
-                      id="description"
-                      class="block w-full resize-none h-[100px] px-4 py-1.5 text-base text-gray-800 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
+                      id="add-note-content"
+                      class="block w-full resize-none px-4 py-1.5 text-base text-gray-800 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
                       placeholder="寫下筆記..."
                     ></textarea>
 
@@ -150,36 +141,19 @@
                     <div
                       class="flex items-center justify-end space-x-3 px-2 py-2 sm:px-3"
                     >
-                      <div>
-                        <button
-                          type="submit"
-                          class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
-                          建立
-                        </button>
-                      </div>
+                      <button
+                        id="add-note-btn"
+                        type="submit"
+                        class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        建立
+                      </button>
                     </div>
                   </div>
-                </form>
-
-                <div
-                  class="border border-gray-400 p-4 my-2"
-                >
-                  <h1
-                    class="text-lg font-bold text-gray-800 mb-4"
-                  >
-                    Maven安裝依賴的方式
-                  </h1>
-
-                  <textarea
-                    rows="2"
-                    name="description"
-                    id="description"
-                    class="block w-full resize-none text-base text-gray-600 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
-                  >
-使用XML格式在pom.xml加入你要安裝的依賴</textarea
-                  >
                 </div>
+
+                <!-- note list -->
+                <div class="note-list"></div>
               </div>
 
               <!-- 問答 -->
@@ -238,7 +212,7 @@
 
         <!-- course list -->
         <div
-          class="flex w-[400px] flex-col justify-between border-s border-gray-400 bg-white overflow-y-auto"
+          class="hidden lg:flex w-[400px] flex-col justify-between border-s border-gray-400 bg-white overflow-y-auto"
         >
           <div class="px-4 py-4">
             <span class="text-lg font-bold text-gray-600">
@@ -297,94 +271,11 @@
 
     <script>
       $(document).ready(function () {
-        // fetch("../components/navbar.html")
-        //   .then((response) => response.text())
-        //   .then((data) => {
-        //     $("#navbar").html(data);
-        //   });
-
         fetch("../components/footer.html")
           .then((response) => response.text())
           .then((data) => {
             $("#footer").html(data);
           });
-
-        $(".tab-link").on("click", function (e) {
-          e.preventDefault();
-
-          $(".tab-content").addClass("hidden");
-
-          $(".tab-link").removeClass(
-            "border-indigo-500 text-indigo-600"
-          );
-          $(".tab-link").addClass(
-            "border-transparent text-gray-500"
-          );
-
-          var target = $(this).data("target");
-          $("#" + target).removeClass("hidden");
-
-          $(this).removeClass(
-            "border-transparent text-gray-500"
-          );
-          $(this).addClass(
-            "border-indigo-500 text-indigo-600"
-          );
-        });
-
-        async function getPosts() {
-          try {
-            const response = await fetch(
-              "http://localhost:8080/courses/1/posts",
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-
-            if (!response.ok) {
-              throw new Error("Internal Error");
-            }
-
-            const data = await response.json();
-            if (data.length > 0) {
-              $("#no-posts").addClass("hidden");
-              $.each(data, function (index, item) {
-                let postTitle = $("<h1>")
-                  .text(item.postTitle)
-                  .addClass(
-                    "text-lg font-bold mb-2 text-gray-800"
-                  );
-
-                let postContent = $("<p>")
-                  .text(item.postContent)
-                  .addClass("text-gray-600");
-
-                let dateTime = $("<p>")
-                  .text(item.createdAt)
-                  .addClass(
-                    "text-xs text-end text-gray-600"
-                  );
-
-                let postBox = $("<div>")
-                  .addClass(
-                    "border border-gray-400 p-4 my-2"
-                  )
-                  .append(postTitle, postContent, dateTime);
-                $("#tab-1").append(postBox);
-              });
-
-              console.log(data);
-            } else {
-              $("#no-posts").removeClass("hidden");
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        }
-        getPosts();
       });
     </script>
   </body>
