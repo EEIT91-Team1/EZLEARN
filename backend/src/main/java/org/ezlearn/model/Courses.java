@@ -74,16 +74,14 @@ public class Courses {
 
 	@ManyToOne
 	@JoinColumn(name = "teacher_id")
-	private UserInfo teachers;
+	private UserInfo userInfo;
 
-	public UserInfo getTeachers() {
-		return teachers;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setTeachers(UserInfo teachers) {
-		this.teachers = teachers;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
-	
-	
 
 }
