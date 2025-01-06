@@ -14,10 +14,6 @@ public class PurchasedCoursesService {
 	@Autowired
 	private PurchasedCoursesRepository purchasedCoursesRepository;
 	
-//	public List<PurchasedCourses> getPurchasedCoursesByUsers(Long userId) {
-//		return purchasedCoursesRepository.findByUsers(userId);
-//	}
-	
 	public List<PurchasedCourses> getPurchasedCoursesByUsers(Users users) {
 		return purchasedCoursesRepository.findByUsers(users);
 	}
