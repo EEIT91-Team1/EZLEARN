@@ -75,10 +75,6 @@ public class UserInfo {
 	@JoinColumn(name = "user_id")
 	private Users users;
 
-	public Users getUsers() {
-		return users;
-	}
-
 	public void setUsers(Users users) {
 		this.users = users;
 	}
