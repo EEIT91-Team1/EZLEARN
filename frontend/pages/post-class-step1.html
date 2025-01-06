@@ -113,19 +113,9 @@
   </div>
   </div>
   <div id="footer"></div>
-  
+  <script src="../js/header-footer.js"></script>
   <script>
-    fetch("../components/navbar.html")
-    .then((response) => response.text())
-    .then((data) => {
-      $("#navbar").html(data);
-    });
-    
-    fetch("../components/footer.html")
-    .then((response) => response.text())
-    .then((data) => {
-      $("#footer").html(data);
-    });
+
     // const progressSteps = document.querySelectorAll(".progress-step");
     // const progress = document.getElementById("progress");
     // let formStepsNum = 0;

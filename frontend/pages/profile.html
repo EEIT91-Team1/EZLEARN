@@ -1,116 +1,144 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <title>個人檔案</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="navbar"></div>
 
     <main class="bg-blue-500">
-        <div class="flex justify-center items-center bg-red-600 min-h-full">
-            <div class="p-8 w-96 bg-yellow-400">
-                <div class="mb-4 flex justify-center items-center">
-                    <div>
-                        <img class="rounded-full mb-4 h-80 w-80" src="../imgs/12-1.png" alt="Avatar">
-                        <div class="text-sm text-black text-center">
-                            <label for="file-upload" class="cursor-pointer">
-                                <span class="font-medium px-2 py-1 border border-dashed border-black rounded-md">
-                                    變更大頭貼
-                                </span>
-                                <input id="file-upload" type="file" class="hidden" />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <form>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                            姓名
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="username" type="text" placeholder="王小明">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                            電子郵件
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="email" type="email" placeholder="ming123@gmail.com">
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mb-6 w-2/3">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="birthday">
-                                生日
-                            </label>
-                            <input
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="birthday" type="date">
-                        </div>
-                        <div class="mb-6 ml-4 w-1/3">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">
-                                性別
-                            </label>
-                            <select
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="gender">
-                                <option value="male">男性</option>
-                                <option value="female">女性</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
-                            電話
-                        </label>
-                        <input
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="phone" type="tel" placeholder="0912345678">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="about">
-                            自我介紹
-                        </label>
-                        <textarea
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="about" rows="3" placeholder="大家好！我的名字是王小明。"></textarea>
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <button
-                            class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
-                            type="submit">
-                            儲存
-                        </button>
-                    </div>
-
-                </form>
+      <div class="flex justify-center items-center bg-red-600 min-h-full">
+        <div class="p-8 w-96 bg-yellow-400">
+          <div class="mb-4 flex justify-center items-center">
+            <div>
+              <img
+                class="rounded-full mb-4 h-80 w-80"
+                src="../imgs/12-1.png"
+                alt="Avatar"
+              />
+              <div class="text-sm text-black text-center">
+                <label for="file-upload" class="cursor-pointer">
+                  <span
+                    class="font-medium px-2 py-1 border border-dashed border-black rounded-md"
+                  >
+                    變更大頭貼
+                  </span>
+                  <input id="file-upload" type="file" class="hidden" />
+                </label>
+              </div>
             </div>
+          </div>
+          <form>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                姓名
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username"
+                type="text"
+                placeholder="王小明"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                電子郵件
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email"
+                type="email"
+                placeholder="ming123@gmail.com"
+              />
+            </div>
+            <div class="flex items-center">
+              <div class="mb-6 w-2/3">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="birthday"
+                >
+                  生日
+                </label>
+                <input
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="birthday"
+                  type="date"
+                />
+              </div>
+              <div class="mb-6 ml-4 w-1/3">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="gender"
+                >
+                  性別
+                </label>
+                <select
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="gender"
+                >
+                  <option value="male">男性</option>
+                  <option value="female">女性</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="phone"
+              >
+                電話
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="phone"
+                type="tel"
+                placeholder="0912345678"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="about"
+              >
+                自我介紹
+              </label>
+              <textarea
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="about"
+                rows="3"
+                placeholder="大家好！我的名字是王小明。"
+              ></textarea>
+            </div>
+            <div class="flex items-center justify-center">
+              <button
+                class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                儲存
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
     </main>
 
     <div id="footer"></div>
-    <script>
-        fetch("../components/navbar.html")
-            .then((response) => response.text())
-            .then((data) => {
-                $("#navbar").html(data);
-            });
-
-        fetch("../components/footer.html")
-            .then((response) => response.text())
-            .then((data) => {
-                $("#footer").html(data);
-            });
-    </script>
-</body>
-
+    <script src="../js/header-footer.js"></script>
+  </body>
 </html>

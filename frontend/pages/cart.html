@@ -17,29 +17,46 @@
 
     <main class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-8">購物車</h1>
-      
+
       <div class="flex flex-col lg:flex-row gap-8">
         <div class="lg:w-2/3">
           <div class="bg-white rounded-lg shadow p-6">
             <div class="flex items-center mb-4">
-              <input type="checkbox" class="select-all mr-4" onclick="toggleAllItems(this)">
+              <input
+                type="checkbox"
+                class="select-all mr-4"
+                onclick="toggleAllItems(this)"
+              />
               <span class="flex-grow">課程</span>
               <span class="w-32 text-right">課程價格</span>
               <span class="w-16"></span>
             </div>
-            
+
             <div class="border-t py-4">
               <div class="flex items-center">
-                <input type="checkbox" class="cart-item mr-4" onchange="updateOrderSummary()">
+                <input
+                  type="checkbox"
+                  class="cart-item mr-4"
+                  onchange="updateOrderSummary()"
+                />
                 <div class="flex-grow flex items-center">
-                  <img src="../imgs/course-placeholder.jpg" alt="課程圖片" class="w-32 h-24 object-cover rounded mr-4">
+                  <img
+                    src="../imgs/course-placeholder.jpg"
+                    alt="課程圖片"
+                    class="w-32 h-24 object-cover rounded mr-4"
+                  />
                   <div>
                     <h3 class="text-lg font-medium">課程名稱</h3>
                     <div class="text-gray-600">課程資訊/優惠資訊</div>
                   </div>
                 </div>
                 <span class="w-32 text-right price">NT$ 9999</span>
-                <button onclick="removeItem(this)" class="w-16 text-right text-gray-500 hover:text-red-500">刪除</button>
+                <button
+                  onclick="removeItem(this)"
+                  class="w-16 text-right text-gray-500 hover:text-red-500"
+                >
+                  刪除
+                </button>
               </div>
             </div>
           </div>
@@ -56,7 +73,12 @@
               <span>總計</span>
               <span>NT$ <span id="total">0</span> 元</span>
             </div>
-            <button onclick="proceedToCheckout()" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition" id="checkoutButton" disabled>
+            <button
+              onclick="proceedToCheckout()"
+              class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
+              id="checkoutButton"
+              disabled
+            >
               結帳
             </button>
           </div>
@@ -65,68 +87,61 @@
     </main>
 
     <div id="footer"></div>
+    <script src="../js/header-footer.js"></script>
     <script>
-      fetch("../components/navbar.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#navbar").html(data);
-        });
-
-      fetch("../components/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#footer").html(data);
-        });
-
       function toggleAllItems(checkbox) {
-        document.querySelectorAll('.cart-item').forEach(item => {
+        document.querySelectorAll(".cart-item").forEach((item) => {
           item.checked = checkbox.checked;
         });
         updateOrderSummary();
       }
 
       function removeItem(button) {
-        button.closest('.border-t').remove();
+        button.closest(".border-t").remove();
         updateOrderSummary();
       }
 
       function updateOrderSummary() {
-        const checkedItems = document.querySelectorAll('.cart-item:checked');
-        document.getElementById('selectedItemCount').textContent = checkedItems.length;
-        
+        const checkedItems = document.querySelectorAll(".cart-item:checked");
+        document.getElementById("selectedItemCount").textContent =
+          checkedItems.length;
+
         let total = 0;
         const selectedItems = [];
-        
-        checkedItems.forEach(item => {
-          const itemContainer = item.closest('.flex');
-          const priceElement = itemContainer.querySelector('.price');
-          const titleElement = itemContainer.querySelector('h3');
-          const price = parseInt(priceElement.textContent.replace('NT$ ', '').replace(',', ''));
-          
+
+        checkedItems.forEach((item) => {
+          const itemContainer = item.closest(".flex");
+          const priceElement = itemContainer.querySelector(".price");
+          const titleElement = itemContainer.querySelector("h3");
+          const price = parseInt(
+            priceElement.textContent.replace("NT$ ", "").replace(",", "")
+          );
+
           selectedItems.push({
             title: titleElement.textContent,
-            price: price
+            price: price,
           });
-          
+
           total += price;
         });
-        
-        document.getElementById('subtotal').textContent = total.toLocaleString();
-        document.getElementById('total').textContent = total.toLocaleString();
-        
-        const checkoutButton = document.getElementById('checkoutButton');
+
+        document.getElementById("subtotal").textContent =
+          total.toLocaleString();
+        document.getElementById("total").textContent = total.toLocaleString();
+
+        const checkoutButton = document.getElementById("checkoutButton");
         checkoutButton.disabled = checkedItems.length === 0;
-        
-        localStorage.setItem('cartItems', JSON.stringify(selectedItems));
-        localStorage.setItem('cartTotal', total);
+
+        localStorage.setItem("cartItems", JSON.stringify(selectedItems));
+        localStorage.setItem("cartTotal", total);
       }
 
       function proceedToCheckout() {
-        const checkedItems = document.querySelectorAll('.cart-item:checked');
+        const checkedItems = document.querySelectorAll(".cart-item:checked");
         if (checkedItems.length > 0) {
-          window.location.href = 'order.html';
+          window.location.href = "order.html";
         }
       }
     </script>
   </body>
-</html> 
+</html>

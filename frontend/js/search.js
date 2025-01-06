@@ -122,8 +122,10 @@ $(document).ready(function () {
       }
       $.each(data, function (idx, item) {
         if (idx < 10) {
+          let href = `/pages/course-details.html?course_id=${item.courseId}`;
           $("#divRight").append(
-            `<div class="divResult">
+            `<a href="${href}">
+            <div class="divResult">
              <div class="divImg">
                <img src="${item.courseImg}" />
              </div>
@@ -136,7 +138,7 @@ $(document).ready(function () {
              <div class="divPrice">
                <p>$${item.price}</p>
              </div>
-          </div>`
+          </div></a>`
           );
         }
       });

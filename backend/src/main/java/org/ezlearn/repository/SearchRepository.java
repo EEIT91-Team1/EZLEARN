@@ -22,7 +22,7 @@ public interface SearchRepository extends JpaRepository<Courses, Long> {
 			+ "OR user_info.user_name LIKE ?1 ", nativeQuery = true)
 	List<Object[]> searchCount(String courseName);
 
-	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate "
+	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate,c.course_id "
 			+ "FROM courses c " + "LEFT JOIN purchased_courses p ON c.course_id = p.course_id "
 			+ "JOIN user_info ui ON c.teacher_id = ui.user_id " + "WHERE (course_name LIKE ?1 "
 			+ "OR c.course_intro LIKE ?1 " + "OR c.course_type LIKE ?1 " + "OR ui.user_name LIKE ?1) "
@@ -31,7 +31,7 @@ public interface SearchRepository extends JpaRepository<Courses, Long> {
 			+ "LIMIT ?2, 11", nativeQuery = true)
 	List<Object[]> searchOrderByStudents(String courseName, Integer page, String corseType, String price, String rate);
 
-	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate "
+	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate,c.course_id "
 			+ "FROM courses c " + "LEFT JOIN purchased_courses p ON c.course_id = p.course_id "
 			+ "JOIN user_info ui ON c.teacher_id = ui.user_id " + "WHERE (course_name LIKE ?1 "
 			+ "OR c.course_intro LIKE ?1 " + "OR c.course_type LIKE ?1 " + "OR ui.user_name LIKE ?1) "
@@ -40,7 +40,7 @@ public interface SearchRepository extends JpaRepository<Courses, Long> {
 			+ "LIMIT ?2, 11", nativeQuery = true)
 	List<Object[]> searchOrderByCourseId(String courseName, Integer page, String corseType, String price, String rate);
 
-	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate "
+	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate,c.course_id "
 			+ "FROM courses c " + "LEFT JOIN purchased_courses p ON c.course_id = p.course_id "
 			+ "JOIN user_info ui ON c.teacher_id = ui.user_id " + "WHERE (course_name LIKE ?1 "
 			+ "OR c.course_intro LIKE ?1 " + "OR c.course_type LIKE ?1 " + "OR ui.user_name LIKE ?1) "
@@ -49,7 +49,7 @@ public interface SearchRepository extends JpaRepository<Courses, Long> {
 			+ "LIMIT ?2, 11", nativeQuery = true)
 	List<Object[]> searchOrderByRate(String courseName, Integer page, String corseType, String price, String rate);
 
-	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate "
+	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate,c.course_id "
 			+ "FROM courses c " + "LEFT JOIN purchased_courses p ON c.course_id = p.course_id "
 			+ "JOIN user_info ui ON c.teacher_id = ui.user_id " + "WHERE (course_name LIKE ?1 "
 			+ "OR c.course_intro LIKE ?1 " + "OR c.course_type LIKE ?1 " + "OR ui.user_name LIKE ?1) "
@@ -58,7 +58,7 @@ public interface SearchRepository extends JpaRepository<Courses, Long> {
 			+ "LIMIT ?2, 11", nativeQuery = true)
 	List<Object[]> searchOrderByPriceT(String courseName, Integer page, String corseType, String price, String rate);
 
-	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate "
+	@Query(value = "SELECT c.course_name, c.course_intro, c.course_img, c.price, ui.user_name, COUNT(p.user_id) students, AVG(p.course_rate) rate,c.course_id "
 			+ "FROM courses c " + "LEFT JOIN purchased_courses p ON c.course_id = p.course_id "
 			+ "JOIN user_info ui ON c.teacher_id = ui.user_id " + "WHERE (course_name LIKE ?1 "
 			+ "OR c.course_intro LIKE ?1 " + "OR c.course_type LIKE ?1 " + "OR ui.user_name LIKE ?1) "

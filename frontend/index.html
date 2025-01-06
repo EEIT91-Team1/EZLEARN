@@ -24,13 +24,13 @@
       <div class="flex justify-center relative" style="height: 36rem">
         <form id="formSearch" class="flex items-center justify-center w-3/4">
           <input
-            id="inputSearch"
+            id="inputSearch2"
             type="text"
             placeholder="今天想學點什麼？"
             class="pl-6 w-96 h-14 text-2xl border-y-2 border-l-2 border-cyan-500 rounded-l-full focus:outline-none"
           />
           <button
-            id="btnSearch"
+            id="btnSearch2"
             class="w-20 min-w-16 h-14 pr-2 text-2xl bg-cyan-500 rounded-r-full hover:bg-cyan-400 hover:text-white duration-500"
           >
             <i class="bi bi-search"></i>
@@ -284,7 +284,7 @@
                           <div><span id="teacherCourse5"></span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span id="studentsCourse4"></span>
+                            ><span id="studentsCourse5"></span>
                           </div>
                           <div>
                             <span id="rateCourse5"> </span>
@@ -1089,27 +1089,6 @@
     <img src="./imgs/indexBg2.png" id="bg2" />
 
     <script src="./js/index.js"></script>
-    <script>
-      $(document).ready(function () {
-        fetch("../components/navbar.html")
-          .then((response) => response.text())
-          .then((data) => {
-            $("#navbar").html(data);
-          });
-
-        fetch("../components/footer.html")
-          .then((response) => response.text())
-          .then((data) => {
-            $("#footer").html(data);
-          });
-      });
-
-      $("#btnSearch").on("click", (event) => {
-        event.preventDefault();
-        console.log("a");
-        const query = $("#inputSearch").prop("value");
-        window.location.href = `pages/search.html?query=${query}`;
-      });
-    </script>
+    <script src="./js/header-footer.js"></script>
   </body>
 </html>
