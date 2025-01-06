@@ -41,4 +41,5 @@ Thumbs.db
 # 環境變數檔案
 .env                 
 *.bak                
-*.tmp                
+*.tmp     
+/.metadata/           
