@@ -25,8 +25,9 @@ public class CoursesService {
 	
 	public List<Map<String, Object>> findcourse(HttpSession session){
 		Users user = (Users)session.getAttribute("user");
-		Long teacherid = user.getUserId();
-		List<Courses> list = coursesrepository.findByTeacherId(teacherid);
+		UserInfo userinfo = new UserInfo();
+		userinfo.setUserId(user.getUserId());
+		List<Courses> list = coursesrepository.findByUserInfo(userinfo);
 		List<Map<String, Object>> detaillist = new ArrayList<Map<String,Object>>();
 		for(Courses course : list) {
 			Map<String, Object> test = new HashMap<String, Object>();

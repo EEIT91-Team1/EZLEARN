@@ -20,20 +20,11 @@ public class Courses {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long courseId;
-	private Long teacherId;
 	private Integer price;
 	private String courseName;
 	private String courseIntro;
 	private String courseType;
 	private byte[] courseImg;
-	
-	public Long getTeacherId() {
-		return teacherId;
-	}
-
-	public void setTeacherId(Long teacherId) {
-		this.teacherId = teacherId;
-	}
 
 	public Long getCourseId() {
 		return courseId;
@@ -83,18 +74,15 @@ public class Courses {
 		this.courseImg = courseImg;
 	}
 
-//	@ManyToOne
-//	@JoinColumn(name = "teacher_id")
-//	private UserInfo teachers;
-//
-//	public UserInfo getTeachers() {
-//		return teachers;
-//	}
-//
-//	public void setTeachers(UserInfo teachers) {
-//		this.teachers = teachers;
-//	}
-	
-	
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private UserInfo userInfo;
 
+	public UserInfo getTeachers() {
+		return userInfo;
+	}
+
+	public void setTeachers(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
 }
