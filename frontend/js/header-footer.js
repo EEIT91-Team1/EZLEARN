@@ -12,9 +12,8 @@ function search() {
   window.location.href = `../pages/search.html?query=${query}`;
 }
 //確認是否登入顯示div
-function navbarLogin() {
-  $("#navbarDivLogin").removeClass("hidden");
-  $("#navbarDivLogout").addClass("hidden");
+function navbarLog(log) {
+  $(`#navbarDiv${log}`).removeClass("hidden");
 }
 
 function logout() {
@@ -26,38 +25,41 @@ function logout() {
   });
 }
 
-fetch("http://localhost:8080/user/islogin", {
-  method: "get",
-  credentials: "include",
-})
-  .then((response) => response.text())
-  .then((data) => {
-    console.log(123);
-    if (data == "true") {
-      navbarLogin();
-      console.log(456);
-      fetch("http://localhost:8080/user/logindata", {
+async function loadNavbar() {
+  const navbarResponse = await fetch("../components/navbar.html");
+  const navbarHtml = await navbarResponse.text();
+  $("#navbar").html(navbarHtml);
+
+  const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {
+    method: "get",
+    credentials: "include",
+  });
+  const isLoggedIn = await isLoginResponse.text();
+
+  if (isLoggedIn === "true") {
+    navbarLog("Login");
+
+    const loginDataResponse = await fetch(
+      "http://localhost:8080/user/logindata",
+      {
         method: "get",
         credentials: "include",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          if (data.avatar != "noImg") {
-            $("#navbarAvatar1").prop("src", data.avatar);
-            $("#navbarAvatar2").prop("src", data.avatar);
-          }
-          $("#navbarUserName").text(data.userName);
-          $("#navbarEmail").text(data.email);
-        });
-    }
-  });
+      }
+    );
+    const loginData = await loginDataResponse.json();
 
-fetch("../components/navbar.html")
-  .then((response) => response.text())
-  .then((data) => {
-    $("#navbar").html(data);
-  });
+    if (loginData.avatar !== "noImg") {
+      $("#navbarAvatar1").prop("src", loginData.avatar);
+      $("#navbarAvatar2").prop("src", loginData.avatar);
+    }
+    $("#navbarUserName").text(loginData.userName);
+    $("#navbarEmail").text(loginData.email);
+  } else {
+    navbarLog("Logout");
+  }
+}
+
+loadNavbar();
 
 fetch("../components/footer.html")
   .then((response) => response.text())
