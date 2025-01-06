@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Users {
@@ -19,7 +20,14 @@ public class Users {
 	private Long userId;
 	private String email;
 	private String password;
-
+	@Transient
+	private String comfirmpassword;
+	public String getComfirmpassword() {
+		return comfirmpassword;
+	}
+	public void setComfirmpassword(String comfirmpassword) {
+		this.comfirmpassword = comfirmpassword;
+	}
 	public Long getUserId() {
 		return userId;
 	}
@@ -47,7 +55,15 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<PurchasedCourses> purchasedCourses;
 	
-	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private UserInfo userInfo;
+	//---------------------
+	@OneToOne(mappedBy = "users",cascade = CascadeType.ALL)
+	private UserInfo userinfo;
+	public UserInfo getUserinfo() {
+		return userinfo;
+	}
+	public void setUserinfo(UserInfo userinfo) {
+		this.userinfo = userinfo;
+		this.userinfo.setUser(this);
+	}
 	
 }

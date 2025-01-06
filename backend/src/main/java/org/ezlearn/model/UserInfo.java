@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -17,10 +18,19 @@ public class UserInfo {
 	private Long userId;
 	private String gender;
 	private String birthday;
-	private byte[] avatar;
+	private byte[] avatar=null;
 	private String userName;
-	private String userIntro;
+	private String phone;
+	private String userIntro= "";
 	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -68,9 +78,15 @@ public class UserInfo {
 	public void setUserIntro(String userIntro) {
 		this.userIntro = userIntro;
 	}
-	
+	//-------------------
 	@OneToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
+	@MapsId
+	@JoinColumn(name = "userId")
 	private Users users;
-
+	public Users getUser() {
+		return users;
+	}
+	public void setUser(Users user) {
+		this.users = user;
+	}
 }

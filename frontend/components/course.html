@@ -34,13 +34,23 @@
     <div>
         <h2 class="text-xl font-bold mb-4">我的課程</h2>
         <div class="border border-black p-4">
-            <div class="flex items-center">
-                <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
-                    class="h-16 my-auto">
-                <div>
-                    <h3 class="text-lg font-medium">2024 Java 入門到精通課程</h3>
-                </div>
+            <div class="items-center" id ="courselist">
+
             </div>
         </div>
     </div>
+    <script>
+        fetch('http://localhost:8080/teacher/teachercourse', {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(data => {
+                for(let i=0;i<data.length;i++){
+                  document.getElementById('courselist').innerHTML += 
+                  `<div class="flex m-2"><img class="h-16 my-auto" src=data:image/png;base64,${data[i].courseImgbase64}></img>
+                    <p class="my-auto">${data[i].courseName}</p></div>`;
+                }
+            })
+    </script>
 </article>
