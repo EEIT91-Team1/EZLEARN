@@ -2,9 +2,8 @@ package org.ezlearn.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,47 +16,23 @@ import jakarta.persistence.Transient;
 
 @Entity
 public class Courses {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "course_id")
 	private Long courseId;
-	@Column(name = "price")
-	private int price;
-	@Column(name = "course_name")
+	private Long teacherId;
+	private Integer price;
 	private String courseName;
-	@Column(name = "course_intro")
 	private String courseIntro;
-	@Column(name = "course_img")
-	private byte[] courseImg;
-	@Column(name = "course_type")
 	private String courseType;
-	@Transient
-	private String courseImgBase64;
-	@Transient
-	private String courseRates;
-
-	public String getCourseRates() {
-		return courseRates;
+	private byte[] courseImg;
+	
+	public Long getTeacherId() {
+		return teacherId;
 	}
 
-	public void setCouseRates(String couseRates) {
-		this.courseRates = couseRates;
-	}
-
-	public String getCourseImgBase64() {
-		return courseImgBase64;
-	}
-
-	public void setCourseImgBase64(String courseImgBase64) {
-		this.courseImgBase64 = courseImgBase64;
-	}
-
-	public byte[] getCourseImg() {
-		return courseImg;
-	}
-
-	public void setCourseImg(byte[] courseImg) {
-		this.courseImg = courseImg;
+	public void setTeacherId(Long teacherId) {
+		this.teacherId = teacherId;
 	}
 
 	public Long getCourseId() {
@@ -68,11 +43,11 @@ public class Courses {
 		this.courseId = courseId;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -100,42 +75,26 @@ public class Courses {
 		this.courseType = courseType;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "userid")
-	@JsonManagedReference
-	private Users users;
-
-	public Users getUsers() {
-		return users;
+	public byte[] getCourseImg() {
+		return courseImg;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setCourseImg(byte[] courseImg) {
+		this.courseImg = courseImg;
 	}
 
-	@OneToMany(mappedBy = "courses", cascade = CascadeType.ALL)
-	private List<Purchasedcourse> purchasedcourses;
-
-	public List<Purchasedcourse> getPurchasedcourses() {
-		return purchasedcourses;
-	}
-
-	public void setPurchasedcourses(List<Purchasedcourse> purchasedcourses) {
-		this.purchasedcourses = purchasedcourses;
-	}
-
-//
 //	@ManyToOne
-//	@JoinColumn(name = "userid")
-//	@JsonManagedReference
-//	private UserInfo userInfo;
+//	@JoinColumn(name = "teacher_id")
+//	private UserInfo teachers;
 //
-//	public UserInfo getUserInfo() {
-//		return userInfo;
+//	public UserInfo getTeachers() {
+//		return teachers;
 //	}
 //
-//	public void setUserInfo(UserInfo userInfo) {
-//		this.userInfo = userInfo;
+//	public void setTeachers(UserInfo teachers) {
+//		this.teachers = teachers;
 //	}
+	
+	
 
 }

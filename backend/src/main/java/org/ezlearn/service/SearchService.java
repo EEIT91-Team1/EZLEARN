@@ -64,7 +64,7 @@ public class SearchService {
 			courseMap.put("teacherName", (String) course[4]);
 			courseMap.put("purchaseCount", course[5] + "");
 			courseMap.put("courseRate", String.format("%.1f", course[6]));
-			courseMap.put("courseId",course[7]+"");
+			courseMap.put("courseId",course[7]+"");	
 			courses.add(courseMap);
 		}
 

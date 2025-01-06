@@ -189,9 +189,8 @@ $(document).ready(function () {
   });
 });
 //搜尋
-$("#btnSearch2").on("click", (event) => {
+$("#btnSearch").on("click", (event) => {
   event.preventDefault();
-  console.log("a");
-  const query = $("#inputSearch2").prop("value");
+  const query = $("#inputSearch").prop("value");
   window.location.href = `pages/search.html?query=${query}`;
 });

@@ -1,65 +1,92 @@
 package org.ezlearn.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "userinfo")
+@Table(name = "user_info")
 public class UserInfo {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "userid")
 	private Long userId;
-	@Column(name = "username")
+	private String gender;
+	private String birthday;
+	private byte[] avatar=null;
 	private String userName;
+	private String phone;
+	private String userIntro= "";
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public Long getUserId() {
 		return userId;
 	}
-
+	
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public String getBirthday() {
+		return birthday;
+	}
 
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public byte[] getAvatar() {
+		return avatar;
+	}
+	
+	public void setAvatar(byte[] avatar) {
+		this.avatar = avatar;
+	}
+	
 	public String getUserName() {
 		return userName;
 	}
-
-	public void setUsername(String username) {
-		this.userName = username;
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-
+	
+	public String getUserIntro() {
+		return userIntro;
+	}
+	
+	public void setUserIntro(String userIntro) {
+		this.userIntro = userIntro;
+	}
+	//-------------------
 	@OneToOne
-	@JoinColumn(name = "userid")
-	@JsonBackReference
+	@MapsId
+	@JoinColumn(name = "userId")
 	private Users users;
-
-	public Users getUsers() {
+	public Users getUser() {
 		return users;
 	}
-
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setUser(Users user) {
+		this.users = user;
 	}
-
-//	@OneToMany(mappedBy = "userInfo")
-//	@JsonBackReference
-//	private List<Courses> courses;
-//
-//	public List<Courses> getCourses() {
-//		return courses;
-//	}
-//
-//	public void setCourses(List<Courses> courses) {
-//		this.courses = courses;
-//	}
-
 }
