@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.ezlearn.model.Notes;
 import org.ezlearn.service.NotesService;
+import org.ezlearn.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,34 +27,56 @@ public class NotesController {
 	@Autowired
 	private NotesService notesService;
 	
+	@Autowired
+	private UsersService usersService;
+	
+	@Autowired
+	private HttpSession httpSession;
+	
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@GetMapping("/{courseId}/notes")
-	public List<Notes> getNotesByCourses(@PathVariable Long courseId) {
-		return notesService.getNotesByCourses(courseId);
+	public ResponseEntity<?> getNotesByCourses(@PathVariable Long courseId) {
+		if (usersService.islogin(httpSession) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
+		}
+		return ResponseEntity.ok(notesService.getNotesByCourses(courseId));
 	}
 	
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@PostMapping("/notes")
-	public Notes createNote(@RequestBody Notes note) {
-		return notesService.createNote(note);
+	public ResponseEntity<?> createNote(@RequestBody Notes note) {
+		if (usersService.islogin(httpSession) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
+		}
+		return ResponseEntity.ok(notesService.createNote(note));
 	}
 	
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@PutMapping("/notes/{noteId}")
-	public Notes updateNote(@PathVariable Long noteId ,@RequestBody Notes note) {
-		return notesService.updateNote(noteId , note.getNoteTitle(), note.getNoteContent());
+	public ResponseEntity<?> updateNote(@PathVariable Long noteId ,@RequestBody Notes note) {
+		if (usersService.islogin(httpSession) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
+		}
+		
+		if(notesService.isUnauthorized(httpSession, noteId)) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+		}
+		
+		return ResponseEntity.ok(notesService.updateNote(noteId, note.getNoteTitle(), note.getNoteContent()));
 	}
 	
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@DeleteMapping("/notes/{noteId}")
-	public Integer deleteNotesByNoteId(@PathVariable Long noteId) {
-		return notesService.deleteNotesByNoteId(noteId);
+	public ResponseEntity<?> deleteNotesByNoteId(@PathVariable Long noteId) {
+		if (usersService.islogin(httpSession) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
+		}
+		
+		if(notesService.isUnauthorized(httpSession, noteId)) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+		}
+		
+		return ResponseEntity.ok(notesService.deleteNotesByNoteId(noteId));
 	}
-	
-	@PostMapping("/login") //模擬登入後，設定userId
-    public String login(HttpSession session) {
-        session.setAttribute("userId", 3L); //Long型別 => 3L
-        return "User logged in with userId: 3";
-    }
 
 }

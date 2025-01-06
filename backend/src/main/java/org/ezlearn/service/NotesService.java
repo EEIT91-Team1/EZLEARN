@@ -26,9 +26,6 @@ public class NotesService {
 	private LessonsRepository lessonsRepository;
 	
 	@Autowired
-	private UsersRepository usersRepository;
-	
-	@Autowired
 	private HttpSession httpSession;
 	
 	public List<Notes> getNotesByCourses(Long courseId) {
@@ -36,14 +33,12 @@ public class NotesService {
 		courses.setCourseId(courseId);
 		
 		List<Lessons> lessons = lessonsRepository.findByCourses(courses);
-		
-		return notesRepository.findByLessonsInAndUsersUserId(lessons, 2L); //這裡要改成取得session存的userId
+		Users user = (Users) httpSession.getAttribute("user");
+		return notesRepository.findByLessonsInAndUsersUserId(lessons, user.getUserId());
 	}
 	
 	public Notes createNote(Notes note) {
-		Long userId = (Long) httpSession.getAttribute("userId");
-		Users user = usersRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-		user.setUserId(userId);
+		Users user = (Users) httpSession.getAttribute("user");
 		note.setUsers(user);
 		return notesRepository.save(note);
 	}
@@ -58,6 +53,17 @@ public class NotesService {
 	@Transactional
 	public Integer deleteNotesByNoteId(Long noteId) {
 		return notesRepository.deleteByNoteId(noteId);
+	}
+	
+	public Boolean isUnauthorized(HttpSession session, Long noteId) {
+		Users loginUser = (Users) session.getAttribute("user");
+		Notes note = notesRepository.findById(noteId).orElseThrow(() -> new RuntimeException("Note not found"));
+		
+		if(loginUser.getUserId() != note.getUsers().getUserId()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
