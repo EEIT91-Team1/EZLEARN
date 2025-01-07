@@ -2,7 +2,10 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -18,9 +21,13 @@
     <div id="navbar"></div>
 
     <main class="bg-blue-500" style="height: 100vh">
-      <div class="flex justify-center items-center bg-red-600 min-h-full">
+      <div
+        class="flex justify-center items-center bg-red-600 min-h-full"
+      >
         <div class="p-8 w-96 bg-yellow-400">
-          <h2 class="text-2xl font-bold mb-6 text-center">註冊</h2>
+          <h2 class="text-2xl font-bold mb-6 text-center">
+            註冊
+          </h2>
           <hr class="border-black border-2 mb-4" />
           <!-- action="http://localhost:8080/user/register" method="post" enctype="multipart/form-data" -->
           <form>
@@ -134,7 +141,9 @@
             <div>
               <p id="error"></p>
             </div>
-            <div class="flex items-center justify-center mb-4">
+            <div
+              class="flex items-center justify-center mb-4"
+            >
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
                 type="button"
@@ -143,7 +152,9 @@
                 註冊
               </button>
             </div>
-            <div class="flex items-center justify-center mb-4">
+            <div
+              class="flex items-center justify-center mb-4"
+            >
               <a
                 class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                 href="./login.html"
@@ -157,19 +168,8 @@
     </main>
 
     <div id="footer"></div>
+    <script src="../js/header-footer.js"></script>
     <script>
-      fetch("../components/navbar.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#navbar").html(data);
-        });
-
-      fetch("../components/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#footer").html(data);
-        });
-
       btn.onclick = function () {
         $("#error").text("");
         if ($("#username").val() == "") {
@@ -178,7 +178,10 @@
           $("#error").text("信箱為空");
         } else if ($("#password").val() == "") {
           $("#error").text("密碼為空");
-        } else if ($("#password").val() != $("#comfirmpassword").val()) {
+        } else if (
+          $("#password").val() !=
+          $("#comfirmpassword").val()
+        ) {
           $("#error").text("密碼與確認密碼不一致");
         } else if ($("#birthday").val() == "") {
           $("#error").text("生日為空");
@@ -205,7 +208,9 @@
             .then((response) => response.text())
             .then((result) => {
               if (result == "true") {
-                $("#error").text("註冊成功，等待兩秒後進入登入頁面");
+                $("#error").text(
+                  "註冊成功，等待兩秒後進入登入頁面"
+                );
                 setTimeout(() => {
                   window.location.href = "./login.html";
                 }, 2000);

@@ -154,18 +154,6 @@
     </main>
 
     <div id="footer"></div>
-    <script>
-      fetch("../components/navbar.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#navbar").html(data);
-        });
-
-      fetch("../components/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#footer").html(data);
-        });
-    </script>
+    <script src="../js/header-footer.js"></script>
   </body>
 </html>
