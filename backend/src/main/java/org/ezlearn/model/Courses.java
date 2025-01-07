@@ -1,5 +1,6 @@
 package org.ezlearn.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,6 +24,8 @@ public class Courses {
 	private String courseIntro;
 	private String courseType;
 	private byte[] courseImg;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 	
 	public Long getCourseId() {
 		return courseId;
@@ -70,6 +73,22 @@ public class Courses {
 
 	public void setCourseImg(byte[] courseImg) {
 		this.courseImg = courseImg;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 	@ManyToOne
