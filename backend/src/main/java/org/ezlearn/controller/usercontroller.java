@@ -1,7 +1,9 @@
 package org.ezlearn.controller;
 
 import java.nio.file.Path;
+import java.util.List;
 
+import org.ezlearn.model.Questions;
 import org.ezlearn.model.Users;
 import org.ezlearn.model.loginresponse;
 import org.ezlearn.repository.usersrepository;
@@ -53,11 +55,12 @@ public class usercontroller {
 	public boolean test(HttpSession session) {
 		return usersservice.islogin(session);
 	}
-	
+//	
 //	@GetMapping("/test")
 //	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
-//	public Long test(HttpSession session) {
+//	public List<Questions> test(HttpSession session) {
 //		users user =  (users)session.getAttribute("user");
 //		return user.getUserid();
 //	}
+	
 }

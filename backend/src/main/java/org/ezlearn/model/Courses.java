@@ -2,7 +2,9 @@ package org.ezlearn.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "courseId")
 public class Courses {
 	
 	@Id
@@ -85,4 +88,16 @@ public class Courses {
 	public void setTeachers(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+	
+	@OneToMany(mappedBy = "courses")
+	private List<Lessons> lessons;
+
+	public List<Lessons> getLessonlist() {
+		return lessons;
+	}
+
+	public void setLessonlist(List<Lessons> lessonlist) {
+		this.lessons = lessonlist;
+	}
+	
 }

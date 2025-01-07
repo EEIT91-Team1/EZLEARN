@@ -1,32 +1,54 @@
-<article class="flex-1 bg-red-300 p-6" style="min-height: 80vh;">
-
-    <div class="border border-black p-4 mb-4">
-        <div class="flex items-center">
-            <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
-                class="w-10 h-10 rounded-full">
-            <h3 class="text-xl font-medium">問題問題問題問題問題問題問題問題</h3>
-        </div>
-        <div class="">
-            <p>答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案</p>
-        </div>
-        <div class="flex pr-3">
-            <a class="bi bi-pencil ml-auto pr-2"></a>
-            <i class="bi bi-chat-left-text-fill"></i>
-        </div>
+<div class="flex-1 bg-red-300 p-6" style="min-height: 80vh;">
+  <div class="border border-black p-4 mb-4" id = "qalist">
+    
     </div>
+  </div>
+  <script>
+    function toggleEdit(a) {
+      const btnToggleEdit = document.getElementById(a);
+      if (btnToggleEdit.readOnly) {
+        btnToggleEdit.readOnly = false;
+        btnToggleEdit.style.backgroundColor = "#ffffff";
+      } else {
+        btnToggleEdit.readOnly = true;
+        btnToggleEdit.style.backgroundColor = "rgb(163,163,163)";
+      }
+      btnToggleEdit.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && a != "about") {
+          event.preventDefault();
+          toggleEdit(a);
+        }
+      });
+    }
 
-    <div class="border border-black p-4 mb-4">
-        <div class="flex items-center">
-            <img src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png" alt=""
-                class="w-10 h-10 rounded-full">
-            <h3 class="text-xl font-medium">問題問題問題問題問題問題問題問題</h3>
-        </div>
-        <div class="">
-            <p>答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案答案</p>
-        </div>
-        <div class="flex pr-3">
-            <input type="text" id="title" class="border border-gray-400 rounded-lg w-full mr-3">
-            <i class="bi bi-chat-left-text-fill"></i>
-        </div>
+    fetch('http://localhost:8080/teacher/teacherquestion', {
+      method: 'GET',
+      credentials: 'include'
+    })
+    // 
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        for(let i=0;i<data.length;i++){
+                  document.getElementById('qalist').innerHTML += 
+                  `<div class="flex items-center">
+      <img src=${(data[i].user.userinfo.avatar==null)?"../imgs/12-1.png":"data:image/png;base64,"+data[i].user.userinfo.avatar} alt="" class="w-10 h-10 rounded-full" />
+      <h3 class="text-xl font-medium">
+        ${data[i].question}
+      </h3>
     </div>
-</article>
+    <div class="flex pr-3">
+      <input class="appearance-none border rounded-lg w-full mr-2 h-8 text-black bg-neutral-400 focus:outline-none"
+        id="answer${data[i].questionId}" type="text" placeholder="" value="${(data[i].answer==null)?"":data[i].answer}" readonly />
+      <button type="button" title="編輯回答"
+        class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold mr-2 h-8 w-8 rounded-lg"
+        onclick="toggleEdit('answer${data[i].questionId}')">
+        <a class="bi bi-pencil"></a>
+      </button>
+      <button type="button" title="發布回答"
+        class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-8 w-8 rounded-lg">
+        <a class="bi bi-chat-left-text-fill"></a>
+      </button>`;
+                }
+      })
+  </script>

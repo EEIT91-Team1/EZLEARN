@@ -7,11 +7,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.ezlearn.model.Courses;
+import org.ezlearn.model.Lessons;
 import org.ezlearn.model.PurchasedCourses;
+import org.ezlearn.model.Questions;
 import org.ezlearn.model.UserInfo;
 import org.ezlearn.model.Users;
 import org.ezlearn.repository.Coursesrepository;
+import org.ezlearn.repository.LessonsRepository;
+import org.ezlearn.repository.Questionrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +24,11 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.Session;
 
 @Service
-public class CoursesService {
+public class TeacherService {
 	@Autowired
 	private Coursesrepository coursesrepository;
+	@Autowired
+	private Questionrepository questionrepository;
 	
 	public List<Map<String, Object>> findcourse(HttpSession session){
 		Users user = (Users)session.getAttribute("user");
@@ -41,5 +48,24 @@ public class CoursesService {
 			System.out.printf("%s : %s\n",d.get("courseName"),d.get("courseImgbase64"));
 		}
 		return detaillist;
+	}
+	
+	public List<Questions> findquest(HttpSession session){
+		Users user = (Users)session.getAttribute("user");
+		UserInfo userinfo = new UserInfo();
+		userinfo.setUserId(user.getUserId());
+		List<Courses> courselist = coursesrepository.findByUserInfo(userinfo);
+		List<Questions> allquestionlist = new ArrayList<Questions>();
+		for(Courses course : courselist) {
+			List<Lessons> lessonlist = course.getLessonlist();
+			for(Lessons lesson : lessonlist) {
+				List<Questions> questionlist = questionrepository.findByLesson(lesson);
+				for(Questions question : questionlist) {
+					System.out.println(question.getQuestion());
+					allquestionlist.add(question);
+				}
+			}
+		}
+		return allquestionlist;
 	}
 }
