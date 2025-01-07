@@ -1,5 +1,7 @@
 package org.ezlearn.controller;
 
+import java.util.Map;
+
 import org.ezlearn.DTO.LoginResponse;
 import org.ezlearn.model.Users;
 import org.ezlearn.service.UsersService;
@@ -45,6 +47,11 @@ public class UsersController {
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public boolean test(HttpSession session) {
 		return usersService.islogin(session);
+	}
+	
+	@GetMapping("/logindata")
+	public Map<String,String> getMethodName(HttpSession session) {
+		return usersService.loginData(session);
 	}
 
 }

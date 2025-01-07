@@ -1,5 +1,8 @@
 package org.ezlearn.service;
 
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.ezlearn.DTO.LoginResponse;
@@ -58,6 +61,22 @@ public class UsersService {
 		}else {
 			return true;
 		}
+	}
+	
+	public Map<String,String> loginData(HttpSession session) {
+		Users userSession = (Users)session.getAttribute("user");
+		Users user = usersRepository.findByUserId(userSession.getUserId());
+		Map<String,String> data = new HashMap<String, String>();
+		data.put("userId",user.getUserId()+"");
+		data.put("userName",user.getUserInfo().getUserName());
+		data.put("email", user.getEmail());
+		String imgBase64 = "noImg";
+		if(user.getUserInfo().getAvatar()!=null) {
+		 imgBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar());
+		}
+		data.put("avatar", imgBase64);
+		
+		return data;
 	}
 	
 }
