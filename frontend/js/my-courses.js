@@ -2,9 +2,10 @@ $(document).ready(function () {
   async function getMyCourse() {
     try {
       const response = await fetch(
-        "http://localhost:8080/purchased-courses/3",
+        "http://localhost:8080/purchased-courses/my-courses",
         {
           method: "GET",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
