@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>EZLEARN</title>
-    <link rel="icon" href="./imgs/favicon.ico" />
+    <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -29,16 +29,17 @@
         style="height: 36rem"
       >
         <form
-          action=""
+          id="formSearch"
           class="flex items-center justify-center w-3/4"
         >
           <input
+            id="inputSearch"
             type="text"
             placeholder="今天想學點什麼？"
             class="pl-6 w-96 h-14 text-2xl border-y-2 border-l-2 border-cyan-500 rounded-l-full focus:outline-none"
           />
           <button
-            type="submit"
+            id="btnSearch"
             class="w-20 min-w-16 h-14 pr-2 text-2xl bg-cyan-500 rounded-r-full hover:bg-cyan-400 hover:text-white duration-500"
           >
             <i class="bi bi-search"></i>
@@ -114,15 +115,17 @@
                   >
                     <a
                       href=""
+                      id="aCourse1"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
+                      id=""
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="	https://img-c.udemycdn.com/course/240x135/2281452_21b4_4.jpg"
-                            alt=""
+                            src=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse1"
                           />
                         </div>
                         <div
@@ -130,32 +133,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            從零開始學JAVA｜零基礎10小時變成JAVA大師
+                            id="nameCourse1"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse1"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse1"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse1"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -163,27 +155,27 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >800</span
-                            >
+                              id="priceCourse1"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse2"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="https://img-c.udemycdn.com/course/240x135/5149128_2bee_2.jpg"
-                            alt=""
+                            src=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse2"
                           />
                         </div>
                         <div
@@ -191,32 +183,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            Java程式設計從入門到精通與MySQL資料庫
+                            id="nameCourse2"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse2"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse2"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse2"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -224,27 +205,27 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >1000</span
-                            >
+                              id="priceCourse2"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse3"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="https://img-c.udemycdn.com/course/240x135/5327004_fcff.jpg"
-                            alt=""
+                            src=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse3"
                           />
                         </div>
                         <div
@@ -252,32 +233,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            Android開發全攻略
+                            id="nameCourse3"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse3"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse3"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse3"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -285,27 +255,27 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >600</span
-                            >
+                              id="priceCourse3"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse4"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="	https://img-c.udemycdn.com/course/240x135/4671362_51de_5.jpg"
-                            alt=""
+                            src=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse4"
                           />
                         </div>
                         <div
@@ -313,33 +283,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            來杯Java吧! 2024 Java
-                            入門到精通課程
+                            id="nameCourse4"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse4"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse4"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse4"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -347,12 +305,11 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >800</span
-                            >
+                              id="priceCourse4"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                 </div>
                 <!--第2頁 -->
@@ -364,15 +321,16 @@
                   >
                     <a
                       href=""
+                      id="aCourse5"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="	https://img-c.udemycdn.com/course/240x135/2281452_21b4_4.jpg"
-                            alt=""
+                            src="	"
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse5"
                           />
                         </div>
                         <div
@@ -380,32 +338,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            從零開始學JAVA｜零基礎10小時變成JAVA大師
+                            id="nameCourse5"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse5"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse5"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse5"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -413,27 +360,27 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >800</span
-                            >
+                              id="priceCourse5"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse6"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="https://img-c.udemycdn.com/course/240x135/5149128_2bee_2.jpg"
-                            alt=""
+                            src=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse6"
                           />
                         </div>
                         <div
@@ -441,32 +388,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            Java程式設計從入門到精通與MySQL資料庫
+                            id="nameCourse6"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse6"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse6"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse6"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -474,27 +410,27 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >1000</span
-                            >
+                              id="priceCourse6"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse7"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="https://img-c.udemycdn.com/course/240x135/5327004_fcff.jpg"
-                            alt=""
+                            src=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse7"
                           />
                         </div>
                         <div
@@ -502,32 +438,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            Android開發全攻略
+                            id="nameCourse7"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse7"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse7"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse7"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -535,27 +460,26 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >600</span
-                            >
+                              id="priceCourse7"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse8"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="	https://img-c.udemycdn.com/course/240x135/4671362_51de_5.jpg"
-                            alt=""
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
+                            id="imgCourse8"
                           />
                         </div>
                         <div
@@ -563,33 +487,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            來杯Java吧! 2024 Java
-                            入門到精通課程
+                            id="nameCourse8"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse8"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse8"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse8"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -597,12 +509,11 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >800</span
-                            >
+                              id="priceCourse8"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                 </div>
                 <!--第3頁 -->
@@ -614,14 +525,14 @@
                   >
                     <a
                       href=""
+                      id="aCourse9"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="	https://img-c.udemycdn.com/course/240x135/2281452_21b4_4.jpg"
-                            alt=""
+                            id="imgCourse9"
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
                           />
                         </div>
@@ -630,32 +541,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            從零開始學JAVA｜零基礎10小時變成JAVA大師
+                            id="nameCourse9"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse9"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse9"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse9"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -663,26 +563,25 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >800</span
-                            >
+                              id="priceCourse9"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse10"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="https://img-c.udemycdn.com/course/240x135/5149128_2bee_2.jpg"
-                            alt=""
+                            id="imgCourse10"
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
                           />
                         </div>
@@ -691,32 +590,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            Java程式設計從入門到精通與MySQL資料庫
+                            id="nameCourse10"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse10"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse10"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse10"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -724,26 +612,25 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >1000</span
-                            >
+                              id="priceCourse10"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse11"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="https://img-c.udemycdn.com/course/240x135/5327004_fcff.jpg"
-                            alt=""
+                            id="imgCourse11"
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
                           />
                         </div>
@@ -752,32 +639,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            Android開發全攻略
+                            id="nameCourse11"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse11"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse11"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse11"></span>
                           </div>
                           <div class="text-right">
                             <i
@@ -785,26 +661,25 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >600</span
-                            >
+                              id="priceCourse11"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
                       href=""
+                      id="aCourse12"
                       class="min-w-64 w-full pb-4 shadow-md h-full border border-x-gray-300 group bg-white"
                       ><div class="h-full w-full grid">
                         <div
                           class="mx-8 mt-4 mb-2 overflow-hidden border-2 border-gray-500 max-h-32 min-h-32"
                         >
                           <img
-                            src="	https://img-c.udemycdn.com/course/240x135/4671362_51de_5.jpg"
-                            alt=""
+                            id="imgCourse12"
                             class="h-full w-full object-cover group-hover:scale-105 duration-300"
                           />
                         </div>
@@ -813,33 +688,21 @@
                         >
                           <div
                             class="text-xl group-hover:underline mb-4 font-bold"
-                          >
-                            來杯Java吧! 2024 Java
-                            入門到精通課程
+                            id="nameCourse12"
+                          ></div>
+                          <div>
+                            <span
+                              id="teacherCourse12"
+                            ></span>
                           </div>
-                          <div><span>Brad Chao</span></div>
                           <div>
                             <i class="bi bi-person"></i
-                            ><span>648</span>
+                            ><span
+                              id="studentsCourse12"
+                            ></span>
                           </div>
                           <div>
-                            <span>
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star-half-stroke"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
+                            <span id="rateCourse12"> </span>
                           </div>
                           <div class="text-right">
                             <i
@@ -847,12 +710,11 @@
                             ></i
                             ><span
                               class="text-2xl font-semibold"
-                              >800</span
-                            >
+                              id="priceCourse12"
+                            ></span>
                           </div>
-                        </div>
-                      </div></a
-                    >
+                        </div></div
+                    ></a>
                   </div>
                 </div>
               </div>
@@ -868,7 +730,7 @@
             </h1>
           </div>
           <div class="m-12 flex flex-wrap justify-around">
-            <a href=""
+            <a href="pages/search.html?query=語言學習"
               ><div
                 class="py-6 px-14 bg-white m-2 shadow-md flex flex-col items-center hover:bg-blue-200 duration-200"
               >
@@ -880,7 +742,7 @@
                 <p class="text-2xl">語言學習</p>
               </div></a
             >
-            <a href=""
+            <a href="pages/search.html?query=程式設計"
               ><div
                 class="py-6 px-14 bg-white m-2 shadow-md flex flex-col items-center hover:bg-blue-200 duration-200"
               >
@@ -892,7 +754,7 @@
                 <p class="text-2xl">程式設計</p>
               </div></a
             >
-            <a href=""
+            <a href="pages/search.html?query=美食料理"
               ><div
                 class="py-6 px-14 bg-white m-2 shadow-md flex flex-col items-center hover:bg-blue-200 duration-200"
               >
@@ -904,7 +766,7 @@
                 <p class="text-2xl">美食料理</p>
               </div></a
             >
-            <a href=""
+            <a href="pages/search.html?query=藝術創作"
               ><div
                 class="py-6 px-14 bg-white m-2 shadow-md flex flex-col items-center hover:bg-blue-200 duration-200"
               >
@@ -916,7 +778,7 @@
                 <p class="text-2xl">藝術創作</p>
               </div></a
             >
-            <a href=""
+            <a href="pages/search.html?query=運動健身"
               ><div
                 class="py-6 px-14 bg-white m-2 shadow-md flex flex-col items-center hover:bg-blue-200 duration-200"
               >
@@ -928,7 +790,7 @@
                 <p class="text-2xl">運動健身</p>
               </div></a
             >
-            <a href=""
+            <a href="pages/search.html?query=理財投資"
               ><div
                 class="py-6 px-14 bg-white m-2 shadow-md flex flex-col items-center hover:bg-blue-200 duration-200"
               >
@@ -987,6 +849,7 @@
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview1"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -994,97 +857,36 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="https://megapx-assets.dcard.tw/images/9860777f-e2c5-4a6f-bdc7-ac678e9f6e52/640.webp"
+                          id="imgReview1"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">小八</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview1"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview1"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            6小時前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview1"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        很棒的課程，雖然我個人覺得有些地方還可以講得更好，難能可貴的是，我可以經常和老師互動，有什麼不懂的地方提問，老師也是很快速的解決！
-                        ！推薦大家購買，也期待老師能多推出更多關於網頁的課程！
-                      </div>
-                    </a>
-                  </div>
-                  <div
-                    class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
-                  >
-                    <a
-                      href=""
-                      class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
-                    >
-                      <div
-                        class="inline-flex w-full p-1 flex-wrap"
-                      >
-                        <img
-                          src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
-                          class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
-                        />
-                        <div
-                          class="p-1 overflow-auto flex flex-col justify-center"
-                        >
-                          <p class="text-xl">烏薩奇</p>
-                          <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
-                          </div>
-                          <div class="text-gray-500">
-                            13小時前
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
+                        id="courseNameReview1"
+                      ></div>
                       <div
                         class="px-4 py-2 overflow-auto"
+                        id="review1"
                       ></div>
                     </a>
                   </div>
@@ -1092,6 +894,7 @@
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview2"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1099,51 +902,44 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="https://megapx-assets.dcard.tw/images/b54acb50-5782-4af8-a1fd-a9e334296e2d/640.webp"
+                          id="imgReview2"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">小桃</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview2"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview2"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            1天前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview2"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好
-                      </div>
+                        id="courseNameReview2"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review2"
+                      ></div>
                     </a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview3"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1151,45 +947,82 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="	https://megapx-assets.dcard.tw/images/ec995ab7-1eb6-4b66-a445-feb61047815e/160.webp"
+                          id="imgReview3"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">吉伊</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview3"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview3"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            1天前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview3"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
+                        id="courseNameReview3"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review3"
+                      ></div>
+                    </a>
+                  </div>
+                  <div
+                    class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
+                  >
+                    <a
+                      id="aReview4"
+                      href=""
+                      class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
+                    >
+                      <div
+                        class="inline-flex w-full p-1 flex-wrap"
                       >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
+                        <img
+                          id="imgReview4"
+                          class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
+                        />
+                        <div
+                          class="p-1 overflow-auto flex flex-col justify-center"
+                        >
+                          <p
+                            class="text-xl"
+                            id="userNameReview4"
+                          ></p>
+                          <div>
+                            <span
+                              class="text-sm"
+                              id="rateReview4"
+                            >
+                            </span>
+                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview4"
+                          ></div>
+                        </div>
                       </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        很棒的課程，讚讚讚
-                      </div>
+                      <div
+                        class="px-4 group-hover:underline mb-4 font-bold"
+                        id="courseNameReview4"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review4"
+                      ></div>
                     </a>
                   </div>
                 </div>
@@ -1201,6 +1034,7 @@
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview5"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1208,97 +1042,36 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="https://megapx-assets.dcard.tw/images/9860777f-e2c5-4a6f-bdc7-ac678e9f6e52/640.webp"
+                          id="imgReview5"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">小八</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview5"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview5"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            6小時前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview5"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        很棒的課程，雖然我個人覺得有些地方還可以講得更好，難能可貴的是，我可以經常和老師互動，有什麼不懂的地方提問，老師也是很快速的解決！
-                        ！推薦大家購買，也期待老師能多推出更多關於網頁的課程！
-                      </div>
-                    </a>
-                  </div>
-                  <div
-                    class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
-                  >
-                    <a
-                      href=""
-                      class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
-                    >
-                      <div
-                        class="inline-flex w-full p-1 flex-wrap"
-                      >
-                        <img
-                          src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
-                          class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
-                        />
-                        <div
-                          class="p-1 overflow-auto flex flex-col justify-center"
-                        >
-                          <p class="text-xl">烏薩奇</p>
-                          <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
-                          </div>
-                          <div class="text-gray-500">
-                            13小時前
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
+                        id="courseNameReview5"
+                      ></div>
                       <div
                         class="px-4 py-2 overflow-auto"
+                        id="review5"
                       ></div>
                     </a>
                   </div>
@@ -1306,6 +1079,7 @@
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview6"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1313,48 +1087,86 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="https://megapx-assets.dcard.tw/images/b54acb50-5782-4af8-a1fd-a9e334296e2d/640.webp"
+                          id="imgReview6"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">小桃</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview6"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview6"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            1天前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview6"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好
-                      </div>
+                        id="courseNameReview6"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review6"
+                      ></div>
                     </a>
                   </div>
                   <div
+                    class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
+                  >
+                    <a
+                      id="aReview7"
+                      href=""
+                      class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
+                    >
+                      <div
+                        class="inline-flex w-full p-1 flex-wrap"
+                      >
+                        <img
+                          id="imgReview7"
+                          class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
+                        />
+                        <div
+                          class="p-1 overflow-auto flex flex-col justify-center"
+                        >
+                          <p
+                            class="text-xl"
+                            id="userNameReview7"
+                          ></p>
+                          <div>
+                            <span
+                              class="text-sm"
+                              id="rateReview7"
+                            >
+                            </span>
+                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview7"
+                          ></div>
+                        </div>
+                      </div>
+                      <div
+                        class="px-4 group-hover:underline mb-4 font-bold"
+                        id="courseNameReview7"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review7"
+                      ></div>
+                    </a>
+                  </div>
+                  <div
+                    id="aReview8"
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
@@ -1365,45 +1177,37 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="	https://megapx-assets.dcard.tw/images/ec995ab7-1eb6-4b66-a445-feb61047815e/160.webp"
+                          id="imgReview8"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">吉伊</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview8"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview8"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            1天前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview8"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        很棒的課程，讚讚讚
-                      </div>
+                        id="courseNameReview8"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review8"
+                      ></div>
                     </a>
                   </div>
                 </div>
@@ -1415,6 +1219,7 @@
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview9"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1422,97 +1227,36 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="https://megapx-assets.dcard.tw/images/9860777f-e2c5-4a6f-bdc7-ac678e9f6e52/640.webp"
+                          id="imgReview9"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">小八</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview9"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview9"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            6小時前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview9"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        很棒的課程，雖然我個人覺得有些地方還可以講得更好，難能可貴的是，我可以經常和老師互動，有什麼不懂的地方提問，老師也是很快速的解決！
-                        ！推薦大家購買，也期待老師能多推出更多關於網頁的課程！
-                      </div>
-                    </a>
-                  </div>
-                  <div
-                    class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
-                  >
-                    <a
-                      href=""
-                      class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
-                    >
-                      <div
-                        class="inline-flex w-full p-1 flex-wrap"
-                      >
-                        <img
-                          src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
-                          class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
-                        />
-                        <div
-                          class="p-1 overflow-auto flex flex-col justify-center"
-                        >
-                          <p class="text-xl">烏薩奇</p>
-                          <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
-                            </span>
-                          </div>
-                          <div class="text-gray-500">
-                            13小時前
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
+                        id="courseNameReview9"
+                      ></div>
                       <div
                         class="px-4 py-2 overflow-auto"
+                        id="review9"
                       ></div>
                     </a>
                   </div>
@@ -1520,6 +1264,7 @@
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview10"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1527,51 +1272,44 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="https://megapx-assets.dcard.tw/images/b54acb50-5782-4af8-a1fd-a9e334296e2d/640.webp"
+                          id="imgReview10"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">小桃</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview10"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i
-                              ><i
-                                class="fa-regular fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview10"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            1天前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview10"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
-                      >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
-                      </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好我個人覺得有些地方還可以講得更好
-                      </div>
+                        id="courseNameReview10"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review10"
+                      ></div>
                     </a>
                   </div>
                   <div
                     class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
                   >
                     <a
+                      id="aReview11"
                       href=""
                       class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
                     >
@@ -1579,45 +1317,82 @@
                         class="inline-flex w-full p-1 flex-wrap"
                       >
                         <img
-                          src="	https://megapx-assets.dcard.tw/images/ec995ab7-1eb6-4b66-a445-feb61047815e/160.webp"
+                          id="imgReview11"
                           class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
                         />
                         <div
                           class="p-1 overflow-auto flex flex-col justify-center"
                         >
-                          <p class="text-xl">吉伊</p>
+                          <p
+                            class="text-xl"
+                            id="userNameReview11"
+                          ></p>
                           <div>
-                            <span class="text-sm">
-                              <i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i
-                              ><i
-                                class="fa-solid fa-star"
-                              ></i>
+                            <span
+                              class="text-sm"
+                              id="rateReview11"
+                            >
                             </span>
                           </div>
-                          <div class="text-gray-500">
-                            1天前
-                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview11"
+                          ></div>
                         </div>
                       </div>
                       <div
                         class="px-4 group-hover:underline mb-4 font-bold"
+                        id="courseNameReview11"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review11"
+                      ></div>
+                    </a>
+                  </div>
+                  <div
+                    class="min-w-64 px-5 py-2 flex flex-col items-center justify-center flex-1 h-96 rounded-lg"
+                  >
+                    <a
+                      id="aReview12"
+                      href=""
+                      class="min-w-64 pb-4 w-full shadow-md h-full border border-x-gray-300 group flex flex-col bg-white"
+                    >
+                      <div
+                        class="inline-flex w-full p-1 flex-wrap"
                       >
-                        從零開始學JAVA｜零基礎快速上手，10小時變成JAVA大師
+                        <img
+                          id="imgReview12"
+                          class="m-4 w-16 h-16 rounded-full border border-gray-300 object-cover"
+                        />
+                        <div
+                          class="p-1 overflow-auto flex flex-col justify-center"
+                        >
+                          <p
+                            class="text-xl"
+                            id="userNameReview12"
+                          ></p>
+                          <div>
+                            <span
+                              class="text-sm"
+                              id="rateReview12"
+                            >
+                            </span>
+                          </div>
+                          <div
+                            class="text-gray-500"
+                            id="timeReview12"
+                          ></div>
+                        </div>
                       </div>
-                      <div class="px-4 py-2 overflow-auto">
-                        很棒的課程，讚讚讚
-                      </div>
+                      <div
+                        class="px-4 group-hover:underline mb-4 font-bold"
+                        id="courseNameReview12"
+                      ></div>
+                      <div
+                        class="px-4 py-2 overflow-auto"
+                        id="review12"
+                      ></div>
                     </a>
                   </div>
                 </div>
@@ -1696,21 +1471,7 @@
     />
     <img src="./imgs/indexBg2.png" id="bg2" />
 
+    <script src="./js/header-footer.js"></script>
     <script src="./js/index.js"></script>
-    <script>
-      $(document).ready(function () {
-        fetch("../components/navbar.html")
-          .then((response) => response.text())
-          .then((data) => {
-            $("#navbar").html(data);
-          });
-
-        fetch("../components/footer.html")
-          .then((response) => response.text())
-          .then((data) => {
-            $("#footer").html(data);
-          });
-      });
-    </script>
   </body>
 </html>
