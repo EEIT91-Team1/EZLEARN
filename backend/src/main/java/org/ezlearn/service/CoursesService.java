@@ -17,5 +17,9 @@ public class CoursesService {
 	public List<Courses> getCoursesByUsers(UserInfo userInfo) {
 		return coursesRepository.findByUserInfo(userInfo);
 	}
+	
+	public List<Courses> getCoursesByCourseId(Long courseId) {
+		return coursesRepository.findByCourseId(courseId);
+	}
 
 }
