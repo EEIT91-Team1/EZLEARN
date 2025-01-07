@@ -54,6 +54,15 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<PurchasedCourses> purchasedCourses;
 	
+	
+	
+	public List<PurchasedCourses> getPurchasedCourses() {
+		return purchasedCourses;
+	}
+	public void setPurchasedCourses(List<PurchasedCourses> purchasedCourses) {
+		this.purchasedCourses = purchasedCourses;
+	}
+
 	//---------------------
 	@OneToOne(mappedBy = "users",cascade = CascadeType.ALL)
 	private UserInfo userinfo;
@@ -63,6 +72,24 @@ public class Users {
 	public void setUserinfo(UserInfo userinfo) {
 		this.userinfo = userinfo;
 		this.userinfo.setUser(this);
+	}
+	
+	@OneToMany(mappedBy="users")
+	private List<WishList> wishList;
+	public List<WishList> getWishList() {
+		return wishList;
+	}
+	public void setWishList(List<WishList> wishList) {
+		this.wishList = wishList;
+	}
+
+	@OneToMany(mappedBy="users")
+	private List<Courses> courses;
+	public List<Courses> getCourses() {
+		return courses;
+	}
+	public void setCourses(List<Courses> courses) {
+		this.courses = courses;
 	}
 	
 }

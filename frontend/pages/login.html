@@ -127,6 +127,9 @@
       fetch("http://localhost:8080/user/islogin", {
         method: "get",
         credentials: "include",
+        xhrFields: {
+          withCredentials: true,
+        },
       })
         .then((response) => response.text())
         .then((data) => {

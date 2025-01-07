@@ -11,22 +11,24 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
 @Entity
 public class Courses {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long courseId;
+	@Column(insertable = false, updatable = false)
 	private Long teacherId;
 	private Integer price;
 	private String courseName;
 	private String courseIntro;
 	private String courseType;
 	private byte[] courseImg;
-	
+
 	public Long getTeacherId() {
 		return teacherId;
 	}
@@ -83,18 +85,40 @@ public class Courses {
 		this.courseImg = courseImg;
 	}
 
-//	@ManyToOne
-//	@JoinColumn(name = "teacher_id")
-//	private UserInfo teachers;
-//
-//	public UserInfo getTeachers() {
-//		return teachers;
-//	}
-//
-//	public void setTeachers(UserInfo teachers) {
-//		this.teachers = teachers;
-//	}
+	@OneToMany(mappedBy = "courses")
+	private List<PurchasedCourses> purchasedCourses;
 	
 	
+	public List<PurchasedCourses> getPurchasedCourses() {
+		return purchasedCourses;
+	}
 
+	public void setPurchasedCourses(List<PurchasedCourses> purchasedCourses) {
+		this.purchasedCourses = purchasedCourses;
+	}
+
+	@OneToMany(mappedBy = "courses")
+	private List<WishList> wishList;
+
+	public List<WishList> getWishList() {
+		return wishList;
+	}
+
+	public void setWishList(List<WishList> wishList) {
+		this.wishList = wishList;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "teacherId")
+	private Users users;
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+	
+	
 }

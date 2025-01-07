@@ -49,10 +49,15 @@ public class usercontroller {
 		return usersservice.islogin(session);
 	}
 	
+	
+//-----------------------------------------------
 	@GetMapping("/logindata")
 	public Map<String,String> getMethodName(HttpSession session) {
 		return usersservice.loginData(session);
 	}
+
+//-----------------------------------------------
+	
 	
 //	@GetMapping("/test")
 //	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")

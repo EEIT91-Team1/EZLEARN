@@ -62,7 +62,7 @@ public class usersservice {
 		}
 	}
 	
-	
+//----------------------------------------------------------------------------------	
 	
 	public Map<String,String> loginData(HttpSession session) {
 		Users userSession = (Users)session.getAttribute("user");
@@ -80,4 +80,5 @@ public class usersservice {
 		return data;
 	}
 	
+//------------------------------------------------------------------------------------	
 }
