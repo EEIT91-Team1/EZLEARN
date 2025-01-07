@@ -1,5 +1,7 @@
 package org.ezlearn.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +17,7 @@ public class PurchasedCourses {
 	private PurchasedCoursesId purchasedCoursesId;
 	
 	private String courseReview;
-	private Double courseRate;
+	private BigDecimal courseRate;
 	
 
 	public String getCourseReview() {
@@ -24,10 +26,10 @@ public class PurchasedCourses {
 	public void setCourseReview(String courseReview) {
 		this.courseReview = courseReview;
 	}
-	public Double getCourseRate() {
+	public BigDecimal getCourseRate() {
 		return courseRate;
 	}
-	public void setCourseRate(Double courseRate) {
+	public void setCourseRate(BigDecimal courseRate) {
 		this.courseRate = courseRate;
 	}
 	public PurchasedCoursesId getPurchasedCoursesId() {
