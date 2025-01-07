@@ -1,6 +1,6 @@
 <div class="static h-[74px]"></div>
 <header
-  class="fixed w-full top-0 flex flex-row justify-between border-b z-[3] bg-white border-gray-400 font-bold text-[#474849] h-[74px]"
+  class="fixed w-full top-0 flex flex-row justify-between border z-[3] bg-white border-gray-400 font-bold text-[#474849] h-[74px]"
 >
   <div class="flex justify-start items-center">
     <a href="/index.html">
@@ -11,7 +11,7 @@
         alt="LOGO"
       />
     </a>
-    <div class="mx-6 relative group py-2 z-[2]">
+    <div class="relative group py-2 mx-4 z-[2]">
       <span
         class="text-lg mr-2 p-1 cursor-pointer hidden lg:flex items-center"
         >探索課程
@@ -35,49 +35,49 @@
         <ul class="py-2">
           <li>
             <a
-              href=""
+              href="../pages/search.html?query="
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >所有分類</a
             >
           </li>
           <li>
             <a
-              href=""
+              href="../pages/search.html?query=語言學習"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >語言學習</a
             >
           </li>
           <li>
             <a
-              href=""
+              href="../pages/search.html?query=程式設計"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >程式設計</a
             >
           </li>
           <li>
             <a
-              href=""
+              href="../pages/search.html?query=美食料理"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >美食料理</a
             >
           </li>
           <li class="border-gray-200">
             <a
-              href=""
+              href="../pages/search.html?query=藝術創作"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >藝術創作
             </a>
           </li>
           <li>
             <a
-              href=""
+              href="../pages/search.html?query=運動健身"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >運動健身</a
             >
           </li>
           <li class="border-gray-200">
             <a
-              href=""
+              href="../pages/search.html?query=理財投資"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
               >理財投資</a
             >
@@ -85,19 +85,30 @@
         </ul>
       </div>
     </div>
-    <div class="hidden md:flex justify-center">
+    <form
+      class="hidden md:flex justify-center"
+      id="navbarFormSearch"
+    >
       <i
         class="bi bi-search border-gray-400 border-y border-l text-xl px-4 py-2 rounded-l-3xl text-gray-400"
       ></i>
       <input
+        id="navbarInputSearch"
         placeholder="JAVA線上課程優惠中"
-        class="border-gray-400 border-y border-r text-lg rounded-r-3xl focus:outline-none pr-4 w-72 font-normal"
+        class="border-gray-400 border-y border-r text-lg rounded-r-3xl focus:outline-none pr-4 w-64 font-normal"
         type="search"
       />
-    </div>
+      <button
+        id="navbarBtnSearch"
+        onclick="search()"
+      ></button>
+    </form>
   </div>
 
-  <div class="flex flex-row items-center">
+  <div
+    class="flex-row items-center hidden"
+    id="navbarDivLogin"
+  >
     <div class="hidden xl:flex">
       <a
         href="../pages/teacher-mainJQ.html"
@@ -142,12 +153,12 @@
         ></i>
       </a>
     </div>
-
     <div class="relative group py-2 z-20">
       <a href="" class="">
         <img
-          src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
-          class="mr-12 w-12 rounded-full border border-gray-300 object-cover"
+          id="navbarAvatar1"
+          src="../imgs/avatar.png"
+          class="mr-6 w-12 rounded-full border border-gray-300 object-cover"
         />
       </a>
       <div
@@ -157,12 +168,13 @@
           class="inline-flex w-full p-2 border border-gray-200 items-center"
         >
           <img
-            src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
+            id="navbarAvatar2"
+            src="../imgs/avatar.png"
             class="m-4 w-20 h-20 rounded-full border border-gray-300 object-cover"
           />
           <div class="p-2 overflow-auto">
-            <p class="text-lg">烏薩奇</p>
-            <p class="text-sm">usagi666@gmail.com</p>
+            <p class="text-lg" id="navbarUserName"></p>
+            <p class="text-sm" id="navbarEmail"></p>
           </div>
         </div>
         <ul class="py-2">
@@ -182,7 +194,7 @@
           </li>
           <li>
             <a
-              href=""
+              href="../pages/wishlist.html"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
             >
               <i class="bi bi-heart mx-2"></i>願望清單</a
@@ -221,6 +233,7 @@
           </li>
           <li>
             <button
+              onclick="logout()"
               class="w-full text-left px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
             >
               <i class="bi bi-box-arrow-left mx-2"></i>登出
@@ -228,6 +241,27 @@
           </li>
         </ul>
       </div>
+    </div>
+  </div>
+  <div
+    class="mr-4 items-center hidden"
+    id="navbarDivLogout"
+  >
+    <div>
+      <button
+        onclick="navLogin()"
+        class="py-2 px-4 shadow-sm border-2 rounded-md text-lg mx-2 hover:bg-blue-400 duration-300"
+      >
+        登入
+      </button>
+    </div>
+    <div>
+      <button
+        onclick="navRegister()"
+        class="py-2 px-4 shadow-sm border-2 rounded-md text-lg mx-2 hover:bg-blue-400 duration-300"
+      >
+        註冊
+      </button>
     </div>
   </div>
 </header>
