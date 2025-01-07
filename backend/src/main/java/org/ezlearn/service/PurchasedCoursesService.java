@@ -1,5 +1,6 @@
 package org.ezlearn.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.ezlearn.model.PurchasedCourses;
@@ -17,5 +18,9 @@ public class PurchasedCoursesService {
 	public List<PurchasedCourses> getPurchasedCoursesByUsers(Users users) {
 		return purchasedCoursesRepository.findByUsers(users);
 	}
+	
+	  public BigDecimal getAverageRateForCourse(Long courseId) {
+	        return purchasedCoursesRepository.findAverageRateByCourseId(courseId);
+	    }
 
 }
