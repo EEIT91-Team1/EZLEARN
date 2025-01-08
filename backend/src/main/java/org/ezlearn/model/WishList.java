@@ -18,6 +18,7 @@ public class WishList {
 	@Column(name="user_id", insertable = false, updatable = false)
 	private Long userId;
 		
+	public WishList() {}
 	public WishListId getId() {
 		return id;
 	}

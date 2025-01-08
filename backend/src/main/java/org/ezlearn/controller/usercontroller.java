@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.ezlearn.model.Users;
 import org.ezlearn.model.loginresponse;
-import org.ezlearn.service.usersservice;
+import org.ezlearn.service.Usersservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +20,12 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/user")
 public class usercontroller {
 	@Autowired
-	private usersservice usersservice;
+	private Usersservice Usersservice;
 	
 	@PostMapping("/register")
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	public boolean register(@RequestBody Users user) {
-		boolean n = usersservice.adduser(user);	
+		boolean n = Usersservice.adduser(user);	
 		System.out.println(n);
 		return n;
 	}
@@ -33,7 +33,7 @@ public class usercontroller {
 	@PostMapping("/login")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public loginresponse login(@RequestBody Users user,HttpSession session) {
-		loginresponse response = usersservice.loginuser(user,session);
+		loginresponse response = Usersservice.loginuser(user,session);
 		return response;
 	}
 	
@@ -46,14 +46,14 @@ public class usercontroller {
 	@GetMapping("/islogin")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public boolean test(HttpSession session) {
-		return usersservice.islogin(session);
+		return Usersservice.islogin(session);
 	}
 	
 	
 //-----------------------------------------------
 	@GetMapping("/logindata")
 	public Map<String,String> getMethodName(HttpSession session) {
-		return usersservice.loginData(session);
+		return Usersservice.loginData(session);
 	}
 
 //-----------------------------------------------

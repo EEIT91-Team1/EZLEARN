@@ -45,7 +45,7 @@
   overflow: hidden;
 }
 .divResult:hover {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(230, 230, 230);
   transition: 0.3s;
 }
 .divResult:hover img {
@@ -95,6 +95,9 @@
 }
 .divResult > div.divPrice {
   flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin-left: auto;
   flex: none;
 }

@@ -31,7 +31,9 @@ function rateToStars(rate) {
   }
   return stars;
 }
-
+function href(page) {
+  window.location.href = page;
+}
 $(document).ready(function () {
   $.ajax({
     url: "http://localhost:8080/wishList/get",
@@ -41,10 +43,11 @@ $(document).ready(function () {
     },
   })
     .done((data) => {
-      $.each(data, function (idx, item) {
-        $("#divResults").append(`
+      if (data != 0) {
+        $.each(data, function (idx, item) {
+          $("#divResults").append(`
         <div
-              class="min-w-80 m-2 mr-auto bg-white flex flex-col items-center group cursor-pointer"
+              class="min-w-80 m-2  ml-10 bg-white flex flex-col items-center group cursor-pointer"
             >        
             <a href="./course-details.html?course_id=${item.courseId}">
               <div class="max-w-80 max-h-44 min-w-80 min-h-44 overflow-hidden border-2">
@@ -53,8 +56,8 @@ $(document).ready(function () {
                   class="object-cover group-hover:scale-105 duration-300 w-full h-full"
                 />
               </div>
-              <div class="w-80 p-4">
-                <p class="text-lg font-bold max-h-14">
+              <div class="w-80 py-4 px-2">
+                <p class="text-lg font-bold max-h-14 overflow-hidden">
                   ${item.courseName}
                 </p>
                 <p class="text-gray-600">${item.teacher}</p>
@@ -67,7 +70,12 @@ $(document).ready(function () {
             </a>
             </div>
             `);
-      });
+        });
+      } else {
+        $("#divResults").append(`<div class="flex flex-col w-full items-center">
+              <p class="text-4xl mb-12 font-bold">尚未加入課程至願望清單</p>
+            </div>`);
+      }
     })
     .fail(() => {
       window.location.href = "../index.html";

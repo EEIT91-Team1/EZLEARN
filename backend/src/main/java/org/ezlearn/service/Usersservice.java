@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.ezlearn.model.Users;
 import org.ezlearn.model.loginresponse;
-import org.ezlearn.repository.usersrepository;
+import org.ezlearn.repository.Usersrepository;
 import org.ezlearn.utils.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class usersservice {
+public class Usersservice {
 	@Autowired
-	private usersrepository usersrepository;
+	private Usersrepository Usersrepository;
 	
 	public boolean adduser(Users registeruser) {
-		Optional<Users> opt = usersrepository.findByEmail(registeruser.getEmail());
+		Optional<Users> opt = Usersrepository.findByEmail(registeruser.getEmail());
 		Users user = new Users();
 		try {
 			user = opt.get();
@@ -29,13 +29,13 @@ public class usersservice {
 		} catch (Exception e) {
 			registeruser.setPassword(BCrypt.hashpw(registeruser.getPassword(), BCrypt.gensalt()));
 			System.out.println(registeruser.getPassword()); 
-			usersrepository.save(registeruser);
+			Usersrepository.save(registeruser);
 			return true;
 		}
 	}
 	
 	public loginresponse loginuser(Users loginuser,HttpSession session) {
-		Optional<Users> opt = usersrepository.findByEmail(loginuser.getEmail());
+		Optional<Users> opt = Usersrepository.findByEmail(loginuser.getEmail());
 		Users user = new Users();
 		loginresponse response = new loginresponse();
 		try {
@@ -66,7 +66,7 @@ public class usersservice {
 	
 	public Map<String,String> loginData(HttpSession session) {
 		Users userSession = (Users)session.getAttribute("user");
-		Users user=usersrepository.findByUserId(userSession.getUserId());
+		Users user=Usersrepository.findByUserId(userSession.getUserId());
 		Map<String,String> data=new HashMap<String, String>();
 		data.put("userId",user.getUserId()+"");
 		data.put("userName",user.getUserinfo().getUserName());
