@@ -54,20 +54,160 @@ $(document).ready(function () {
         .addClass("absolute top-4");
     }
   });
-});
 
-$("#user-menu-button").click(function (event) {
-  event.stopPropagation(); // 防止事件冒泡，這樣點擊按鈕不會觸發 document 的點擊事件
-  $(this).next('[role="menu"]').toggleClass("hidden"); // 切換隱藏/顯示菜單
-});
+  let courseId = new URLSearchParams(
+    window.location.search
+  ).get("course_id");
 
-// 當用戶點擊頁面其他地方時，隱藏下拉菜單
-$(document).click(function (event) {
-  if (
-    !$(event.target).closest(
-      '#user-menu-button, [role="menu"]'
-    ).length
-  ) {
-    $('[role="menu"]').addClass("hidden"); // 隱藏所有的下拉菜單
+  //get course review and course rate
+  async function getPurchasedCourses() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/purchased-courses/${courseId}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      if (data.length > 0) {
+        $.each(data, function (index, item) {
+          $(".course-review").append(`<div
+          class="flex items-center mr-8 border-b border-gray-300 p-4"
+        >
+          <div class="mr-4 w-24 h-24">
+            <img
+              class="rounded-full w-full h-full object-cover"
+              src="data:image/png;base64,${item.users.userInfo.avatar}"
+              alt=""
+            />
+          </div>
+          <div>
+            <p class="text-[14px]">
+              <span class="rate-star-${index} text-[#F69C08]">
+              </span>
+            </p>
+            <p class="font-bold text-[#212529]">
+              ${item.users.userInfo.userName}
+            </p>
+            <p class="text-[#495057]">
+              ${item.courseReview}
+            </p>
+          </div>
+        </div>`);
+          renderStars(item.courseRate, index);
+        });
+      } else {
+        $(".course-review").append(
+          `<p class="text-[#495057]">此課程尚未有評論</p>`
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
+  getPurchasedCourses();
+
+  //get course info
+  async function getCourseDetails() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/courses/${courseId}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      $(".course-name").text(data.courseName);
+      $(".course-summary").text(data.courseSummary);
+      $(".course-intro").text(data.courseIntro);
+      $(".course-img").attr(
+        "src",
+        `data:image/png;base64,${data.courseImg}`
+      );
+      $(".user-name").text(data.userInfo.userName);
+      $(".avatar").attr(
+        "src",
+        `data:image/png;base64,${data.userInfo.avatar}`
+      );
+      $(".user-intro").text(data.userInfo.userIntro);
+      $(".price").text(data.price);
+      $(".updated-at").text(data.updatedAt);
+      $("title").text(`${data.courseName} | EZLËARN`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  getCourseDetails();
+
+  function renderStars(rating, index) {
+    $(`.rate-star-${index}`).empty();
+
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+
+    for (let i = 0; i < fullStars; i++) {
+      $(`.rate-star-${index}`).append(
+        '<i class="bi bi-star-fill"></i>'
+      );
+    }
+
+    if (halfStar) {
+      $(`.rate-star-${index}`).append(
+        '<i class="bi bi-star-half"></i>'
+      );
+    }
+
+    for (let i = 0; i < emptyStars; i++) {
+      $(`.rate-star-${index}`).append(
+        '<i class="bi bi-star"></i>'
+      );
+    }
+  }
+
+  //get average course rate
+  async function getAverageRateForCourse() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/purchased-courses/${courseId}/average-rate`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      $(".course-rate").text(parseFloat(data).toFixed(1));
+
+      renderStars(data, "avg");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  getAverageRateForCourse();
 });

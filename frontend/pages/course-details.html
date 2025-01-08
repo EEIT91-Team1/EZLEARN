@@ -36,11 +36,15 @@
         <div
           class="lg:my-0 my-4 relative cursor-pointer lg:hidden coursePreviewImg border border-gray-400"
         >
-          <img
-            class="md:w-[700px] lg:w-[340px]"
-            src="https://www.sunucuteknik.com/wp-content/uploads/2022/02/java.jpg"
-            alt=""
-          />
+          <div
+            class="md:w-[700px] md:h-[400px] lg:w-[340px] lg:h-[190px] overflow-hidden"
+          >
+            <img
+              class="course-img w-full h-full object-cover"
+              src="https://img.notionusercontent.com/s3/prod-files-secure%2F18df6660-c72d-42b1-86ea-53bc8472501e%2F4ca8c24d-01a1-4a2e-8cfa-0ab47af2ed48%2Fimage.png/size/w=2000?exp=1736322975&sig=n8sZPgHVnyDH2eh3qfLgvpWeFt4NuD625EErC-m-fZA"
+              alt=""
+            />
+          </div>
           <div
             class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 mix-blend-multiply"
           ></div>
@@ -57,34 +61,42 @@
         <!-- course introduction -->
         <div class="lg:w-2/3 lg:mr-6">
           <div class="lg:text-white text-[#2D2F31]">
-            <h1 class="text-[32px] font-bold">
-              2024 Java 入門到精通課程
+            <h1 class="course-name text-[32px] font-bold">
+              <br />
             </h1>
-            <p class="text-[18px] my-4">
-              從入門開始學習Java語法，課程包含Java
-              8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
+            <p class="course-intro text-[18px] my-4">
+              <br />
+              <br />
+              <br />
             </p>
             <p class="text-[14px]">
-              評價：<span class="text-[#F69C08] font-bold"
-                >4.6</span
+              評價：<span
+                class="course-rate text-[#F69C08] font-bold"
+                >0.0</span
               >
-              <span class="text-[#F69C08]">
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-fill"></i>
-                <i class="bi bi-star-half"></i>
+              <span class="rate-star-avg text-[#F69C08]">
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
               </span>
             </p>
-            <p class="text-[14px]">作者：Wilson</p>
-            <p class="text-[14px]">更新日期：2024/9</p>
+            <p class="text-[14px]">
+              作者：<span class="user-name"></span>
+            </p>
+            <p class="text-[14px]">
+              更新日期：<span class="updated-at"></span>
+            </p>
           </div>
         </div>
 
         <!-- cart for mobile device -->
         <div class="lg:hidden w-full">
           <div class="p-4">
-            <p class="font-bold text-2xl mb-4">$2,090</p>
+            <p class="font-bold text-2xl mb-4">
+              $<span class="price"></span>
+            </p>
             <div class="flex mb-4">
               <a
                 class="w-11/12 mr-auto text-center rounded border border-indigo-600 p-3 text-sm font-bold text-indigo-600 hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring active:text-indigo-500 transition duration-300"
@@ -164,8 +176,8 @@
               class="mb-4 lg:relative lg:justify-center cursor-pointer coursePreviewImg"
             >
               <img
-                class="lg:w-[340px]"
-                src="https://www.sunucuteknik.com/wp-content/uploads/2022/02/java.jpg"
+                class="course-img lg:w-[340px]"
+                src="https://img.notionusercontent.com/s3/prod-files-secure%2F18df6660-c72d-42b1-86ea-53bc8472501e%2F4ca8c24d-01a1-4a2e-8cfa-0ab47af2ed48%2Fimage.png/size/w=2000?exp=1736322975&sig=n8sZPgHVnyDH2eh3qfLgvpWeFt4NuD625EErC-m-fZA"
                 alt=""
               />
               <div
@@ -183,8 +195,10 @@
 
             <!-- add to cart -->
             <div class="p-4">
-              <p class="font-bold text-2xl mb-4">$2,090</p>
-              <p class="font-bold text-lg mb-4">
+              <p class="font-bold text-2xl mb-4">
+                $<span class="price">2090</span>
+              </p>
+              <p class="course-name font-bold text-lg mb-4">
                 2024 Java入門到精通課程
               </p>
 
@@ -302,27 +316,12 @@
             >
               課程總覽
             </h1>
-            <article class="text-[#495057]">
-              2024 Java
-              入門到精通課程從頭開始學習Java語法，內容包含基本語法、物件導向的程式架構、解決問題的邏輯思路、遇到問題狀況的處理、Debug技巧，建立扎實的Java必備知識。此外，也帶你從無到有開發完整的Java桌機遊戲，練習物件導向的程式設計，寫出商業與便捷功能，可連結資料庫、高可讀性、高維護性以及高功能性的程式碼。此課程會不斷更新以提供新的內容，根據學生的狀況與開發趨勢，不斷更新讓知識保持新鮮且豐富。
-              基礎課程包含：<br />
-              1. Java Primitive Data type (Byte, Short,
-              Long,Integer, Character, Boolean, Float,
-              Double)<br />
-              2. Reference Data Type(Class, Array,
-              ArrayList, ...)<br />
-              3. 物件導向語法, Fields, Scope,Static<br />
-              4. 物件導向的三大要素：Polymorphism(多型),
-              Inheritance(繼承),Encapsulation(封裝)<br />
-              5. Abstract Class, Interface<br />
-              6. Method Override,Method Overloading, Method
-              Chaining三種比較與使用時機<br />
-              7.KeyListener、MouseListener<br />
-              8. toString(), equals() method覆寫、switch
-              statement撰寫<br />
-              9.
-              NullPointerException、ConcurrentModification
-              Exception 問題處理<br />
+            <article class="course-summary text-[#495057]">
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
             </article>
           </div>
 
@@ -336,18 +335,11 @@
             >
               介紹
             </h1>
-            <article class="text-[#495057] mt-4">
-              Java
-              是一種廣泛使用的電腦程式設計語言，擁有跨平台、物件導向等特性，廣泛應用於企業級Web應用開發和各種行動應用開發。例如:
-              Android
-              Apps,數據中心和超級計算機,桌面應用程序,數據庫連接,
-              資料視覺化,
-              以及數據分析，都可以見到Java的應用。許多政府機關、醫療、
-              教育、
-              國防，以及的電子交易的系統也是用Java做成的！
-              Java
-              是非常受歡迎的程式語言，可以運用在各種領域，支援性非常強大！此外，
-              Java是跨平台的程式語言，寫一份程式碼，就可以在多個平台上運行！現在許多開發工作與需要維護的程式碼，都需要擁有Java專業知識的工程師，因此，Java為目前業界非常熱門的程式開發語言。
+            <article
+              class="course-intro text-[#495057] mt-4"
+            >
+              <br />
+              <br />
             </article>
           </div>
 
@@ -363,22 +355,20 @@
             </h1>
             <div class="flex flex-row items-center">
               <img
-                class="rounded-full w-24 mr-4"
+                class="avatar rounded-full w-24 mr-4"
                 src="https://static.popdaily.com.tw/u/202409/152f0428-90b6-489d-be69-17ed0b670c18.jpeg"
                 alt=""
               />
 
               <a
                 href=""
-                class="font-bold text-lg text-[#2383E2]"
-                >Wilson</a
-              >
+                class="user-name font-bold text-lg text-[#2383E2]"
+              ></a>
             </div>
-            <article class="text-[#495057] mt-4">
-              曾就讀於美國楊百翰大學夏威夷分校，主修讀電腦科學。我相信，透過清楚的講解與示範，任何人都可以學好編寫程式與電腦科學中的複雜概念。我透過錄製課程來實現我的理想。目前我有九堂課程，分別為「2024
-              Python全攻略」、「2024 網頁開發」、「2024
-              Java課程」、「Android開發全攻略」、「2022網頁全端攻略」、「離散數學」、「數論與密碼學」、「資料結構與演算法」，以及「線性代數」。
-              在到美國之前，完全沒有寫過程式的經驗。在眾多不同的主修當中，我選擇電腦科學(台灣的資訊工程系)來當作主修，因為我從小就對電腦有濃厚的興趣。在此之後，我寫過無數網頁、開發過許多不同的樣板以及網頁架構，也在課外之餘在許多不同的線上學習資源當中學習更新穎更多樣的網頁設計技巧。
+            <article class="user-intro text-[#495057] mt-4">
+              <br />
+              <br />
+              <br />
             </article>
           </div>
 
@@ -393,121 +383,9 @@
               評論
             </h1>
 
-            <div class="flex flex-row">
-              <div
-                class="w-1/2 flex items-center mr-8 border-b border-gray-300 p-4"
-              >
-                <div class="mr-4">
-                  <img
-                    class="rounded-full w-24"
-                    src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p class="text-[14px]">
-                    <span class="text-[#F69C08]">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                    </span>
-                  </p>
-                  <p class="font-bold text-[#212529]">
-                    烏薩奇
-                  </p>
-                  <p class="text-[#495057]">
-                    嗚啦，呀哈，嗚啦
-                  </p>
-                </div>
-              </div>
-
-              <div
-                class="w-1/2 flex items-center border-b border-gray-300 p-4"
-              >
-                <div class="mr-4">
-                  <img
-                    class="rounded-full w-24"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCMeb0ErrciOplYitlaV2dVCRdc9_QZUlM-gtnXG5oPu_BG2hXfsbbfv3BkKmm0fxtbFY&usqp=CAU"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p class="text-[14px]">
-                    <span class="text-[#F69C08]">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                    </span>
-                  </p>
-                  <p class="font-bold text-[#212529]">
-                    吉伊卡哇
-                  </p>
-                  <p class="text-[#495057]">嚕啪嚕啪</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-row">
-              <div
-                class="w-1/2 flex items-center mr-8 border-b border-gray-300 p-4"
-              >
-                <div class="mr-4">
-                  <img
-                    class="rounded-full w-24"
-                    src="https://stickershop.line-scdn.net/stickershop/v1/sticker/452840469/android/sticker.png"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p class="text-[14px]">
-                    <span class="text-[#F69C08]">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                    </span>
-                  </p>
-                  <p class="font-bold text-[#212529]">
-                    小八
-                  </p>
-                  <p class="text-[#495057]">
-                    很適合初學者學習！
-                  </p>
-                </div>
-              </div>
-
-              <div
-                class="w-1/2 flex items-center border-b border-gray-300 p-4"
-              >
-                <div class="mr-4">
-                  <img
-                    class="rounded-full w-24"
-                    src="https://media.karousell.com/media/photos/products/2024/11/29/___1732876368_204c1971_progressive.jpg"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <p class="text-[14px]">
-                    <span class="text-[#F69C08]">
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-fill"></i>
-                      <i class="bi bi-star-half"></i>
-                    </span>
-                  </p>
-                  <p class="font-bold text-[#212529]">
-                    獅薩
-                  </p>
-                  <p class="text-[#495057]">謝謝老師！</p>
-                </div>
-              </div>
-            </div>
+            <div
+              class="course-review grid grid-cols-1 xl:grid-cols-2"
+            ></div>
           </div>
 
           <!-- 常見問題 -->
@@ -650,7 +528,7 @@
               <div class="flex flex-col justify-center">
                 <p class="text-[#D1D7DC]">課程預覽</p>
                 <h1
-                  class="text-white text-[18px] font-bold"
+                  class="course-name text-white text-[18px] font-bold"
                 >
                   2024 Java 入門到精通課程
                 </h1>
