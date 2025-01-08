@@ -29,9 +29,10 @@ public class WishListService {
 	private CoursesRepository coursesrepository;
 	
 	public List<Map<String, String>> getWishList(HttpSession session) {
-		Users userSession = (Users) session.getAttribute("user");
-		Users user = usersrepository.findByUserId(userSession.getUserId());
 		List<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
+		Users userSession = (Users) session.getAttribute("user");
+		if(userSession!=null) {
+		Users user = usersrepository.findByUserId(userSession.getUserId());
 		List<WishList> wishLists = user.getWishList();
 		for (WishList wishList : wishLists) {
 			Map<String, String> data = new HashMap<String, String>();
@@ -56,7 +57,7 @@ public class WishListService {
 			data.put("rate", String.format("%.1f",rates));
 			dataList.add(data);
 		}
-		System.out.println(dataList.size());
+		}
 		return dataList;
 	}
 

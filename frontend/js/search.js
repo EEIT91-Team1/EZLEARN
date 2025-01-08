@@ -11,7 +11,6 @@ async function addWishList(id) {
     });
   } else {
     const url = `http://localhost:8080/wishList/add?courseId=${id}`;
-    console.log(id);
     await $.ajax({
       url: url,
       method: "POST",
@@ -197,7 +196,6 @@ function getCount() {
     url: url,
     method: "GET",
   }).done((data) => {
-    console.log(data);
     $("#queryText").text(`「${params.query}」有 ${data.courseCount} 個結果`);
     $("#languageLabel").text(`(${data.languageCount})`);
     $("#programLabel").text(`(${data.programCount})`);

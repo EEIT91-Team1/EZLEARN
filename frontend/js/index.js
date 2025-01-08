@@ -156,7 +156,6 @@ $(document).ready(function () {
     url: url("courses"),
     method: "GET",
   }).done((data) => {
-    console.log(data);
     $.each(data, function (idx, item) {
       let href = `/pages/course-details.html?course_id=${item.courseId}`;
       $(`#aCourse${idx + 1}`).prop("href", href);
@@ -175,7 +174,6 @@ $(document).ready(function () {
     url: url("review"),
     method: "GET",
   }).done((data) => {
-    console.log(data);
     $.each(data, function (idx, item) {
       let href = `/pages/course-details.html?course_id=${item.courseId}`;
       $(`#aReview${idx + 1}`).prop("href", href);
