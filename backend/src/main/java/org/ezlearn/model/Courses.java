@@ -21,6 +21,7 @@ public class Courses {
 	private Long courseId;
 	private Integer price;
 	private String courseName;
+	private String courseSummary;
 	private String courseIntro;
 	private String courseType;
 	private byte[] courseImg;
@@ -49,6 +50,14 @@ public class Courses {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public String getCourseSummary() {
+		return courseSummary;
+	}
+
+	public void setCourseSummary(String courseSummary) {
+		this.courseSummary = courseSummary;
 	}
 
 	public String getCourseIntro() {
