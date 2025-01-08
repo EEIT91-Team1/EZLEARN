@@ -81,7 +81,7 @@ async function getWishList() {
                 <p class="text-xl font-semibold">$${item.price}</p>
               </div>
             </a>
-              <div class="text-4xl text-end absolute bottom-2 right-1 z-10">
+              <div class="text-4xl text-end absolute bottom-2 right-1 z-1">
                <i onclick="addWishList(${
                  item.courseId
                })" id="wish${item.courseId}" class="wish bi bi-heart-fill text-red-400 hover:text-gray-200 duration-300 mr-2 cursor-pointer"></i>

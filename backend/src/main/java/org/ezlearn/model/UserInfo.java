@@ -1,17 +1,20 @@
 package org.ezlearn.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user_info")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class UserInfo {
 	
 	@Id
@@ -19,19 +22,10 @@ public class UserInfo {
 	private Long userId;
 	private String gender;
 	private String birthday;
-	private byte[] avatar=null;
+	private byte[] avatar;
 	private String userName;
-	private String phone;
-	private String userIntro= "";
+	private String userIntro;
 	
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	public Long getUserId() {
 		return userId;
 	}
@@ -79,15 +73,18 @@ public class UserInfo {
 	public void setUserIntro(String userIntro) {
 		this.userIntro = userIntro;
 	}
-	//-------------------
+	
 	@OneToOne
 	@MapsId
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "user_id")
 	private Users users;
-	public Users getUser() {
+	
+	public Users getUsers() {
 		return users;
 	}
-	public void setUser(Users user) {
-		this.users = user;
+
+	public void setUsers(Users users) {
+		this.users = users;
 	}
+
 }

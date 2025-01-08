@@ -2,7 +2,10 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -20,7 +23,9 @@
     <main>
       <div class="min-h-[calc(100vh-300px)]">
         <div class="bg-[#1C1D1F]">
-          <h1 class="text-white text-3xl font-bold p-12 text-center h-[130px]">
+          <h1
+            class="text-white text-3xl font-bold p-12 text-center h-[130px]"
+          >
             我的學習
           </h1>
         </div>
@@ -29,7 +34,9 @@
           id="browseCourse"
           class="text-center text-xl font text-[#494847] mt-12"
         >
-          還沒有找到課程嗎？<a class="text-blue-700" href="">瀏覽課程</a>
+          還沒有找到課程嗎？<a class="text-blue-700" href=""
+            >瀏覽課程</a
+          >
         </div>
 
         <div
@@ -40,20 +47,6 @@
     </main>
 
     <div id="footer"></div>
-    <script>
-      $(document).ready(function () {
-        fetch("../components/navbar.html")
-          .then((response) => response.text())
-          .then((data) => {
-            $("#navbar").html(data);
-          });
-
-        fetch("../components/footer.html")
-          .then((response) => response.text())
-          .then((data) => {
-            $("#footer").html(data);
-          });
-      });
-    </script>
+    <script src="../js/header-footer.js"></script>
   </body>
 </html>

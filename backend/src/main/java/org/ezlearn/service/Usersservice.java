@@ -2,13 +2,12 @@ package org.ezlearn.service;
 
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.ezlearn.DTO.LoginResponse;
 import org.ezlearn.model.Users;
-import org.ezlearn.model.loginresponse;
-import org.ezlearn.repository.Usersrepository;
+import org.ezlearn.repository.UsersRepository;
 import org.ezlearn.utils.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,39 +15,41 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class Usersservice {
+public class UsersService {
+
 	@Autowired
-	private Usersrepository Usersrepository;
+	private UsersRepository usersRepository;
 	
-	public boolean adduser(Users registeruser) {
-		Optional<Users> opt = Usersrepository.findByEmail(registeruser.getEmail());
-		Users user = new Users();
-		try {
-			user = opt.get();
+	public boolean adduser(Users registerUser) {
+		Optional<Users> opt = usersRepository.findByEmail(registerUser.getEmail());
+		if (opt.isPresent()) {
 			return false;
-		} catch (Exception e) {
-			registeruser.setPassword(BCrypt.hashpw(registeruser.getPassword(), BCrypt.gensalt()));
-			System.out.println(registeruser.getPassword()); 
-			Usersrepository.save(registeruser);
-			return true;
 		}
+		
+		registerUser.setPassword(BCrypt.hashpw(registerUser.getPassword(), BCrypt.gensalt()));
+		System.out.println(registerUser.getPassword()); 
+		usersRepository.save(registerUser);
+		return true;
 	}
 	
-	public loginresponse loginuser(Users loginuser,HttpSession session) {
-		Optional<Users> opt = Usersrepository.findByEmail(loginuser.getEmail());
+	public LoginResponse loginuser(Users loginUser,HttpSession session) {
+		Optional<Users> opt = usersRepository.findByEmail(loginUser.getEmail());
 		Users user = new Users();
-		loginresponse response = new loginresponse();
+		LoginResponse response = new LoginResponse();
 		try {
 			user = opt.get();
-			if(!BCrypt.checkpw(loginuser.getPassword(), user.getPassword())) {
+			if(!BCrypt.checkpw(loginUser.getPassword(), user.getPassword())) {
 				response.setError(2);
+				response.setMsg("login failure");
 			}else{
 				response.setError(3);
+				response.setMsg("login success");
 				session.setAttribute("user", user);
 				System.out.println(user.getEmail());
 			}
 		} catch (Exception e) {
 			response.setError(1);
+			response.setMsg("account not found");
 		}
 		return response;
 	}
@@ -62,23 +63,20 @@ public class Usersservice {
 		}
 	}
 	
-//----------------------------------------------------------------------------------	
-	
 	public Map<String,String> loginData(HttpSession session) {
 		Users userSession = (Users)session.getAttribute("user");
-		Users user=Usersrepository.findByUserId(userSession.getUserId());
-		Map<String,String> data=new HashMap<String, String>();
+		Users user = usersRepository.findByUserId(userSession.getUserId());
+		Map<String,String> data = new HashMap<String, String>();
 		data.put("userId",user.getUserId()+"");
-		data.put("userName",user.getUserinfo().getUserName());
+		data.put("userName",user.getUserInfo().getUserName());
 		data.put("email", user.getEmail());
-		String imgBase64="noImg";
-		if(user.getUserinfo().getAvatar()!=null) {
-		 imgBase64= "data:image/png;base64," + Base64.getEncoder().encodeToString(user.getUserinfo().getAvatar());
+		String imgBase64 = "noImg";
+		if(user.getUserInfo().getAvatar()!=null) {
+		 imgBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar());
 		}
 		data.put("avatar", imgBase64);
 		
 		return data;
 	}
 	
-//------------------------------------------------------------------------------------	
 }

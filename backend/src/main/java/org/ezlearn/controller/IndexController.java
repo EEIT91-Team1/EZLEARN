@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/index")
 public class IndexController {
+	
 	@Autowired
 	private IndexService indexService;
 
@@ -25,4 +26,5 @@ public class IndexController {
 	public ResponseEntity<List<Map<String, String>>> review() {
 		return ResponseEntity.ok(indexService.review());
 	}
+
 }

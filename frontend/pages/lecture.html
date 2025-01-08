@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="icon" href="../imgs/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/lecture.js"></script>
+
+    <title>學習影片 | EZLËARN</title>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 74px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div
+        class="flex items-center w-full bg-[#1C1D1F] h-[74px] border-b border-gray-600"
+      >
+        <a href="/index.html">
+          <img
+            class="w-48 p-4 ml-8"
+            src="../imgs/logo-2.png"
+            title="回首頁"
+            alt="LOGO"
+          />
+        </a>
+
+        <h1 class="text-white font-bold text-lg ml-6">
+          2024－JAVA全端工程師－課程準備
+        </h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="lg:flex w-full">
+        <div class="lg:w-[calc(100vw-400px)]">
+          <!-- video player -->
+          <div class="bg-black flex justify-center">
+            <video
+              id="previewVideo"
+              controls
+              src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm"
+            ></video>
+          </div>
+
+          <!-- tab -->
+          <div class="flex justify-center px-8">
+            <div class="z-[1] w-full">
+              <!-- nav -->
+              <div class="border-b border-gray-400">
+                <nav
+                  class="-mb-px flex space-x-8 justify-start font-bold"
+                  aria-label="Tabs"
+                >
+                  <!-- Tab buttons -->
+                  <a
+                    href="#tab-1"
+                    class="tab-link whitespace-nowrap border-b-2 px-1 py-4 text-sm border-indigo-500 text-indigo-600 hover:border-gray-300 hover:text-gray-700"
+                    data-target="tab-1"
+                    >公告</a
+                  >
+                  <a
+                    href="#tab-2"
+                    class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    data-target="tab-2"
+                    >筆記</a
+                  >
+                  <a
+                    href="#tab-3"
+                    class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                    data-target="tab-3"
+                    >問答</a
+                  >
+                </nav>
+              </div>
+
+              <!-- Tab content -->
+              <!-- 公告 -->
+              <div id="tab-1" class="tab-content p-4 my-4">
+                <h1
+                  class="text-2xl font-bold text-[#212529] mb-4"
+                >
+                  課程公告
+                </h1>
+                <p id="no-posts" class="text-[#495057]">
+                  講師尚未新增公告至此課程。公告是用於通知您有關課程的最新消息或新增項目。
+                </p>
+              </div>
+
+              <!-- 筆記 -->
+              <div
+                id="tab-2"
+                class="tab-content hidden py-4 p-4 my-4"
+              >
+                <h1
+                  class="text-2xl font-bold text-[#212529] mb-4"
+                >
+                  課程筆記
+                </h1>
+
+                <!-- add note -->
+                <div class="relative">
+                  <div
+                    class="bg-white outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600"
+                  >
+                    <input
+                      type="text"
+                      id="add-note-title"
+                      class="block w-full px-4 pt-2.5 text-lg font-bold text-gray-800 placeholder:text-gray-400 focus:outline focus:outline-0"
+                      placeholder="＃標題"
+                    />
+
+                    <textarea
+                      id="add-note-content"
+                      class="block w-full resize-none px-4 py-1.5 text-base text-gray-800 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
+                      placeholder="寫下筆記..."
+                    ></textarea>
+
+                    <!-- Spacer element to match the height of the toolbar -->
+                    <div aria-hidden="true">
+                      <div class="py-2">
+                        <div class="h-9"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="absolute inset-x-px bottom-0">
+                    <div
+                      class="flex items-center justify-end space-x-3 px-2 py-2 sm:px-3"
+                    >
+                      <button
+                        id="add-note-btn"
+                        type="submit"
+                        class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        建立
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- note list -->
+                <div class="note-list"></div>
+              </div>
+
+              <!-- 問答 -->
+              <div
+                id="tab-3"
+                class="tab-content py-4 hidden p-4 my-4"
+              >
+                <h1
+                  class="text-2xl font-bold text-[#212529] mb-4"
+                >
+                  課程問答
+                </h1>
+
+                <div class="flex items-start space-x-4">
+                  <div class="shrink-0">
+                    <img
+                      class="inline-block size-10 rounded-full"
+                      src="https://megapx-assets.dcard.tw/images/56c374f7-f782-4f82-9510-53ecc298f912/640.webp"
+                      alt=""
+                    />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <form action="#">
+                      <div
+                        class="border-b border-gray-200 pb-px focus-within:border-b-2 focus-within:border-indigo-600 focus-within:pb-0"
+                      >
+                        <label for="comment" class="sr-only"
+                          >Add your comment</label
+                        >
+                        <textarea
+                          rows="3"
+                          name="comment"
+                          id="comment"
+                          class="block w-full resize-none text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
+                          placeholder="寫下問題..."
+                        ></textarea>
+                      </div>
+                      <div class="flex justify-end pt-2">
+                        <div class="shrink-0">
+                          <button
+                            type="submit"
+                            class="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                          >
+                            Post
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hidden lg:flex"></div>
+          </div>
+        </div>
+
+        <!-- course list -->
+        <div
+          class="hidden lg:flex w-[400px] flex-col justify-between border-s border-gray-400 bg-white overflow-y-auto"
+        >
+          <div class="px-4 py-4">
+            <span class="text-lg font-bold text-gray-600">
+              課程內容
+            </span>
+
+            <ul class="mt-6 space-y-1">
+              <li class="border-b border-gray-400">
+                <details
+                  class="group [&_summary::-webkit-details-marker]:hidden"
+                >
+                  <summary
+                    class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-4 my-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                  >
+                    <span class="text-md font-medium">
+                      1. 課程準備
+                    </span>
+
+                    <span
+                      class="shrink-0 transition duration-300 group-open:-rotate-180"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="size-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </summary>
+
+                  <ul class="mt-2 space-y-1 px-4">
+                    <li>
+                      <a
+                        href="#"
+                        class="block rounded-lg px-4 py-2 my-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                      >
+                        環境建置
+                      </a>
+                    </li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script>
+      $(document).ready(function () {
+        fetch("../components/footer.html")
+          .then((response) => response.text())
+          .then((data) => {
+            $("#footer").html(data);
+          });
+      });
+    </script>
+  </body>
+</html>

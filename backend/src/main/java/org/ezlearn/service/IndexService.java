@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IndexService {
+	
 	@Autowired
 	private IndexRepository indexRepository;
 
@@ -53,4 +54,5 @@ public class IndexService {
 		}
 		return courses;
 	}
+
 }

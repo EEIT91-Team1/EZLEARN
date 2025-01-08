@@ -11,23 +11,22 @@ import org.ezlearn.model.PurchasedCourses;
 import org.ezlearn.model.Users;
 import org.ezlearn.model.WishList;
 import org.ezlearn.model.WishListId;
-import org.ezlearn.repository.Coursesrepository;
+import org.ezlearn.repository.CoursesRepository;
+import org.ezlearn.repository.UsersRepository;
 import org.ezlearn.repository.WishListRepository;
-import org.ezlearn.repository.Usersrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import jakarta.servlet.http.HttpSession;
 
 @Service
 public class WishListService {
 	@Autowired
-	private Usersrepository usersrepository;
+	private UsersRepository usersrepository;
 	@Autowired
 	private WishListRepository wishListRepository;
 	@Autowired
-	private Coursesrepository coursesrepository;
+	private CoursesRepository coursesrepository;
 	
 	public List<Map<String, String>> getWishList(HttpSession session) {
 		Users userSession = (Users) session.getAttribute("user");
@@ -39,7 +38,7 @@ public class WishListService {
 			data.put("courseId", wishList.getCourses().getCourseId() + "");
 			data.put("courseName", wishList.getCourses().getCourseName());
 			data.put("price", wishList.getCourses().getPrice() + "");
-			data.put("teacher", wishList.getCourses().getUsers().getUserinfo().getUserName());
+			data.put("teacher", wishList.getCourses().getUserInfo().getUserName());
 			String imgBase64 = "data:image/png;base64,"
 					+ Base64.getEncoder().encodeToString(wishList.getCourses().getCourseImg());
 			data.put("courseImg", imgBase64);

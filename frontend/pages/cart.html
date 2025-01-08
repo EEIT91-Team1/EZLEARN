@@ -2,7 +2,11 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -46,11 +50,17 @@
                     class="w-32 h-24 object-cover rounded mr-4"
                   />
                   <div>
-                    <h3 class="text-lg font-medium">課程名稱</h3>
-                    <div class="text-gray-600">課程資訊/優惠資訊</div>
+                    <h3 class="text-lg font-medium">
+                      課程名稱
+                    </h3>
+                    <div class="text-gray-600">
+                      課程資訊/優惠資訊
+                    </div>
                   </div>
                 </div>
-                <span class="w-32 text-right price">NT$ 9999</span>
+                <span class="w-32 text-right price"
+                  >NT$ 9999</span
+                >
                 <button
                   onclick="removeItem(this)"
                   class="w-16 text-right text-gray-500 hover:text-red-500"
@@ -66,10 +76,15 @@
           <div class="bg-white rounded-lg shadow p-6">
             <h2 class="text-xl font-bold mb-4">訂單明細</h2>
             <div class="flex justify-between mb-2">
-              <span><span id="selectedItemCount">0</span> 件商品</span>
+              <span
+                ><span id="selectedItemCount">0</span>
+                件商品</span
+              >
               <span>NT$ <span id="subtotal">0</span></span>
             </div>
-            <div class="flex justify-between text-2xl font-bold mb-6">
+            <div
+              class="flex justify-between text-2xl font-bold mb-6"
+            >
               <span>總計</span>
               <span>NT$ <span id="total">0</span> 元</span>
             </div>
@@ -90,9 +105,11 @@
     <script src="../js/header-footer.js"></script>
     <script>
       function toggleAllItems(checkbox) {
-        document.querySelectorAll(".cart-item").forEach((item) => {
-          item.checked = checkbox.checked;
-        });
+        document
+          .querySelectorAll(".cart-item")
+          .forEach((item) => {
+            item.checked = checkbox.checked;
+          });
         updateOrderSummary();
       }
 
@@ -102,19 +119,26 @@
       }
 
       function updateOrderSummary() {
-        const checkedItems = document.querySelectorAll(".cart-item:checked");
-        document.getElementById("selectedItemCount").textContent =
-          checkedItems.length;
+        const checkedItems = document.querySelectorAll(
+          ".cart-item:checked"
+        );
+        document.getElementById(
+          "selectedItemCount"
+        ).textContent = checkedItems.length;
 
         let total = 0;
         const selectedItems = [];
 
         checkedItems.forEach((item) => {
           const itemContainer = item.closest(".flex");
-          const priceElement = itemContainer.querySelector(".price");
-          const titleElement = itemContainer.querySelector("h3");
+          const priceElement =
+            itemContainer.querySelector(".price");
+          const titleElement =
+            itemContainer.querySelector("h3");
           const price = parseInt(
-            priceElement.textContent.replace("NT$ ", "").replace(",", "")
+            priceElement.textContent
+              .replace("NT$ ", "")
+              .replace(",", "")
           );
 
           selectedItems.push({
@@ -127,17 +151,25 @@
 
         document.getElementById("subtotal").textContent =
           total.toLocaleString();
-        document.getElementById("total").textContent = total.toLocaleString();
+        document.getElementById("total").textContent =
+          total.toLocaleString();
 
-        const checkoutButton = document.getElementById("checkoutButton");
+        const checkoutButton = document.getElementById(
+          "checkoutButton"
+        );
         checkoutButton.disabled = checkedItems.length === 0;
 
-        localStorage.setItem("cartItems", JSON.stringify(selectedItems));
+        localStorage.setItem(
+          "cartItems",
+          JSON.stringify(selectedItems)
+        );
         localStorage.setItem("cartTotal", total);
       }
 
       function proceedToCheckout() {
-        const checkedItems = document.querySelectorAll(".cart-item:checked");
+        const checkedItems = document.querySelectorAll(
+          ".cart-item:checked"
+        );
         if (checkedItems.length > 0) {
           window.location.href = "order.html";
         }

@@ -1,42 +1,33 @@
 package org.ezlearn.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Transient;
 
 @Entity
 public class Courses {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long courseId;
-	@Column(insertable = false, updatable = false)
-	private Long teacherId;
 	private Integer price;
 	private String courseName;
+	private String courseSummary;
 	private String courseIntro;
 	private String courseType;
 	private byte[] courseImg;
-
-	public Long getTeacherId() {
-		return teacherId;
-	}
-
-	public void setTeacherId(Long teacherId) {
-		this.teacherId = teacherId;
-	}
-
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
+	
 	public Long getCourseId() {
 		return courseId;
 	}
@@ -59,6 +50,14 @@ public class Courses {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public String getCourseSummary() {
+		return courseSummary;
+	}
+
+	public void setCourseSummary(String courseSummary) {
+		this.courseSummary = courseSummary;
 	}
 
 	public String getCourseIntro() {
@@ -85,6 +84,34 @@ public class Courses {
 		this.courseImg = courseImg;
 	}
 
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "teacher_id")
+	private UserInfo userInfo;
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
 	@OneToMany(mappedBy = "courses")
 	private List<PurchasedCourses> purchasedCourses;
 	
@@ -96,29 +123,4 @@ public class Courses {
 	public void setPurchasedCourses(List<PurchasedCourses> purchasedCourses) {
 		this.purchasedCourses = purchasedCourses;
 	}
-
-	@OneToMany(mappedBy = "courses")
-	private List<WishList> wishList;
-
-	public List<WishList> getWishList() {
-		return wishList;
-	}
-
-	public void setWishList(List<WishList> wishList) {
-		this.wishList = wishList;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "teacherId")
-	private Users users;
-
-	public Users getUsers() {
-		return users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
-	
-	
 }
