@@ -1,5 +1,8 @@
 package org.ezlearn.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user_info")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class UserInfo {
 	
 	@Id
@@ -74,6 +78,10 @@ public class UserInfo {
 	@MapsId
 	@JoinColumn(name = "user_id")
 	private Users users;
+	
+	public Users getUsers() {
+		return users;
+	}
 
 	public void setUsers(Users users) {
 		this.users = users;
