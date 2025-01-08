@@ -12,5 +12,7 @@ import jakarta.transaction.Transactional;
 @Repository
 @Transactional
 public interface WishListRepository extends JpaRepository<WishList,WishListId> {
-
+	@Modifying
+	@Query(value="DELETE FROM `wish_list` WHERE `wish_list`.`user_id` = ?1 AND `wish_list`.`course_id` = ?2",nativeQuery = true)
+	int deleteWish(String userId,String courseId);
 }

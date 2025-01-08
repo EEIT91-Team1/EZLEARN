@@ -1,20 +1,25 @@
 //願望清單
 async function addWishList(id) {
-  const url = `http://localhost:8080/wishList/add?courseId=${id}`;
-  console.log(id);
-  await $.ajax({
-    url: url,
-    method: "POST",
-    xhrFields: {
-      withCredentials: true,
-    },
-  }).done((data) => {
-    if (data == true) {
-      alert("加入成功");
-    } else {
-      alert("該課程已在願望清單內");
-    }
-  });
+  if ($(`#wish${id}`).hasClass("isWish")) {
+    const url = `http://localhost:8080/wishList/delete?courseId=${id}`;
+    await $.ajax({
+      url: url,
+      method: "POST",
+      xhrFields: {
+        withCredentials: true,
+      },
+    });
+  } else {
+    const url = `http://localhost:8080/wishList/add?courseId=${id}`;
+    console.log(id);
+    await $.ajax({
+      url: url,
+      method: "POST",
+      xhrFields: {
+        withCredentials: true,
+      },
+    });
+  }
   loadResults();
 }
 
@@ -141,11 +146,13 @@ async function loadResults() {
       if (idx < 10) {
         let href = `/pages/course-details.html?course_id=${item.courseId}`;
         $("#divRight").append(
-          `<div class="relative z-0">
+          `<div class="relative z-0 group">
             <a  href="${href}">
-            <div class="divResult">
+            <div class="divResult group-hover:bg-gray-200 duration-300">
              <div class="divImg">
-               <img src="${item.courseImg}" />
+               <img src="${
+                 item.courseImg
+               }" class="duration-300 group-hover:scale-105"/>
              </div>
              <div class="divText">
                <h1>${item.courseName}</h1>
@@ -158,7 +165,6 @@ async function loadResults() {
                </div>
           </div></a>
                <div class="text-4xl text-end absolute bottom-4 right-8 z-10">
-               <i class="bi bi-cart-fill text-white hover:text-blue-500 duration-300 cursor-pointer"></i>
                <i onclick="addWishList(${item.courseId})" id="wish${
             item.courseId
           }" class="bi bi-heart-fill text-white hover:text-red-400 duration-300 mr-2 cursor-pointer"></i>
@@ -174,11 +180,12 @@ async function loadResults() {
     url: "http://localhost:8080/wishList/get",
     method: "GET",
     xhrFields: {
-      withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+      withCredentials: true,
     },
   }).done((data) => {
     $.each(data, function (idx, item) {
       $(`#wish${item.courseId}`).css("color", "rgb(248 113 113)");
+      $(`#wish${item.courseId}`).addClass("isWish");
     });
   });
 }

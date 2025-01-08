@@ -34,8 +34,21 @@ function rateToStars(rate) {
 function href(page) {
   window.location.href = page;
 }
-$(document).ready(function () {
-  $.ajax({
+async function addWishList(id) {
+  const url = `http://localhost:8080/wishList/delete?courseId=${id}`;
+  await $.ajax({
+    url: url,
+    method: "POST",
+    xhrFields: {
+      withCredentials: true,
+    },
+  });
+  getWishList();
+}
+//願望清單資料
+async function getWishList() {
+  $("#divResults").empty();
+  await $.ajax({
     url: "http://localhost:8080/wishList/get",
     method: "GET",
     xhrFields: {
@@ -47,7 +60,7 @@ $(document).ready(function () {
         $.each(data, function (idx, item) {
           $("#divResults").append(`
         <div
-              class="min-w-80 m-2  ml-10 bg-white flex flex-col items-center group cursor-pointer"
+              class="min-w-80 m-2  ml-10 bg-white flex flex-col items-center group cursor-pointer relative"
             >        
             <a href="./course-details.html?course_id=${item.courseId}">
               <div class="max-w-80 max-h-44 min-w-80 min-h-44 overflow-hidden border-2">
@@ -68,7 +81,12 @@ $(document).ready(function () {
                 <p class="text-xl font-semibold">$${item.price}</p>
               </div>
             </a>
-            </div>
+              <div class="text-4xl text-end absolute bottom-2 right-1 z-10">
+               <i onclick="addWishList(${
+                 item.courseId
+               })" id="wish${item.courseId}" class="wish bi bi-heart-fill text-red-400 hover:text-gray-200 duration-300 mr-2 cursor-pointer"></i>
+               </div> 
+               </div>
             `);
         });
       } else {
@@ -80,4 +98,5 @@ $(document).ready(function () {
     .fail(() => {
       window.location.href = "../index.html";
     });
-});
+}
+getWishList();

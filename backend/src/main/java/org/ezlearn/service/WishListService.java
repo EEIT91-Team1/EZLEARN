@@ -54,7 +54,7 @@ public class WishListService {
 				}
 			}
 			rates = (double) rate / student;
-			data.put("rate", rates + "");
+			data.put("rate", String.format("%.1f",rates));
 			dataList.add(data);
 		}
 		System.out.println(dataList.size());
@@ -75,7 +75,6 @@ public class WishListService {
 		}
 		if (isRepeat == false) {
 			WishList wishList = new WishList();
-			System.out.println(1);
 			wishList.setId(new WishListId());
 			wishList.setCourseId(Long.parseLong(courseId));
 			wishList.setUserId(user.getUserId());
@@ -87,5 +86,13 @@ public class WishListService {
 		} else {
 			return false;
 		}
+	}
+	
+	public boolean delete(HttpSession session, String courseId) {
+		Users userSession = (Users) session.getAttribute("user");
+		Users user = usersrepository.findByUserId(userSession.getUserId());
+		String userId = user.getUserId()+"";
+			wishListRepository.deleteWish(userId,courseId);
+			return true;
 	}
 }

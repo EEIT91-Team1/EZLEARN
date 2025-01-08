@@ -35,6 +35,11 @@ public class WishListController {
 	@PostMapping("/add")
 	public boolean add(HttpSession session, @RequestParam String courseId) {
 		return wishListService.add(session, courseId);
+	}
+
+	@PostMapping("/delete")
+	public boolean del(HttpSession session, @RequestParam String courseId) {
+		return wishListService.delete(session, courseId);
 
 	}
 

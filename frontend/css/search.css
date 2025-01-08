@@ -44,14 +44,14 @@
   justify-content: space-between;
   overflow: hidden;
 }
-.divResult:hover {
+/* .divResult:hover {
   background-color: rgb(230, 230, 230);
   transition: 0.3s;
-}
-.divResult:hover img {
+} */
+/* .divResult:hover img {
   scale: 1.05;
   transition: 0.3s;
-}
+} */
 .divResult > div.divImg {
   flex: 1 1 0;
   width: 15rem;
