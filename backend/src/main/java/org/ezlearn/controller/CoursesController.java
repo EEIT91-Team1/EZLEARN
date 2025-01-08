@@ -29,7 +29,7 @@ public class CoursesController {
 	
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	@GetMapping("/{courseId}")
-	public List<Courses> getCoursesByCourseId(@PathVariable Long courseId) {
+	public Courses getCoursesByCourseId(@PathVariable Long courseId) {
 		Courses course = new Courses();
 		course.setCourseId(courseId);
 		return coursesService.getCoursesByCourseId(courseId);

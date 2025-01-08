@@ -18,7 +18,7 @@ public class CoursesService {
 		return coursesRepository.findByUserInfo(userInfo);
 	}
 	
-	public List<Courses> getCoursesByCourseId(Long courseId) {
+	public Courses getCoursesByCourseId(Long courseId) {
 		return coursesRepository.findByCourseId(courseId);
 	}
 
