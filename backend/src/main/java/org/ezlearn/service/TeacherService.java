@@ -6,16 +6,19 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.ezlearn.model.Courses;
 import org.ezlearn.model.Lessons;
+import org.ezlearn.model.Posts;
 import org.ezlearn.model.PurchasedCourses;
 import org.ezlearn.model.Questions;
 import org.ezlearn.model.UserInfo;
 import org.ezlearn.model.Users;
 import org.ezlearn.repository.Coursesrepository;
 import org.ezlearn.repository.LessonsRepository;
+import org.ezlearn.repository.PostsRepository;
 import org.ezlearn.repository.Questionrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,8 @@ public class TeacherService {
 	private Coursesrepository coursesrepository;
 	@Autowired
 	private Questionrepository questionrepository;
+	@Autowired
+	private PostsRepository postsRepository;
 	
 	public List<Map<String, Object>> findcourse(HttpSession session){
 		Users user = (Users)session.getAttribute("user");
@@ -42,10 +47,8 @@ public class TeacherService {
 			String imgbase64 = Base64.getEncoder().encodeToString(imgfile);
 			test.put("courseName",course.getCourseName());
 			test.put("courseImgbase64", imgbase64);
+			test.put("courseid",course.getCourseId());
 			detaillist.add(test);
-		}
-		for(Map<String, Object> d : detaillist) {
-			System.out.printf("%s : %s\n",d.get("courseName"),d.get("courseImgbase64"));
 		}
 		return detaillist;
 	}
@@ -61,11 +64,33 @@ public class TeacherService {
 			for(Lessons lesson : lessonlist) {
 				List<Questions> questionlist = questionrepository.findByLesson(lesson);
 				for(Questions question : questionlist) {
-					System.out.println(question.getQuestion());
 					allquestionlist.add(question);
 				}
 			}
 		}
 		return allquestionlist;
+	}
+	
+	public void updateanswer(Questions question) {
+		Optional<Questions> opt = questionrepository.findById(question.getQuestionId());
+		Questions updatequestion = opt.get();
+		updatequestion.setAnswer(question.getAnswer());
+		questionrepository.save(updatequestion);
+	}
+	
+	public boolean sendpost(Posts post) {		
+		Posts insertpost = postsRepository.save(post);
+		if(insertpost != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public List<Posts> getpost(Long courseid) {
+		Courses course = new Courses();
+		course.setCourseId(courseid);
+		List<Posts> postlist = postsRepository.findByCourses(course);
+		return postlist;
 	}
 }

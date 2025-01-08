@@ -24,7 +24,6 @@ public class usersservice {
 			return false;
 		} catch (Exception e) {
 			registeruser.setPassword(BCrypt.hashpw(registeruser.getPassword(), BCrypt.gensalt()));
-			System.out.println(registeruser.getPassword()); 
 			usersrepository.save(registeruser);
 			return true;
 		}
@@ -41,7 +40,6 @@ public class usersservice {
 			}else{
 				response.setError(3);
 				session.setAttribute("user", user);
-				System.out.println(user.getEmail());
 			}
 		} catch (Exception e) {
 			response.setError(1);
