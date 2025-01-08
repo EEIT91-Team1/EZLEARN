@@ -3,6 +3,7 @@ package org.ezlearn.repository;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.ezlearn.model.Courses;
 import org.ezlearn.model.PurchasedCourses;
 import org.ezlearn.model.PurchasedCoursesId;
 import org.ezlearn.model.Users;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Repository;
 public interface PurchasedCoursesRepository extends JpaRepository<PurchasedCourses, PurchasedCoursesId> {
 
 	List<PurchasedCourses> findByUsers(Users users);
+	
+	List<PurchasedCourses> findByCourses(Courses courses);
 	
 	@Query("SELECT ROUND(COALESCE(AVG(p.courseRate), 0), 1) FROM PurchasedCourses p WHERE p.courses.courseId = :courseId")
 	BigDecimal findAverageRateByCourseId(@Param("courseId") Long courseId);

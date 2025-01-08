@@ -33,6 +33,14 @@ public class PurchasedCoursesController {
     }
 	
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
+	@GetMapping("/{courseId}")
+    public List<PurchasedCourses> getPurchasedCoursesByCourseId(@PathVariable Long courseId) {
+        Courses courses = new Courses();
+        courses.setCourseId(courseId);
+        return purchasedCoursesService.getPurchasedCoursesByCourses(courses);
+    }
+	
+	@CrossOrigin(origins = "http://127.0.0.1:5500")
     @GetMapping("/{courseId}/average-rate")
     public ResponseEntity<BigDecimal> getAverageRate(@PathVariable Long courseId) {
 		BigDecimal averageRate = purchasedCoursesService.getAverageRateForCourse(courseId);
