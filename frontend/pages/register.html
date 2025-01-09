@@ -22,7 +22,7 @@
         </h2>
         <hr class="border-black border-2 mb-4" />
         <!-- action="http://localhost:8080/user/register" method="post" enctype="multipart/form-data" -->
-        <form>
+        <form action="">
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
               姓名
@@ -92,8 +92,9 @@
               class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               name="phone" id="phone" type="tel" placeholder="輸入電話" />
           </div>
-          <div>
-            <p id="error"></p>
+          <div class="flex items-center justify-center mb-4">
+            <p id="error" class="text-red-600"></p>
+            <p id="success"></p>
           </div>
           <div class="flex items-center justify-center mb-4">
             <button
@@ -116,6 +117,14 @@
   <div id="footer"></div>
   <script src="../js/header-footer.js"></script>
   <script>
+    let nowdate = new Date();
+    let year = nowdate.getFullYear();
+    let month = nowdate.getMonth();
+    let day = nowdate.getDate();
+    month = (month + 1 < 10) ? "0" + (month + 1) : month + 1;
+    day = (day < 10) ? "0" + day : day;
+    $('#birthday').attr("max", year + "-" + month + "-" + day);
+
     let passwordeyeopen = 0;
     switchpassword.onclick = function () {
       if (passwordeyeopen == 0) {
@@ -148,18 +157,22 @@
     btn.onclick = function () {
       $('#error').text("")
       if ($('#username').val() == "") {
-        $('#error').text("姓名為空");
+        $('#error').text("姓名為空!");
       } else if ($('#email').val() == "") {
-        $('#error').text("信箱為空");
+        $('#error').text("信箱為空!");
+      } else if(!validateEmail($('#email').val())){
+        $('#error').text("信箱格式錯誤!");
       } else if ($('#password').val() == "") {
-        $('#error').text("密碼為空");
+        $('#error').text("密碼為空!");
       } else if ($('#password').val() != $('#comfirmpassword').val()) {
-        $('#error').text("密碼與確認密碼不一致");
+        $('#error').text("密碼與確認密碼不一致!");
       } else if ($('#birthday').val() == "") {
-        $('#error').text("生日為空");
+        $('#error').text("生日為空!");
       } else if ($('#phone').val() == "") {
-        $('#error').text("電話為空");
-      } else {
+        $('#error').text("電話為空!");
+      } else if(!validatetel($('#phone').val())){
+        $('#error').text("電話格式錯誤!");
+      }else {
         const data = {
           "email": $('#email').val(),
           "password": $('#password').val(),
@@ -181,16 +194,23 @@
           .then(result => {
 
             if (result == "true") {
-              $('#error').text("註冊成功，等待兩秒後進入登入頁面");
+              $('#success').text("註冊成功，等待兩秒後進入登入頁面");
               setTimeout(() => { window.location.href = './login.html' }, 2000);
             } else {
-              $('#error').text("信箱已被註冊");
+              $('#error').text("信箱已被註冊!");
             }
           })
       }
     }
 
-
+    function validateEmail(email) {
+      const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return re.test(email);
+    }
+    function validatetel(tel) {
+      const re = /^[0][0-9][0-9]{8}$/;
+      return re.test(tel);
+    }
     fetch("../components/navbar.html")
       .then((response) => response.text())
       .then((data) => {
