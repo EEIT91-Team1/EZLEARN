@@ -19,11 +19,13 @@
             <div class="p-8 w-96 bg-yellow-400">
                 <h2 class="text-2xl font-bold mb-6 text-center">登入</h2>
 
-                <button class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 mb-4">
+                <button class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 mb-4"
+                    onclick="googleLogin()">
                     <i class="bi bi-google"></i>
                     &nbsp;使用Google登入
                 </button>
-                <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-6">
+                <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-6"
+                    onclick="facebookLogin()">
                     <i class="bi bi-facebook"></i>
                     使用Facebook登入
                 </button>
@@ -67,7 +69,224 @@
     </main>
 
     <div id="footer"></div>
+    <script src="../js/header-footer.js"></script>
     <script>
+        var client_id =
+            "649255404146-k1di8e8iurqnjdei8hisnnhpdn37g0dl.apps.googleusercontent.com",
+            apiKey = "AIzaSyAWNx7NTP7Gdsrfn8rxLIRRfYgM7vxaTwQ",
+            scope =
+                "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read",
+            personFields = "names,emailAddresses,photos,genders,birthdays",
+            discovery_doc =
+                "https://www.googleapis.com/discovery/v1/apis/people/v1/rest",
+            resourceName = "people/me",
+            $persoanl_info = $("#persoanl_info"),
+            tokenClient;
+
+        loadApi();
+
+        function loadApi() {
+            $.getScript("https://apis.google.com/js/api.js", function () {
+                gapi.load("client", function () {
+                    gapi.client.init({
+                        apiKey: apiKey,
+                        discoveryDocs: [discovery_doc],
+                    });
+                });
+            });
+
+            $.getScript("https://accounts.google.com/gsi/client", function () {
+                tokenClient = google.accounts.oauth2.initTokenClient({
+                    client_id: client_id,
+                    scope: scope,
+                    callback: signIn_callback,
+                    error_callback: error_callback,
+                });
+            });
+
+            function signIn_callback(res) {
+                if (res.error !== undefined) {
+                    console.log(res.error);
+                    $persoanl_info.html(res.error);
+                }
+                if (res && res.access_token) {
+                    listAccountInfo();
+                }
+            }
+
+            function error_callback(res) {
+                console.log(res);
+                $persoanl_info.html(res.message);
+            }
+
+            //url轉成Base64
+            function urlToBase64(url) {
+                return fetch(url)
+                    .then((response) => response.blob())
+                    .then(
+                        (blob) =>
+                            new Promise((resolve, reject) => {
+                                const reader = new FileReader();
+                                reader.onloadend = () => resolve(reader.result.split(",")[1]); // 取出 Base64 部分
+                                reader.onerror = reject;
+                                reader.readAsDataURL(blob);
+                            })
+                    );
+            }
+
+            function listAccountInfo() {
+                gapi.client.people.people
+                    .get({
+                        resourceName: resourceName,
+                        personFields: personFields,
+                    })
+                    .then(async function (res) {
+                        var result = res.result,
+                            errorMessage = "請重新登入, 並勾選生日及性別!",
+                            idFromGoogle,
+                            nameFromGoogle,
+                            imgUrlFromGoogle,
+                            emailFromGoogle,
+                            genderFromGoogle,
+                            birthdayFromGoogle,
+                            birthdayFromGoogleStr;
+
+                        if (!result.genders || !result.birthdays) {
+                            alert(errorMessage);
+                            $persoanl_info.html(errorMessage);
+                            return;
+                        }
+
+                        idFromGoogle = result.resourceName.split("/")[1];
+                        nameFromGoogle = result.names[0].displayName;
+                        imgUrlFromGoogle = result.photos[0].url;
+                        emailFromGoogle = result.emailAddresses[0].value;
+                        genderFromGoogle = result.genders[0].formattedValue;
+                        try {  
+                            birthdayFromGoogle = result.birthdays[1].date;
+                        } catch (error) {
+                            birthdayFromGoogle = result.birthdays[0].date;                            
+                        }
+                        console.log(result);
+                        birthdayFromGoogleStr =
+                            birthdayFromGoogle.year +
+                            "-" +
+                            ((birthdayFromGoogle.month < 10) ? "0" + birthdayFromGoogle.month : birthdayFromGoogle.month) +
+                            "-" +
+                            ((birthdayFromGoogle.day < 10) ? "0" + birthdayFromGoogle.day : birthdayFromGoogle.day);
+
+                        await urlToBase64(imgUrlFromGoogle)
+                            .then((base64Image) => {
+                                sessionData = {
+                                    name: nameFromGoogle,
+                                    email: emailFromGoogle,
+                                    userID: idFromGoogle,
+                                    gender: genderFromGoogle,
+                                    birthday: birthdayFromGoogleStr,
+                                    blobBase64: base64Image,
+                                };
+                                sessionStorage.setItem(
+                                    "userData",
+                                    JSON.stringify(sessionData)
+                                );
+                                console.log(sessionData);
+                            })
+                            .catch((error) =>
+                                console.error("Error converting image to Base64", error)
+                            );
+                        // gg跳轉
+                        window.location.href = "./ggloginprofile.html";
+                    });
+            }
+        }
+
+        function googleLogin() {
+            if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken();
+            } else {
+                tokenClient.requestAccessToken({
+                    prompt: "",
+                });
+            }
+        };
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "28078365808444491",
+                cookie: true,
+                xfbml: true,
+                version: "v21.0",
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        // 加載FacebookSDK腳本
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/zh_CN/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, "script", "facebook-jssdk");
+
+        function urlToBase64(url) {
+            return fetch(url)
+                .then((response) => response.blob())
+                .then(
+                    (blob) =>
+                        new Promise((resolve, reject) => {
+                            const reader = new FileReader();
+                            reader.onloadend = () => resolve(reader.result.split(",")[1]); // 取出 Base64 部分
+                            reader.onerror = reject;
+                            reader.readAsDataURL(blob);
+                        })
+                );
+        }
+
+        function facebookLogin() {
+            FB.login(
+                function (response) {
+                    var sessionData, fbName, fbEmail, userID;
+                    //await (()=>{})
+                    if (response.status === "connected") {
+                        userID = response.authResponse.userID; sessionStorage.setItem("userID", userID);
+                        FB.api(
+                            "/me",
+                            { fields: "id,name,email,picture" },
+                            async function (profileResponse) {
+                                const imageUrl = profileResponse.picture.data.url;
+                                await urlToBase64(imageUrl)
+                                    .then((base64Image) => {
+                                        sessionData = {
+                                            name: profileResponse.name,
+                                            email: profileResponse.email,
+                                            blobBase64: base64Image,
+                                        };
+                                        sessionStorage.setItem(
+                                            "userData",
+                                            JSON.stringify(sessionData)
+                                        );
+                                        console.log(sessionData);
+                                        console.log(sessionData.blobBase64);
+                                    })
+                                    .catch((error) =>
+                                        console.error("Error converting image to Base64", error)
+                                    );
+                                // fb跳轉
+                                window.location.href = "./fbloginprofile.html";
+                            }
+                        );
+                    } else {
+                        alert("用戶未授權登入");
+                    }
+                },
+                { scope: "public_profile,email" }
+            );
+        }
         btn.onclick = function () {
             const data = {
                 "email": $('#email').val(),

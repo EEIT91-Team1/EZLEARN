@@ -3,35 +3,30 @@ package org.ezlearn.service;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.ezlearn.model.Courses;
 import org.ezlearn.model.Lessons;
 import org.ezlearn.model.Posts;
-import org.ezlearn.model.PurchasedCourses;
 import org.ezlearn.model.Questions;
 import org.ezlearn.model.UserInfo;
 import org.ezlearn.model.Users;
-import org.ezlearn.repository.Coursesrepository;
-import org.ezlearn.repository.LessonsRepository;
+import org.ezlearn.repository.CoursesRepository;
 import org.ezlearn.repository.PostsRepository;
-import org.ezlearn.repository.Questionrepository;
+import org.ezlearn.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 @Service
 public class TeacherService {
 	@Autowired
-	private Coursesrepository coursesrepository;
+	private CoursesRepository coursesrepository;
 	@Autowired
-	private Questionrepository questionrepository;
+	private QuestionRepository questionrepository;
 	@Autowired
 	private PostsRepository postsRepository;
 	
@@ -67,6 +62,9 @@ public class TeacherService {
 					allquestionlist.add(question);
 				}
 			}
+		}
+		for(Questions question: allquestionlist) {
+			System.out.println(question.getUserInfo().getUserIntro());
 		}
 		return allquestionlist;
 	}

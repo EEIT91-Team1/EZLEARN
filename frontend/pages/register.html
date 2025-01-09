@@ -105,6 +105,7 @@
   </main>
 
   <div id="footer"></div>
+  <script src="../js/header-footer.js"></script>
   <script>
     btn.onclick = function () {
       $('#error').text("")
@@ -124,8 +125,7 @@
         const data = {
           "email": $('#email').val(),
           "password": $('#password').val(),
-          "comfirmpassword": $('#comfirmpassword').val(),
-          "userinfo": {
+          "userInfo": {
             "userName": $('#username').val(),
             "birthday": $('#birthday').val(),
             "gender": $('#gender').val(),

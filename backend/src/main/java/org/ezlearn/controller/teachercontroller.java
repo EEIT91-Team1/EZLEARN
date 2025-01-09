@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/teacher")
-public class teachercontroller {
+public class TeacherController {
 	@Autowired
 	private TeacherService teacherservice;
 	

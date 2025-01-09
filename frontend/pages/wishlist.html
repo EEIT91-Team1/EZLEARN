@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hants">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EZLEARN</title>
+    <link rel="icon" href="../imgs/icon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <main>
+      <div class="w-full h-72 bg-slate-300 overflow-hidden relative">
+        <img src="../imgs/wishlist3.png" class="absolute left-96 -top-80" />
+        <img
+          src="../imgs/wishlist2.png"
+          class="absolute right-2 top-2"
+          alt=""
+        />
+        <img
+          src="../imgs/wishlist.png"
+          class="absolute left-4 xl:left-56 bottom-2 h-36"
+        />
+      </div>
+      <div class="container mx-auto px-4 py-8">
+        <!-- <h1 class="text-3xl font-bold mb-8 mx-8">願望清單</h1> -->
+        <div class="flex justify-center my-8">
+          <div class="flex flex-wrap justify-start w-full" id="divResults">
+            <!-- <div
+              class="min-w-80 m-2 bg-white flex flex-col items-center group cursor-pointer"
+            >
+              <div class="max-w-80 max-h-44 overflow-hidden border-2">
+                <img
+                  src="../imgs/learnQA.png"
+                  class="object-cover group-hover:scale-105 duration-300"
+                />
+              </div>
+              <div class="w-80 py-4 px-2">
+                <p class="text-lg font-bold max-h-14">
+                  來杯Java吧! 2024 Java 入門到精通課程
+                </p>
+                <p class="text-gray-600">Brad Chao</p>
+                <p>
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                  ><i class="bi bi-star"></i>(4.0)
+                </p>
+                <p class="text-xl font-semibold">$800</p>
+              </div>
+            </div> -->
+            <!-- <div class="flex flex-col w-full items-center">
+              <p class="text-4xl mb-12 font-bold">尚未加入課程至願望清單</p>
+              <div>
+                <button
+                  onclick="href('./search.html')"
+                  class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
+                >
+                  探索課程
+                </button>
+                <button
+                  onclick="href('./my-courses.html')"
+                  class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
+                >
+                  我的課程
+                </button>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <button
+            onclick="href('./search.html')"
+            class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
+          >
+            探索課程
+          </button>
+          <button
+            onclick="href('./my-courses.html')"
+            class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
+          >
+            我的課程
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/header-footer.js"></script>
+    <script src="../js/wishList.js"></script>
+  </body>
+</html>

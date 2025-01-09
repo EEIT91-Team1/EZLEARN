@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,12 +50,13 @@ public class Questions {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private Users user;
-	public Users getUser() {
-		return user;
+	private UserInfo userInfo;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
-	public void setUser(Users user) {
-		this.user = user;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
+	
 	
 }

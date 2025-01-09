@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface Questionrepository extends JpaRepository<Questions, Long>{
+public interface QuestionRepository extends JpaRepository<Questions, Long>{
 //	@Query(value = "select * from questions where lesson_id = ?1",nativeQuery = true)
 	List<Questions> findByLesson(Lessons lesson);
 }

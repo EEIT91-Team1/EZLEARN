@@ -1,9 +1,7 @@
 package org.ezlearn.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.math.BigDecimal;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -19,7 +17,7 @@ public class PurchasedCourses {
 	private PurchasedCoursesId purchasedCoursesId;
 	
 	private String courseReview;
-	private Double courseRate;
+	private Integer courseRate;
 	
 
 	public String getCourseReview() {
@@ -28,10 +26,10 @@ public class PurchasedCourses {
 	public void setCourseReview(String courseReview) {
 		this.courseReview = courseReview;
 	}
-	public Double getCourseRate() {
+	public Integer getCourseRate() {
 		return courseRate;
 	}
-	public void setCourseRate(Double courseRate) {
+	public void setCourseRate(Integer courseRate) {
 		this.courseRate = courseRate;
 	}
 	public PurchasedCoursesId getPurchasedCoursesId() {

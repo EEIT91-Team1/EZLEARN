@@ -2,6 +2,9 @@ package org.ezlearn.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,9 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Transient;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class Users {
 	
 	@Id
@@ -20,14 +23,7 @@ public class Users {
 	private Long userId;
 	private String email;
 	private String password;
-	@Transient
-	private String comfirmpassword;
-	public String getComfirmpassword() {
-		return comfirmpassword;
-	}
-	public void setComfirmpassword(String comfirmpassword) {
-		this.comfirmpassword = comfirmpassword;
-	}
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -55,15 +51,26 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<PurchasedCourses> purchasedCourses;
 	
-	//---------------------
-	@OneToOne(mappedBy = "users",cascade = CascadeType.ALL)
-	private UserInfo userinfo;
-	public UserInfo getUserinfo() {
-		return userinfo;
+	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+    private UserInfo userInfo;
+
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
-	public void setUserinfo(UserInfo userinfo) {
-		this.userinfo = userinfo;
-		this.userinfo.setUser(this);
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+		this.userInfo.setUsers(this);
 	}
+	
+	@OneToMany(mappedBy="users")
+	private List<WishList> wishList;
+	public List<WishList> getWishList() {
+		return wishList;
+	}
+	public void setWishList(List<WishList> wishList) {
+		this.wishList = wishList;
+	}
+
 	
 }

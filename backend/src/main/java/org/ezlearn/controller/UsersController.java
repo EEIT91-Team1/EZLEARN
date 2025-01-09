@@ -1,46 +1,38 @@
 package org.ezlearn.controller;
 
-import java.nio.file.Path;
-import java.util.List;
+import java.util.Map;
 
-import org.ezlearn.model.Questions;
+import org.ezlearn.DTO.LoginResponse;
 import org.ezlearn.model.Users;
-import org.ezlearn.model.loginresponse;
-import org.ezlearn.repository.usersrepository;
-import org.ezlearn.service.usersservice;
+import org.ezlearn.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import jakarta.servlet.http.HttpSession;
 
-
 @RestController
 @RequestMapping("/user")
-public class usercontroller {
+public class UsersController {
+	
 	@Autowired
-	private usersservice usersservice;
+	UsersService usersService;
 	
 	@PostMapping("/register")
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	public boolean register(@RequestBody Users user) {
-		boolean n = usersservice.adduser(user);	
-		System.out.println(n);
+		boolean n = usersService.adduser(user);	
 		return n;
 	}
 	
 	@PostMapping("/login")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
-	public loginresponse login(@RequestBody Users user,HttpSession session) {
-		loginresponse response = usersservice.loginuser(user,session);
+	public LoginResponse login(@RequestBody Users user, HttpSession session) {
+		LoginResponse response = usersService.loginuser(user, session);
 		return response;
 	}
 	
@@ -53,14 +45,18 @@ public class usercontroller {
 	@GetMapping("/islogin")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public boolean test(HttpSession session) {
-		return usersservice.islogin(session);
+		return usersService.islogin(session);
 	}
-//	
-//	@GetMapping("/test")
-//	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
-//	public List<Questions> test(HttpSession session) {
-//		users user =  (users)session.getAttribute("user");
-//		return user.getUserid();
-//	}
 	
+	@GetMapping("/logindata")
+	public Map<String,String> getMethodName(HttpSession session) {
+		return usersService.loginData(session);
+	}
+
+	@GetMapping("/getprofile")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public Users getinfo(HttpSession session) {
+		Users user = usersService.getinfofromsession(session);
+		return user;
+	}
 }
