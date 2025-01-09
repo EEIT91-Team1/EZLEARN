@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
@@ -18,11 +16,11 @@ import jakarta.persistence.Table;
 public class UserInfo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	private String gender;
 	private String birthday;
 	private byte[] avatar;
+	private String phone;
 	private String userName;
 	private String userIntro;
 	
@@ -58,6 +56,14 @@ public class UserInfo {
 		this.avatar = avatar;
 	}
 	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
