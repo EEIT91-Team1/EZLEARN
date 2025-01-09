@@ -14,34 +14,40 @@
 <body>
     <div id="navbar"></div>
 
-    <main class=" bg-blue-500" style="height: 80vh;">
-        <div class="flex justify-center items-center bg-red-600 min-h-full">
-            <div class="p-8 w-96 bg-yellow-400">
+    <main class="flex justify-center relative" style="min-height: 80vh;">
+        <div class="flex justify-center items-center min-h-full">
+            <div class="p-8 w-96 border border-2 rounded-lg">
                 <h2 class="text-2xl font-bold mb-6 text-center">登入</h2>
 
-                <button class="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 mb-4"
+                <button class="rounded-lg w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 mb-4"
                     onclick="googleLogin()">
                     <i class="bi bi-google"></i>
                     &nbsp;使用Google登入
                 </button>
-                <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-6"
+                <button class="rounded-lg w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 mb-6"
                     onclick="facebookLogin()">
                     <i class="bi bi-facebook"></i>
                     使用Facebook登入
                 </button>
 
-                <hr class="border-black border-2 mb-4">
+                <hr class="border-black border mb-4">
                 <form>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="email">電子信箱</label>
-                        <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight" name="email"
-                            id="email" type="email" placeholder="輸入電子信箱">
+                        <input class="rounded-lg appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
+                            name="email" id="email" type="email" placeholder="輸入電子信箱">
                     </div>
 
                     <div class="mb-2">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="password">密碼</label>
-                        <input class="appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
-                            name="password" id="password" type="password" placeholder="輸入密碼">
+                        <div class="relative">
+                            <input
+                                class="rounded-lg appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
+                                name="password" id="password" type="password" placeholder="輸入密碼">
+                            <i id="switchpassword"
+                                class="bi bi-eye-slash-fill absolute right-3 top-1/2 transform -translate-y-1/2"></i>
+                        </div>
+
                     </div>
 
                     <div class="flex justify-end mb-2">
@@ -51,8 +57,8 @@
                         </a>
                     </div>
                     <p id="errormesg"></p>
-                    <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2" type="button"
-                        id="btn">
+                    <button class="rounded-lg w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2"
+                        type="button" id="btn">
                         登入
                     </button>
 
@@ -71,6 +77,21 @@
     <div id="footer"></div>
     <script src="../js/header-footer.js"></script>
     <script>
+        let eyeopen = 0;
+        switchpassword.onclick = function () {
+            if (eyeopen == 0) {
+                $('#password').attr("type", "text");
+                $('#switchpassword').removeClass("bi-eye-slash-fill");
+                $('#switchpassword').addClass("bi-eye-fill")
+                eyeopen = 1;
+            } else {
+                $('#password').attr("type", "password");
+                $('#switchpassword').removeClass("bi-eye-fill");
+                $('#switchpassword').addClass("bi-eye-slash-fill")
+                eyeopen = 0;
+            }
+        }
+
         var client_id =
             "649255404146-k1di8e8iurqnjdei8hisnnhpdn37g0dl.apps.googleusercontent.com",
             apiKey = "AIzaSyAWNx7NTP7Gdsrfn8rxLIRRfYgM7vxaTwQ",
@@ -162,10 +183,10 @@
                         imgUrlFromGoogle = result.photos[0].url;
                         emailFromGoogle = result.emailAddresses[0].value;
                         genderFromGoogle = result.genders[0].formattedValue;
-                        try {  
+                        try {
                             birthdayFromGoogle = result.birthdays[1].date;
                         } catch (error) {
-                            birthdayFromGoogle = result.birthdays[0].date;                            
+                            birthdayFromGoogle = result.birthdays[0].date;
                         }
                         console.log(result);
                         birthdayFromGoogleStr =
