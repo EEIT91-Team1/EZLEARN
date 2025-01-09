@@ -13,8 +13,11 @@
 
 <body>
     <div id="navbar"></div>
-
-    <main class="flex justify-center relative" style="min-height: 80vh;">
+   
+    <main class="flex justify-center relative" style="min-height: 80vh;
+     background-image: url('../imgs/indexBg2.png'),url('../imgs/indexBg1.png');
+     background-repeat: no-repeat,no-repeat;background-position: right,left; 
+     background-size: contain,contain; ">
         <div class="flex justify-center items-center min-h-full">
             <div class="p-8 w-96 border border-2 rounded-lg">
                 <h2 class="text-2xl font-bold mb-6 text-center">登入</h2>
@@ -56,10 +59,10 @@
                             忘記密碼?
                         </a>
                     </div>
-                    <div class="flex items-center justify-center mb-4"> 
+                    <div class="flex items-center justify-center mb-4">
                         <p id="errormesg" class="text-red-600"></p>
                     </div>
-                    
+
                     <button class="rounded-lg w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2"
                         type="button" id="btn">
                         登入

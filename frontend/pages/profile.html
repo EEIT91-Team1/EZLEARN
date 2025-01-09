@@ -20,12 +20,14 @@
 <body>
     <div id="navbar"></div>
 
-    <main class="bg-blue-500">
-        <div class="flex justify-center items-center bg-red-600 min-h-full">
-            <div class="p-8 w-96 bg-yellow-400">
+    <main style="background-image: url('../imgs/indexBg2.png'),url('../imgs/indexBg1.png');
+    background-repeat: no-repeat,no-repeat;background-position: right,left; 
+     background-size: 500px,contain;" >
+        <div class="flex justify-center items-center min-h-full">
+            <div class="p-8 w-96 border border-2">
                 <div class="mb-4 flex justify-center items-center">
                     <div>
-                        <img class="rounded-full mb-4 h-80 w-80" src="../imgs/12-1.png" alt="Avatar" id="imgAvatar" />
+                        <img class="rounded-full mb-4 h-40 w-40" src="../imgs/12-1.png" alt="Avatar" id="imgAvatar" />
                         <div class="text-sm text-black text-center">
                             <label for="file-upload" class="cursor-pointer">
                                 <span class="font-medium px-2 py-1 border-1 border-double border-black rounded-md">
@@ -54,15 +56,11 @@
                             電子郵件
                         </label>
                         <input
-                            class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-400 h-9 focus:outline-none"
-                            id="email" type="email" readonly /><button type="button"
-                            class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
-                            onclick="toggleEdit('email')">
-                            <a class="bi bi-pencil"></a>
-                        </button>
+                            class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 h-9 focus:outline-none"
+                            id="email" type="email" readonly />
                     </div>
                     <div class="flex items-center">
-                        <div class="mb-6 w-2/3">
+                        <div class="mb-6 w-7/12">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="birthday">
                                 生日
                             </label>
@@ -74,13 +72,13 @@
                                 <a class="bi bi-pencil"></a>
                             </button>
                         </div>
-                        <div class="mb-6 ml-4 w-1/3">
+                        <div class="mb-6 ml-4 w-5/12">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">
                                 性別
                             </label>
                             <select
                                 class="appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 bg-neutral-400 leading-tight focus:outline-none focus:shadow-outline"
-                                id="gender">
+                                id="gender" disabled>
                                 <option value="male" id="male">男性</option>
                                 <option value="female" id="female">女性</option>
                             </select><button type="button"
@@ -117,9 +115,12 @@
                             </button>
                         </div>
                     </div>
-                    <div>
-                        <p id="error"></p>
+
+                    <div class="flex items-center justify-center mb-4">
+                        <p id="error" class="text-red-600"></p>
+                        <p id="success"></p>
                     </div>
+
                     <div class="flex items-center justify-center">
                         <button id="save"
                             class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
@@ -156,6 +157,13 @@
     <div id="footer"></div>
     <script src="../js/header-footer.js"></script>
     <script>
+        let nowdate = new Date();
+        let year = nowdate.getFullYear();
+        let month = nowdate.getMonth();
+        let day = nowdate.getDate();
+        month = (month + 1 < 10) ? "0" + (month + 1) : month + 1;
+        day = (day < 10) ? "0" + day : day;
+        $('#birthday').attr("max", year + "-" + month + "-" + day);
 
         const fileInput = document.getElementById('file-upload');
         const canvas = document.getElementById('canvas');
@@ -290,9 +298,11 @@
         function toggleEditSelect() {
             const btnToggleEdit = document.getElementById("gender");
             if (btnToggleEdit.disabled) {
+                $('#gender').removeClass('appearance-none');
                 btnToggleEdit.disabled = false;
                 btnToggleEdit.style.backgroundColor = "#ffffff";
             } else {
+                $('#gender').addClass('appearance-none');
                 btnToggleEdit.disabled = true;
                 btnToggleEdit.style.backgroundColor = "rgb(163,163,163)";
             }
@@ -313,41 +323,45 @@
         }
 
         save.onclick = function (e) {
+            $('#error').text("");
             e.preventDefault();
-            if($('#imgAvatar').attr("src")=='../imgs/12-1.png'){
-                base64String ='';
-            }else{
+            if ($('#imgAvatar').attr("src") == '../imgs/12-1.png') {
+                base64String = '';
+            } else {
                 var base64Index = $('#imgAvatar').attr("src").indexOf(',');
                 var base64String = $('#imgAvatar').attr("src").substring(base64Index + 1);
-
             }
-            const data = {
-                "avatar": base64String,
-                "userName": $('#username').val(),
-                "birthday": $('#birthday').val(),
-                "gender": $('#gender').val(),
-                "phone": $('#phone').val(),
-                "userIntro": $('#userIntro').val()
-            };
-            fetch("http://localhost:8080/user/updateinfo", {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-                credentials: 'include'
-            })
-                .then((response) => response.text())
-                .then(result => {
-                    console.log(result);
-
-                    if (result == "UserInfo updated successfully") {
-                        $('#error').text("資料更新成功，兩秒後重新載入頁面");
-                        setTimeout(() => { window.location.href = 'http://127.0.0.1:5500/pages/profile.html' }, 2000);
-                    } else {
-                        $('#error').text("資料更新失敗");
-                    }
+            if (!validatetel($('#phone').val())) {
+                $('#error').text("電話格式錯誤!");
+            } else {
+                const data = {
+                    "avatar": base64String,
+                    "userName": $('#username').val(),
+                    "birthday": $('#birthday').val(),
+                    "gender": $('#gender').val(),
+                    "phone": $('#phone').val(),
+                    "userIntro": $('#userIntro').val()
+                };
+                fetch("http://localhost:8080/user/updateinfo", {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
                 })
+                    .then((response) => response.text())
+                    .then(result => {
+                        console.log(result);
+
+                        if (result == "UserInfo updated successfully") {
+                            $('#success').text("資料更新成功，兩秒後重新載入頁面");
+                            setTimeout(() => { window.location.href = 'http://127.0.0.1:5500/pages/profile.html' }, 2000);
+                        } else {
+                            $('#error').text("資料更新失敗");
+                        }
+                    })
+            }
         }
 
         window.onload = function () {
@@ -388,6 +402,11 @@
                     window.location.href = 'login.html';
                 }
             })
+
+        function validatetel(tel) {
+            const re = /^[0][0-9][0-9]{8}$/;
+            return re.test(tel);
+        }
 
         fetch("../components/navbar.html")
             .then((response) => response.text())
