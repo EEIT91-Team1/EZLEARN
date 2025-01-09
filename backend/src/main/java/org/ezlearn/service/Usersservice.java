@@ -25,9 +25,7 @@ public class UsersService {
 		if (opt.isPresent()) {
 			return false;
 		}
-		
 		registerUser.setPassword(BCrypt.hashpw(registerUser.getPassword(), BCrypt.gensalt()));
-		System.out.println(registerUser.getPassword()); 
 		usersRepository.save(registerUser);
 		return true;
 	}
@@ -79,4 +77,16 @@ public class UsersService {
 		return data;
 	}
 	
+	public Users getinfofromsession(HttpSession session) {
+		Users loginuser = (Users)session.getAttribute("user");
+		Optional<Users> opt = usersRepository.findByEmail((String)loginuser.getEmail());
+		Users user = new Users();
+		try {
+			user = opt.get();
+			user.setPassword("");
+			return user;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 }

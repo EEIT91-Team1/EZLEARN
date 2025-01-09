@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <div class="static h-[74px]"></div>
 <header
   class="fixed w-full top-0 flex flex-row justify-between border-b z-[3] bg-white border-gray-400 font-bold text-[#474849] h-[74px]"
@@ -135,13 +137,31 @@
         ></i>
       </a>
     </div>
-    <div class="hidden lg:flex">
-      <a href="">
-        <i
-          class="bi bi-bell text-2xl mr-6 hover:text-cyan-600 duration-200"
-          title="通知"
-        ></i>
-      </a>
+    <div class="hidden lg:flex relative" id="notify">
+      <i
+        id="iconNotify"
+        class="bi bi-bell text-2xl mr-6 hover:text-cyan-600 duration-200 cursor-pointer"
+        title="通知"
+      ></i>
+      <!-- <p
+        class="rounded-full h-5 w-5 text-sm text-center text-white bg-red-500 absolute -top-1 right-4"
+      >
+        1
+      </p> -->
+      <div
+        id="divNotify"
+        class="absolute overflow-y-auto overflow-x-hidden right-0 top-12 w-96 max-h-96 bg-white border border-gray-200 shadow-lg opacity-0 scale-95 transform transition duration-200"
+      >
+        <ul class="py-2" id="notifyUl">
+          <!-- <li>
+            <a
+              href="../pages/notify.html"
+              class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider h-24"
+              >123</a
+            >
+          </li> -->
+        </ul>
+      </div>
     </div>
     <div class="relative group py-2 z-20">
       <a href="" class="">
@@ -248,3 +268,5 @@
     </div>
   </div>
 </header>
+
+<script src="../js/navbar.js"></script>
