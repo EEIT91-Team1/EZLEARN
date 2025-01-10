@@ -27,15 +27,42 @@ public class NotifyService {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("content", notifyList.getNotify().getNotifyContent());
 			map.put("checked", notifyList.isChecked() + "");
-			map.put("time", notifyList.getCreatedAt());
+			map.put("time", notifyList.getCreatedAt());			
+			map.put("courseName",notifyList.getNotify().getCourses().getCourseName());
+			map.put("courseId",notifyList.getNotify().getCourseId()+"");
+			map.put("notifyId",notifyList.getNotifyId()+"");	
 			listmap.addFirst(map);
 		}
 		return listmap;
 	}
 
-	public int checked(HttpSession session) {
+	public int checkedAll(HttpSession session) {
 		Users user = (Users) session.getAttribute("user");
-		return notifyListRepository.checked(user.getUserId());
-		
+		return notifyListRepository.checkedAll(user.getUserId());
+	}
+	
+	public int checkedNotify(HttpSession session,String notifyId) {
+		Users user = (Users) session.getAttribute("user");
+		return notifyListRepository.checkedNotify(user.getUserId(),Long.parseLong(notifyId));
+	}
+
+	public int checkedCourse(HttpSession session,String courseId) {
+		Users user = (Users) session.getAttribute("user");
+		return notifyListRepository.checkedCourse(user.getUserId(),Long.parseLong(courseId));
+	}
+	
+	public int deleteAll(HttpSession session) {
+		Users user = (Users) session.getAttribute("user");
+		return notifyListRepository.deleteAll(user.getUserId());
+	}
+	
+	public int deleteNotify(HttpSession session,String notifyId) {
+		Users user = (Users) session.getAttribute("user");
+		return notifyListRepository.deleteNotify(user.getUserId(),Long.parseLong(notifyId));
+	}
+	
+	public int deleteCourse(HttpSession session,String courseId) {
+		Users user = (Users) session.getAttribute("user");
+		return notifyListRepository.deleteCourse(user.getUserId(),Long.parseLong(courseId));
 	}
 }

@@ -137,4 +137,16 @@ public class Courses {
 	public void setLessonlist(List<Lessons> lessonlist) {
 		this.lessons = lessonlist;
 	}
+	
+	@OneToMany(mappedBy = "courses")
+	private List<Notify> notify;
+
+	public List<Notify> getNotify() {
+		return notify;
+	}
+
+	public void setNotify(List<Notify> notify) {
+		this.notify = notify;
+	}
+	
 }

@@ -38,69 +38,85 @@
         /> -->
       </div>
       <div class="container mx-auto px-4 py-8">
-        <div class="flex justify-center my-8">
-          <div class="flex flex-wrap justify-start w-full" id="divResults">
-            <!-- <div
-              class="min-w-80 m-2 bg-white flex flex-col items-center group cursor-pointer"
-            >
-              <div class="max-w-80 max-h-44 overflow-hidden border-2">
-                <img
-                  src="../imgs/learnQA.png"
-                  class="object-cover group-hover:scale-105 duration-300"
-                />
+        <div class="flex justify-center mb-8 mt-4">
+          <div class="flex flex-col justify-start w-full sm:px-24 lg:px-40">
+            <div id="divCount">
+              <p
+                class="text-3xl flex justify-between pl-8 pr-4 pb-4 mb-4 min-h-56"
+              >
+                無通知
+              </p>
+              <!-- <div
+                class="text-3xl flex justify-between pl-8 pr-4 pb-4 mb-4 border-b-4 border-black relative"
+              >
+                <p>6則通知</p>
+              <button
+                id="btnMenu"
+                class="text-gray-500 hover:text-black rounded-md duration-300 text-4xl"
+              >
+                <i class="bi bi-list"></i>
+              </button>
+              <div
+                id="divMenu"
+                class="z-10 hidden absolute overflow-y-auto overflow-x-hidden right-0 top-10 w-64 bg-white border border-gray-200 shadow-lg"
+              >
+                <ul class="py-1 px-3 text-xl">
+                  <li class="my-2 p-2 cursor-pointer hover:bg-gray-100">
+                    <i class="bi bi-check-lg"></i>　全部標示為已讀
+                  </li>
+                  <li class="my-2 p-2 cursor-pointer hover:bg-gray-100">
+                    <i class="bi bi-trash"></i>　刪除全部通知
+                  </li>
+                </ul>
               </div>
-              <div class="w-80 py-4 px-2">
-                <p class="text-lg font-bold max-h-14">
-                  來杯Java吧! 2024 Java 入門到精通課程
-                </p>
-                <p class="text-gray-600">Brad Chao</p>
-                <p>
-                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                  ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
-                  ><i class="bi bi-star"></i>(4.0)
-                </p>
-                <p class="text-xl font-semibold">$800</p>
-              </div>
-            </div> -->
-            <!-- <div class="flex flex-col w-full items-center">
-              <p class="text-4xl mb-12 font-bold">尚未加入課程至願望清單</p>
-              <div>
+              </div> -->
+            </div>
+            <div id="divResults">
+              <!-- <div
+                class="relative hover:bg-gray-100 shadow-md border-2 text-xl mx-4 my-2 rounded-lg tracking-wide leading-relaxed"
+              >
+                <a href="">
+                  <div
+                    class="min-h-36 py-4 pl-8 pr-12 flex flex-col justify-between"
+                  >
+                    <p>
+                      在「2024-JAVA軟體工程師全教學」中有新的公告在「2024-JAVA軟體工程師全教學」中有新的公告在「2024-JAVA軟體工程師全教學」中有新的公告在「2024-JAVA軟體工程師全教學」中有新的公告
+                    </p>
+                    <p class="text-lg text-gray-500">16小時前</p>
+                  </div>
+                </a>
                 <button
-                  onclick="href('./search.html')"
-                  class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
+                  class="btnMenu absolute top-2 right-2 text-3xl text-gray-500 hover:text-black duration-300"
                 >
-                  探索課程
+                  <i class="bi bi-list"></i>
                 </button>
-                <button
-                  onclick="href('./my-courses.html')"
-                  class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
+                <div
+                  class="divMenu z-10 hidden absolute overflow-y-auto overflow-x-hidden right-0 top-10 w-72 bg-white border border-gray-200 shadow-lg"
                 >
-                  我的課程
-                </button>
-              </div>
-            </div> -->
+                  <ul class="py-1 px-3 text-lg">
+                    <li class="my-1 p-2 cursor-pointer hover:bg-gray-100">
+                      <i class="bi bi-check-lg"></i>　標示為已讀
+                    </li>
+                    <li class="my-1 p-2 cursor-pointer hover:bg-gray-100">
+                      <i class="bi bi-list-check"></i>　相同課程標示為已讀
+                    </li>
+                    <li class="my-1 p-2 cursor-pointer hover:bg-gray-100">
+                      <i class="bi bi-trash"></i>　刪除該通知
+                    </li>
+                    <li class="my-1 p-2 cursor-pointer hover:bg-gray-100">
+                      <i class="bi bi-trash-fill"></i>　刪除相同課程通知
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+            </div>
           </div>
-        </div>
-        <div class="flex justify-center">
-          <button
-            onclick="href('./search.html')"
-            class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
-          >
-            探索課程
-          </button>
-          <button
-            onclick="href('./my-courses.html')"
-            class="p-8 mx-2 text-3xl border-2 rounded-md hover:bg-blue-400 duration-300"
-          >
-            我的課程
-          </button>
         </div>
       </div>
     </main>
 
     <div id="footer"></div>
-
+    <script src="../js/notify.js"></script>
     <script src="../js/header-footer.js"></script>
-    <script src="../js/wishList.js"></script>
   </body>
 </html>
