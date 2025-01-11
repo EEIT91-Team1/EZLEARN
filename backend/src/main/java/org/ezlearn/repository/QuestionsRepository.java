@@ -12,4 +12,6 @@ public interface QuestionsRepository extends JpaRepository<Questions, Long>{
 
 	List<Questions> findByLesson(Lessons lesson);
 	
+	List<Questions> findByLessonIn(List<Lessons> lessons);
+	
 }
