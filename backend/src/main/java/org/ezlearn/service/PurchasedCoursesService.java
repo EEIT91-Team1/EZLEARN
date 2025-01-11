@@ -10,6 +10,8 @@ import org.ezlearn.repository.PurchasedCoursesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class PurchasedCoursesService {
 	
@@ -26,6 +28,17 @@ public class PurchasedCoursesService {
 	
 	public BigDecimal getAverageRateForCourse(Long courseId) {
 	    return purchasedCoursesRepository.findAverageRateByCourseId(courseId);
+	}
+	
+	public Boolean isPurchased(HttpSession session, Long courseId) {
+		Users user = (Users)session.getAttribute("user");
+		List<PurchasedCourses> myCourses = purchasedCoursesRepository.findByUsers(user);
+		for (PurchasedCourses course : myCourses) {
+			if (course.getCourses().getCourseId() == courseId) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
