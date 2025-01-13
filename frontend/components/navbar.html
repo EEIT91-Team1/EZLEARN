@@ -145,14 +145,22 @@
         ></i>
       </a>
     </div>
-    <div class="hidden lg:flex">
-      <a href="">
-        <i
-          class="bi bi-bell text-2xl mr-6 hover:text-cyan-600 duration-200"
-          title="通知"
-        ></i>
-      </a>
+
+    <div class="hidden lg:flex relative" id="notify">
+      <i
+        id="iconNotify"
+        class="bi bi-bell text-2xl mr-6 hover:text-cyan-600 duration-200 cursor-pointer"
+        title="通知"
+      ></i>
+
+      <div
+        id="divNotify"
+        class="hidden absolute overflow-y-auto overflow-x-hidden right-0 top-12 w-96 max-h-96 bg-white border border-gray-200 shadow-lg opacity-0 scale-95 transform transition duration-200"
+      >
+        <ul class="py-2" id="notifyUl"></ul>
+      </div>
     </div>
+
     <div class="relative group py-2 z-20">
       <a href="" class="">
         <img
@@ -210,7 +218,7 @@
           </li>
           <li class="border-t border-gray-200">
             <a
-              href=""
+              href="../pages/notify.html"
               class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
             >
               <i class="bi bi-bell mx-2"></i>通知</a
@@ -265,3 +273,5 @@
     </div>
   </div>
 </header>
+
+<script src="../js/navbar.js"></script>
