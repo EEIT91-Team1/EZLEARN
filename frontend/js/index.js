@@ -1,16 +1,28 @@
+//計算時間
+function timeCal(calTime) {
+  let date = new Date();
+  let time = parseInt(date - Date.parse(calTime)) / 1000;
+  let timeText = "";
+  if (time < 60 * 60 * 24) {
+    timeText = parseInt(time / 60 / 60) + "小時前";
+    if (time < 60 * 60) {
+      timeText = parseInt(time / 60) + "分鐘前";
+      if (time < 60) {
+        timeText = parseInt(time) + "秒前";
+      }
+    }
+  } else {
+    timeText = parseInt(time / 60 / 60 / 24) + "天前";
+  }
+  return timeText;
+}
+
 $(document).ready(function () {
   //課程推薦輪播
-  const recommedCarousel = document.getElementById(
-    "recommedCarousel"
-  );
-  const btnRecommedPrev = document.getElementById(
-    "btnRecommedPrev"
-  );
-  const btnRecommedNext = document.getElementById(
-    "btnRecommedNext"
-  );
-  const recommedPage =
-    document.getElementById("recommedPage");
+  const recommedCarousel = document.getElementById("recommedCarousel");
+  const btnRecommedPrev = document.getElementById("btnRecommedPrev");
+  const btnRecommedNext = document.getElementById("btnRecommedNext");
+  const recommedPage = document.getElementById("recommedPage");
   let currentRecommedPage = 1;
   let currentRecommedIndex = 0;
 
@@ -21,9 +33,7 @@ $(document).ready(function () {
 
   btnRecommedPrev.addEventListener("click", () => {
     currentRecommedIndex =
-      currentRecommedIndex > 0
-        ? currentRecommedIndex - 1
-        : 2;
+      currentRecommedIndex > 0 ? currentRecommedIndex - 1 : 2;
     updateRecommedCarousel();
     currentRecommedPage == 1
       ? (currentRecommedPage = 3)
@@ -33,9 +43,7 @@ $(document).ready(function () {
 
   btnRecommedNext.addEventListener("click", () => {
     currentRecommedIndex =
-      currentRecommedIndex < 2
-        ? currentRecommedIndex + 1
-        : 0;
+      currentRecommedIndex < 2 ? currentRecommedIndex + 1 : 0;
     updateRecommedCarousel();
     currentRecommedPage == 3
       ? (currentRecommedPage = 1)
@@ -45,13 +53,9 @@ $(document).ready(function () {
   });
   //---------------------------------------------------------------
   //學員評論輪播
-  const reviewCarousel = document.getElementById(
-    "reviewCarousel"
-  );
-  const btnReviewPrev =
-    document.getElementById("btnReviewPrev");
-  const btnReviewNext =
-    document.getElementById("btnReviewNext");
+  const reviewCarousel = document.getElementById("reviewCarousel");
+  const btnReviewPrev = document.getElementById("btnReviewPrev");
+  const btnReviewNext = document.getElementById("btnReviewNext");
   const reviewPage = document.getElementById("reviewPage");
   let currentReviewPage = 1;
   let currentReviewIndex = 0;
@@ -62,8 +66,7 @@ $(document).ready(function () {
   };
 
   btnReviewPrev.addEventListener("click", () => {
-    currentReviewIndex =
-      currentReviewIndex > 0 ? currentReviewIndex - 1 : 2;
+    currentReviewIndex = currentReviewIndex > 0 ? currentReviewIndex - 1 : 2;
     updateReviewCarousel();
     currentReviewPage == 1
       ? (currentReviewPage = 3)
@@ -72,8 +75,7 @@ $(document).ready(function () {
   });
 
   btnReviewNext.addEventListener("click", () => {
-    currentReviewIndex =
-      currentReviewIndex < 2 ? currentReviewIndex + 1 : 0;
+    currentReviewIndex = currentReviewIndex < 2 ? currentReviewIndex + 1 : 0;
     updateReviewCarousel();
     currentReviewPage == 3
       ? (currentReviewPage = 1)
@@ -96,9 +98,7 @@ $(document).ready(function () {
     },
     { threshold: 0.3 }
   );
-  document
-    .querySelectorAll(".fadeIn")
-    .forEach((el) => observer.observe(el));
+  document.querySelectorAll(".fadeIn").forEach((el) => observer.observe(el));
 
   //-------------------------------------------------------
   //圖片動畫
@@ -184,9 +184,7 @@ $(document).ready(function () {
       $(`#teacherCourse${idx + 1}`).text(item.teacherName);
       $(`#studentsCourse${idx + 1}`).text(item.students);
       $(`#rateCourse${idx + 1}`).html(
-        `${rateToStars(item.courseRate)} (${
-          item.courseRate
-        })`
+        `${rateToStars(item.courseRate)} (${item.courseRate})`
       );
       $(`#priceCourse${idx + 1}`).text(item.price);
     });
@@ -201,15 +199,11 @@ $(document).ready(function () {
       let href = `/pages/course-details.html?course_id=${item.courseId}`;
       $(`#aReview${idx + 1}`).prop("href", href);
       $(`#imgReview${idx + 1}`).prop("src", item.avatar);
-      $(`#courseNameReview${idx + 1}`).text(
-        item.courseName
-      );
+      $(`#courseNameReview${idx + 1}`).text(item.courseName);
       $(`#userNameReview${idx + 1}`).text(item.userName);
-      $(`#rateReview${idx + 1}`).html(
-        rateToStars(item.rate)
-      );
+      $(`#rateReview${idx + 1}`).html(rateToStars(item.rate));
       $(`#review${idx + 1}`).text(item.review);
-      $(`#timeReview${idx + 1}`).text(item.time);
+      $(`#timeReview${idx + 1}`).text(timeCal(item.time));
     });
   });
 });
