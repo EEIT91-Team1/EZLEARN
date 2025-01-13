@@ -213,3 +213,93 @@ $("#btnSearch").on("click", (event) => {
   const query = $("#inputSearch").prop("value");
   window.location.href = `pages/search.html?query=${query}`;
 });
+
+//AI
+//------------------------------------------------------------
+async function aiApi(qs) {
+  let data = {
+    messages: [
+      {
+        role: "system",
+        content: `你是一名線上課程平台的客服人員，網站名稱為「EZLEARN」，請為顧客服務並解決顧客的問題。
+    課程主題有：語言學習、程式設計、美食料理、藝術創作、運動健身、理財投資
+    會員登入網址：http://127.0.0.1:5500/pages/login.html
+    會員註冊網址：http://127.0.0.1:5500/pages/register.html
+    搜尋課程網址：http://127.0.0.1:5500/pages/search.html?query=
+    以下網址為登入後才能使用
+    我的課程網址:http://127.0.0.1:5500/pages/my-courses.html
+    管理課程網址：http://127.0.0.1:5500/pages/teacher-mainJQ.html
+    地址：台中市南屯區公益路二段51號18樓
+    電話：(04) 2326-5860#6541
+    EMail：iiispan@ispan.com.tw
+    服務時間：9:00-16:30
+    以上是我們網站的資訊，
+    提供顧客網址請在網址前加上<a class="underline">及網址後加上</a>提供超連結，超連結後面請附上網址，
+    例如：<a class="underline" href="http://127.0.0.1:5500/pages/register.html">會員註冊</a>(http://127.0.0.1:5500/pages/register.html)，
+    請不要回答顧客關於本網站以外的問題，
+    現在請你開始為user回答問題
+    `,
+      },
+      {
+        role: "user",
+        content: qs,
+      },
+    ],
+    temperature: 1.0,
+    top_p: 1.0,
+    max_tokens: 1000,
+    model: "gpt-4o-mini",
+  };
+
+  await $.ajax({
+    url: "https://models.inference.ai.azure.com/chat/completions",
+    method: "POST",
+    contentType: "application/json",
+    headers: {
+      Authorization:
+        "Bearer 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",
+    },
+    data: JSON.stringify(data),
+  })
+    .done((response) => {
+      console.log(response);
+      $("#qsResults").append(`
+            <div class="mb-4 flex justify-start">
+            <img src="./imgs/customer-service.png" class="w-10 h-10 mr-2" />
+            <div class="relative max-w-[80%] py-2 px-3 bg-blue-500 text-white rounded-lg border border-blue-500 self-start"               style="
+                word-wrap: break-word;
+                word-break: break-word;
+                white-space: normal;
+              ">
+              <span>${response.choices[0].message.content}</span>
+            </div>
+          </div>
+`);
+    })
+    .fail((error) => {
+      console.error("Error:", error);
+    });
+}
+function btnHidden() {
+  if ($("#divCustomerService").hasClass("hidden")) {
+    $("#divCustomerService").removeClass("hidden");
+  } else {
+    $("#divCustomerService").addClass("hidden");
+  }
+}
+$("#btnCustomerService").on("click", btnHidden);
+
+$("#btnQs").on("click", () => {
+  event.preventDefault();
+  let qs = $("#qs").val();
+  $("#qsResults").append(`
+            <div class="relative mb-4 max-w-[80%] py-2 px-3 bg-gray-200 text-gray-800 rounded-lg border border-gray-300 self-end"              style="
+                word-wrap: break-word;
+                word-break: break-word;
+                white-space: normal;
+              ">
+              <span>${qs}</span>
+            </div>`);
+  aiApi(qs);
+  $("#qs").prop("value", "");
+});
