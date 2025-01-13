@@ -439,3 +439,30 @@ function toggleOverlay(show) {
 
 
 
+//確認是否登入跳轉畫面
+function checkIsLogin() {
+	document.body.style.visibility = "hidden";
+	// 向後端發送請求檢查是否登入
+	fetch('http://localhost:8080/user/islogin', {
+		method: 'GET',
+		credentials: 'include', // 若要傳送 Cookies，必須包含此選項
+		headers: {
+			'Content-Type': 'application/json',  // 設置為 JSON 格式
+		}
+	})
+		.then(response => response.json()) // 假設回應是布林值，解析成 JSON
+		.then(isLoggedIn => {
+			if (isLoggedIn) {
+				// 使用者已登入，繼續執行登入後的操作
+				console.log("User is logged in.");
+				document.body.style.visibility = "visible";
+			} else {
+				// 使用者尚未登入，跳轉到登入頁面
+				console.log("User is not logged in. Redirecting to login page.");
+				window.location.href = 'login.html'; // 頁面跳轉至登入頁
+			}
+		})
+		.catch(error => {
+			console.error('There was a problem with the fetch operation:', error);
+		});
+}
