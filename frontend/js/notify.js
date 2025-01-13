@@ -126,7 +126,7 @@ async function res() {
             <div
                     class="relative hover:bg-gray-100 shadow-md border-2 text-xl mx-4 my-2 rounded-lg tracking-wide leading-relaxed"
                   >
-                    <a href="../pages/lecture.html?courseId=${item.courseId}">
+                  <a class="aNotify cursor-pointer">
                       <div class="min-h-36 py-4 pl-8 pr-12 flex flex-col justify-between">
                       <p>${item.content}</p>
                 <div class="flex justify-start">
@@ -135,7 +135,7 @@ async function res() {
                     item.courseName
                   }</p></div>
                   </div>
-                    </a>
+                   </a>
                     <button
                       class="btnMenu absolute top-2 right-2 text-3xl text-gray-500 hover:text-black duration-300"
                     >
@@ -161,7 +161,6 @@ async function res() {
                         <input class="hidden notifyId" value=${item.notifyId} />
                       </ul>
                     </div>
-
                   </div>
                   `);
       }
@@ -183,16 +182,17 @@ async function islogin() {
 islogin();
 
 $(document).on("click", ".aNotify", function () {
-  let val = $(this).siblings(".divMenu").find(".notifyId").val();
+  let courseVal = $(this).siblings(".divMenu").find(".courseId").val();
+  let notifyVal = $(this).siblings(".divMenu").find(".notifyId").val();
   async function api() {
     await $.ajax({
-      url: `http://localhost:8080/notify/checkedNotify?notifyId=${val}`,
+      url: `http://localhost:8080/notify/checkedNotify?notifyId=${notifyVal}`,
       method: "PUT",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },
     }).done(() => {
-      window.location.href = `../pages/lecture.html?courseId=${val}`;
+      window.location.href = `../pages/lecture.html?course_id=${courseVal}`;
     });
   }
   api();
