@@ -55,12 +55,17 @@ $(document).ready(function () {
               teacherName,
               mask
             );
-          $("#course-list").append(courseCard);
+          let courseVideoLink = $("<a>")
+            .append(courseCard)
+            .attr(
+              "href",
+              `/pages/lecture.html?course_id=${item.courses.courseId}`
+            );
+          $("#course-list").append(courseVideoLink);
         });
       } else {
         $("#browseCourse").removeClass("hidden");
       }
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

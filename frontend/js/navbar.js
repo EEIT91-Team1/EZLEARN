@@ -55,12 +55,10 @@ function notify() {
         if (item.checked == "false") {
           count += 1;
           $("#notifyUl").append(
-            ` <a href="../pages/lecture.html?courseId=${
-              item.courseId
-            }"><li class="block px-8 py-4 my-2 hover:bg-gray-100 bg-blue-50 text-lg ">
+            ` <a class="aNotify cursor-pointer"><li class="block px-8 py-4 my-2 hover:bg-gray-100 bg-blue-50 text-lg ">
         <p class="tracking-wider">${item.content}</p>
         <p class="text-sm text-gray-500">${timeCal(item.time)}</p>
-        </li></a>`
+        </li><input class="notifyId hidden" value=${item.notifyId} /></a>`
           );
         } else {
           $("#notifyUl").append(
@@ -118,7 +116,21 @@ $("#iconNotify").on("click", () => {
   }
   $("#notifyCount").remove();
 });
-
+$(document).on("click", ".aNotify", function () {
+  let val = $(this).find(".notifyId").val();
+  async function api() {
+    await $.ajax({
+      url: `http://localhost:8080/notify/checkedNotify?notifyId=${val}`,
+      method: "PUT",
+      xhrFields: {
+        withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+      },
+    }).done(() => {
+      window.location.href = `../pages/lecture.html?courseId=${val}`;
+    });
+  }
+  api();
+});
 //讀取登入後導覽列資料
 async function loadLogin() {
   const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {

@@ -26,6 +26,7 @@ public class UsersController {
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	public boolean register(@RequestBody Users user) {
 		boolean n = usersService.adduser(user);	
+		System.out.println(n);
 		return n;
 	}
 	
@@ -52,11 +53,12 @@ public class UsersController {
 	public Map<String,String> getMethodName(HttpSession session) {
 		return usersService.loginData(session);
 	}
-
+	
 	@GetMapping("/getprofile")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public Users getinfo(HttpSession session) {
-		Users user = usersService.getinfofromsession(session);
+		Users user = usersService.getInfoFromSession(session);
 		return user;
 	}
+
 }

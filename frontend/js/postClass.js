@@ -1,4 +1,6 @@
-const progressSteps = document.querySelectorAll(".progress-step");
+const progressSteps = document.querySelectorAll(
+  ".progress-step"
+);
 const progress = document.getElementById("progress");
 let formStepsNum = 0;
 const formSteps = document.querySelectorAll(".form-step");
@@ -34,11 +36,16 @@ function updateProgressBar() {
       progStep.classList.remove("active");
     }
   });
-  const progressActive = document.querySelectorAll(".progress-step.active");
+  const progressActive = document.querySelectorAll(
+    ".progress-step.active"
+  );
   console.log(progress);
 
   progress.style.width =
-    ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
+    ((progressActive.length - 1) /
+      (progressSteps.length - 1)) *
+      100 +
+    "%";
   console.log(progressActive);
 }
 function updatFormSteps(params) {
@@ -60,7 +67,8 @@ function plusInput() {
   dataInputCount++;
   let placeHoderText = `第${divCount}章 章節名稱`;
 
-  $("#formRange").append(`<div id="dataInput${dataInputCount}">
+  $("#formRange")
+    .append(`<div id="dataInput${dataInputCount}">
                 <div
                     class="flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  px-4 gap-x-1">
                     <i class="hamburger-icon bi bi-list text-4xl focus:outline-none" data-id="1"></i>
@@ -94,6 +102,8 @@ function updatePlaceholders() {
 
     // 假設你想要更新這些元素內的 input 元素的 placeholder
     let newPlaceholder = "第" + (index + 1) + "章 章節名稱";
-    $(element).find("input:first").attr("placeholder", newPlaceholder);
+    $(element)
+      .find("input:first")
+      .attr("placeholder", newPlaceholder);
   });
 }

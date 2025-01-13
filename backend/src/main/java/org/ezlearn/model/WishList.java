@@ -11,14 +11,18 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "wish_list")
 public class WishList {
+	
 	@EmbeddedId
 	private WishListId id;
+	
 	@Column(name="course_id", insertable = false, updatable = false)
 	private Long courseId;
+	
 	@Column(name="user_id", insertable = false, updatable = false)
 	private Long userId;
 		
 	public WishList() {}
+	
 	public WishListId getId() {
 		return id;
 	}
@@ -28,15 +32,19 @@ public class WishList {
 	public Long getCourseId() {
 		return courseId;
 	}
+	
 	public void setCourseId(Long courseId) {
 		this.courseId = courseId;
 	}
+	
 	public Long getUserId() {
 		return userId;
 	}
+	
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
+	
 	@ManyToOne
 	@MapsId("userId")
 	@JoinColumn(name="user_id")
@@ -46,15 +54,19 @@ public class WishList {
 	@MapsId("courseId")
 	@JoinColumn(name="course_id")
 	private Courses courses;
+	
 	public Users getUsers() {
 		return users;
 	}
+	
 	public void setUsers(Users users) {
 		this.users = users;
 	}
+	
 	public Courses getCourses() {
 		return courses;
 	}
+	
 	public void setCourses(Courses courses) {
 		this.courses = courses;
 	}

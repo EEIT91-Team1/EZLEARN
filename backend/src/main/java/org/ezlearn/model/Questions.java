@@ -1,10 +1,6 @@
 package org.ezlearn.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,11 +9,13 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Questions {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long questionId;
 	private String question;
 	private String answer;
+	
 	public Long getQuestionId() {
 		return questionId;
 	}
@@ -37,7 +35,8 @@ public class Questions {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	//----------------------
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "lesson_id")
 	private Lessons lesson;
@@ -57,6 +56,5 @@ public class Questions {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
-	
 	
 }

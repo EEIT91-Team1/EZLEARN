@@ -45,7 +45,6 @@ async function addWishList(id) {
   });
   getWishList();
 }
-
 //願望清單資料
 async function getWishList() {
   $("#divResults").empty();
@@ -100,16 +99,4 @@ async function getWishList() {
       window.location.href = "../index.html";
     });
 }
-async function islogin() {
-  const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {
-    method: "GET",
-    credentials: "include",
-  });
-  const isLoggedIn = await isLoginResponse.text();
-  if (isLoggedIn != "true") {
-    window.location.href = "../index.html";
-  } else {
-    getWishList();
-  }
-}
-islogin();
+getWishList();

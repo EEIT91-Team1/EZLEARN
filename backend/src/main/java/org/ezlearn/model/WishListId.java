@@ -6,6 +6,7 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class WishListId implements Serializable {
+	
 	private Long courseId;
 	private Long userId;
 
@@ -33,4 +34,5 @@ public class WishListId implements Serializable {
 		this.courseId = courseId;
 		this.userId = userId;
 	}
+	
 }

@@ -84,7 +84,7 @@ async function res() {
         <div
                 class="relative bg-blue-50 hover:bg-gray-100 shadow-md border-2 text-xl mx-4 my-2 rounded-lg tracking-wide leading-relaxed"
               >
-                <a href="../pages/lecture.html?courseId=${item.courseId}">
+                <a class="aNotify cursor-pointer">
                   <div class="min-h-36 py-4 pl-8 pr-12 flex flex-col justify-between">
                   <p>${item.content}</p>
                   <div class="flex justify-start">
@@ -181,22 +181,29 @@ async function islogin() {
   }
 }
 islogin();
-//按鈕api
-$(document).on("click", "#checkedAll", function () {
-  $.ajax({
-    url: "http://localhost:8080/notify/checkedAll",
-    method: "GET",
-    xhrFields: {
-      withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
-    },
-  });
-  res();
+
+$(document).on("click", ".aNotify", function () {
+  let val = $(this).siblings(".divMenu").find(".notifyId").val();
+  async function api() {
+    await $.ajax({
+      url: `http://localhost:8080/notify/checkedNotify?notifyId=${val}`,
+      method: "PUT",
+      xhrFields: {
+        withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+      },
+    }).done(() => {
+      window.location.href = `../pages/lecture.html?courseId=${val}`;
+    });
+  }
+  api();
 });
+
+//按鈕api
 $(document).on("click", "#checkedAll", function () {
   async function api() {
     await $.ajax({
       url: "http://localhost:8080/notify/checkedAll",
-      method: "GET",
+      method: "PUT",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },
@@ -210,7 +217,7 @@ $(document).on("click", "#deleteAll", function () {
   async function api() {
     await $.ajax({
       url: "http://localhost:8080/notify/deleteAll",
-      method: "GET",
+      method: "DELETE",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },
@@ -225,7 +232,7 @@ $(document).on("click", ".checkedNotify", function () {
   async function api() {
     await $.ajax({
       url: `http://localhost:8080/notify/checkedNotify?notifyId=${val}`,
-      method: "GET",
+      method: "PUT",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },
@@ -240,7 +247,7 @@ $(document).on("click", ".checkedCourse", function () {
   async function api() {
     await $.ajax({
       url: `http://localhost:8080/notify/checkedCourse?courseId=${val}`,
-      method: "GET",
+      method: "PUT",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },
@@ -255,7 +262,7 @@ $(document).on("click", ".deleteNotify", function () {
   async function api() {
     await $.ajax({
       url: `http://localhost:8080/notify/deleteNotify?notifyId=${val}`,
-      method: "GET",
+      method: "DELETE",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },
@@ -270,7 +277,7 @@ $(document).on("click", ".deleteCourse", function () {
   async function api() {
     await $.ajax({
       url: `http://localhost:8080/notify/deleteCourse?courseId=${val}`,
-      method: "GET",
+      method: "DELETE",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
       },

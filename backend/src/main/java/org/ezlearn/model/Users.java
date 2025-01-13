@@ -51,7 +51,7 @@ public class Users {
 	@OneToMany(mappedBy = "users")
 	private List<PurchasedCourses> purchasedCourses;
 	
-	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserInfo userInfo;
 
 	public UserInfo getUserInfo() {
@@ -60,17 +60,9 @@ public class Users {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
-		this.userInfo.setUsers(this);
+		if (userInfo != null) {
+            userInfo.setUsers(this);
+        }
 	}
-	
-	@OneToMany(mappedBy="users")
-	private List<WishList> wishList;
-	public List<WishList> getWishList() {
-		return wishList;
-	}
-	public void setWishList(List<WishList> wishList) {
-		this.wishList = wishList;
-	}
-
 	
 }

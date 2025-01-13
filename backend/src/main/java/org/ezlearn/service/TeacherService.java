@@ -14,8 +14,9 @@ import org.ezlearn.model.Questions;
 import org.ezlearn.model.UserInfo;
 import org.ezlearn.model.Users;
 import org.ezlearn.repository.CoursesRepository;
+import org.ezlearn.repository.LessonsRepository;
 import org.ezlearn.repository.PostsRepository;
-import org.ezlearn.repository.QuestionRepository;
+import org.ezlearn.repository.QuestionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +24,18 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class TeacherService {
+	
 	@Autowired
 	private CoursesRepository coursesrepository;
+	
 	@Autowired
-	private QuestionRepository questionrepository;
+	private QuestionsRepository questionrepository;
+	
 	@Autowired
 	private PostsRepository postsRepository;
+	
+	@Autowired
+	private LessonsRepository lessonsRepository;
 	
 	public List<Map<String, Object>> findcourse(HttpSession session){
 		Users user = (Users)session.getAttribute("user");
@@ -55,7 +62,7 @@ public class TeacherService {
 		List<Courses> courselist = coursesrepository.findByUserInfo(userinfo);
 		List<Questions> allquestionlist = new ArrayList<Questions>();
 		for(Courses course : courselist) {
-			List<Lessons> lessonlist = course.getLessonlist();
+			List<Lessons> lessonlist = lessonsRepository.findByCourses(course);
 			for(Lessons lesson : lessonlist) {
 				List<Questions> questionlist = questionrepository.findByLesson(lesson);
 				for(Questions question : questionlist) {

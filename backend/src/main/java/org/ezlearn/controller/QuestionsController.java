@@ -1,8 +1,7 @@
 package org.ezlearn.controller;
 
-import org.ezlearn.model.Courses;
-import org.ezlearn.service.LessonsService;
 import org.ezlearn.service.PurchasedCoursesService;
+import org.ezlearn.service.QuestionsService;
 import org.ezlearn.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/courses")
-public class LessonsController {
+@RequestMapping("/questions")
+public class QuestionsController {
 	
 	@Autowired
-	private LessonsService lessonsService;
+	private QuestionsService questionsService;
 	
 	@Autowired
 	private UsersService usersService;
@@ -30,8 +29,8 @@ public class LessonsController {
 	@Autowired
 	private HttpSession httpSession;
 	
-	@GetMapping("/{courseId}/lessons")
-	public ResponseEntity<?> getLessonsByCourses(@PathVariable Long courseId) {
+	@GetMapping("courses/{courseId}")
+	public ResponseEntity<?> getQuestionsByCourseId(@PathVariable Long courseId) {
 		if (usersService.islogin(httpSession) == false) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
 		}
@@ -40,9 +39,7 @@ public class LessonsController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
 		}
 		
-		Courses courses = new Courses();
-		courses.setCourseId(courseId);
-		return ResponseEntity.ok(lessonsService.getLessonsByCourses(courses));
+		return ResponseEntity.ok(questionsService.getQuestionsByCourseId(courseId));
 	}
 
 }

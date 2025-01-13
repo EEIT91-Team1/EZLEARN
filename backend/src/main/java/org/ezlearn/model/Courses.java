@@ -3,9 +3,7 @@ package org.ezlearn.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "courseId")
 public class Courses {
 	
 	@Id
@@ -115,38 +112,4 @@ public class Courses {
 		this.userInfo = userInfo;
 	}
 
-	@OneToMany(mappedBy = "courses")
-	private List<PurchasedCourses> purchasedCourses;
-	
-	
-	public List<PurchasedCourses> getPurchasedCourses() {
-		return purchasedCourses;
-	}
-
-	public void setPurchasedCourses(List<PurchasedCourses> purchasedCourses) {
-		this.purchasedCourses = purchasedCourses;
-	}
-	
-	@OneToMany(mappedBy = "courses")
-	private List<Lessons> lessons;
-
-	public List<Lessons> getLessonlist() {
-		return lessons;
-	}
-
-	public void setLessonlist(List<Lessons> lessonlist) {
-		this.lessons = lessonlist;
-	}
-	
-	@OneToMany(mappedBy = "courses")
-	private List<Notify> notify;
-
-	public List<Notify> getNotify() {
-		return notify;
-	}
-
-	public void setNotify(List<Notify> notify) {
-		this.notify = notify;
-	}
-	
 }
