@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-Hants">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>EZLEARN</title>
+    <link rel="icon" href="../imgs/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/search.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <main>
+      <div class="flex justify-center relative h-72">
+        <form
+          action=""
+          class="flex items-center justify-center w-3/4"
+        >
+          <input
+            type="text"
+            placeholder="想搜尋更多課程？"
+            class="pl-6 w-96 h-14 text-2xl border-y-2 border-l-2 border-cyan-500 rounded-l-full focus:outline-none"
+            id="inputSearch"
+          />
+          <button
+            type="submit"
+            class="min-w-16 w-20 h-14 pr-2 text-2xl bg-cyan-500 rounded-r-full hover:bg-cyan-400 hover:text-white duration-500"
+            id="btnSearch"
+          >
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+        <div
+          class="w-full h-full absolute top-0 left-0 -z-10 bg-slate-300 overflow-hidden"
+        >
+          <img
+            src="../imgs/searchPic7.png"
+            id="searchPic7"
+            class="hidden xl:block"
+          />
+          <img
+            src="../imgs/searchPic5.png"
+            id="searchPic5"
+          />
+          <img
+            src="../imgs/searchPic6.png"
+            id="searchPic6"
+            class="hidden lg:block"
+          />
+          <img
+            src="../imgs/searchPic4.png"
+            id="searchPic4"
+            class="hidden md:block"
+          />
+        </div>
+      </div>
+      <div
+        class="my-2 flex flex-wrap justify-between mx-8 lg:mx-16 xl:mx-32 2xl:mx-56 items-center"
+      >
+        <p id="queryText" class="text-2xl sm:mx-12 my-8">
+          查無資料
+        </p>
+        <div class="mx-12 my-2 flex items-center ml-auto">
+          <div class="flex justify-center items-center">
+            <div
+              class="flex lg:hidden ml-2 text-3xl cursor-pointer rounded-md py-1 px-2 hover:text-blue-400 hover:border-blue-400 border-2 shadow-md duration-300"
+              id="filter"
+              title="篩選"
+            >
+              <i class="bi bi-funnel"></i>
+            </div>
+            <div
+              class="flex lg:hidden ml-2 text-3xl cursor-pointer rounded-md py-1 px-2 hover:text-blue-400 hover:border-blue-400 border-2 shadow-md duration-300"
+              id="sort"
+              title="排序"
+            >
+              <i class="bi bi-filter"></i>
+            </div>
+          </div>
+        </div>
+        <div
+          class="hidden my-5 px-2 justify-end-end lg:flex ml-auto mr-6 text-gray-400 flex-wrap"
+          id="sortOption"
+        >
+          <a
+            id="sortNew"
+            class="sort hover:text-black cursor-pointer duration-300"
+            >最新課程</a
+          >｜
+          <a
+            id="sortStudents"
+            class="sort hover:text-black cursor-pointer duration-300"
+            >最多購買</a
+          >｜
+          <a
+            id="sortRate"
+            class="sort hover:text-black cursor-pointer duration-300"
+            >評分最高</a
+          >｜
+          <a
+            id="sortPriceB"
+            class="sort hover:text-black cursor-pointer duration-300"
+            >價格最低</a
+          >｜
+          <a
+            id="sortPriceT"
+            class="sort hover:text-black cursor-pointer duration-300"
+            >價格最高</a
+          >
+        </div>
+      </div>
+      <div
+        class="flex mx-8 lg:mx-16 xl:mx-32 2xl:mx-56"
+        style="min-height: 70vh"
+      >
+        <div
+          id="divLeft"
+          class="bg-white z-50 flex-col text-xl tracking-wide leading-10 fixed top-0 left-0 p-6 h-full shadow-lg hidden overflow-auto lg:flex lg:z-0 lg:static lg:shadow-none lg:overflow-visible"
+        >
+          <div
+            class="justify-between mb-10 text-xl flex lg:hidden"
+          >
+            <i class="bi bi-funnel"></i>篩選條件<i
+              id="closeDivLeft"
+              class="bi bi-x-lg cursor-pointer hover:text-blue-400 duration-300"
+            ></i>
+          </div>
+          <div
+            class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
+            id="theme"
+          >
+            <span>主題</span
+            ><i class="bi bi-chevron-down"></i>
+          </div>
+          <div class="hidden" id="themeOption">
+            <input
+              type="radio"
+              name="type"
+              id="alltype"
+              value="all"
+              checked
+            />
+            <label for="alltype">全部課程</label>
+            <br />
+            <input
+              type="radio"
+              name="type"
+              id="language"
+              value="語言學習"
+            />
+            <label for="language"
+              >語言學習<span
+                id="languageLabel"
+                class="text-sm pl-2"
+              ></span
+            ></label>
+            <br />
+            <input
+              type="radio"
+              name="type"
+              id="program"
+              value="程式設計"
+            />
+            <label for="program"
+              >程式設計<span
+                id="programLabel"
+                class="text-sm pl-2"
+              ></span
+            ></label>
+            <br />
+            <input
+              type="radio"
+              name="type"
+              id="cook"
+              value="美食料理"
+            />
+            <label for="cook"
+              >美食料理<span
+                id="cookLabel"
+                class="text-sm pl-2"
+              ></span
+            ></label>
+            <br />
+            <input
+              type="radio"
+              name="type"
+              id="art"
+              value="藝術創作"
+            />
+            <label for="art"
+              >藝術創作<span
+                id="artLabel"
+                class="text-sm pl-2"
+              ></span
+            ></label>
+            <br />
+            <input
+              type="radio"
+              name="type"
+              id="sport"
+              value="運動健身"
+            />
+            <label for="sport"
+              >運動健身<span
+                id="sportLabel"
+                class="text-sm pl-2"
+              ></span
+            ></label>
+            <br />
+            <input
+              type="radio"
+              name="type"
+              id="finance"
+              value="理財投資"
+            />
+            <label for="finance"
+              >理財投資<span
+                id="financeLabel"
+                class="text-sm pl-2"
+              ></span
+            ></label>
+
+            <br />
+          </div>
+          <div
+            class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
+            id="rate"
+          >
+            <span>評分</span
+            ><i class="bi bi-chevron-down"></i>
+          </div>
+          <div
+            class="hidden text-lg leading-10"
+            id="rateOption"
+          >
+            <input
+              type="radio"
+              name="rate"
+              id="allrate"
+              value="all"
+              checked
+            />
+            <label for="allrate" class="text-xl"
+              >全部評分</label
+            >
+            <br />
+            <input
+              type="radio"
+              name="rate"
+              id="rate4"
+              value="4"
+            />
+            <label for="rate4"
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i> （4.0以上）</label
+            >
+            <br />
+            <input
+              type="radio"
+              name="rate"
+              id="rate3"
+              value="3"
+            />
+            <label for="rate3"
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i
+              ><i class="bi bi-star"></i> （3.0以上）</label
+            >
+            <br />
+            <input
+              type="radio"
+              name="rate"
+              id="rate2"
+              value="2"
+            />
+            <label for="rate2"
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i
+              ><i class="bi bi-star"></i
+              ><i class="bi bi-star"></i> （2.0以上）</label
+            >
+            <br />
+          </div>
+          <div
+            class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
+            id="price"
+          >
+            <span>價格</span
+            ><i class="bi bi-chevron-down"></i>
+          </div>
+          <div id="priceOption" class="hidden">
+            <input
+              type="radio"
+              name="price"
+              id="allPrice"
+              value="all"
+              checked
+            />
+            <label for="allPrice">全部價格</label>
+            <br />
+            <input
+              type="radio"
+              name="price"
+              id="choosePrice"
+              value="choose"
+            />
+            <label for="choosePrice">自訂價格</label>
+            <div class="hidden" id="divPriceRange">
+              0<input
+                id="inputPrice"
+                type="range"
+                min="0"
+                max="5000"
+                step="100"
+                class="m-6"
+              />5000
+              <p id="showPrice"></p>
+            </div>
+            <!-- <input type="checkbox" name="price" id="d1000" />
+              <label for="d1000">$1000以下</label>
+            <br />
+            <input type="checkbox" name="price" id="u1000" />
+            <label for="u1000">$1000以上</label> -->
+          </div>
+        </div>
+        <div id="divRight" class="shadow-inner w-full">
+          <!-- <div class="divResult">
+            <div class="divImg">
+              <img src="../imgs/searchPic1.png" />
+            </div>
+            <div class="divText">
+              <h1>從零開始學JAVA｜零基礎10小時變成JAVA大師</h1>
+              <h2>
+                從入門開始學習Java語法，課程包含Java
+                8、物件導向程式設計，製作貪食蛇遊戲、出埃及記遊戲、面試題目解題、MySQL資料庫、Servlet、JSP網頁開發、Stream、多線程Java編寫等等內容，一步一步成為Java大師。
+              </h2>
+              <h3>brad Chao</h3>
+              <h4>
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+                ><i class="bi bi-star"></i>
+              </h4>
+            </div>
+            <div class="divPrice">
+              <p>$800</p>
+            </div>
+          </div> -->
+        </div>
+        <div
+          id="loadingSpinner"
+          style="display: none"
+        ></div>
+      </div>
+      <div class="flex justify-center">
+        <button
+          id="btnPagePrev"
+          class="bg-white p-3 rounded-md shadow-lg border focus:outline-none my-4 hover:bg-blue-400 hover:text-white duration-300"
+        >
+          ＜
+        </button>
+        <span class="flex items-center m-4" id="pageNumber"
+          >1</span
+        >
+        <button
+          id="btnPageNext"
+          class="bg-white p-3 rounded-md shadow-lg border focus:outline-none my-4 hover:bg-blue-400 hover:text-white duration-300"
+        >
+          ＞
+        </button>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+    <script src="../js/search.js"></script>
+    <script src="../js/header-footer.js"></script>
+  </body>
+</html>

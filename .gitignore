@@ -1,0 +1,45 @@
+# Eclipse 設定檔
+.project             
+.classpath           
+.settings/           
+
+# IntelliJ IDEA 設定檔
+.idea                
+*.iws                
+*.iml                
+*.ipr                
+
+# VS Code 設定檔
+.vscode/            
+
+# Spring Tool Suite (STS) 設定檔
+.apt_generated      
+.factorypath        
+.springBeans         
+.sts4-cache         
+
+# Node.js 與前端相關的檔案
+node_modules/        
+dist/                
+build/               
+*.css.map            
+*.tmp                
+
+# Java 和 Maven 相關的檔案
+/target/             
+bin/
+*.class              
+*.log                
+*.jar                
+*.war                
+*.sql                
+
+# 系統檔案
+.DS_Store            
+Thumbs.db            
+
+# 環境變數檔案
+.env                 
+*.bak                
+*.tmp     
+/.metadata/           

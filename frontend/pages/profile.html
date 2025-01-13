@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>個人檔案</title>
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <main class="bg-blue-500">
+      <div
+        class="flex justify-center items-center bg-red-600 min-h-full"
+      >
+        <div class="p-8 w-96 bg-yellow-400">
+          <div
+            class="mb-4 flex justify-center items-center"
+          >
+            <div>
+              <img
+                class="rounded-full mb-4 h-80 w-80"
+                src="../imgs/12-1.png"
+                alt="Avatar"
+                id="imgAvatar"
+              />
+              <div class="text-sm text-black text-center">
+                <label
+                  for="file-upload"
+                  class="cursor-pointer"
+                >
+                  <span
+                    class="font-medium px-2 py-1 border-1 border-double border-black rounded-md"
+                  >
+                    變更大頭貼
+                  </span>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+          <form>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                姓名
+              </label>
+              <input
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-400 h-9 focus:outline-none"
+                id="username"
+                type="text"
+                readonly
+              /><button
+                type="button"
+                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
+                onclick="toggleEdit('username')"
+              >
+                <a class="bi bi-pencil"></a>
+              </button>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                電子郵件
+              </label>
+              <input
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-400 h-9 focus:outline-none"
+                id="email"
+                type="email"
+                readonly
+              /><button
+                type="button"
+                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
+                onclick="toggleEdit('email')"
+              >
+                <a class="bi bi-pencil"></a>
+              </button>
+            </div>
+            <div class="flex items-center">
+              <div class="mb-6 w-2/3">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="birthday"
+                >
+                  生日
+                </label>
+                <input
+                  class="appearance-none border rounded w-5/6 py-2 px-3 text-gray-700 bg-neutral-400 h-9 focus:outline-none"
+                  id="birthday"
+                  type="date"
+                  value="1900-01-01"
+                  readonly
+                /><button
+                  type="button"
+                  class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/6 rounded"
+                  onclick="toggleEdit('birthday')"
+                >
+                  <a class="bi bi-pencil"></a>
+                </button>
+              </div>
+              <div class="mb-6 ml-4 w-1/3">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="gender"
+                >
+                  性別
+                </label>
+                <select
+                  class="appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 bg-neutral-400 leading-tight focus:outline-none focus:shadow-outline"
+                  id="gender"
+                >
+                  <option value="male" id="male">
+                    男性
+                  </option>
+                  <option value="female" id="female">
+                    女性
+                  </option></select
+                ><button
+                  type="button"
+                  class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/4 rounded"
+                  onclick="toggleEditSelect()"
+                >
+                  <a class="bi bi-pencil"></a>
+                </button>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="phone"
+              >
+                電話
+              </label>
+              <input
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-400 h-9 focus:outline-none"
+                id="phone"
+                type="tel"
+                placeholder="0912345678"
+                readonly
+              /><button
+                type="button"
+                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
+                onclick="toggleEdit('phone')"
+              >
+                <a class="bi bi-pencil"></a>
+              </button>
+            </div>
+            <div class="mb-6">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="userIntro"
+              >
+                自我介紹
+              </label>
+              <div class="flex position: relative">
+                <textarea
+                  class="appearance-none border rounded py-2 px-3 text-gray-700 bg-neutral-400 w-full focus:outline-none"
+                  id="userIntro"
+                  rows="3"
+                  placeholder="大家好！我的名字是王小明。"
+                  readonly
+                ></textarea>
+                <button
+                  type="button"
+                  class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-6 w-1/12 rounded position: absolute bottom-0 right-0"
+                  onclick="toggleEdit('userIntro')"
+                >
+                  <a class="bi bi-pencil bottom-0"></a>
+                </button>
+              </div>
+            </div>
+            <div>
+              <p id="error"></p>
+            </div>
+            <div class="flex items-center justify-center">
+              <button
+                id="save"
+                class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                儲存
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal fade" id="loginModal">
+        <div
+          class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered modal-dialog-scrollable"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 style="font-size: 2rem">圖片選取</h3>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <canvas id="canvas" class="m-auto"></canvas
+              ><br />
+              <span style="font-size: 1.5rem"
+                >選取預覽:</span
+              >
+              <img id="cropped-image" class="m-auto" />
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer">
+              <div class="">
+                <button
+                  class="border p-2"
+                  id="closeModal"
+                  data-bs-dismiss="modal"
+                >
+                  儲存
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+    <script src="../js/header-footer.js"></script>
+    <script>
+      const fileInput =
+        document.getElementById("file-upload");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const cropButton =
+        document.getElementById("crop-button");
+      const croppedImage =
+        document.getElementById("cropped-image");
+
+      let img = new Image();
+      let cropArea = {
+        startX: 50,
+        startY: 50,
+        width: 100,
+        height: 100,
+      };
+
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            img.onload = () => {
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+        openLoginModal();
+      });
+
+      canvas.addEventListener("mousedown", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const startX = e.clientX - rect.left;
+        const startY = e.clientY - rect.top;
+
+        cropArea.startX = startX;
+        cropArea.startY = startY;
+
+        canvas.addEventListener("mousemove", drawCropArea);
+        canvas.addEventListener("mouseup", () => {
+          canvas.removeEventListener(
+            "mousemove",
+            drawCropArea
+          );
+        });
+      });
+
+      canvas.addEventListener("mouseup", () => {
+        drawCropAreaToBase64();
+      });
+
+      function openLoginModal() {
+        const modal = new bootstrap.Modal(
+          document.getElementById("loginModal")
+        );
+        modal.show();
+      }
+
+      function drawCropArea(e) {
+        const rect = canvas.getBoundingClientRect();
+        const endX = e.clientX - rect.left;
+        const endY = e.clientY - rect.top;
+
+        const centerX = (cropArea.startX + endX) / 2;
+        const centerY = (cropArea.startY + endY) / 2;
+        const radius =
+          Math.sqrt(
+            Math.pow(endX - cropArea.startX, 2) +
+              Math.pow(endY - cropArea.startY, 2)
+          ) / 2;
+
+        cropArea.radius = radius;
+        cropArea.centerX = centerX;
+        cropArea.centerY = centerY;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        ctx.save();
+        ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+        ctx.beginPath();
+        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.arc(
+          centerX,
+          centerY,
+          radius,
+          0,
+          Math.PI * 2,
+          true
+        );
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      function drawCropAreaToBase64() {
+        const croppedCanvas =
+          document.createElement("canvas");
+        const croppedCtx = croppedCanvas.getContext("2d", {
+          alpha: true,
+        });
+
+        const diameter = cropArea.radius * 2;
+        croppedCanvas.width = diameter;
+        croppedCanvas.height = diameter;
+
+        croppedCtx.beginPath();
+        croppedCtx.arc(
+          cropArea.radius,
+          cropArea.radius,
+          cropArea.radius,
+          0,
+          Math.PI * 2,
+          true
+        );
+        croppedCtx.clip();
+
+        croppedCtx.drawImage(
+          canvas,
+          cropArea.centerX - cropArea.radius,
+          cropArea.centerY - cropArea.radius,
+          diameter,
+          diameter,
+          0,
+          0,
+          diameter,
+          diameter
+        );
+
+        croppedCanvas.toBlob((blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = reader.result.split(",")[1];
+            croppedImage.src = `data:image/png;base64,${base64}`;
+            sessionStorage.setItem("Blob", base64);
+            //console.log(base64);
+          };
+          reader.readAsDataURL(blob);
+        }, "image/png");
+      }
+
+      function toggleEdit(a) {
+        const btnToggleEdit = document.getElementById(a);
+        if (btnToggleEdit.readOnly) {
+          btnToggleEdit.readOnly = false;
+          btnToggleEdit.style.backgroundColor = "#ffffff";
+        } else {
+          btnToggleEdit.readOnly = true;
+          btnToggleEdit.style.backgroundColor =
+            "rgb(179,175,135)";
+        }
+        btnToggleEdit.addEventListener(
+          "keydown",
+          function (event) {
+            if (event.key === "Enter" && a != "userIntro") {
+              event.preventDefault();
+              toggleEdit(a);
+            }
+          }
+        );
+      }
+
+      function toggleEditSelect() {
+        const btnToggleEdit =
+          document.getElementById("gender");
+        if (btnToggleEdit.disabled) {
+          btnToggleEdit.disabled = false;
+          btnToggleEdit.style.backgroundColor = "#ffffff";
+        } else {
+          btnToggleEdit.disabled = true;
+          btnToggleEdit.style.backgroundColor =
+            "rgb(163,163,163)";
+        }
+        btnToggleEdit.addEventListener(
+          "keydown",
+          function (event) {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              toggleEditSelect();
+            }
+          }
+        );
+      }
+
+      closeModal.onclick = function () {
+        var blobBase64 = sessionStorage.getItem("Blob");
+        if (blobBase64) {
+          $("#imgAvatar").attr(
+            "src",
+            `data:image/png;base64,${blobBase64}`
+          );
+        }
+        console.log();
+      };
+
+      save.onclick = function (e) {
+        e.preventDefault();
+        if (
+          $("#imgAvatar").attr("src") == "../imgs/12-1.png"
+        ) {
+          base64String = "";
+        } else {
+          var base64Index = $("#imgAvatar")
+            .attr("src")
+            .indexOf(",");
+          var base64String = $("#imgAvatar")
+            .attr("src")
+            .substring(base64Index + 1);
+        }
+        const data = {
+          avatar: base64String,
+          userName: $("#username").val(),
+          birthday: $("#birthday").val(),
+          gender: $("#gender").val(),
+          phone: $("#phone").val(),
+          userIntro: $("#userIntro").val(),
+        };
+        fetch("http://localhost:8080/user/updateinfo", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+          credentials: "include",
+        })
+          .then((response) => response.text())
+          .then((result) => {
+            console.log(result);
+
+            if (result == "UserInfo updated successfully") {
+              $("#error").text(
+                "資料更新成功，兩秒後重新載入頁面"
+              );
+              setTimeout(() => {
+                window.location.href =
+                  "http://127.0.0.1:5500/pages/profile.html";
+              }, 2000);
+            } else {
+              $("#error").text("資料更新失敗");
+            }
+          });
+      };
+
+      window.onload = function () {
+        fetch("http://localhost:8080/user/getprofile", {
+          method: "get",
+          credentials: "include",
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            // console.log(response);
+            // console.log(typeof (response));
+            console.log(response.userInfo.userIntro);
+            $("#username").attr(
+              "value",
+              response.userInfo.userName
+            );
+            $("#email").attr("value", response.email);
+            $("#birthday").attr(
+              "value",
+              response.userInfo.birthday
+            );
+            $("#phone").attr(
+              "value",
+              response.userInfo.phone
+            );
+            response.userInfo.gender == "male"
+              ? $("#gender option[value=male]").attr(
+                  "selected",
+                  "selected"
+                )
+              : $("#gender option[value=female]").attr(
+                  "selected",
+                  "selected"
+                );
+            $("#userIntro").val(
+              response.userInfo.userIntro
+            );
+            if (response.userInfo.avatar != "") {
+              $("#imgAvatar").attr(
+                "src",
+                `data:image/png;base64,${response.userInfo.avatar}`
+              );
+            }
+          })
+          .catch((error) => {
+            console.log(`Error: ${error}`);
+          });
+      };
+
+      fetch("http://localhost:8080/user/islogin", {
+        method: "get",
+        credentials: "include",
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data != "true") {
+            window.location.href = "login.html";
+          }
+        });
+
+      fetch("../components/navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          $("#navbar").html(data);
+        });
+
+      fetch("../components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          $("#footer").html(data);
+        });
+    </script>
+  </body>
+</html>
