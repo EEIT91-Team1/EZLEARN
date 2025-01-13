@@ -6,6 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
+    <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -31,17 +32,25 @@
   <body>
     <div id="navbar"></div>
 
-    <main class="bg-blue-500">
+    <main
+      style="
+        background-image: url('../imgs/indexBg2.png'),
+          url('../imgs/indexBg1.png');
+        background-repeat: no-repeat, no-repeat;
+        background-position: right, left;
+        background-size: 500px, contain;
+      "
+    >
       <div
-        class="flex justify-center items-center bg-red-600 min-h-full"
+        class="flex justify-center items-center min-h-full"
       >
-        <div class="p-8 w-96 bg-yellow-400">
+        <div class="p-8 w-96 border">
           <div
             class="mb-4 flex justify-center items-center"
           >
             <div>
               <img
-                class="rounded-full mb-4 h-80 w-80"
+                class="rounded-full mb-4 h-40 w-40"
                 src="../imgs/12-1.png"
                 alt="Avatar"
                 id="imgAvatar"
@@ -95,20 +104,14 @@
                 電子郵件
               </label>
               <input
-                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-400 h-9 focus:outline-none"
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 h-9 focus:outline-none"
                 id="email"
                 type="email"
                 readonly
-              /><button
-                type="button"
-                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
-                onclick="toggleEdit('email')"
-              >
-                <a class="bi bi-pencil"></a>
-              </button>
+              />
             </div>
             <div class="flex items-center">
-              <div class="mb-6 w-2/3">
+              <div class="mb-6 w-7/12">
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
                   for="birthday"
@@ -129,7 +132,7 @@
                   <a class="bi bi-pencil"></a>
                 </button>
               </div>
-              <div class="mb-6 ml-4 w-1/3">
+              <div class="mb-6 ml-4 w-5/12">
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
                   for="gender"
@@ -139,6 +142,7 @@
                 <select
                   class="appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 bg-neutral-400 leading-tight focus:outline-none focus:shadow-outline"
                   id="gender"
+                  disabled
                 >
                   <option value="male" id="male">
                     男性
@@ -200,9 +204,14 @@
                 </button>
               </div>
             </div>
-            <div>
-              <p id="error"></p>
+
+            <div
+              class="flex items-center justify-center mb-4"
+            >
+              <p id="error" class="text-red-600"></p>
+              <p id="success"></p>
             </div>
+
             <div class="flex items-center justify-center">
               <button
                 id="save"
