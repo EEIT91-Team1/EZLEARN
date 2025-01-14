@@ -20,7 +20,7 @@ public class MailService {
 	            MimeMessage message = mailSender.createMimeMessage();
 	            MimeMessageHelper helper = new MimeMessageHelper(message);
 	            helper.setTo(receivers.toArray(new String[0]));
-	            helper.setFrom("EZLEARN Support<mem61212phis@gmail.com>");
+	            helper.setFrom("EZLEARN Support<dcnohime@gmail.com>");
 	            helper.setSubject(subject);
 	            helper.setText(content, true);
 

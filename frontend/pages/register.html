@@ -284,6 +284,17 @@
         const re = /^[0][0-9][0-9]{8}$/;
         return re.test(tel);
       }
+      fetch("http://localhost:8080/user/islogin", {
+        method: "get",
+        credentials: "include",
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data == "true") {
+            window.location.href = "../index.html";
+          }
+        });
+
       fetch("../components/navbar.html")
         .then((response) => response.text())
         .then((data) => {

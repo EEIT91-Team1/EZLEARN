@@ -97,4 +97,18 @@ public class UsersController {
 	public int test1(@RequestBody Users user) {
 		return usersService.tokenisExpired(user);
 	}
+
+	@PostMapping("/registerfromgoogle")
+	@CrossOrigin(origins = "http://127.0.0.1:5500")
+	public boolean registerfromgoogle(@RequestBody Users user) {
+		boolean n = usersService.adduserfromgoogle(user);	
+		System.out.println(n);
+		return n;
+	}
+	@PostMapping("/loginfromgoogle")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public LoginResponse loginfromgoogle(@RequestBody Users user, HttpSession session) {
+		LoginResponse response = usersService.loginuserfromgoogle(user, session);
+		return response;
+	}
 }

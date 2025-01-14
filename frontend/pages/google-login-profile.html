@@ -130,69 +130,62 @@
           `data:image/png;base64,${jsonData.blobBase64}`
         );
       }
-
+    
       $("#confirmInformation").click(function (e) {
-        e.preventDefault();
+      e.preventDefault();
+      //register
+      const data = {
+        "email": jsonData.email,
+        "googlePassword": jsonData.userID,
+        "comfirmpassword": jsonData.userID,
+        "userInfo": {
+          "userName": jsonData.name,
+          "birthday": jsonData.birthday,
+          "gender": (jsonData.gender == "Male") ? "male" : "female",
+          "avatar": jsonData.blobBase64
+        }
+      };
 
-        const logindata = {
-          email: jsonData.email,
-          password: jsonData.userID,
-        };
-        fetch("http://localhost:8080/user/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(logindata),
-          credentials: "include",
-        })
-          .then((response) => response.json())
-          .then((logindata) => {
-            if (logindata.error == 1) {
-              //register
-              const data = {
-                email: jsonData.email,
-                password: jsonData.userID,
-                comfirmpassword: jsonData.userID,
-                userInfo: {
-                  userName: jsonData.name,
-                  birthday: jsonData.birthday,
-                  gender: jsonData.gender == "Male" ? "male" : "female",
-                  avatar: jsonData.blobBase64,
-                },
-              };
+      fetch("http://localhost:8080/user/registerfromgoogle", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'include'
+      })
+        .then((response) => response.text())
+        .then(result => {
 
-              fetch("http://localhost:8080/user/register", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-                credentials: "include",
+          if (result == "true") {
+            sessionStorage.clear();
+            //-----------------------
+            const logindata = {
+              "email": jsonData.email,
+              "googlePassword": jsonData.userID
+            };
+            fetch("http://localhost:8080/user/loginfromgoogle", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(logindata),
+              credentials: 'include'
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                window.location.href = "../index.html";
               })
-                .then((response) => response.text())
-                .then((result) => {
-                  if (result == "true") {
-                    sessionStorage.clear();
-                    $("#error").text(
-                      "註冊成功 請重新登入，兩秒後將自動轉跳頁面"
-                    );
-                    setTimeout(() => {
-                      window.location.href =
-                        "http://127.0.0.1:5500/pages/login.html";
-                    }, 2000);
-                  } else {
-                    $("#error").text("信箱已被註冊");
-                  }
-                });
-            } else if (logindata.error == 2) {
-              $("#errormesg").text("密碼錯誤"); //理論上不發生
-            } else {
-              window.location.href = "http://127.0.0.1:5500/index.html";
-            }
-          });
-      });
+              //---------------------------
+            //$('#error').text("註冊成功 請重新登入，兩秒後將自動轉跳頁面");
+            //setTimeout(() => { window.location.href = 'http://127.0.0.1:5500/pages/login.html' }, 2000);
+          } else {
+            $('#error').text("信箱已被註冊");//理論不發生
+          }
+        })
 
+    });
       $("#isNotMe").click(function (e) {
         e.preventDefault();
         sessionStorage.clear();
