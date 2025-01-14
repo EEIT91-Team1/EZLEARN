@@ -117,6 +117,8 @@ public class UsersService {
 		Users user1 = usersRepository.findByresetToken(changeuser.getResetToken());
 		if(user1 != null) {
 			user1.setPassword(BCrypt.hashpw(changeuser.getPassword(), BCrypt.gensalt()));
+			user1.setResetToken(null);
+			user1.setResetTokenExpiry(null);
 			usersRepository.save(user1);
 		}else{
 			System.out.println("修改失敗");
@@ -139,4 +141,39 @@ public class UsersService {
 			return 2;
 		}
 	}
+
+	public boolean adduserfromgoogle(Users registerUser) {
+		Optional<Users> opt = usersRepository.findByEmail(registerUser.getEmail());
+		if (opt.isPresent()) {
+			return false;
+		}
+		registerUser.setPassword(BCrypt.hashpw(registerUser.getGooglePassword(), BCrypt.gensalt()));
+		registerUser.setGooglePassword(BCrypt.hashpw(registerUser.getGooglePassword(), BCrypt.gensalt()));
+		System.out.println(registerUser.getPassword()); 
+		usersRepository.save(registerUser);
+		return true;
+	}
+	
+	public LoginResponse loginuserfromgoogle(Users loginUser,HttpSession session) {
+		Optional<Users> opt = usersRepository.findByEmail(loginUser.getEmail());
+		Users user = new Users();
+		LoginResponse response = new LoginResponse();
+		try {
+			user = opt.get();
+			if(!BCrypt.checkpw(loginUser.getGooglePassword(), user.getGooglePassword())) {
+				response.setError(2);
+				response.setMsg("login failure");
+			}else{
+				response.setError(3);
+				response.setMsg("login success");
+				session.setAttribute("user", user);
+				System.out.println(user.getEmail());
+			}
+		} catch (Exception e) {
+			response.setError(1);
+			response.setMsg("account not found");
+		}
+		return response;
+	}
+
 }

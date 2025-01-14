@@ -25,6 +25,24 @@ public class Users {
 	private String password;
 	private String resetToken;
 	private String resetTokenExpiry;
+	private String googlePassword;
+	private String facebookPassword;
+
+	public String getGooglePassword() {
+		return googlePassword;
+	}
+
+	public void setGooglePassword(String googlePassword) {
+		this.googlePassword = googlePassword;
+	}
+
+	public String getFacebookPassword() {
+		return facebookPassword;
+	}
+
+	public void setFacebookPassword(String facebookPassword) {
+		this.facebookPassword = facebookPassword;
+	}
 
 	public String getResetToken() {
 		return resetToken;
