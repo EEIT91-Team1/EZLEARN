@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="icon" href="../imgs/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>個人檔案</title>
+  </head>
+
+  <body>
+    <div id="navbar"></div>
+
+    <main class="bg-blue-500">
+      <div
+        class="flex justify-center items-center bg-red-600 min-h-full"
+      >
+        <div class="p-8 w-96 bg-yellow-400">
+          <h1 class="text-4xl" id="isThisYou"></h1>
+          <div
+            class="mb-4 flex justify-center items-center"
+          >
+            <div>
+              <img
+                class="rounded-full mb-4 h-80 w-80"
+                src="../imgs/12-1.png"
+                alt="Avatar"
+                id="imgAvatar"
+              />
+            </div>
+          </div>
+          <form>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                姓名
+              </label>
+              <div
+                class="block text-black text-xl font-bold mb-2"
+                id="username"
+              ></div>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                電子郵件
+              </label>
+              <div
+                class="block text-black text-xl font-bold mb-2"
+                id="email"
+              ></div>
+            </div>
+            <div class="flex items-center">
+              <div class="mb-6 w-2/3">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="birthday"
+                >
+                  生日
+                </label>
+                <div
+                  class="block text-black text-xl font-bold mb-2"
+                  id="birthday"
+                ></div>
+              </div>
+              <div class="mb-6 ml-4 w-1/3">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="gender"
+                >
+                  性別
+                </label>
+                <div
+                  class="block text-black text-xl font-bold mb-2"
+                  id="gender"
+                ></div>
+              </div>
+            </div>
+            <p id="error"></p>
+            <div class="flex items-center justify-center">
+              <button
+                class="bg-orange-500 hover:bg-orange-700 text-white font-bold w-2/3 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                id="confirmInformation"
+              >
+                登入
+              </button>
+              <button
+                class="bg-orange-500 hover:bg-orange-700 text-white font-bold w-1/3 py-2 px-4 ml-5 rounded focus:outline-none focus:shadow-outline"
+                id="isNotMe"
+              >
+                不是我
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script>
+      fetch("../components/navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          $("#navbar").html(data);
+        });
+
+      fetch("../components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          $("#footer").html(data);
+        });
+
+      const jsonData = JSON.parse(
+        sessionStorage.getItem("userData")
+      );
+      console.log(jsonData);
+      if (jsonData) {
+        $("#isThisYou").html(
+          "以 " + jsonData.name + " 登入嗎?"
+        );
+        $("#username").html(jsonData.name);
+        $("#email").html(jsonData.email);
+        $("#gender").html(
+          jsonData.gender == "Male" ? "男" : "女"
+        );
+        $("#birthday").html(jsonData.birthday);
+        $("#imgAvatar").attr(
+          "src",
+          `data:image/png;base64,${jsonData.blobBase64}`
+        );
+      }
+
+      $("#confirmInformation").click(function (e) {
+        e.preventDefault();
+
+        const logindata = {
+          email: jsonData.email,
+          password: jsonData.userID,
+        };
+        fetch("http://localhost:8080/user/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(logindata),
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((logindata) => {
+            if (logindata.error == 1) {
+              //register
+              const data = {
+                email: jsonData.email,
+                password: jsonData.userID,
+                comfirmpassword: jsonData.userID,
+                userInfo: {
+                  userName: jsonData.name,
+                  birthday: jsonData.birthday,
+                  gender:
+                    jsonData.gender == "Male"
+                      ? "male"
+                      : "female",
+                  avatar: jsonData.blobBase64,
+                },
+              };
+
+              fetch("http://localhost:8080/user/register", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+                credentials: "include",
+              })
+                .then((response) => response.text())
+                .then((result) => {
+                  if (result == "true") {
+                    sessionStorage.clear();
+                    $("#error").text(
+                      "註冊成功 請重新登入，兩秒後將自動轉跳頁面"
+                    );
+                    setTimeout(() => {
+                      window.location.href =
+                        "http://127.0.0.1:5500/pages/login.html";
+                    }, 2000);
+                  } else {
+                    $("#error").text("信箱已被註冊");
+                  }
+                });
+            } else if (logindata.error == 2) {
+              $("#errormesg").text("密碼錯誤"); //理論上不發生
+            } else {
+              window.location.href =
+                "http://127.0.0.1:5500/index.html";
+            }
+          });
+      });
+
+      $("#isNotMe").click(function (e) {
+        e.preventDefault();
+        sessionStorage.clear();
+        window.location.replace("./login.html");
+      });
+    </script>
+  </body>
+</html>

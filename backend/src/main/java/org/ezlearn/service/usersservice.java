@@ -1,7 +1,10 @@
 package org.ezlearn.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -87,6 +90,52 @@ public class UsersService {
 			return user;
 		} catch (Exception e) {
 			return null;
+		}
+	}
+	
+	public String genresetToken(String email) {
+		Optional<Users> opt = usersRepository.findByEmail(email);
+		Users user = new Users();
+		try {
+			user = opt.get();
+			String resetToken = (BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+			user.setResetToken(resetToken);
+			LocalDateTime now = LocalDateTime.now();
+			LocalDateTime tenMinutesLater = now.plusMinutes(10);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			String formattedTenMinutesLater = tenMinutesLater.format(formatter);
+			user.setResetTokenExpiry(formattedTenMinutesLater);
+			usersRepository.save(user);
+			return resetToken;
+		} catch (Exception e) {
+			return "-1";
+		}
+	}
+	
+	public void changepw(Users changeuser) {
+		Users user1 = usersRepository.findByresetToken(changeuser.getResetToken());
+		if(user1 != null) {
+			user1.setPassword(BCrypt.hashpw(changeuser.getPassword(), BCrypt.gensalt()));
+			usersRepository.save(user1);
+		}else{
+			System.out.println("修改失敗");
+		}
+	}
+	
+	public int tokenisExpired(Users user) {
+		//1:成功 2:網頁不存在 3:網頁已過期 
+		Users user1 = usersRepository.findByresetToken(user.getResetToken());
+		if(user1 != null) {
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime tenMinutesLater = LocalDateTime.parse(user1.getResetTokenExpiry(), formatter);
+			 if (now.isAfter(tenMinutesLater)) {
+				 return 3;
+		     } else {
+		         return 1;
+		     }
+		}else {
+			return 2;
 		}
 	}
 }

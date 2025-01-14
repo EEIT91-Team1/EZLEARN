@@ -23,6 +23,25 @@ public class Users {
 	private Long userId;
 	private String email;
 	private String password;
+	private String resetToken;
+	private String resetTokenExpiry;
+
+	
+	public String getResetToken() {
+		return resetToken;
+	}
+
+	public void setResetToken(String resetToken) {
+		this.resetToken = resetToken;
+	}
+
+	public String getResetTokenExpiry() {
+		return resetTokenExpiry;
+	}
+
+	public void setResetTokenExpiry(String resetTokenExpiry) {
+		this.resetTokenExpiry = resetTokenExpiry;
+	}
 
 	public Long getUserId() {
 		return userId;

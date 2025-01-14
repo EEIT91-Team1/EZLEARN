@@ -1,14 +1,19 @@
 package org.ezlearn.controller;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 
 import org.ezlearn.DTO.LoginResponse;
 import org.ezlearn.model.Users;
+import org.ezlearn.service.MailService;
 import org.ezlearn.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +26,9 @@ public class UsersController {
 	
 	@Autowired
 	UsersService usersService;
+	
+	@Autowired
+	private MailService mailService;
 	
 	@PostMapping("/register")
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -58,5 +66,34 @@ public class UsersController {
 	public Users getinfo(HttpSession session) {
 		Users user = usersService.getinfofromsession(session);
 		return user;
+	}
+	
+	@GetMapping("/forget/{email}")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public boolean forget(@PathVariable String email) {
+		Collection<String> receivers = Arrays.asList(email);
+		String id = usersService.genresetToken(email);
+		if(id != "-1") {
+			mailService.sendSimpleHtml(receivers, 
+			"EZLEARN 帳戶救援",
+			"<p>請點擊下方的連結以恢復您的 EZLEARN 帳戶</p>"
+			+ "<a href='http://127.0.0.1:5500/pages/changepw.html?id="
+			+ id+"'>前往修改密碼</a>");
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@PutMapping("/changepw")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public void changepw(@RequestBody Users user) {
+		usersService.changepw(user);
+	}
+	
+	@PostMapping("/changepwisExpired")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public int test1(@RequestBody Users user) {
+		return usersService.tokenisExpired(user);
 	}
 }
