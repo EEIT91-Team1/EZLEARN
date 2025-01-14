@@ -139,9 +139,24 @@ public class CheckoutOrderController {
     }
 
     @GetMapping("/history")
-    public ResponseEntity<ApiResponse<List<CheckoutResponseDTO>>> getOrderHistory() {
+    public ResponseEntity<ApiResponse<List<CheckoutResponseDTO>>> getOrderHistory(HttpSession session) {
         try {
-            Integer userId = 1; // TODO: 從認證中獲取
+            // 檢查登入狀態
+            if (!usersService.islogin(session)) {
+                log.warn("用戶未登入，Session ID: {}", session.getId());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.error(401, "請先登入"));
+            }
+
+            // 從 session 獲取用戶信息
+            Users user = (Users) session.getAttribute("user");
+            if (user == null) {
+                log.warn("Session中無用戶信息 - Session ID: {}", session.getId());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(ApiResponse.error(401, "請重新登入"));
+            }
+
+            Integer userId = user.getUserId().intValue();
             List<CheckoutResponseDTO> history = checkoutOrderService.getOrderHistory(userId);
             return ResponseEntity.ok(ApiResponse.success(history));
         } catch (Exception e) {
