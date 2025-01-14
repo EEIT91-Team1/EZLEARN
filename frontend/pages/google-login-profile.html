@@ -2,10 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -21,14 +18,10 @@
     <div id="navbar"></div>
 
     <main class="bg-blue-500">
-      <div
-        class="flex justify-center items-center bg-red-600 min-h-full"
-      >
+      <div class="flex justify-center items-center bg-red-600 min-h-full">
         <div class="p-8 w-96 bg-yellow-400">
           <h1 class="text-4xl" id="isThisYou"></h1>
-          <div
-            class="mb-4 flex justify-center items-center"
-          >
+          <div class="mb-4 flex justify-center items-center">
             <div>
               <img
                 class="rounded-full mb-4 h-80 w-80"
@@ -124,19 +117,13 @@
           $("#footer").html(data);
         });
 
-      const jsonData = JSON.parse(
-        sessionStorage.getItem("userData")
-      );
+      const jsonData = JSON.parse(sessionStorage.getItem("userData"));
       console.log(jsonData);
       if (jsonData) {
-        $("#isThisYou").html(
-          "以 " + jsonData.name + " 登入嗎?"
-        );
+        $("#isThisYou").html("以 " + jsonData.name + " 登入嗎?");
         $("#username").html(jsonData.name);
         $("#email").html(jsonData.email);
-        $("#gender").html(
-          jsonData.gender == "Male" ? "男" : "女"
-        );
+        $("#gender").html(jsonData.gender == "Male" ? "男" : "女");
         $("#birthday").html(jsonData.birthday);
         $("#imgAvatar").attr(
           "src",
@@ -170,10 +157,7 @@
                 userInfo: {
                   userName: jsonData.name,
                   birthday: jsonData.birthday,
-                  gender:
-                    jsonData.gender == "Male"
-                      ? "male"
-                      : "female",
+                  gender: jsonData.gender == "Male" ? "male" : "female",
                   avatar: jsonData.blobBase64,
                 },
               };
@@ -204,8 +188,7 @@
             } else if (logindata.error == 2) {
               $("#errormesg").text("密碼錯誤"); //理論上不發生
             } else {
-              window.location.href =
-                "http://127.0.0.1:5500/index.html";
+              window.location.href = "http://127.0.0.1:5500/index.html";
             }
           });
       });

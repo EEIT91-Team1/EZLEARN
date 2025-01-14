@@ -51,7 +51,7 @@
   height: 100vh;
   z-index: -100;
   -o-object-fit: fill;
-     object-fit: fill;
+  object-fit: fill;
 }
 
 #bg2 {
@@ -60,5 +60,5 @@
   right: 20px;
   z-index: -100;
   -o-object-fit: fill;
-     object-fit: fill;
-}/*# sourceMappingURL=index.css.map */
+  object-fit: fill;
+} /*# sourceMappingURL=index.css.map */

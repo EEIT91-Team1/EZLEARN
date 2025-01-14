@@ -2,10 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -31,13 +28,9 @@
         background-size: 500px, contain;
       "
     >
-      <div
-        class="flex justify-center items-center min-h-full"
-      >
+      <div class="flex justify-center items-center min-h-full">
         <div class="p-8 w-96 border rounded-lg">
-          <h2
-            class="text-2xl font-bold mb-6 text-center text-gray-700"
-          >
+          <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">
             登入
           </h2>
 
@@ -103,9 +96,7 @@
                 忘記密碼?
               </a>
             </div>
-            <div
-              class="flex items-center justify-center mb-4"
-            >
+            <div class="flex items-center justify-center mb-4">
               <p id="errormesg" class="text-red-600"></p>
             </div>
 
@@ -137,17 +128,13 @@
       switchpassword.onclick = function () {
         if (eyeopen == 0) {
           $("#password").attr("type", "text");
-          $("#switchpassword").removeClass(
-            "bi-eye-slash-fill"
-          );
+          $("#switchpassword").removeClass("bi-eye-slash-fill");
           $("#switchpassword").addClass("bi-eye-fill");
           eyeopen = 1;
         } else {
           $("#password").attr("type", "password");
           $("#switchpassword").removeClass("bi-eye-fill");
-          $("#switchpassword").addClass(
-            "bi-eye-slash-fill"
-          );
+          $("#switchpassword").addClass("bi-eye-slash-fill");
           eyeopen = 0;
         }
       };
@@ -157,8 +144,7 @@
         apiKey = "AIzaSyAWNx7NTP7Gdsrfn8rxLIRRfYgM7vxaTwQ",
         scope =
           "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read",
-        personFields =
-          "names,emailAddresses,photos,genders,birthdays",
+        personFields = "names,emailAddresses,photos,genders,birthdays",
         discovery_doc =
           "https://www.googleapis.com/discovery/v1/apis/people/v1/rest",
         resourceName = "people/me",
@@ -168,30 +154,23 @@
       loadApi();
 
       function loadApi() {
-        $.getScript(
-          "https://apis.google.com/js/api.js",
-          function () {
-            gapi.load("client", function () {
-              gapi.client.init({
-                apiKey: apiKey,
-                discoveryDocs: [discovery_doc],
-              });
+        $.getScript("https://apis.google.com/js/api.js", function () {
+          gapi.load("client", function () {
+            gapi.client.init({
+              apiKey: apiKey,
+              discoveryDocs: [discovery_doc],
             });
-          }
-        );
+          });
+        });
 
-        $.getScript(
-          "https://accounts.google.com/gsi/client",
-          function () {
-            tokenClient =
-              google.accounts.oauth2.initTokenClient({
-                client_id: client_id,
-                scope: scope,
-                callback: signIn_callback,
-                error_callback: error_callback,
-              });
-          }
-        );
+        $.getScript("https://accounts.google.com/gsi/client", function () {
+          tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: client_id,
+            scope: scope,
+            callback: signIn_callback,
+            error_callback: error_callback,
+          });
+        });
 
         function signIn_callback(res) {
           if (res.error !== undefined) {
@@ -216,8 +195,7 @@
               (blob) =>
                 new Promise((resolve, reject) => {
                   const reader = new FileReader();
-                  reader.onloadend = () =>
-                    resolve(reader.result.split(",")[1]); // 取出 Base64 部分
+                  reader.onloadend = () => resolve(reader.result.split(",")[1]); // 取出 Base64 部分
                   reader.onerror = reject;
                   reader.readAsDataURL(blob);
                 })
@@ -232,8 +210,7 @@
             })
             .then(async function (res) {
               var result = res.result,
-                errorMessage =
-                  "請重新登入, 並勾選生日及性別!",
+                errorMessage = "請重新登入, 並勾選生日及性別!",
                 idFromGoogle,
                 nameFromGoogle,
                 imgUrlFromGoogle,
@@ -248,20 +225,15 @@
                 return;
               }
 
-              idFromGoogle =
-                result.resourceName.split("/")[1];
+              idFromGoogle = result.resourceName.split("/")[1];
               nameFromGoogle = result.names[0].displayName;
               imgUrlFromGoogle = result.photos[0].url;
-              emailFromGoogle =
-                result.emailAddresses[0].value;
-              genderFromGoogle =
-                result.genders[0].formattedValue;
+              emailFromGoogle = result.emailAddresses[0].value;
+              genderFromGoogle = result.genders[0].formattedValue;
               try {
-                birthdayFromGoogle =
-                  result.birthdays[1].date;
+                birthdayFromGoogle = result.birthdays[1].date;
               } catch (error) {
-                birthdayFromGoogle =
-                  result.birthdays[0].date;
+                birthdayFromGoogle = result.birthdays[0].date;
               }
               console.log(result);
               birthdayFromGoogleStr =
@@ -292,14 +264,10 @@
                   console.log(sessionData);
                 })
                 .catch((error) =>
-                  console.error(
-                    "Error converting image to Base64",
-                    error
-                  )
+                  console.error("Error converting image to Base64", error)
                 );
               // gg跳轉
-              window.location.href =
-                "./ggloginprofile.html";
+              window.location.href = "./ggloginprofile.html";
             });
         }
       }
@@ -333,8 +301,7 @@
         }
         js = d.createElement(s);
         js.id = id;
-        js.src =
-          "https://connect.facebook.net/zh_CN/sdk.js";
+        js.src = "https://connect.facebook.net/zh_CN/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
 
@@ -345,8 +312,7 @@
             (blob) =>
               new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onloadend = () =>
-                  resolve(reader.result.split(",")[1]); // 取出 Base64 部分
+                reader.onloadend = () => resolve(reader.result.split(",")[1]); // 取出 Base64 部分
                 reader.onerror = reject;
                 reader.readAsDataURL(blob);
               })
@@ -365,8 +331,7 @@
                 "/me",
                 { fields: "id,name,email,picture" },
                 async function (profileResponse) {
-                  const imageUrl =
-                    profileResponse.picture.data.url;
+                  const imageUrl = profileResponse.picture.data.url;
                   await urlToBase64(imageUrl)
                     .then((base64Image) => {
                       sessionData = {
@@ -382,14 +347,10 @@
                       console.log(sessionData.blobBase64);
                     })
                     .catch((error) =>
-                      console.error(
-                        "Error converting image to Base64",
-                        error
-                      )
+                      console.error("Error converting image to Base64", error)
                     );
                   // fb跳轉
-                  window.location.href =
-                    "./fbloginprofile.html";
+                  window.location.href = "./fbloginprofile.html";
                 }
               );
             } else {

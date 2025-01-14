@@ -2,10 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -31,13 +28,9 @@
         background-size: 500px, contain;
       "
     >
-      <div
-        class="flex justify-center items-center min-h-full"
-      >
+      <div class="flex justify-center items-center min-h-full">
         <div class="p-8 w-96 border">
-          <h2
-            class="text-2xl font-bold mb-6 text-center text-gray-700"
-          >
+          <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">
             註冊
           </h2>
 
@@ -163,15 +156,14 @@
                 placeholder="輸入電話"
               />
             </div>
-            <div
-              class="flex items-center justify-center mb-4"
-            >
+            <div>
+              <p id="error"></p>
+            </div>
+            <div class="flex items-center justify-center mb-4">
               <p id="error" class="text-red-600"></p>
               <p id="success"></p>
             </div>
-            <div
-              class="flex items-center justify-center mb-4"
-            >
+            <div class="flex items-center justify-center mb-4">
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg w-full focus:outline-none focus:shadow-outline"
                 type="button"
@@ -180,12 +172,11 @@
                 註冊
               </button>
             </div>
-            <div
-              class="flex items-center justify-center mb-4"
-            >
+            <div class="flex items-center justify-center mb-4">
               <a
                 href="/pages/login.html"
                 class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                href="./login.html"
               >
                 已經是會員了嗎?
               </a>
@@ -202,29 +193,21 @@
       let year = nowdate.getFullYear();
       let month = nowdate.getMonth();
       let day = nowdate.getDate();
-      month =
-        month + 1 < 10 ? "0" + (month + 1) : month + 1;
+      month = month + 1 < 10 ? "0" + (month + 1) : month + 1;
       day = day < 10 ? "0" + day : day;
-      $("#birthday").attr(
-        "max",
-        year + "-" + month + "-" + day
-      );
+      $("#birthday").attr("max", year + "-" + month + "-" + day);
 
       let passwordeyeopen = 0;
       switchpassword.onclick = function () {
         if (passwordeyeopen == 0) {
           $("#password").attr("type", "text");
-          $("#switchpassword").removeClass(
-            "bi-eye-slash-fill"
-          );
+          $("#switchpassword").removeClass("bi-eye-slash-fill");
           $("#switchpassword").addClass("bi-eye-fill");
           passwordeyeopen = 1;
         } else {
           $("#password").attr("type", "password");
           $("#switchpassword").removeClass("bi-eye-fill");
-          $("#switchpassword").addClass(
-            "bi-eye-slash-fill"
-          );
+          $("#switchpassword").addClass("bi-eye-slash-fill");
           passwordeyeopen = 0;
         }
       };
@@ -233,21 +216,13 @@
       switchcomfirmpassword.onclick = function () {
         if (comfirmpasswordeyeopen == 0) {
           $("#comfirmpassword").attr("type", "text");
-          $("#switchcomfirmpassword").removeClass(
-            "bi-eye-slash-fill"
-          );
-          $("#switchcomfirmpassword").addClass(
-            "bi-eye-fill"
-          );
+          $("#switchcomfirmpassword").removeClass("bi-eye-slash-fill");
+          $("#switchcomfirmpassword").addClass("bi-eye-fill");
           comfirmpasswordeyeopen = 1;
         } else {
           $("#comfirmpassword").attr("type", "password");
-          $("#switchcomfirmpassword").removeClass(
-            "bi-eye-fill"
-          );
-          $("#switchcomfirmpassword").addClass(
-            "bi-eye-slash-fill"
-          );
+          $("#switchcomfirmpassword").removeClass("bi-eye-fill");
+          $("#switchcomfirmpassword").addClass("bi-eye-slash-fill");
           comfirmpasswordeyeopen = 0;
         }
       };
@@ -261,10 +236,7 @@
           $("#error").text("信箱格式錯誤!");
         } else if ($("#password").val() == "") {
           $("#error").text("密碼為空!");
-        } else if (
-          $("#password").val() !=
-          $("#comfirmpassword").val()
-        ) {
+        } else if ($("#password").val() != $("#comfirmpassword").val()) {
           $("#error").text("密碼與確認密碼不一致!");
         } else if ($("#birthday").val() == "") {
           $("#error").text("生日為空!");
@@ -293,9 +265,7 @@
             .then((response) => response.text())
             .then((result) => {
               if (result == "true") {
-                $("#success").text(
-                  "註冊成功，等待兩秒後進入登入頁面"
-                );
+                $("#success").text("註冊成功，等待兩秒後進入登入頁面");
                 setTimeout(() => {
                   window.location.href = "./login.html";
                 }, 2000);
@@ -307,8 +277,7 @@
       };
 
       function validateEmail(email) {
-        const re =
-          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return re.test(email);
       }
       function validatetel(tel) {

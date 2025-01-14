@@ -2,10 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -23,9 +20,7 @@
 
     <main>
       <div class="flex mx-auto">
-        <aside
-          class="min-h-full border-r-[1px] border-gray-400 p-0"
-        >
+        <aside class="min-h-full border-r-[1px] border-gray-400 p-0">
           <div class="w-32 p-4">
             <ul class="space-y-2">
               <li>
@@ -33,9 +28,7 @@
                   id="btn1"
                   class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
                 >
-                  <i
-                    class="bi bi-youtube left-2 absolute"
-                  ></i>
+                  <i class="bi bi-youtube left-2 absolute"></i>
                   課程<i
                     id="i1"
                     class="bi bi-caret-right-fill right-2 absolute"
@@ -47,10 +40,7 @@
                   id="btn2"
                   class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
                 >
-                  <i
-                    id="i2"
-                    class="bi bi-chat left-2 absolute"
-                  ></i>
+                  <i id="i2" class="bi bi-chat left-2 absolute"></i>
                   問答
                 </button>
               </li>
@@ -59,10 +49,7 @@
                   id="btn3"
                   class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
                 >
-                  <i
-                    id="i3"
-                    class="bi bi-megaphone-fill left-2 absolute"
-                  ></i>
+                  <i id="i3" class="bi bi-megaphone-fill left-2 absolute"></i>
                   公告
                 </button>
               </li>
@@ -70,10 +57,7 @@
           </div>
         </aside>
         <div id="article" style="width: 100vw">
-          <article
-            class="flex-1 p-6"
-            style="min-height: 80vh"
-          >
+          <article class="flex-1 p-6" style="min-height: 80vh">
             <div
               class="mb-6 border-black border px-14 py-2 w-auto h-36 min-w-80 relative"
             >
@@ -94,23 +78,15 @@
             </div>
 
             <div class="mb-6">
-              <h1 class="text-2xl font-bold mb-4">
-                如何開始？
-              </h1>
-              <div
-                class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal"
-              >
-                <div
-                  class="border border-black p-4 flex col-span-2"
-                >
+              <h1 class="text-2xl font-bold mb-4">如何開始？</h1>
+              <div class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal">
+                <div class="border border-black p-4 flex col-span-2">
                   <img
                     src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png"
                     alt=""
                     class="h-16 my-auto"
                   />
-                  <p class="my-auto font-black text-lg">
-                    創建引人入勝的課程
-                  </p>
+                  <p class="my-auto font-black text-lg">創建引人入勝的課程</p>
                 </div>
                 <div
                   class="border border-black p-4 row-span-2 flex items-center justify-center"
@@ -122,35 +98,24 @@
                       alt=""
                       class="h-20 m-auto"
                     />
-                    <p class="font-black text-lg">
-                      建立您的受眾
-                    </p>
+                    <p class="font-black text-lg">建立您的受眾</p>
                   </div>
                 </div>
-                <div
-                  class="border border-black p-4 flex col-span-2"
-                >
+                <div class="border border-black p-4 flex col-span-2">
                   <img
                     src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png"
                     alt=""
                     class="h-16 my-auto"
                   />
-                  <p class="my-auto font-black text-lg">
-                    開始學習影片
-                  </p>
+                  <p class="my-auto font-black text-lg">開始學習影片</p>
                 </div>
               </div>
             </div>
 
             <div>
-              <h1 class="text-2xl font-bold mb-4">
-                我的課程
-              </h1>
+              <h1 class="text-2xl font-bold mb-4">我的課程</h1>
               <div class="border border-black p-4">
-                <div
-                  class="items-center"
-                  id="courselist"
-                ></div>
+                <div class="items-center" id="courselist"></div>
               </div>
             </div>
           </article>
@@ -166,9 +131,7 @@
           $("#btn1").html(
             '<i class="bi bi-youtube left-2 absolute"></i>課程<i class="bi bi-caret-right-fill right-2 absolute"></i>'
           );
-          $("#btn2").html(
-            '<i class="bi bi-chat left-2 absolute"></i>問答'
-          );
+          $("#btn2").html('<i class="bi bi-chat left-2 absolute"></i>問答');
           $("#btn3").html(
             '<i class="bi bi-megaphone-fill left-2 absolute"></i>公告'
           );
@@ -179,9 +142,7 @@
             });
         };
         btn2.onclick = function () {
-          $("#btn1").html(
-            '<i class="bi bi-youtube left-2 absolute"></i>課程'
-          );
+          $("#btn1").html('<i class="bi bi-youtube left-2 absolute"></i>課程');
           $("#btn2").html(
             '<i class="bi bi-chat left-2 absolute"></i>問答<i class="bi bi-caret-right-fill right-2 absolute"></i>'
           );
@@ -195,12 +156,8 @@
             });
         };
         btn3.onclick = function () {
-          $("#btn1").html(
-            '<i class="bi bi-youtube left-2 absolute"></i>課程'
-          );
-          $("#btn2").html(
-            '<i class="bi bi-chat left-2 absolute"></i>問答'
-          );
+          $("#btn1").html('<i class="bi bi-youtube left-2 absolute"></i>課程');
+          $("#btn2").html('<i class="bi bi-chat left-2 absolute"></i>問答');
           $("#btn3").html(
             '<i class="bi bi-megaphone-fill left-2 absolute"></i>公告<i class="bi bi-caret-right-fill right-2 absolute"></i>'
           );

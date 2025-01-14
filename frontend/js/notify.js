@@ -88,9 +88,7 @@ async function res() {
                   <div class="min-h-36 py-4 pl-8 pr-12 flex flex-col justify-between">
                   <p>${item.content}</p>
                   <div class="flex justify-start">
-                  <p class="text-lg text-gray-500">${timeCal(
-                    item.time
-                  )}</p>
+                  <p class="text-lg text-gray-500">${timeCal(item.time)}</p>
                   <p class="text-lg text-gray-600 ml-6">${
                     item.courseName
                   }</p></div>
@@ -117,12 +115,8 @@ async function res() {
                     <li class="my-1 p-2 cursor-pointer hover:bg-gray-100 deleteCourse">
                       <i class="bi bi-trash-fill"></i>　刪除相同課程通知
                     </li>
-                    <input class="hidden courseId" value=${
-                      item.courseId
-                    } />
-                    <input class="hidden notifyId" value=${
-                      item.notifyId
-                    } />
+                    <input class="hidden courseId" value=${item.courseId} />
+                    <input class="hidden notifyId" value=${item.notifyId} />
                   </ul>
                 </div>
               </div>
@@ -136,9 +130,7 @@ async function res() {
                       <div class="min-h-36 py-4 pl-8 pr-12 flex flex-col justify-between">
                       <p>${item.content}</p>
                 <div class="flex justify-start">
-                  <p class="text-lg text-gray-500">${timeCal(
-                    item.time
-                  )}</p>
+                  <p class="text-lg text-gray-500">${timeCal(item.time)}</p>
                   <p class="text-lg text-gray-600 ml-6">${
                     item.courseName
                   }</p></div>
@@ -165,12 +157,8 @@ async function res() {
                         <li class="my-1 p-2 cursor-pointer hover:bg-gray-100 deleteCourse">
                           <i class="bi bi-trash-fill"></i>　刪除相同課程通知
                         </li>
-                        <input class="hidden courseId" value=${
-                          item.courseId
-                        } />
-                        <input class="hidden notifyId" value=${
-                          item.notifyId
-                        } />
+                        <input class="hidden courseId" value=${item.courseId} />
+                        <input class="hidden notifyId" value=${item.notifyId} />
                       </ul>
                     </div>
                   </div>
@@ -180,13 +168,10 @@ async function res() {
   });
 }
 async function islogin() {
-  const isLoginResponse = await fetch(
-    "http://localhost:8080/user/islogin",
-    {
-      method: "GET",
-      credentials: "include",
-    }
-  );
+  const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {
+    method: "GET",
+    credentials: "include",
+  });
   const isLoggedIn = await isLoginResponse.text();
   if (isLoggedIn != "true") {
     window.location.href = "../index.html";
@@ -197,14 +182,8 @@ async function islogin() {
 islogin();
 
 $(document).on("click", ".aNotify", function () {
-  let courseVal = $(this)
-    .siblings(".divMenu")
-    .find(".courseId")
-    .val();
-  let notifyVal = $(this)
-    .siblings(".divMenu")
-    .find(".notifyId")
-    .val();
+  let courseVal = $(this).siblings(".divMenu").find(".courseId").val();
+  let notifyVal = $(this).siblings(".divMenu").find(".notifyId").val();
   async function api() {
     await $.ajax({
       url: `http://localhost:8080/notify/checkedNotify?notifyId=${notifyVal}`,

@@ -15,7 +15,6 @@ public class NotifyList {
 	private Long notifyListId;
 	@Column(insertable=false, updatable=false)
 	private Long notifyId;
-	@Column(insertable=false, updatable=false)
 	private Long userId;
 	private boolean checked;
 	private String createdAt;
