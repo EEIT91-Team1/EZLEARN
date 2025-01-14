@@ -6,4 +6,4 @@ spring.datasource.password=root // 輸入正確密碼
 請確保 Live Server 使用的 port 為 5500。
 確保後端使用的 localhost port 為 8080。
 
-使用 Eclipse 運行可能會發生問題，使用 idea Ultimate 則可直接運行。
+使用 Eclipse 運行可能會發生問題，使用 idea Ultimate 則可直接運行(記得要 Enable Annotation)。
