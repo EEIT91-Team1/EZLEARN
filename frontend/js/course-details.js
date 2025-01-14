@@ -309,4 +309,46 @@ $(document).ready(function () {
       }
     }
   });
+
+  //isPurchased ? watch purchased course
+  async function isPurchasedCourse() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/purchased-courses/my-courses`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      const result = $.grep(data, function (item) {
+        return item.courses.courseId == courseId;
+      });
+      if (result.length > 0) {
+        $(".watch-course")
+          .html(`<a class="w-full mb-1 group relative inline-block focus:outline-none focus:ring" href="http://127.0.0.1:5500/pages/lecture.html?course_id=${courseId}">
+  <span
+    class="absolute inset-0  translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
+  ></span>
+
+  <span
+    class="w-full text-center relative inline-block border-2 border-current px-8 py-3 text-sm font-bold uppercase tracking-widest text-black group-active:text-opacity-75"
+  >
+    開始觀看
+  </span>
+</a>`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  isPurchasedCourse();
 });
