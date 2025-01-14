@@ -220,13 +220,12 @@ $(document).ready(function () {
   }
   getAverageRateForCourse();
 
-  //add to wish list
-  $(".add-to-wish-list").on("click", async function () {
+  async function isInWishlist() {
     try {
       const response = await fetch(
-        `http://localhost:8080/wishList/add?courseId=${courseId}`,
+        `http://localhost:8080/wishList/get`,
         {
-          method: "POST",
+          method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
@@ -239,13 +238,77 @@ $(document).ready(function () {
       }
 
       const data = await response.json();
-      if (data == false) {
-        $(this)
+      console.log(data);
+      const result = $.grep(data, function (item) {
+        return item.courseId == courseId;
+      });
+      if (result.length > 0) {
+        $(".add-to-wish-list")
           .find("i")
-          .toggleClass("bi-heart bi-heart-fill");
+          .addClass("bi-heart-fill");
+        return true;
+      } else {
+        $(".add-to-wish-list")
+          .find("i")
+          .addClass("bi-heart");
+        return false;
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+  isInWishlist();
+
+  //add to wish list or cancel
+  $(".add-to-wish-list").on("click", async function () {
+    if (
+      $(".add-to-wish-list").find("i").hasClass("bi-heart")
+    ) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/wishList/add?courseId=${courseId}`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Internal Error");
+        }
+
+        $(this)
+          .find("i")
+          .toggleClass("bi-heart bi-heart-fill");
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/wishList/delete?courseId=${courseId}`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Internal Error");
+        }
+
+        $(this)
+          .find("i")
+          .toggleClass("bi-heart bi-heart-fill");
+      } catch (error) {
+        console.log(error);
+      }
     }
   });
 });
