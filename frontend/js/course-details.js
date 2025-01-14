@@ -79,7 +79,6 @@ $(document).ready(function () {
 
       const data = await response.json();
       if (data.length > 0) {
-        console.log(data);
         $.each(data, function (index, item) {
           if (item.courseRate != null) {
             $(".course-review").prepend(`<div
@@ -238,7 +237,6 @@ $(document).ready(function () {
       }
 
       const data = await response.json();
-      console.log(data);
       const result = $.grep(data, function (item) {
         return item.courseId == courseId;
       });
