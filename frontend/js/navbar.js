@@ -5,7 +5,6 @@ function navRegister() {
 function navLogin() {
   window.location.href = "../pages/login.html";
 }
-
 //搜尋
 function search() {
   event.preventDefault();
