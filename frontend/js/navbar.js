@@ -116,7 +116,6 @@ $("#iconNotify").on("click", () => {
     $("#divNotify").addClass("opacity-0 scale-95 hidden");
     $("#divNotify").removeClass("opacity-100 scale-100");
   }
-  $("#notifyCount").remove();
 });
 $(document).on("click", ".aNotify", function () {
   let notifyVal = $(this).find(".notifyId").val();

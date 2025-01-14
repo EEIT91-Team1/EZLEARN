@@ -216,28 +216,41 @@ $("#btnSearch").on("click", (event) => {
 
 //AI
 //------------------------------------------------------------
+CoursesData = "";
+function getCourseNameId() {
+  $.ajax({
+    url: "http://localhost:8080/courses/getAllNameId",
+    method: "GET",
+  }).done((data) => {
+    $.each(data, (idx, item) => {
+      CoursesData += `${item.Id}:CourseName:${item.Name},`;
+    });
+  });
+}
+getCourseNameId();
 async function aiApi(qs) {
   let data = {
     messages: [
       {
         role: "system",
-        content: `你是一名線上課程平台的客服人員，網站名稱為「EZLEARN」，請為顧客服務並解決顧客的問題。
-    課程主題有：語言學習、程式設計、美食料理、藝術創作、運動健身、理財投資
+        content: `你是一名線上課程平台的客服人員，網站名稱為EZLEARN，請為顧客服務解決顧客的問題。
+    課程主題：語言學習、程式設計、美食料理、藝術創作、運動健身、理財投資
     會員登入網址：http://127.0.0.1:5500/pages/login.html
     會員註冊網址：http://127.0.0.1:5500/pages/register.html
     搜尋課程網址：http://127.0.0.1:5500/pages/search.html?query=
-    以下網址為登入後才能使用
+    課程網址：http://127.0.0.1:5500/pages/course-details.html?course_id=
+    課程列表：${CoursesData}
+    回覆網址的格式：<a class="underline" href="http://127.0.0.1:5500/pages/register.html" target="_blank">會員註冊</a><br>，
+    推薦課程也是以上述的格式，
+    以下網址登入後才能使用
     我的課程網址:http://127.0.0.1:5500/pages/my-courses.html
     管理課程網址：http://127.0.0.1:5500/pages/teacher-mainJQ.html
     地址：台中市南屯區公益路二段51號18樓
     電話：(04) 2326-5860#6541
     EMail：iiispan@ispan.com.tw
-    服務時間：9:00-16:30
-    以上是我們網站的資訊，
-    提供顧客網址請在網址前加上<a class="underline">及網址後加上</a>提供超連結，超連結後面請附上網址，
-    例如：<a class="underline" href="http://127.0.0.1:5500/pages/register.html">會員註冊</a>(http://127.0.0.1:5500/pages/register.html)，
-    請不要回答顧客關於本網站以外的問題，
-    現在請你開始為user回答問題
+    以上是我們網站資訊，
+    不要回答顧客關於本網站以外的問題，
+    現在開始為user回答問題
     `,
       },
       {
@@ -275,6 +288,7 @@ async function aiApi(qs) {
             </div>
           </div>
 `);
+      $("#btnQs").prop("disabled", false).text("發送");
     })
     .fail((error) => {
       console.error("Error:", error);
@@ -287,10 +301,14 @@ function btnHidden() {
     $("#divCustomerService").addClass("hidden");
   }
 }
-$("#btnCustomerService").on("click", btnHidden);
+$("#btnCustomerService").on("click", () => {
+  $("#needHelp").addClass("hidden");
+  btnHidden();
+});
 
 $("#btnQs").on("click", () => {
   event.preventDefault();
+  $("#btnQs").prop("disabled", true).text("回覆中");
   let qs = $("#qs").val();
   $("#qsResults").append(`
             <div class="relative mb-4 max-w-[80%] py-2 px-3 bg-gray-200 text-gray-800 rounded-lg border border-gray-300 self-end"              style="
