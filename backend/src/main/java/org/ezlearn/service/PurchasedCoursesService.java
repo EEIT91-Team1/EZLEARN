@@ -26,6 +26,13 @@ public class PurchasedCoursesService {
 		return purchasedCoursesRepository.findByCourses(courses);
 	}
 	
+	public PurchasedCourses updateCourseReview(Courses courses, Users users, Integer courseRate, String courseReview) {
+		PurchasedCourses purchasedCourse = purchasedCoursesRepository.findByCoursesAndUsers(courses, users);
+		purchasedCourse.setCourseRate(courseRate);
+		purchasedCourse.setCourseReview(courseReview);
+		return purchasedCoursesRepository.save(purchasedCourse);
+	}
+	
 	public BigDecimal getAverageRateForCourse(Long courseId) {
 	    return purchasedCoursesRepository.findAverageRateByCourseId(courseId);
 	}
@@ -40,5 +47,5 @@ public class PurchasedCoursesService {
 		}
 		return false;
 	}
-
+	
 }

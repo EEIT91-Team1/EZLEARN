@@ -19,6 +19,8 @@ public interface PurchasedCoursesRepository extends JpaRepository<PurchasedCours
 	
 	List<PurchasedCourses> findByCourses(Courses courses);
 	
+	PurchasedCourses findByCoursesAndUsers (Courses courses, Users users);
+	
 	@Query("SELECT ROUND(COALESCE(AVG(p.courseRate), 0), 1) FROM PurchasedCourses p WHERE p.courses.courseId = :courseId")
 	BigDecimal findAverageRateByCourseId(@Param("courseId") Long courseId);
 
