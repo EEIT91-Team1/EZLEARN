@@ -22,10 +22,7 @@ $(document).ready(function () {
         $("#browseCourse").addClass("hidden");
         $.each(data, function (index, item) {
           let courseImg = $("<img>")
-            .attr(
-              "src",
-              `data:image/png;base64,${item.courses.courseImg}`
-            )
+            .attr("src", `data:image/png;base64,${item.courses.courseImg}`)
             .addClass("h-[110px] w-[200px] object-cover");
 
           let courseName = $("<h1>")
@@ -49,12 +46,7 @@ $(document).ready(function () {
             .addClass(
               "group relative flex flex-col justify-center items-center m-4 cursor-pointer border-b border-[#AAAAAA]"
             )
-            .append(
-              courseImg,
-              courseName,
-              teacherName,
-              mask
-            );
+            .append(courseImg, courseName, teacherName, mask);
           let courseVideoLink = $("<a>")
             .append(courseCard)
             .attr(
