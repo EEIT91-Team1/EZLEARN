@@ -79,31 +79,40 @@ $(document).ready(function () {
 
       const data = await response.json();
       if (data.length > 0) {
+        console.log(data);
         $.each(data, function (index, item) {
-          $(".course-review").append(`<div
-          class="flex items-center mr-8 border-b border-gray-300 p-4"
-        >
-          <div class="mr-4 w-24 h-24">
-            <img
-              class="rounded-full w-full h-full object-cover"
-              src="data:image/png;base64,${item.users.userInfo.avatar}"
-              alt=""
-            />
-          </div>
-          <div>
-            <p class="text-[14px]">
-              <span class="rate-star-${index} text-[#F69C08]">
-              </span>
-            </p>
-            <p class="font-bold text-[#212529]">
-              ${item.users.userInfo.userName}
-            </p>
-            <p class="text-[#495057]">
-              ${item.courseReview}
-            </p>
-          </div>
-        </div>`);
-          renderStars(item.courseRate, index);
+          if (item.courseRate != null) {
+            $(".course-review").prepend(`<div
+            class="flex items-center mr-8 border-b border-gray-300 p-4"
+          >
+            <div class="mr-4 w-24 h-24">
+              <img
+                class="rounded-full w-full h-full object-cover"
+                src="data:image/png;base64,${
+                  item.users.userInfo.avatar
+                }"
+                alt=""
+              />
+            </div>
+            <div>
+              <p class="text-[14px]">
+                <span class="rate-star-${index} text-[#F69C08]">
+                </span>
+              </p>
+              <p class="font-bold text-[#212529]">
+                ${item.users.userInfo.userName}
+              </p>
+              <p class="text-[#495057]">
+                ${
+                  item.courseReview
+                    ? item.courseReview
+                    : "　"
+                }
+              </p>
+            </div>
+          </div>`);
+            renderStars(item.courseRate, index);
+          }
         });
       } else {
         $(".course-review").append(
@@ -210,4 +219,33 @@ $(document).ready(function () {
     }
   }
   getAverageRateForCourse();
+
+  //add to wish list
+  $(".add-to-wish-list").on("click", async function () {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/wishList/add?courseId=${courseId}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      if (data == false) {
+        $(this)
+          .find("i")
+          .toggleClass("bi-heart bi-heart-fill");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
 });
