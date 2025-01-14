@@ -179,7 +179,16 @@
         .then((data) => {
           $("#footer").html(data);
         });
-
+      fetch("http://localhost:8080/user/islogin", {
+        method: "get",
+        credentials: "include",
+      })
+        .then((response) => response.text())
+        .then((data) => {
+          if (data != "true") {
+            window.location.href = "login.html";
+          }
+        });
       fetch("http://localhost:8080/teacher/teachercourse", {
         method: "GET",
         credentials: "include",

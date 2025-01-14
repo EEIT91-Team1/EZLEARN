@@ -22,7 +22,13 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <style>
+      *:disabled {
+        background-color: rgb(163, 163, 163);
+        color: rgb(55, 65, 81);
+        opacity: 1;
+      }
+    </style>
     <title>個人檔案</title>
   </head>
 
@@ -291,18 +297,18 @@
         });
       });
 
-      canvas.addEventListener("mouseup", () => {
+      canvas.addEventListener("mouseup", () => {//生成選取區域
         drawCropAreaToBase64();
       });
 
-      function openLoginModal() {
+      function openLoginModal() {//彈出畫布選取視窗
         const modal = new bootstrap.Modal(
           document.getElementById("loginModal")
         );
         modal.show();
       }
 
-      function drawCropArea(e) {
+      function drawCropArea(e) {//畫布&選取圈設定
         const rect = canvas.getBoundingClientRect();
         const endX = e.clientX - rect.left;
         const endY = e.clientY - rect.top;
@@ -338,7 +344,7 @@
         ctx.stroke();
       }
 
-      function drawCropAreaToBase64() {
+      function drawCropAreaToBase64() {//選取區轉成Base64
         const croppedCanvas = document.createElement("canvas");
         const croppedCtx = croppedCanvas.getContext("2d", {
           alpha: true,
@@ -383,7 +389,7 @@
         }, "image/png");
       }
 
-      function toggleEdit(a) {
+      function toggleEdit(a) {//鎖定&解除輸入框
         const btnToggleEdit = document.getElementById(a);
         if (btnToggleEdit.readOnly) {
           btnToggleEdit.readOnly = false;
@@ -400,7 +406,7 @@
         });
       }
 
-      function toggleEditSelect() {
+      function toggleEditSelect() {//鎖定&解除 選擇輸入框
         const btnToggleEdit = document.getElementById("gender");
         if (btnToggleEdit.disabled) {
           btnToggleEdit.disabled = false;
@@ -417,7 +423,7 @@
         });
       }
 
-      closeModal.onclick = function () {
+      closeModal.onclick = function () {//讀取前端sessionBlob
         var blobBase64 = sessionStorage.getItem("Blob");
         if (blobBase64) {
           $("#imgAvatar").attr("src", `data:image/png;base64,${blobBase64}`);
@@ -478,7 +484,7 @@
           .then((response) => {
             // console.log(response);
             // console.log(typeof (response));
-            console.log(response.userInfo.userIntro);
+            //console.log(response.userInfo.userIntro);
             $("#username").attr("value", response.userInfo.userName);
             $("#email").attr("value", response.email);
             $("#birthday").attr("value", response.userInfo.birthday);
@@ -486,6 +492,7 @@
             response.userInfo.gender == "male"
               ? $("#gender option[value=male]").attr("selected", "selected")
               : $("#gender option[value=female]").attr("selected", "selected");
+            $("#userIntro").attr("placeholder", `大家好！我的名字是${response.userInfo.userName}。`);  
             $("#userIntro").val(response.userInfo.userIntro);
             if (response.userInfo.avatar != "") {
               $("#imgAvatar").attr(
