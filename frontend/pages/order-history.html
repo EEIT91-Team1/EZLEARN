@@ -63,11 +63,15 @@
 
       async function loadOrderHistory() {
         try {
-          const response = await fetch(`${API_BASE_URL}/api/checkout/history`);
+          const response = await fetch(`${API_BASE_URL}/api/checkout/history`, {
+            credentials: 'include'
+          });
           const result = await response.json();
           
           if (result.code === 200) {
             displayOrders(result.data);
+          } else if (result.code === 401) {
+            window.location.href = 'login.html';
           } else {
             showNoOrders();
           }
