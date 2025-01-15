@@ -116,17 +116,17 @@ function plusInput() {
 	$("#formRange")
 		.append(`<div id="dataInput${dataInputCount}" class="upload-group draggable" draggable="true">
                 <div
-                    class="flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  px-4 gap-x-1">
-                    <i class="hamburger-icon bi bi-list text-4xl focus:outline-none" data-id="1"></i>
-                    <input class="w-[80%]  h-[3rem] text-3xl bi bi-caret-down   outline-none  " placeholder="${placeHoderText}" type="text" name="courseName${courseIndex}" autocomplete="off">
-                    <button type="button" class=" absolute  right-6 w-12 flex focus:outline-none">
-                        <i class="bi bi-plus-square-dotted text-4xl focus:outline-none" onclick="plusInput(dataInputCount)"></i>
-                        <i class="bi bi-trash text-4xl focus:outline-none" onclick="removeInput(${dataInputCount})"></i>
+                    class="flex w-full focus-within:outline-black relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  lg:col-span-2 px-4 gap-x-1">
+                    <i class="hamburger-icon bi bi-list focus:outline-none  md:text-3xl lg:text-4xl" data-id="1"></i>
+                    <input class=" w-[80%] h-[3rem] outline-none sm:text-sm pl-5 md:text-lg lg:text-3xl " placeholder="${placeHoderText}" type="text" name="courseName${courseIndex}" autocomplete="off">
+                    <button type="button" class="  flex absolute focus:outline-none sm:  md:right-4 lg:right-2 ">
+                        <i class="bi bi-plus-square-dotted focus:outline-none  md:text-3xl lg:text-4xl" onclick="plusInput(dataInputCount)"></i>
+                        <i class="bi bi-trash focus:outline-none md:text-3xl lg:text-4xl" onclick="removeInput(${dataInputCount})"></i>
                     </button>
                 </div>
                 <div class="mt-1 ml-auto w-[80%] flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  px-4  gap-x-1 ">
                     <input type="file" accept="video/mp4" class="sr-only w-full  h-[3rem] text-2xl   outline-none  pt-1 " id="lessonLoad${dataInputCount}" name="courseVideo${courseIndex}" onchange="updateFileName(${dataInputCount})">
-					<label for="lessonLoad${dataInputCount}" class=" w-full  h-[3rem] text-3xl   outline-none   cursor-pointer text-gray-400 pt-1" id="fileLabel${dataInputCount}" >請上傳課程影片
+					<label for="lessonLoad${dataInputCount}" class="w-full h-[3rem] outline-none cursor-pointer text-gray-400 pt-1 md:text-base pt-3 lg:text-3xl   " id="fileLabel${dataInputCount}" >請上傳課程影片
 					
                 </div>
                 </div>`);

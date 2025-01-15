@@ -29,127 +29,129 @@
 
 
 		<div class="bg-gray-100  bg-opacity-80 w-[70vw] rounded-2xl" id="content">
-			<form class="mx-[10%] my-[5%] grid grid-cols-4 ">
-				<div class="space-y-12 col-span-4">
-					<div class="">
-						<h2 class="text-3xl font-semibold text-gray-900">歡迎來到我們的線上課程設置平台！</h2>
-						<p class="mt-1 text-lg text-gray-600">
-							在這裡，您可以輕鬆設置並管理您的線上課程，讓學員們在您的精心設計下學習新知識。我們提供簡單且直觀的工具，幫助您根據需要創建、調整和發佈課程內容。無論您是要開始一門新的課程，或是更新現有課程，都能在幾分鐘內完成，並與學員共享您寶貴的學習資料。
-
-							讓我們一起打造一個充滿創新、互動和學習樂趣的線上學習環境，提升學生的學習體驗，並加速您知識的傳播！</p>
-
-						<div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-							<div class="sm:col-span-4">
-								<label for="coursename" class="block text-3xl font-medium text-gray-900">課程名稱</label>
-								<div class="mt-2">
-									<div
-										class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-black">
-
-										<input type="text" name="coursename" id="coursename"
-											class="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900  focus:outline focus:outline-0 sm:text-sm/6"
-											autocomplete="off" placeholder="java 2週速成班">
-									</div>
-								</div>
-							</div>
+			<form class="grid grid-cols-3  sm:  md:mx-[10%] my-[5%] ">
 
 
-							<div class="sm:col-span-4">
+				<h5 class="text-3xl font-semibold text-gray-900 col-span-3 mx-3">歡迎來到我們的線上課程設置平台！</h5>
+				<p class="mt-1 text-2xl text-gray-600 col-span-3 mx-3">
+					在這裡，您可以輕鬆設置並管理您的線上課程，讓學員們在您的精心設計下學習新知識。我們提供簡單且直觀的工具，幫助您根據需要創建、調整和發佈課程內容。無論您是要開始一門新的課程，或是更新現有課程，都能在幾分鐘內完成，並與學員共享您寶貴的學習資料。
 
-								<label for="username" class="block text-3xl font-medium text-gray-900">課程主題</label>
-								<div class="mt-2">
-									<div
-										class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-black">
+					讓我們一起打造一個充滿創新、互動和學習樂趣的線上學習環境，提升學生的學習體驗，並加速您知識的傳播！</p>
 
-										<select
-											class="text-3xl block min-w-0 grow py-1.5 pl-1 pr-3 text-base   focus:outline focus:outline-0 "
-											id="courseClass" name="courseClass" value="大眾傳播">
-											<option value="" disabled selected>請選擇課程分類</option> <!-- 這裡是佔位符 -->
-											<option>語言學習</option>
-											<option>程式設計</option>
-											<option>美食料理</option>
-											<option>藝術創作</option>
-											<option>運動健身</option>
-											<option>理財投資</option>
-										</select>
-									</div>
-								</div>
-							</div>
-							<div class="sm:col-span-4">
-								<label for="coursePrice" class="block text-3xl font-medium text-gray-900">課程價格</label>
-								<div class="mt-2">
-									<div
-										class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-black">
+				<div class="mt-10 col-span-3 grid grid-cols-3 gap-x-6 gap-y-8 mx-3">
+					<div class="col-span-full grid grid-cols-3 ">
+						<label for="coursename" class=" block text-3xl  text-gray-900 col-span-3">課程名稱</label>
+						<div class="mt-2 col-span-3">
+							<div
+								class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-black">
 
-										<input type="number" min="0" max="2147483647" title="只能輸入大於0小於2147483647的數字"
-											name="coursePrice" id="coursePrice"
-											class="block min-w-0 grow py-1.5 pl-1 pr-3 text-base text-gray-900  focus:outline focus:outline-0 sm:text-sm/6"
-											placeholder="9999">
-									</div>
-								</div>
-							</div>
-
-							<div class="col-span-full">
-								<label for="courseIntro" class="block text-3xl font-medium text-gray-900">課程介紹</label>
-								<div class="mt-2">
-									<textarea name="courseIntro" id="courseIntro" rows="3"
-										class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300  focus:outline focus:outline-2 focus:-outline-offset-2 focus-within:outline-black "
-										placeholder="請輸入課程介紹">
-									</textarea>
-								</div>
-								<p class="mt-3 text-l text-gray-600">請描述所上之課程的簡介(建議不要超過50個字，讓學生們一看就明白)</p>
-							</div>
-							<div class="col-span-full">
-								<label for="courseSummory" class="block text-3xl font-medium text-gray-900">課程總覽
-								</label>
-								<div class="mt-2">
-									<textarea name="courseSummory" id="courseSummory" rows="3"
-										class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300  focus:outline focus:outline-2 focus:-outline-offset-2 focus-within:outline-black ">
-									</textarea>
-								</div>
-								<p class="mt-3 text-l text-gray-600">請針對課程的內容詳細描述(如果內容繁多可以點擊輸入框右下角進行輸入框大小調整)</p>
-							</div>
-
-
-							<div class="flex col-span-6 ">
-								<div class="  col-span-5  w-[25vw]">
-									<label class="block text-3xl font-medium text-gray-900">課程封面</label>
-									<!-- 上傳封面框 -->
-									<div
-										class="  justify-center rounded-lg border border-dashed border-gray-900/25  bg-white mt-1">
-										<div class="text-center" id="oringImage">
-											<div class="">
-												<label for="courseImage"
-													class="relative cursor-pointer rounded-md bg-white font-semibold text-black  ">
-													<span>上傳課程封面照</span> <input id="courseImage" name="courseImage"
-														type="file" accept=".jpg, .jpeg, .png" class="sr-only">
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="mt-2 ">
-										<p>建議照片比例為 336 : 250，</p>
-
-										<p>檔案格式僅支援 jpg, png</p>
-									</div>
-
-								</div>
-								<div class="border border-dashed border-gray-900/25"
-									style="border-left: 1px #000; height: 336px; margin: 0 10px;"></div>
-								<div
-									class="relative w-[250px] h-[336px]  overflow-hidden ml-[200px]  rounded-lg border border-dashed border-gray-900/25  bg-white/50 ">
-									<img id="displayZone" class="w-full h-full object-cover">
-									<div class=" absolute inset-0   text-xl font-bold px-[80px] py-[88px]">
-										<p class="text-black/50 display-none " id="previewText">草稿預覽</p>
-									</div>
-								</div>
+								<input type="text" name="coursename" id="coursename"
+									class="block min-w-0 grow py-1.5 pl-1 pr-3 text-2xl text-gray-900  focus:outline focus:outline-0 "
+									autocomplete="off" placeholder="java2週速成班">
 							</div>
 						</div>
 					</div>
+
+
+					<div class="col-span-full">
+
+						<label for="username" class="block text-3xl  text-gray-900">課程主題</label>
+						<div class="mt-2">
+							<div
+								class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-black">
+
+								<select
+									class="text-2xl block min-w-0 grow py-1.5 pl-1 pr-3    focus:outline focus:outline-0 "
+									id="courseClass" name="courseClass" value="大眾傳播">
+									<option value="" disabled selected>請選擇主題</option> <!-- 這裡是佔位符 -->
+									<option>語言學習</option>
+									<option>程式設計</option>
+									<option>美食料理</option>
+									<option>藝術創作</option>
+									<option>運動健身</option>
+									<option>理財投資</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-span-full">
+						<label for="coursePrice" class="block text-3xl  text-gray-900">課程價格</label>
+						<div class="mt-2">
+							<div
+								class="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-black">
+
+								<input type="number" min="0" max="2147483647" title="只能輸入大於0小於2147483647的數字"
+									name="coursePrice" id="coursePrice"
+									class=" block min-w-0 grow py-1.5 pl-1 pr-3 text-2xl text-gray-900  focus:outline focus:outline-0 "
+									placeholder="9999">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-span-full">
+						<label for="courseIntro" class="block text-3xl  text-gray-900">課程介紹</label>
+						<div class="mt-2">
+							<textarea name="courseIntro" id="courseIntro" rows="3"
+								class=" block w-full rounded-md bg-white px-3 py-1.5 text-2xl text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300  focus:outline focus:outline-2 focus:-outline-offset-2 focus-within:outline-black "
+								placeholder="請輸入課程介紹">
+									</textarea>
+						</div>
+						<p class="mt-3 text-2xl text-gray-600">請描述所上之課程的簡介(建議不要超過50個字，讓學生們一看就明白)</p>
+					</div>
+					<div class="col-span-full">
+						<label for="courseSummory" class="block text-3xl  text-gray-900">課程總覽
+						</label>
+						<div class="mt-2">
+							<textarea name="courseSummory" id="courseSummory" rows="3"
+								class="block w-full rounded-md bg-white px-3 py-1.5 text-2xl text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300  focus:outline focus:outline-2 focus:-outline-offset-2 focus-within:outline-black ">
+									</textarea>
+						</div>
+						<p class="mt-3 text-2xl text-gray-600">請針對課程的內容詳細描述(如果內容繁多可以點擊輸入框右下角進行輸入框大小調整)</p>
+					</div>
+
+
+					<div class="col-span-3 grid grid-cols-3 gap-y-6">
+						<!-- flex -->
+						<div class="col-span-3 grid grid-cols-3 sm:col-span-3 md:col-span-1">
+							<label class="col-span-3 block text-3xl font-medium text-gray-900">課程封面</label>
+							<!-- 上傳封面框 -->
+							<div
+								class="col-span-3  justify-center rounded-lg border border-dashed border-gray-900/25  bg-white ">
+
+								<div class=" text-center" id="oringImage">
+									<label for="courseImage"
+										class="relative cursor-pointer rounded-md bg-white font-semibold text-black text-2xl ">
+										<span>上傳課程封面照</span>
+										<input id="courseImage" name="courseImage" type="file"
+											accept=".jpg, .jpeg, .png" class="sr-only">
+									</label>
+								</div>
+
+							</div>
+							<div class="mt-2 col-span-3">
+								<p class="text-xl mt-1 sm:text-xl md:text-2xl">建議照片比例為 336 : 250，</p>
+
+								<p class="text-xl mt-1 sm:text-xl md:text-2xl">檔案格式僅支援 jpg, png</p>
+							</div>
+
+						</div>
+						<!-- 間格的虛線 -->
+						<div class="hidden border-l border-l-dashed border-gray-900/25  border-black h-[336px] mx-[50%]  md:col-span-1 sm:col-span-3 sm:hidden md:block md:block"
+							></div>
+						<!-- 草稿框 -->
+						<div
+							class="  w-[250px] h-[336px]  overflow-hidden   rounded-lg border border-dashed border-gray-900/25  bg-white/50 sm:col-span-3 md:col-span-1">
+							<img id="displayZone" class="w-full h-full object-cover">
+							
+						</div>
+					</div>
+
+
 				</div>
 				<div class="mt-6 flex items-center justify-end gap-x-6 col-span-4">
 
 					<button type="button"
-						class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray hover:bg-black-100"
+						class="rounded-md  px-3 py-2 lg:text-xl font-semibold text-white shadow-sm bg-gray hover:bg-black-100"
 						style="background-color: #7c807c;" onclick="step2()" id="nextToTwo">下一步</button>
 				</div>
 			</form>
@@ -160,6 +162,7 @@
 	<img src="../imgs/indexBg2.png" id="bg2" />
 	<script src="../js/header-footer.js"></script>
 	<script>
+		$('#coursename').click(function () { console.log('點擊正常'); });
 		$('#coursePrice').on('input', (event) => {
 			let value = event.target.value;
 
@@ -287,14 +290,14 @@
 
 
 
-		
 
-			$(document).ready(checkIsLogin);
+
+		$(document).ready(checkIsLogin);
 
 	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	
-	
+
+
 </body>
 
 </html>

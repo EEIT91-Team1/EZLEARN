@@ -19,60 +19,63 @@
       
           <div class="bg-gray-100 bg-opacity-80 w-[70vw] ">
               <form
-                  class="bg-white  rounded-2xl mx-[10%] my-[5%] grid grid-cols-3 grid-row-4 gap-x-3  p-4"
+                  class="bg-white  rounded-2xl mx-[10%] my-[5%] grid  grid-row-4 gap-x-3  p-4 sm:grid-cols-1 lg:grid-cols-3"
                   id="formContent">
-                  <div class="space-y-4 col-span-2   p-2 " id="formRange">
-                      <button type="button"
-                          class=" w-40  rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray "
-                          style="background-color: #8b8f8b;"
-                          onclick="plusInput();changeAddClassButtonColor()"
-                          id="addClassButton">新增 章節</button>
-      
-                  </div>
-                  <div class="grid bg-gray-100 p-2 h-[100vh] gap-y-4 row-span-3 rounded-2xl">
-                      <div>
-                          <i > ＊課程影片選擇完後，按下底下的課程上傳才會保存哦！！！</i>
-                      </div>
-                      <div>
-                          <h2>＊章節名稱</h2>
-                          <p>點選章節名稱，可以直接輸入每個章節的名稱，並且記得在每個章節上傳此章節的課程影片。</p>
-                      </div>
-                      <div>
-                          <i class="hamburger-icon bi bi-list "> 按住拖曳可以立即調整課程章節順序，不用在逐一輸入。</i>
-                      </div>
-                      <div>
-                          <i class="bi bi-plus-square-dotted "> 直接新增一個新章節。</i>
-                      </div>
-                      <div>
-                          <i class="bi bi-trash"> 將此章節刪除。</i>
-                      </div>
-                      <div class=" row-span-1 pl-5">
-                          <img src="../imgs/postClassComputer.png" class="w-[200px] h-[200px]">
-                        </div>
-                  </div>
-                  <!-- 下一頁按鈕 -->
-                  <div class="flex items-center justify-end  col-span-3 gap-x-3">
-                      <div class="mt-6 grid  col-span-1  ">
+                  
+
+                      <div class="sm:col-span-3 row-span-4 lg:col-span-2 space-y-4 p-2 " id="formRange">
                           <button type="button"
-                              class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
-                              style="background-color: #7c807c;" onclick=" "
-                              id="uploadButton">影片上傳</button>
-      
+                              class=" w-40 h-18 rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray  lg:text-3xl "
+                              style="background-color: #8b8f8b;"
+                              onclick="plusInput();changeAddClassButtonColor()"
+                              id="addClassButton">新增 章節</button>
+          
                       </div>
-                      <div class="mt-6 grid  col-span-1  ">
-                          <button type="button"
-                              class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
-                              style="background-color: #7c807c;" onclick=" step1()"
-                              id="">上一步</button>
-      
+                      <div class="grid bg-gray-100  rounded-2xl   md:h-[850px] text-base lg:h-[500px] text-2xl col-span-1 p-2 gap-y-5">
+                          <div>
+                              <i class="text-2xl" > ＊課程影片選擇完後，按下底下的課程上傳才會保存哦！！！</i>
+                          </div>
+                          <div>
+                              <p class="text-2xl">＊章節名稱</p>
+                              <p class="text-2xl">點選章節名稱，可以直接輸入每個章節的名稱，並且記得在每個章節上傳此章節的課程影片。</p>
+                          </div>
+                          <div>
+                              <i class="hamburger-icon bi bi-list text-2xl"> 按住拖曳可以立即調整課程章節順序，不用在逐一輸入。</i>
+                          </div>
+                          <div>
+                              <i class="bi bi-plus-square-dotted text-2xl"> 直接新增一個新章節。</i>
+                          </div>
+                          <div>
+                              <i class="bi bi-trash text-2xl"> 將此章節刪除。</i>
+                          </div>
+                          <div class=" row-span-1 pl-5">
+                              <img src="../imgs/postClassComputer.png" class="w-[200px] h-[150px]">
+                            </div>
                       </div>
-                      <div class="mt-6 grid  col-span-2  mr-0">
-                          <button type="button"
-                              class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
-                              style="background-color: #7c807c;" onclick="step3()"
-                              id="nextToPostClass3">下一步</button>
+                      <!-- 下一頁按鈕 -->
+                      <div class="items-center justify-end sm:flex sm:col-span-3 flex-col pt-1 lg:grid lg:col-span-3 gap-x-6 pt-[100px] text-xl ">
+                          <div class="mt-8 grid   col-span-1  text-xl">
+                              <button type="button"
+                                  class="rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray lg:text-xl"
+                                  style="background-color: #7c807c;" onclick=" "
+                                  id="uploadButton">影片上傳</button>
+          
+                          </div>
+                          <div class="mt-8 grid  col-span-1  ">
+                              <button type="button"
+                                  class="rounded-md px-3 py-2 font-semibold text-white shadow-sm bg-gray lg:text-xl"
+                                  style="background-color: #7c807c;" onclick=" step1()"
+                                  id="">上一步</button>
+          
+                          </div>
+                          <div class="mt-8 grid  col-span-2  mr-0">
+                              <button type="button"
+                                  class="rounded-md  px-3 py-2 font-semibold text-white shadow-sm bg-gray lg:text-xl"
+                                  style="background-color: #7c807c;" onclick="step3()"
+                                  id="nextToPostClass3">下一步</button>
+                          </div>
                       </div>
-                  </div>
+                 
               </form>
           </div>
           <div id="footer"></div>
