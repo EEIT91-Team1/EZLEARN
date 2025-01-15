@@ -1,280 +1,375 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
-    <link rel="icon" href="../imgs/favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
     <title>訂單確認</title>
-  </head>
-  <body class="bg-gray-50">
+</head>
+<body class="bg-gray-50">
     <div id="navbar"></div>
 
     <main class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto">
-        <div class="flex flex-col lg:flex-row gap-8">
-          <div class="lg:w-2/3">
-            <div
-              class="bg-white rounded-lg shadow-md p-6 mb-6"
-            >
-              <h2 class="text-2xl font-bold mb-4">
-                購買明細
-                <span class="text-gray-500 text-base"
-                  >總共 n 件</span
-                >
-              </h2>
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-2/3">
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h2 class="text-2xl font-bold mb-4">購買明細 <span class="text-gray-500 text-base">總共 0 件</span></h2>
+                        
+                        <div class="mb-4" id="orderItems">
+                            <!-- 這裡會動態插入課程項目 -->
+                        </div>
+                    </div>
 
-              <div class="border rounded-lg p-4 mb-4">
-                <div class="flex items-center">
-                  <span
-                    class="bg-gray-200 px-3 py-1 rounded mr-4"
-                    >課程</span
-                  >
-                  <h3 class="text-lg flex-grow">
-                    課程名稱
-                  </h3>
-                  <span class="text-xl">NT$ 9999 元</span>
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h2 class="text-2xl font-bold mb-4">
+                            <i class="bi bi-credit-card mr-2"></i>
+                            信用卡/簽帳金融卡付款
+                            <button class="float-right text-gray-500 text-base">刪除</button>
+                        </h2>
+
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2">信用卡卡號</label>
+                                <input 
+                                    type="text" 
+                                    id="cardNumber"
+                                    class="w-full p-2 border rounded" 
+                                    placeholder="**** **** **** ****"
+                                    maxlength="19"
+                                >
+                                <div class="text-red-500 text-sm mt-1 hidden" id="cardNumberError">請輸入16位數字</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-700 mb-2">信用卡有效期限</label>
+                                    <input 
+                                        type="text" 
+                                        id="expiryDate"
+                                        class="w-full p-2 border rounded" 
+                                        placeholder="MM/YY"
+                                        maxlength="5"
+                                    >
+                                    <div class="text-red-500 text-sm mt-1 hidden" id="expiryDateError">請輸入有效月份(01-12)及年份</div>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 mb-2">安全識別碼</label>
+                                    <input 
+                                        type="text" 
+                                        id="cvv"
+                                        class="w-full p-2 border rounded" 
+                                        placeholder="CVV/CVC"
+                                        maxlength="3"
+                                    >
+                                    <div class="text-red-500 text-sm mt-1 hidden" id="cvvError">請輸入3位數字</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="lg:w-1/3">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-bold mb-4">訂單明細</h2>
+                        <div class="border-b pb-4 mb-4">
+                            <div class="flex justify-between mb-2">
+                                <span><span id="itemCount">0</span> 件商品</span>
+                            </div>
+                            <div class="flex justify-between text-gray-600">
+                                <span>價格統計</span>
+                                <span>NT$ <span id="totalPrice">0</span> 元</span>
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-2xl font-bold mb-6">
+                            <span>總計：NT$ <span id="finalTotal">0</span> 元</span>
+                        </div>
+
+                        <button type="submit" class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition">
+                            確認付款
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            <div
-              class="bg-white rounded-lg shadow-md p-6 mb-6"
-            >
-              <h2 class="text-2xl font-bold mb-4">
-                <i class="bi bi-credit-card mr-2"></i>
-                信用卡/簽帳金融卡付款
-                <button
-                  class="float-right text-gray-500 text-base"
-                >
-                  刪除
-                </button>
-              </h2>
-
-              <div class="bg-gray-50 p-6 rounded-lg">
-                <div class="mb-4">
-                  <label class="block text-gray-700 mb-2"
-                    >信用卡卡號</label
-                  >
-                  <input
-                    type="text"
-                    class="w-full p-2 border rounded"
-                    placeholder="**** **** **** ****"
-                    maxlength="19"
-                    oninput="this.value = this.value.replace(/[^\d]/g, '').replace(/(\d{4})/g, '$1 ').trim()"
-                  />
-                  <span class="text-red-500 text-sm hidden"
-                    >請輸入16位數字</span
-                  >
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-gray-700 mb-2">
-                      信用卡有效期限
-                      <span
-                        class="text-red-500 text-sm hidden"
-                        >請輸入有效月份(01-12)及年份</span
-                      >
-                    </label>
-                    <input
-                      type="text"
-                      class="w-full p-2 border rounded"
-                      placeholder="MM/YY"
-                      maxlength="5"
-                      oninput="let val = this.value.replace(/\D/g,'');
-                              if (val.length > 2) {
-                                this.value = val.substr(0,2) + '/' + val.substr(2);
-                              } else {
-                                this.value = val;
-                              }
-                              if(val.length >= 2) {
-                                let month = parseInt(val.substr(0,2));
-                                if(month > 12 || month < 1) {
-                                  this.parentElement.querySelector('span').classList.remove('hidden');
-                                } else {
-                                  this.parentElement.querySelector('span').classList.add('hidden');
-                                }
-                              }"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-gray-700 mb-2">
-                      安全識別碼
-                      <span
-                        class="text-red-500 text-sm hidden"
-                        >請輸入3位數字</span
-                      >
-                    </label>
-                    <input
-                      type="text"
-                      class="w-full p-2 border rounded"
-                      placeholder="CVV/CVC"
-                      maxlength="3"
-                      oninput="this.value = this.value.replace(/\D/g,'');
-                              if(this.value.length != 3) {
-                                this.previousElementSibling.querySelector('span').classList.remove('hidden');
-                              } else {
-                                this.previousElementSibling.querySelector('span').classList.add('hidden');
-                              }"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="lg:w-1/3">
-            <div class="bg-white rounded-lg shadow-md p-6">
-              <h2 class="text-xl font-bold mb-4">
-                訂單明細
-              </h2>
-              <div class="border-b pb-4 mb-4">
-                <div class="flex justify-between mb-2">
-                  <span
-                    ><span id="itemCount">0</span>
-                    件商品</span
-                  >
-                </div>
-                <div
-                  class="flex justify-between text-gray-600"
-                >
-                  <span>價格統計</span>
-                  <span
-                    >NT$
-                    <span id="totalPrice">0</span> 元</span
-                  >
-                </div>
-              </div>
-              <div
-                class="flex justify-between text-2xl font-bold mb-6"
-              >
-                <span
-                  >總計：NT$
-                  <span id="finalTotal">0</span> 元</span
-                >
-              </div>
-              <button
-                class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
-                onclick="submitOrder()"
-              >
-                送出
-              </button>
-            </div>
-          </div>
         </div>
-      </div>
     </main>
 
     <div id="footer"></div>
-    <script src="../js/header-footer.js"></script>
-    <script>
-      function calculateOrder() {
-        const items = document.querySelectorAll(
-          ".border.rounded-lg.p-4.mb-4"
-        );
-        const itemCount = items.length;
 
-        let total = 0;
-        items.forEach((item) => {
-          const priceText = item.querySelector(
-            "span:last-child"
-          ).textContent;
-          const price = parseInt(
-            priceText.replace(/[^0-9]/g, "")
-          );
-          total += price;
+    <script src="../js/header-footer.js"></script>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080';
+
+        async function checkLogin() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/user/islogin`, {
+                    credentials: 'include'
+                });
+                const isLoggedIn = await response.text();
+                
+                if (isLoggedIn === 'false') {
+                    window.location.href = 'login.html';
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                console.error('檢查登入狀態失敗：', error);
+                window.location.href = 'login.html';
+                return false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('頁面載入開始');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            
+            if (!orderId) {
+                console.log('訂單ID不存在');
+                alert('訂單ID不存在');
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            console.log('訂單ID:', orderId);
+            
+            await loadOrderDetails(orderId);
+            
+            const submitButton = document.querySelector('button[type="submit"]');
+            submitButton.addEventListener('click', async function(e) {
+                e.preventDefault();
+                console.log('付款按鈕被點擊');
+
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const orderId = urlParams.get('orderId');
+                    console.log('準備處理訂單:', orderId);
+
+                    // 1. 驗證信用卡資訊
+                    const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, '');
+                    const expiryDate = document.getElementById('expiryDate').value;
+                    const cvv = document.getElementById('cvv').value;
+
+                    console.log('信用卡資訊:', {
+                        cardNumber: cardNumber.slice(-4), // 只顯示後四碼
+                        expiryDate,
+                        cvv: '***'
+                    });
+
+                    if (!validateCreditCardInfo(cardNumber, expiryDate, cvv)) {
+                        console.log('信用卡驗證失敗');
+                        return;
+                    }
+
+                    // 2. 驗證訂單金額
+                    console.log('開始驗證訂單金額');
+                    const verifyResponse = await fetch(`${API_BASE_URL}/api/checkout/${orderId}/verify`);
+                    
+                    if (!verifyResponse.ok) {
+                        throw new Error('訂單金額驗證請求失敗');
+                    }
+
+                    const verifyResult = await verifyResponse.json();
+                    console.log('訂單金額驗證結果:', verifyResult);
+
+                    if (verifyResult.code !== 200) {
+                        throw new Error(verifyResult.message || '訂單金額驗證失敗');
+                    }
+
+                    // 3. 更新訂單狀態
+                    console.log('開始更新訂單狀態為 COMPLETE');
+                    await updateOrderStatus(orderId, 'COMPLETE');
+                    console.log('訂單狀態更新成功');
+
+                    // 4. 付款成功，跳轉到結果頁面
+                    console.log('付款成功，準備跳轉');
+                    window.location.href = `payment-result.html?orderId=${orderId}`;
+
+                } catch (error) {
+                    console.error('付款處理失敗：', error);
+                    window.location.href = `payment-result.html?status=failed&error=${encodeURIComponent(error.message)}`;
+                }
+            });
+
+            setupCardValidation();
         });
 
-        document.getElementById("itemCount").textContent =
-          itemCount;
-        document.getElementById("totalPrice").textContent =
-          total.toLocaleString();
-        document.getElementById("finalTotal").textContent =
-          total.toLocaleString();
-      }
+        function setupCardValidation() {
+            const cardNumber = document.getElementById('cardNumber');
+            const expiryDate = document.getElementById('expiryDate');
+            const cvv = document.getElementById('cvv');
 
-      document.addEventListener(
-        "DOMContentLoaded",
-        calculateOrder
-      );
+            cardNumber.addEventListener('input', function(e) {
+                console.log('信用卡號輸入中...');
+                let value = e.target.value.replace(/\D/g, '');
+                value = value.replace(/(\d{4})/g, '$1 ').trim();
+                e.target.value = value;
+            });
 
-      document.addEventListener(
-        "DOMContentLoaded",
-        function () {
-          const cartItems = JSON.parse(
-            localStorage.getItem("cartItems") || "[]"
-          );
-          const cartTotal =
-            localStorage.getItem("cartTotal");
+            expiryDate.addEventListener('input', function(e) {
+                console.log('到期日輸入中...');
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                }
+                e.target.value = value;
+            });
 
-          const itemsContainer = document.querySelector(
-            ".bg-white .mb-4"
-          );
-          itemsContainer.innerHTML = "";
-
-          cartItems.forEach((item) => {
-            const itemHtml = `
-            <div class="border rounded-lg p-4 mb-4">
-              <div class="flex items-center">
-                <span class="bg-gray-200 px-3 py-1 rounded mr-4">課程</span>
-                <h3 class="text-lg flex-grow">${
-                  item.title
-                }</h3>
-                <span class="text-xl">NT$ ${item.price.toLocaleString()} 元</span>
-              </div>
-            </div>
-          `;
-            itemsContainer.innerHTML += itemHtml;
-          });
-
-          document.getElementById("itemCount").textContent =
-            cartItems.length;
-          document.getElementById(
-            "totalPrice"
-          ).textContent = cartTotal.toLocaleString();
-          document.getElementById(
-            "finalTotal"
-          ).textContent = cartTotal.toLocaleString();
-        }
-      );
-
-      function submitOrder() {
-        const cardNumber = document.querySelector(
-          'input[placeholder="**** **** **** ****"]'
-        ).value;
-        const expiryDate = document.querySelector(
-          'input[placeholder="MM/YY"]'
-        ).value;
-        const cvv = document.querySelector(
-          'input[placeholder="CVV/CVC"]'
-        ).value;
-
-        if (!cardNumber || !expiryDate || !cvv) {
-          alert("請輸入完整的信用卡資訊");
-          return;
+            cvv.addEventListener('input', function(e) {
+                console.log('CVV輸入中...');
+                e.target.value = e.target.value.replace(/\D/g, '');
+            });
         }
 
-        const success = Math.random() > 0.3;
-        if (success) {
-          const orderNumber =
-            "ORD" + Date.now().toString().slice(-8);
-          const amount = localStorage.getItem("cartTotal");
-          window.location.href = `payment-result.html?status=success&orderNumber=${orderNumber}&amount=${amount}`;
-        } else {
-          window.location.href =
-            "payment-result.html?status=failed&error=付款處理失敗，請確認您的付款資訊是否正確。";
+        function validateInput(input, isValid, errorMessage) {
+            const errorSpan = input.nextElementSibling;
+            if (!isValid) {
+                input.classList.add('border-red-500');
+                if (errorSpan) {
+                    errorSpan.classList.remove('hidden');
+                    errorSpan.textContent = errorMessage;
+                }
+            } else {
+                input.classList.remove('border-red-500');
+                if (errorSpan) {
+                    errorSpan.classList.add('hidden');
+                }
+            }
+            return isValid;
         }
-      }
+
+        function validateCreditCardInfo(cardNumber, expiryDate, cvv) {
+            console.log('開始驗證信用卡資訊');
+            let isValid = true;
+            
+            // 1. 驗證卡號（16位數字）
+            if (!/^\d{16}$/.test(cardNumber)) {
+                console.log('卡號驗證失敗');
+                document.getElementById('cardNumberError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('cardNumberError').classList.add('hidden');
+            }
+
+            // 2. 驗證有效期（MM/YY 格式）
+            const [month, year] = expiryDate.split('/');
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear() % 100;
+            const currentMonth = currentDate.getMonth() + 1;
+
+            if (!month || !year || 
+                parseInt(month) < 1 || parseInt(month) > 12 ||
+                parseInt(year) < currentYear || 
+                (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+                console.log('有效期驗證失敗');
+                document.getElementById('expiryDateError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('expiryDateError').classList.add('hidden');
+            }
+
+            // 3. 驗證 CVV（3位數字）
+            if (!/^\d{3}$/.test(cvv)) {
+                console.log('CVV驗證失敗');
+                document.getElementById('cvvError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('cvvError').classList.add('hidden');
+            }
+
+            console.log('信用卡驗證結果:', isValid ? '成功' : '失敗');
+            return isValid;
+        }
+
+        async function loadOrderDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            
+            if (!orderId) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            try {
+                console.log('開始獲取訂單詳情，orderId:', orderId);  // 添加日誌
+                const response = await fetch(`${API_BASE_URL}/api/checkout/${orderId}`);
+                const result = await response.json();
+                console.log('訂單詳情結果：', result);  // 添加日誌
+                
+                if (result.code === 200) {
+                    const orderData = result.data;
+                    
+                    // 檢查訂單狀態
+                    if (orderData.orderStatus !== 'PENDING') {
+                        alert('訂單狀態已改變，請重新確認');
+                        window.location.href = 'cart.html';
+                        return;
+                    }
+                    
+                    // 確保所有元素都存在
+                    const itemCountSpan = document.querySelector('.text-gray-500.text-base');
+                    const orderItems = document.getElementById('orderItems');
+                    const totalPriceElement = document.getElementById('totalPrice');
+                    const finalTotalElement = document.getElementById('finalTotal');
+                    
+                    if (!itemCountSpan || !orderItems || !totalPriceElement || !finalTotalElement) {
+                        console.error('找不到必要的 DOM 元素');
+                        alert('頁面載入錯誤，請重試');
+                        window.location.href = 'cart.html';
+                        return;
+                    }
+                    
+                    // 更新購買明細
+                    itemCountSpan.textContent = `總共 ${orderData.items.length} 件`;
+                    
+                    // 更新課程列表
+                    orderItems.innerHTML = orderData.items.map(item => `
+                        <div class="border rounded-lg p-4 mb-4">
+                            <div class="flex items-center">
+                                <span class="bg-gray-200 px-3 py-1 rounded mr-4">課程</span>
+                                <h3 class="text-lg flex-grow">${item.courseName}</h3>
+                                <span class="text-xl">NT$ ${item.price.toLocaleString()} 元</span>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    // 更新總金額
+                    totalPriceElement.textContent = orderData.totalAmount.toLocaleString();
+                    finalTotalElement.textContent = orderData.totalAmount.toLocaleString();
+                    
+                } else {
+                    alert('獲取訂單詳情失敗：' + result.message);
+                    window.location.href = 'cart.html';
+                }
+            } catch (error) {
+                console.error('獲取訂單詳情失敗：', error);
+                alert('獲取訂單詳情失敗，請稍後再試');
+                window.location.href = 'cart.html';
+            }
+        }
+
+        // 確保 DOM 完全載入後才執行
+        document.addEventListener('DOMContentLoaded', loadOrderDetails);
+
+        async function updateOrderStatus(orderId, status) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/checkout/${orderId}/status?status=${status}`, {
+                    method: 'PUT'
+                });
+                
+                const result = await response.json();
+                if (result.code !== 200) {
+                    throw new Error(result.message || '更新訂單狀態失敗');
+                }
+            } catch (error) {
+                console.error('更新訂單狀態失敗：', error);
+                throw error;
+            }
+        }
     </script>
-  </body>
+</body>
 </html>

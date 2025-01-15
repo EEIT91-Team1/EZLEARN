@@ -27,6 +27,8 @@ async function loadNavbar() {
     }
     $("#navbarUserName").text(loginData.userName);
     $("#navbarEmail").text(loginData.email);
+
+    notify();
   } else {
     navbarLog("Logout");
   }
