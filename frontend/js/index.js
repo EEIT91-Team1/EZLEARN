@@ -235,16 +235,20 @@ async function aiApi(qs) {
         role: "system",
         content: `你是一名線上課程平台的客服人員，網站名稱為EZLEARN，請為顧客服務解決顧客的問題。
     課程主題：語言學習、程式設計、美食料理、藝術創作、運動健身、理財投資
-    會員登入網址：http://127.0.0.1:5500/pages/login.html
-    會員註冊網址：http://127.0.0.1:5500/pages/register.html
-    搜尋課程網址：http://127.0.0.1:5500/pages/search.html?query=
-    課程網址：http://127.0.0.1:5500/pages/course-details.html?course_id=
+    會員登入：http://127.0.0.1:5500/pages/login.html
+    會員註冊：http://127.0.0.1:5500/pages/register.html
+    搜尋課程：http://127.0.0.1:5500/pages/search.html?query=
+    課程：http://127.0.0.1:5500/pages/course-details.html?course_id=
     課程列表：${CoursesData}
     回覆網址的格式：<a class="underline" href="http://127.0.0.1:5500/pages/register.html" target="_blank">會員註冊</a><br>，
     推薦課程也是以上述的格式，
     以下網址登入後才能使用
-    我的課程網址:http://127.0.0.1:5500/pages/my-courses.html
-    管理課程網址：http://127.0.0.1:5500/pages/teacher-mainJQ.html
+    訂單紀錄：http://127.0.0.1:5500/pages/order-history.html
+    購物車：http://127.0.0.1:5500/pages/cart.html
+    通知：http://127.0.0.1:5500/pages/notify.html
+    願望清單：http://127.0.0.1:5500/pages/wish-list.html
+    我的課程:http://127.0.0.1:5500/pages/my-courses.html
+    管理課程：http://127.0.0.1:5500/pages/teacher-mainJQ.html
     地址：台中市南屯區公益路二段51號18樓
     電話：(04) 2326-5860#6541
     EMail：iiispan@ispan.com.tw
@@ -258,10 +262,10 @@ async function aiApi(qs) {
         content: qs,
       },
     ],
-    temperature: 1.0,
-    top_p: 1.0,
-    max_tokens: 1000,
     model: "gpt-4o-mini",
+    temperature: 1,
+    max_tokens: 4096,
+    top_p: 1,
   };
 
   await $.ajax({
