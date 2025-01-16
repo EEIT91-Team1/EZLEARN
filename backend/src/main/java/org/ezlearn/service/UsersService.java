@@ -113,15 +113,14 @@ public class UsersService {
 		}
 	}
 	
-	public void changepw(Users changeuser) {
+	public boolean changepw(Users changeuser) {
 		Users user1 = usersRepository.findByresetToken(changeuser.getResetToken());
 		if(user1 != null) {
 			user1.setPassword(BCrypt.hashpw(changeuser.getPassword(), BCrypt.gensalt()));
-			user1.setResetToken(null);
-			user1.setResetTokenExpiry(null);
 			usersRepository.save(user1);
+			return true;   
 		}else{
-			System.out.println("修改失敗");
+			return false;
 		}
 	}
 	
@@ -141,8 +140,7 @@ public class UsersService {
 			return 2;
 		}
 	}
-
-	public boolean adduserfromgoogle(Users registerUser) {
+		public boolean adduserfromgoogle(Users registerUser) {
 		Optional<Users> opt = usersRepository.findByEmail(registerUser.getEmail());
 		if (opt.isPresent()) {
 			return false;
@@ -175,5 +173,4 @@ public class UsersService {
 		}
 		return response;
 	}
-
 }
