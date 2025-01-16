@@ -24,7 +24,29 @@ $(document).ready(function () {
   ).get("course_id");
 
   let lessonId = 0;
+  let userId = 0;
   let currentLesson = "";
+
+  async function getUser() {
+    const response = await fetch(
+      `http://localhost:8080/user/getprofile`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Internal Error");
+    }
+
+    const data = await response.json();
+    userId = data.userId;
+  }
+  getUser();
 
   // get course announcement by course id
   async function getPosts() {
@@ -425,7 +447,39 @@ $(document).ready(function () {
   }
   getProfile();
 
+  //add question
+  async function addQuestion() {
+    const response = await fetch(
+      `http://localhost:8080/questions/create`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: $("#student-question").val(),
+          lesson: {
+            lessonId: lessonId,
+          },
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Internal Error");
+    } else {
+      getQuestions();
+    }
+  }
+  $("#add-question").on("click", function () {
+    addQuestion();
+    $("#student-question").val("");
+    $(".auto-resize").height("auto");
+  });
+
   async function getQuestions() {
+    $(".question-list").empty();
     const response = await fetch(
       `http://localhost:8080/questions/courses/${courseId}`,
       {
@@ -442,11 +496,263 @@ $(document).ready(function () {
     }
 
     const data = await response.json();
-    console.log(data);
+    if (data.length > 0) {
+      $.each(data, function (index, item) {
+        $(".question-list").prepend(`<div
+                    id="${item.questionId}"
+                    class="question flex items-start space-x-4 relative mb-8"
+                  >
+                    <!-- avatar -->
+                    <div class="shrink-0">
+                      <img
+                        class="avatar inline-block size-10 rounded-full object-cover"
+                        src="data:image/png;base64,${
+                          item.userInfo.avatar
+                        }"
+                      />
+                    </div>
+
+                    <!-- Q&A -->
+                    <div class="min-w-0 flex-1">
+                      <div class="flex">
+                        <p
+                          class="text-xs font-bold text-gray-700"
+                        >
+                          ${item.userInfo.userName}
+                        </p>
+                        <span class="text-xs text-gray-700"
+                          >　${item.updatedAt}</span
+                        >
+                      </div>
+
+                      <!-- question -->
+                      <div
+                        class="pb-px focus-within:border-b-2 focus-within:border-indigo-600 focus-within:pb-0"
+                      >
+                        <textarea
+                          class="auto-resize overflow-y-hidden block w-full resize-none bg-white text-base text-gray-700  focus:outline focus:outline-0 sm:text-sm/6"
+                          disabled
+                        >${item.question}</textarea>
+                      </div>
+
+                      <!-- answer -->
+                      <details
+                        class="${
+                          item.answer == null
+                            ? "hidden"
+                            : "none"
+                        } group [&_summary::-webkit-details-marker]:hidden inline-block"
+                      >
+                        <summary
+                          class="flex cursor-pointer items-center rounded-lg text-gray-500 hover:text-gray-700"
+                        >
+                          <span
+                            class="shrink-0 transition duration-300 group-open:-rotate-180"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="size-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+
+                          <span class="text-sm">
+                            老師回答
+                          </span>
+                        </summary>
+
+                        <ul class="px-4">
+                          <li>
+                            <div
+                              class="answer flex items-center text-start rounded-lg px-4 py-2 text-gray-700"
+                            >
+                              <p>${item.answer}</p>
+                            </div>
+                          </li>
+                        </ul>
+                      </details>
+                    </div>
+
+                    <!-- open dropdown -->
+                    <button
+                      class="${
+                        item.userInfo.userId != userId
+                          ? "hidden"
+                          : "none"
+                      } question-open-dropdown absolute right-0 top-0 w-8 h-8 group text-gray-700 rounded-full"
+                    >
+                      <i
+                        class="bi bi-three-dots-vertical group-hover:text-gray-500"
+                      ></i>
+                    </button>
+
+                    <!-- dropdown -->
+                    <div
+                      class="question-dropdown hidden absolute top-6 end-0 z-10 mt-2 w-28  border border-gray-400 bg-white shadow-lg"
+                      role="menu-${index}"
+                    >
+                      <div class="p-2">
+                        <button
+                          class="question-edit-btn block rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-500"
+                          role="menuitem"
+                        >
+                          <i
+                            class="text-xl bi bi-pencil-square pr-2 group-hover:text-gray-500"
+                          ></i>
+                          編輯
+                        </button>
+
+                        <button
+                          class="question-delete-btn block rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-500"
+                          role="menuitem"
+                        >
+                          <i
+                            class="text-xl bi bi-trash pr-2 group-hover:text-gray-500"
+                          ></i>
+                          刪除
+                        </button>
+                      </div>
+                    </div>
+                  </div>`);
+      });
+    }
+    autoResizeTextarea($(".auto-resize"));
   }
   getQuestions();
 
-  $(".tab-link").on("click", function (e) {});
+  // textarea height auto resize
+  function autoResizeTextarea(textarea) {
+    textarea.each(function () {
+      $(this).on("input", function () {
+        $(this).height("auto");
+        $(this).height(this.scrollHeight + "px");
+      });
+
+      // height initial
+      $(this).height("auto");
+      $(this).height(this.scrollHeight + "px");
+    });
+  }
+  autoResizeTextarea($(".auto-resize"));
+
+  // open dropdown
+  $(document).on(
+    "click",
+    ".question-open-dropdown",
+    function () {
+      $(this)
+        .parent()
+        .find("div[role^='menu']")
+        .toggleClass("hidden none");
+    }
+  );
+
+  // edit question
+  $(document).on(
+    "click",
+    ".question-edit-btn",
+    function () {
+      $(".question-dropdown").addClass("hidden");
+
+      $(this)
+        .closest(".question")
+        .find("textarea")
+        .addClass("border-b border-gray-200")
+        .removeAttr("disabled")
+        .focus();
+
+      $(`
+        <div class="question-edit-save-and-cancel flex justify-end space-x-2 mt-2">
+          <button class="question-edit-save w-8 h-8 justify-end rounded-md text-orange-500 hover:text-orange-700 font-semibold">
+            <i class="bi bi-check text-[24px] "></i>
+          </button>
+          <button class="question-edit-cancel w-8 h-8 justify-end rounded-md text-red-500 hover:text-red-700 font-semibold">
+            <i class="bi bi-x text-[24px] "></i>
+          </button>
+        </div>
+        `).insertAfter(
+        $(this)
+          .closest(".question")
+          .find("textarea")
+          .parent()
+      );
+    }
+  );
+
+  // edit save
+  $(document).on(
+    "click",
+    ".question-edit-save",
+    async function () {
+      const response = await fetch(
+        `http://localhost:8080/questions/update`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            questionId: $(this)
+              .closest(".question")
+              .attr("id"),
+            question: $(this)
+              .closest(".question")
+              .find("textarea")
+              .val(),
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      } else {
+        getQuestions();
+      }
+    }
+  );
+
+  // edit cancel
+  $(document).on(
+    "click",
+    ".question-edit-cancel",
+    function () {
+      getQuestions();
+    }
+  );
+
+  // delete question
+  $(document).on(
+    "click",
+    ".question-delete-btn",
+    async function () {
+      $(this).closest(".question").remove();
+      let questionId = $(this)
+        .closest(".question")
+        .attr("id");
+      const response = await fetch(
+        `http://localhost:8080/questions/${questionId}/delete`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+  );
+
+  $(".tab-link").on("click", function (e) {
+    autoResizeTextarea($(".auto-resize"));
+  });
 
   // 開啟 Slide Over
   $("#openDrawer").on("click", function () {
