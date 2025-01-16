@@ -88,8 +88,9 @@ public class UsersController {
 	
 	@PutMapping("/changepw")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
-	public void changepw(@RequestBody Users user) {
-		usersService.changepw(user);
+	public boolean changepw(@RequestBody Users user) {
+		boolean n = usersService.changepw(user);
+		return n;
 	}
 	
 	@PostMapping("/changepwisExpired")
@@ -97,7 +98,6 @@ public class UsersController {
 	public int test1(@RequestBody Users user) {
 		return usersService.tokenisExpired(user);
 	}
-
 	@PostMapping("/registerfromgoogle")
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	public boolean registerfromgoogle(@RequestBody Users user) {
