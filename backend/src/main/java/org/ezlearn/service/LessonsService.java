@@ -17,5 +17,9 @@ public class LessonsService {
 	public List<Lessons> getLessonsByCourses(Courses courses) {
 		return lessonsRepository.findByCourses(courses);
 	}
+	
+	public Lessons getTop1LessonsByCourses(Courses courses) {
+		return lessonsRepository.findTop1ByCourses(courses);
+	}
 
 }
