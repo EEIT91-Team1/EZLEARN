@@ -89,7 +89,7 @@ async function res() {
                   <p>${item.content}</p>
                   <div class="flex justify-start">
                   <p class="text-lg text-gray-500">${timeCal(item.time)}</p>
-                  <p class="text-lg text-gray-600 ml-6">${
+                  <p class="text-lg hidden md:flex text-gray-600 ml-6">${
                     item.courseName
                   }</p></div>
                   </div>
@@ -131,7 +131,7 @@ async function res() {
                       <p>${item.content}</p>
                 <div class="flex justify-start">
                   <p class="text-lg text-gray-500">${timeCal(item.time)}</p>
-                  <p class="text-lg text-gray-600 ml-6">${
+                  <p class="text-lg hidden md:flex text-gray-600 ml-6">${
                     item.courseName
                   }</p></div>
                   </div>

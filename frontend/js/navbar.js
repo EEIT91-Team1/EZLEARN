@@ -164,3 +164,13 @@ async function loadLogin() {
   }
 }
 loadLogin();
+
+$("#btnNavSearch").on("click", () => {
+  if ($("#navbarFormSearch").hasClass("hidden")) {
+    $("#navbarFormSearch").removeClass("hidden");
+    $("#navbarFormSearch").addClass("flex");
+  } else {
+    $("#navbarFormSearch").addClass("hidden");
+    $("#navbarFormSearch").removeClass("flex");
+  }
+});

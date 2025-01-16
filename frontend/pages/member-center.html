@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-Hants">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EZLEARN</title>
+    <link rel="icon" href="../imgs/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <main>
+      <div class="w-full h-52 bg-black overflow-hidden relative">
+        <h1
+          class="text-5xl font-bold mb-8 mx-8 absolute left-4 xl:left-56 bottom-2 text-white"
+        >
+          會員中心
+        </h1>
+      </div>
+      <div class="container mx-auto px-4 md:px-16 py-8">
+        <div class="flex my-6">
+          <img
+            id="userAvatar"
+            src="../imgs/avatar.png"
+            alt=""
+            class="rounded-full w-20 h-20 md:w-36 md:h-36 border-2 border-black"
+          />
+          <div class="ml-6 flex flex-col justify-center">
+            <p class="text-2xl" id="userName">姓名</p>
+            <p id="email">信箱</p>
+          </div>
+        </div>
+        <div class="flex md:flex-row flex-col-reverse">
+          <div class="flex flex-col w-full md:max-w-64 min-w-64 my-12">
+            <a href="./profile.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-person-fill mx-2"></i> 修改資料
+              </div>
+            </a>
+            <a href="./my-courses.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-book mx-2"></i> 我的學習
+              </div>
+            </a>
+            <a href="./teacher-mainJQ.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-person-workspace mx-2"></i> 我是老師
+              </div>
+            </a>
+            <a href="./cart.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-cart mx-2"></i> 購物車
+              </div>
+            </a>
+            <a href="./order-history.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-receipt mx-2"></i> 我的訂單
+              </div>
+            </a>
+            <a href="./wish-list.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-heart mx-2"></i> 願望清單
+              </div>
+            </a>
+            <a href="./notify.html">
+              <div
+                class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              >
+                <i class="bi bi-bell mx-2"></i> 通知
+              </div>
+            </a>
+            <div
+              class="h-20 min-w-36 p-4 border-2 m-2 shadow-md text-2xl flex justify-center items-center hover:bg-gray-200 duration-300 rounded-md cursor-pointer"
+              onclick="logout()"
+            >
+              <i class="bi bi-box-arrow-left mx-2"></i> 登出
+            </div>
+          </div>
+          <div class="md:flex flex-col md:ml-12 w-full">
+            <h1 class="text-4xl border-b-4 md:p-2 mb-4 border-black">
+              我的學習進度
+            </h1>
+            <div
+              id="results"
+              class="flex flex-wrap justify-center md:px-18 md:justify-start"
+            >
+              <!-- <div class="m-4 max-w-72">
+                <img
+                  src="../imgs/learnQA.png"
+                  class="h-44 w-72 object-cover border-2"
+                  alt=""
+                />
+                <p class="text-xl">2024-JAVA軟體工程師全教學</p>
+                <p class="text-gray-400">Peter</p>
+                <div class="h-4 w-52 border-4 rounded-md">
+                  <div class="h-full bg-green-100" style="width: 70%"></div>
+                </div>
+                完成進度：70%
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="footer"></div>
+    <script src="../js/member-center.js"></script>
+    <script src="../js/header-footer.js"></script>
+  </body>
+</html>
