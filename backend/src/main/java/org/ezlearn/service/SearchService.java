@@ -17,7 +17,12 @@ public class SearchService {
 
 	public List<Map<String, String>> search(String query, String page, String type, String price, String rate,
 			String sort) {
-		String queryKey = "%" + query + "%";
+		String[] queryArray =query.split("");
+		String queryKey = "";
+		for(String key : queryArray) {
+			queryKey += "%" + key + "%";
+		}
+		System.out.println(queryKey);
 		Integer pages = (Integer.parseInt(page) - 1) * 10;
 		if ("".equals(type)) {
 			type = null;
@@ -72,8 +77,11 @@ public class SearchService {
 	}
 
 	public Map<String, Long> searchCount(String query) {
-		String queryKey = "%" + query + "%";
-		System.out.println(queryKey);
+		String[] queryArray =query.split("");
+		String queryKey = "";
+		for(String key : queryArray) {
+			queryKey += "%" + key + "%";
+		}
 		List<Object[]> list = courseRepository.searchCount(queryKey);
 		Map<String, Long> countMap = new HashMap<>();
 		for (Object[] count : list) {
