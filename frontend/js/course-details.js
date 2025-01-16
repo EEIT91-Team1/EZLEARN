@@ -334,16 +334,11 @@ $(document).ready(function () {
       });
       if (result.length > 0) {
         $(".watch-course")
-          .html(`<a class="w-full mb-1 group relative inline-block focus:outline-none focus:ring" href="http://127.0.0.1:5500/pages/lecture.html?course_id=${courseId}">
-  <span
-    class="absolute inset-0  translate-x-1.5 translate-y-1.5 bg-yellow-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0"
-  ></span>
-
-  <span
-    class="w-full text-center relative inline-block border-2 border-current px-8 py-3 text-sm font-bold uppercase tracking-widest text-black group-active:text-opacity-75"
-  >
-    開始觀看
-  </span>
+          .html(`<a href="http://127.0.0.1:5500/pages/lecture.html?course_id=${courseId}" class="inline-flex w-full items-center justify-center gap-x-2 rounded-md bg-rose-300 px-3.5 py-2.5 text-sm font-semibold transition-all text-white shadow-sm hover:bg-rose-400">
+  開始觀看
+  <svg class="-mr-0.5 size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+    <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
+  </svg>
 </a>`);
       }
     } catch (error) {
@@ -351,4 +346,26 @@ $(document).ready(function () {
     }
   }
   isPurchasedCourse();
+
+  async function getPreviewLesson() {
+    const response = await fetch(
+      `http://localhost:8080/courses/${courseId}/preview`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Internal Error");
+    }
+
+    const data = await response.json();
+
+    $("#previewVideo").attr("src", data.videoUrl);
+  }
+  getPreviewLesson();
 });
