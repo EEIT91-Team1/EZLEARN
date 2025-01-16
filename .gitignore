@@ -42,4 +42,8 @@ Thumbs.db
 .env                 
 *.bak                
 *.tmp     
+<<<<<<< HEAD
 /.metadata/           
+=======
+/.metadata/           
+>>>>>>> origin/enyou

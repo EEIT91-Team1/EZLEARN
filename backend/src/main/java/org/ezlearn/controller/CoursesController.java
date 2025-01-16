@@ -1,6 +1,14 @@
 package org.ezlearn.controller;
 
+
 import java.util.List;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 
 import org.ezlearn.model.Courses;
 import org.ezlearn.model.UserInfo;
@@ -33,6 +41,12 @@ public class CoursesController {
 		Courses course = new Courses();
 		course.setCourseId(courseId);
 		return coursesService.getCoursesByCourseId(courseId);
+	}
+
+
+	@GetMapping("/getAllNameId")
+	public List<Map<String,String>> getAll(){
+	return coursesService.getAllNameId();		
 	}
 
 }

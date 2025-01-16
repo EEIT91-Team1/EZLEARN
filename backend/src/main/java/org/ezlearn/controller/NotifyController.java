@@ -5,7 +5,13 @@ import java.util.Map;
 
 import org.ezlearn.service.NotifyService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,29 +29,35 @@ public class NotifyController {
 		return notifyService.get(session);
 	}
 
-	@GetMapping("/checkedAll")
+
+	@PutMapping("/checkedAll")
 	public int checked(HttpSession session) {
 		return notifyService.checkedAll(session);
 	}
-	@GetMapping("/checkedNotify")
+	@PutMapping("/checkedNotify")
 	public int checkedNotify(HttpSession session,@RequestParam String notifyId) {
 		return notifyService.checkedNotify(session,notifyId);
 	}
-	@GetMapping("/checkedCourse")
+	@PutMapping("/checkedCourse")
+
 	public int checkedCourse(HttpSession session,@RequestParam String courseId) {
 		return notifyService.checkedCourse(session,courseId);
 	}
 	
-	@GetMapping("/deleteAll")
+
+
+
+	@DeleteMapping("/deleteAll")
 	public int delete(HttpSession session) {
 		return notifyService.deleteAll(session);
 	}
-	@GetMapping("/deleteNotify")
+	@DeleteMapping("/deleteNotify")
 	public int deleteNotify(HttpSession session,@RequestParam String notifyId) {
 		return notifyService.deleteNotify(session,notifyId);
 	}
-	@GetMapping("/deleteCourse")
+	@DeleteMapping("/deleteCourse")
 	public int deleteCourse(HttpSession session,@RequestParam String courseId) {
 		return notifyService.deleteCourse(session,courseId);
 	}
 }
+

@@ -2,10 +2,8 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -22,17 +20,17 @@
 
     <main>
       <div class="flex mx-auto">
-        <aside
-          class="min-h-full bg-green-600 border-r-4 border-black p-0"
-        >
-          <div class="w-32 bg-yellow-300 p-4">
+        <aside class="min-h-full border-r-[1px] border-gray-400 p-0">
+          <div class="w-32 p-4">
             <ul class="space-y-2">
               <li>
                 <button
                   id="btn1"
-                  class="block py-2 w-24 border-2 border-black rounded bg-gray-100 hover:bg-gray-300 focus:bg-gray-500 active:bg-gray-700 relative"
+                  class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
                 >
+                  <i class="bi bi-youtube left-2 absolute"></i>
                   課程<i
+                    id="i1"
                     class="bi bi-caret-right-fill right-2 absolute"
                   ></i>
                 </button>
@@ -40,40 +38,31 @@
               <li>
                 <button
                   id="btn2"
-                  class="block py-2 w-24 border-2 border-black rounded bg-gray-100 hover:bg-gray-300 focus:bg-gray-500 active:bg-gray-700 relative"
+                  class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
                 >
+                  <i id="i2" class="bi bi-chat left-2 absolute"></i>
                   問答
                 </button>
               </li>
               <li>
                 <button
                   id="btn3"
-                  class="block py-2 w-24 border-2 border-black rounded bg-gray-100 hover:bg-gray-300 focus:bg-gray-500 active:bg-gray-700 relative"
+                  class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
                 >
+                  <i id="i3" class="bi bi-megaphone-fill left-2 absolute"></i>
                   公告
-                </button>
-              </li>
-              <li>
-                <button
-                  id="btn4"
-                  class="block py-2 w-24 border-2 border-black rounded bg-gray-100 hover:bg-gray-300 focus:bg-gray-500 active:bg-gray-700 relative"
-                >
-                  訊息
                 </button>
               </li>
             </ul>
           </div>
         </aside>
         <div id="article" style="width: 100vw">
-          <article
-            class="flex-1 bg-red-300 p-6"
-            style="min-height: 80vh"
-          >
+          <article class="flex-1 p-6" style="min-height: 80vh">
             <div
               class="mb-6 border-black border px-14 py-2 w-auto h-36 min-w-80 relative"
             >
               <span
-                class="border-black border px-2 py-2 bottom-3 left-3 bg-blue-500 absolute"
+                class="border-black border px-2 py-2 bottom-3 left-3 absolute"
               >
                 <a
                   class="text-xl font-bold mb-4"
@@ -89,21 +78,15 @@
             </div>
 
             <div class="mb-6">
-              <h1 class="text-2xl font-bold mb-4">
-                如何開始？
-              </h1>
-              <div
-                class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal"
-              >
-                <div
-                  class="border border-black p-4 flex col-span-2"
-                >
+              <h1 class="text-2xl font-bold mb-4">如何開始？</h1>
+              <div class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal">
+                <div class="border border-black p-4 flex col-span-2">
                   <img
                     src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png"
                     alt=""
                     class="h-16 my-auto"
                   />
-                  <p class="my-auto">創建引人入勝的課程</p>
+                  <p class="my-auto font-black text-lg">創建引人入勝的課程</p>
                 </div>
                 <div
                   class="border border-black p-4 row-span-2 flex items-center justify-center"
@@ -115,31 +98,24 @@
                       alt=""
                       class="h-20 m-auto"
                     />
-                    <p class="">建立您的受眾</p>
+                    <p class="font-black text-lg">建立您的受眾</p>
                   </div>
                 </div>
-                <div
-                  class="border border-black p-4 flex col-span-2"
-                >
+                <div class="border border-black p-4 flex col-span-2">
                   <img
                     src="https://images.chinatimes.com/newsphoto/2016-05-07/656/20160507001333.png"
                     alt=""
                     class="h-16 my-auto"
                   />
-                  <p class="my-auto">開始學習影片</p>
+                  <p class="my-auto font-black text-lg">開始學習影片</p>
                 </div>
               </div>
             </div>
 
             <div>
-              <h2 class="text-xl font-bold mb-4">
-                我的課程
-              </h2>
+              <h1 class="text-2xl font-bold mb-4">我的課程</h1>
               <div class="border border-black p-4">
-                <div
-                  class="items-center"
-                  id="courselist"
-                ></div>
+                <div class="items-center" id="courselist"></div>
               </div>
             </div>
           </article>
@@ -153,11 +129,12 @@
       $(function () {
         btn1.onclick = function () {
           $("#btn1").html(
-            '課程<i class="bi bi-caret-right-fill right-2 absolute"></i>'
+            '<i class="bi bi-youtube left-2 absolute"></i>課程<i class="bi bi-caret-right-fill right-2 absolute"></i>'
           );
-          $("#btn2").html("問答");
-          $("#btn3").html("公告");
-          $("#btn4").html("訊息");
+          $("#btn2").html('<i class="bi bi-chat left-2 absolute"></i>問答');
+          $("#btn3").html(
+            '<i class="bi bi-megaphone-fill left-2 absolute"></i>公告'
+          );
           fetch("../components/course.html")
             .then((response) => response.text())
             .then((data) => {
@@ -165,12 +142,13 @@
             });
         };
         btn2.onclick = function () {
-          $("#btn1").html("課程");
+          $("#btn1").html('<i class="bi bi-youtube left-2 absolute"></i>課程');
           $("#btn2").html(
-            '問答<i class="bi bi-caret-right-fill right-2 absolute"></i>'
+            '<i class="bi bi-chat left-2 absolute"></i>問答<i class="bi bi-caret-right-fill right-2 absolute"></i>'
           );
-          $("#btn3").html("公告");
-          $("#btn4").html("訊息");
+          $("#btn3").html(
+            '<i class="bi bi-megaphone-fill left-2 absolute"></i>公告'
+          );
           fetch("../components/qa.html")
             .then((response) => response.text())
             .then((data) => {
@@ -178,25 +156,16 @@
             });
         };
         btn3.onclick = function () {
-          $("#btn1").html("課程");
-          $("#btn2").html("問答");
+          $("#btn1").html('<i class="bi bi-youtube left-2 absolute"></i>課程');
+          $("#btn2").html('<i class="bi bi-chat left-2 absolute"></i>問答');
           $("#btn3").html(
-            '公告<i class="bi bi-caret-right-fill right-2 absolute"></i>'
+            '<i class="bi bi-megaphone-fill left-2 absolute"></i>公告<i class="bi bi-caret-right-fill right-2 absolute"></i>'
           );
-          $("#btn4").html("訊息");
           fetch("../components/post.html")
             .then((response) => response.text())
             .then((data) => {
               $("#article").html(data);
             });
-        };
-        btn4.onclick = function () {
-          $("#btn1").html("課程");
-          $("#btn2").html("問答");
-          $("#btn3").html("公告");
-          $("#btn4").html(
-            '訊息<i class="bi bi-caret-right-fill right-2 absolute"></i>'
-          );
         };
       });
       fetch("../components/navbar.html")
@@ -220,8 +189,10 @@
           for (let i = 0; i < data.length; i++) {
             document.getElementById(
               "courselist"
-            ).innerHTML += `<div class="flex m-2"><img class="h-16 my-auto" src=data:image/png;base64,${data[i].courseImgbase64}></img>
-                    <p class="my-auto">${data[i].courseName}</p></div>`;
+            ).innerHTML += `<div class="flex m-2 border border-black">
+                      <img class="h-16 m-2" src=data:image/png;base64,${data[i].courseImgbase64}></img>
+                      <p class="my-auto text-lg font-black">${data[i].courseName}</p>
+                  </div>`;
           }
         });
     </script>

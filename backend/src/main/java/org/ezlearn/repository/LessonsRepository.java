@@ -11,5 +11,9 @@ import org.springframework.stereotype.Repository;
 public interface LessonsRepository extends JpaRepository<Lessons, Long> {
 	
 	List<Lessons> findByCourses(Courses courses);
+
 	List<Lessons> findByCoursesIsNull();
+
+
+
 }

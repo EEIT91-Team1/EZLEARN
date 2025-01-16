@@ -40,10 +40,12 @@ public class Lessons {
 	@JoinColumn(name = "course_id")
 	private Courses courses;
 	
+
 	public Courses getCourses() {
 		return courses;
 	}
 	public void setCourses(Courses courses) {
 		this.courses = courses;
 	}
+
 }

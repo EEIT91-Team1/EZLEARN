@@ -1,17 +1,12 @@
 async function loadNavbar() {
-  const navbarResponse = await fetch(
-    "../components/navbar.html"
-  );
+  const navbarResponse = await fetch("../components/navbar.html");
   const navbarHtml = await navbarResponse.text();
   $("#navbar").html(navbarHtml);
 
-  const isLoginResponse = await fetch(
-    "http://localhost:8080/user/islogin",
-    {
-      method: "GET",
-      credentials: "include",
-    }
-  );
+  const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {
+    method: "GET",
+    credentials: "include",
+  });
   const isLoggedIn = await isLoginResponse.text();
 
   if (isLoggedIn === "true") {
@@ -32,8 +27,6 @@ async function loadNavbar() {
     }
     $("#navbarUserName").text(loginData.userName);
     $("#navbarEmail").text(loginData.email);
-
-    notify();
   } else {
     navbarLog("Logout");
   }

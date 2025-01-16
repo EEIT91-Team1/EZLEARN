@@ -61,6 +61,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
     	<groupId>org.apache.commons</groupId>
     	<artifactId>commons-lang3</artifactId>
@@ -72,6 +73,7 @@
 	    <artifactId>google-cloud-storage</artifactId>
 	    <version>2.27.1</version> <!-- 確保使用最新版本 -->
 		</dependency>
+
 	</dependencies>
 
 	<build>

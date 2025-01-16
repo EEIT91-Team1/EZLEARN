@@ -6,6 +6,9 @@ import java.util.Map;
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
 import org.ezlearn.model.Posts;
 import org.ezlearn.model.Questions;
+
+import org.ezlearn.service.NotifyService;
+
 import org.ezlearn.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,6 +28,11 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherservice;
 	
+
+	@Autowired
+	private NotifyService notifyService;
+	
+
 	@GetMapping("/teachercourse")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public List<Map<String, Object>> teachercourse(HttpSession session) {
@@ -49,6 +57,9 @@ public class TeacherController {
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public boolean teachersnedpost(@RequestBody Posts post) {
 		boolean errorcode = teacherservice.sendpost(post);
+
+		notifyService.generatNewPostNotify(post);
+
 		return errorcode;
 	}
 	
