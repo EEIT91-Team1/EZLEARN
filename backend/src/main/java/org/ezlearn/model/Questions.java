@@ -1,5 +1,7 @@
 package org.ezlearn.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,8 @@ public class Questions {
 	private Long questionId;
 	private String question;
 	private String answer;
+	private LocalDate createdAt;
+	private LocalDate updatedAt;
 	
 	public Long getQuestionId() {
 		return questionId;
@@ -36,7 +40,23 @@ public class Questions {
 		this.answer = answer;
 	}
 	
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
 	
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+
 	@ManyToOne
 	@JoinColumn(name = "lesson_id")
 	private Lessons lesson;

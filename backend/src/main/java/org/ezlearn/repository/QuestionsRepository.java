@@ -14,4 +14,6 @@ public interface QuestionsRepository extends JpaRepository<Questions, Long>{
 	
 	List<Questions> findByLessonIn(List<Lessons> lessons);
 	
+	Integer deleteByQuestionId(Long questionId);
+	
 }
