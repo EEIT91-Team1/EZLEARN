@@ -1,3 +1,15 @@
+//檢查是否登入
+fetch("http://localhost:8080/user/islogin", {
+  method: "get",
+  credentials: "include",
+})
+  .then((response) => response.text())
+  .then((data) => {
+    if (data != "true") {
+      window.location.href = "../index.html";
+    }
+  });
+
 $.ajax({
   url: "http://localhost:8080/user/logindata",
   method: "GET",

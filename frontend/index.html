@@ -21,8 +21,11 @@
     <div id="navbar"></div>
 
     <main>
-      <div class="flex justify-center relative h-[32rem]">
-        <form id="formSearch" class="flex items-center justify-center w-3/4">
+      <div class="flex flex-col justify-center items-center relative h-[32rem]">
+        <form
+          id="formSearch"
+          class="absolute z-1 flex items-center justify-center w-3/4"
+        >
           <input
             id="inputSearch"
             type="text"
@@ -36,6 +39,17 @@
             <i class="bi bi-search"></i>
           </button>
         </form>
+        <div
+          id="keyword"
+          class="hidden translate-y-1/2 relative top-7 border-2 shadow-md right-8 w-[23rem] bg-white text-gray-700 rounded-md"
+        >
+          <!-- <a
+            class="p-2 block hover:bg-gray-100"
+            href="../pages/search.html?query=123"
+            >123</a
+          > -->
+        </div>
+
         <div
           class="w-full h-full absolute top-0 left-0 -z-10 bg-slate-300 overflow-hidden"
         >

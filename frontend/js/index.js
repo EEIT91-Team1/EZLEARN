@@ -241,7 +241,7 @@ async function aiApi(qs) {
     課程：http://127.0.0.1:5500/pages/course-details.html?course_id=
     課程列表：${CoursesData}
     回覆網址的格式：<a class="underline" href="http://127.0.0.1:5500/pages/register.html" target="_blank">會員註冊</a><br>，
-    推薦課程也是以上述的格式，
+    推薦課程也是以上述的格式
     以下網址登入後才能使用
     訂單紀錄：http://127.0.0.1:5500/pages/order-history.html
     購物車：http://127.0.0.1:5500/pages/cart.html
@@ -325,3 +325,80 @@ $("#btnQs").on("click", () => {
   aiApi(qs);
   $("#qs").prop("value", "");
 });
+
+// 關鍵字搜尋
+function debounce(fn, delay = 500) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+}
+
+let updateDebounceText = debounce((text) => {
+  if (text != "") {
+    keyword(text);
+  } else {
+    $("#keyword").addClass("hidden");
+  }
+}, 500);
+
+let hiddenKeyword = debounce(() => {
+  $("#keyword").addClass("hidden");
+}, 200);
+
+$("#inputSearch").on("input", function () {
+  let searchText = $(this).val();
+  updateDebounceText(searchText);
+});
+$("#inputSearch").on("change", function () {
+  hiddenKeyword();
+});
+async function keyword(key) {
+  let data = {
+    messages: [
+      {
+        role: "system",
+        content: `你是線上課程平台的搜尋關鍵字推薦，
+    課程列表：${CoursesData}
+    根據課程列表及使用者輸入的字提供合適的關鍵字，關鍵字前幾個字需與使用者輸入的相同
+    一次最多提供五個關鍵字
+    你的回覆格式為：<a class='p-2 block hover:bg-gray-100' href='../pages/search.html?query=關鍵字'>關鍵字</a>
+    你的回覆只能是我提供的格式，不能有其他文字
+    如果使用者輸入的字皆與課程列表無關，你可以隨意提供課程相關的關鍵字但前幾個字也是要跟使用者輸入的相同。
+    `,
+      },
+      {
+        role: "user",
+        content: key,
+      },
+    ],
+    model: "gpt-4o-mini",
+    temperature: 1,
+    max_tokens: 4096,
+    top_p: 1,
+  };
+
+  await $.ajax({
+    url: "https://models.inference.ai.azure.com/chat/completions",
+    method: "POST",
+    contentType: "application/json",
+    headers: {
+      Authorization:
+        "Bearer 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",
+    },
+    data: JSON.stringify(data),
+  })
+    .done((response) => {
+      console.log(response);
+      $("#keyword").removeClass("hidden");
+      $("#keyword").empty();
+      $("#keyword").append(`${response.choices[0].message.content}
+`);
+    })
+    .fail((error) => {
+      console.error("Error:", error);
+    });
+}

@@ -45,6 +45,19 @@ async function addWishList(id) {
   });
   getWishList();
 }
+
+//檢查是否登入
+fetch("http://localhost:8080/user/islogin", {
+  method: "get",
+  credentials: "include",
+})
+  .then((response) => response.text())
+  .then((data) => {
+    if (data != "true") {
+      window.location.href = "../index.html";
+    }
+  });
+
 //願望清單資料
 async function getWishList() {
   $("#divResults").empty();
