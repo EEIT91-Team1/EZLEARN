@@ -122,11 +122,14 @@ public class CheckoutOrderController {
     }
 
     @PutMapping("/{orderId}/status")
+    @Transactional
     public ResponseEntity<ApiResponse<Void>> updateOrderStatus(
             @PathVariable String orderId,
             @RequestParam String status) {
         try {
+            // 更新訂單狀態，並在 Service 層處理購買記錄的插入
             checkoutOrderService.updateOrderStatus(orderId, status);
+            
             return ResponseEntity.ok(ApiResponse.success(null));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest()

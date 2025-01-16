@@ -163,7 +163,22 @@ public class CheckoutOrderServiceImpl implements CheckoutOrderService {
             
             // 5. 如果是完成狀態，執行額外操作
             if ("COMPLETE".equals(status)) {
-                handleOrderCompletion(order);
+                // 獲取用戶ID和課程ID列表
+                Integer userId = checkoutOrderMapper.getUserIdByOrderId(orderId);
+                List<Integer> courseIds = checkoutOrderMapper.getCourseIdsByOrderId(orderId);
+                
+                // 批量插入購買記錄
+                checkoutOrderMapper.insertPurchasedCourses(userId, courseIds);
+                
+                // 檢查並刪除 wish_list 中的課程
+                for (Integer courseId : courseIds) {
+                    if (checkoutOrderMapper.countCourseInWishList(userId, courseId) > 0) {
+                        checkoutOrderMapper.deleteCourseFromWishList(userId, courseId);
+                        log.info("從 wish_list 刪除課程 - userId: {}, courseId: {}", userId, courseId);
+                    }
+                }
+                
+                log.info("成功添加購買記錄 - userId: {}, courseIds: {}", userId, courseIds);
             }
             
             log.info("訂單狀態更新成功，orderId: {}, newStatus: {}", orderId, status);
@@ -188,16 +203,6 @@ public class CheckoutOrderServiceImpl implements CheckoutOrderService {
         }
     }
     
-    private void handleOrderCompletion(CheckoutOrder order) {
-        try {
-            // TODO: 這裡可以添加將課程加入用戶課程列表的邏輯
-            log.info("訂單完成處理成功，orderId: {}", order.getOrderId());
-        } catch (Exception e) {
-            log.error("處理完成訂單時發生錯誤，orderId: " + order.getOrderId(), e);
-            throw new RuntimeException("處理訂單完成狀態失敗", e);
-        }
-    }
-    
     @Override
     public List<CheckoutResponseDTO> getOrderHistory(Integer userId) {
         log.info("獲取用戶訂單歷史，userId: {}", userId);
@@ -218,4 +223,20 @@ public class CheckoutOrderServiceImpl implements CheckoutOrderService {
     public List<CheckoutItemDTO> getSelectedCourses(List<Integer> courseIds) {
         return checkoutOrderMapper.getSelectedCourses(courseIds);
     }
+
+    @Override
+    public Integer getUserIdByOrderId(String orderId) {
+        return checkoutOrderMapper.getUserIdByOrderId(orderId);
+    }
+    
+    @Override
+    public List<Integer> getCourseIdsByOrderId(String orderId) {
+        return checkoutOrderMapper.getCourseIdsByOrderId(orderId);
+    }
+    
+    @Override
+    public void insertPurchasedCourses(Integer userId, List<Integer> courseIds) {
+        checkoutOrderMapper.insertPurchasedCourses(userId, courseIds);
+    }
+
 } 

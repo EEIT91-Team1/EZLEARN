@@ -87,4 +87,25 @@ public interface CheckoutOrderMapper {
             many = @Many(select = "getOrderItems"))
     })
     List<CheckoutResponseDTO> getOrderHistory(@Param("userId") Integer userId);
+
+    @Insert("<script>" +
+            "INSERT INTO purchased_courses (course_id, user_id) VALUES " +
+            "<foreach item='courseId' collection='courseIds' separator=','>" +
+            "(#{courseId}, #{userId})" +
+            "</foreach>" +
+            "</script>")
+    void insertPurchasedCourses(@Param("userId") Integer userId, 
+                               @Param("courseIds") List<Integer> courseIds);
+
+    @Select("SELECT course_id FROM checkout_order_details WHERE order_id = #{orderId}")
+    List<Integer> getCourseIdsByOrderId(@Param("orderId") String orderId);
+
+    @Select("SELECT user_id FROM checkout_orders WHERE order_id = #{orderId}")
+    Integer getUserIdByOrderId(@Param("orderId") String orderId);
+
+    @Select("SELECT COUNT(*) FROM wish_list WHERE user_id = #{userId} AND course_id = #{courseId}")
+    int countCourseInWishList(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+
+    @Delete("DELETE FROM wish_list WHERE user_id = #{userId} AND course_id = #{courseId}")
+    void deleteCourseFromWishList(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
 } 

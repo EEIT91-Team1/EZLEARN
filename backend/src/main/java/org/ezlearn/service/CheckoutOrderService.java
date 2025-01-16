@@ -10,4 +10,7 @@ public interface CheckoutOrderService {
     void updateOrderStatus(String orderId, String status);
     List<CheckoutResponseDTO> getOrderHistory(Integer userId);
     List<CheckoutItemDTO> getSelectedCourses(List<Integer> courseIds);
+    Integer getUserIdByOrderId(String orderId);
+    List<Integer> getCourseIdsByOrderId(String orderId);
+    void insertPurchasedCourses(Integer userId, List<Integer> courseIds);
 } 
