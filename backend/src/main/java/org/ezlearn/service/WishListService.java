@@ -58,7 +58,7 @@ public class WishListService {
 		return dataList;
 	}
 
-	public boolean add(HttpSession session, String courseId) {
+	public String add(HttpSession session, String courseId) {
 		Users userSession = (Users) session.getAttribute("user");
 		Users user = usersrepository.findByUserId(userSession.getUserId());
 		Courses course = coursesrepository.findByCourseId(Long.parseLong(courseId));
@@ -66,10 +66,13 @@ public class WishListService {
 		List<WishList> wishLists = wishListRepository.findByUsers(userSession);
 		for (WishList wishList : wishLists) {
 			if (wishList.getCourseId() == Long.parseLong(courseId)) {
-				System.out.println(111);
 				isRepeat = true;
 			}
 		}
+		if(course.getUserInfo().getUserId()==user.getUserId()) {
+			return "isTeacher";
+		}
+		
 		if (isRepeat == false) {
 			WishList wishList = new WishList();
 			wishList.setId(new WishListId());
@@ -78,9 +81,9 @@ public class WishListService {
 			wishList.setCourses(course);
 			wishList.setUsers(user);
 			wishListRepository.save(wishList);
-			return true;
+			return "ok";
 		} else {
-			return false;
+			return "repeat";
 		}
 	}
 	

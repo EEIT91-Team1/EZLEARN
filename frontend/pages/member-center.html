@@ -20,7 +20,7 @@
     <div id="navbar"></div>
 
     <main>
-      <div class="w-full h-52 bg-black overflow-hidden relative">
+      <div class="w-full h-32 md:h-52 bg-black overflow-hidden relative">
         <h1
           class="text-5xl font-bold mb-8 mx-8 absolute left-4 xl:left-56 bottom-2 text-white"
         >
@@ -98,13 +98,19 @@
               <i class="bi bi-box-arrow-left mx-2"></i> 登出
             </div>
           </div>
-          <div class="md:flex flex-col md:ml-12 w-full">
-            <h1 class="text-4xl border-b-4 md:p-2 mb-4 border-black">
-              我的學習進度
-            </h1>
+          <div class="flex flex-col md:ml-12 w-full mt-6 md:mt-0">
+            <div
+              class="flex justify-between border-b-4 pl-2 pb-4 md:border-black"
+            >
+              <h1 class="text-4xl">我的學習進度</h1>
+              <i
+                class="bi bi-chevron-down text-2xl md:hidden mr-4 cursor-pointer"
+                id="btnProgress"
+              ></i>
+            </div>
             <div
               id="results"
-              class="flex flex-wrap justify-center md:px-18 md:justify-start"
+              class="hidden md:flex flex-wrap justify-center md:px-18 md:justify-start"
             >
               <!-- <div class="m-4 max-w-72">
                 <img

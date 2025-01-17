@@ -34,7 +34,7 @@ function rateToStars(rate) {
 function href(page) {
   window.location.href = page;
 }
-async function addWishList(id) {
+async function deleteWishList(id) {
   const url = `http://localhost:8080/wishList/delete?courseId=${id}`;
   await $.ajax({
     url: url,
@@ -95,7 +95,7 @@ async function getWishList() {
               </div>
             </a>
               <div class="text-4xl text-end absolute bottom-2 right-1 z-1">
-               <i onclick="addWishList(${
+               <i onclick="deleteWishList(${
                  item.courseId
                })" id="wish${item.courseId}" class="wish bi bi-heart-fill text-red-400 hover:text-gray-200 duration-300 mr-2 cursor-pointer"></i>
                </div> 

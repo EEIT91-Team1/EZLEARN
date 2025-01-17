@@ -33,7 +33,7 @@ public class WishListController {
 	}
 
 	@PostMapping("/add")
-	public boolean add(HttpSession session, @RequestParam String courseId) {
+	public String add(HttpSession session, @RequestParam String courseId) {
 		return wishListService.add(session, courseId);
 	}
 

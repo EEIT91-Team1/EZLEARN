@@ -32,18 +32,32 @@ $.ajax({
   console.log(data);
   $.each(data, (idx, item) => {
     $("#results").append(`            
-      <div class="m-4 min-w-72 max-w-72 ">
+      <div class="m-4 min-w-60 max-w-60 flex flex-col justify-between"> 
           <img
             src="data:image/png;base64,${item.courses.courseImg}"
-            class="h-44 w-72 object-cover border-2"
+            class="h-40 w-60 object-cover border-2"
             alt=""
           />
-          <p class="text-xl">${item.courses.courseName}</p>
+          <p class="text-lg">${item.courses.courseName}</p>
           <p class="text-gray-500">${item.courses.userInfo.userName}</p>
-          <div class="h-4 w-full border-2 rounded-md">
-            <div class="h-full bg-green-100" style="width: 70%"></div>
+          <div><div class="h-4 w-full border-2 rounded-md">
+            <div class="h-full bg-blue-100" style="width: 70%"></div>
           </div>
           完成進度：70%
-        </div>`);
+        </div></div>`);
   });
+});
+
+$("#btnProgress").on("click", function () {
+  if ($(this).hasClass("bi-chevron-down")) {
+    $(this).removeClass("bi-chevron-down");
+    $(this).addClass("bi-chevron-up");
+    $("#results").removeClass("hidden");
+    $("#results").addClass("flex");
+  } else {
+    $(this).addClass("bi-chevron-down");
+    $(this).removeClass("bi-chevron-up");
+    $("#results").removeClass("flex");
+    $("#results").addClass("hidden");
+  }
 });

@@ -17,6 +17,10 @@ async function addWishList(id) {
       xhrFields: {
         withCredentials: true,
       },
+    }).done((data) => {
+      if (data == "isTeacher") {
+        alert("無法將自己的課程加入願望清單");
+      }
     });
   }
   loadResults();
@@ -165,7 +169,9 @@ async function loadResults() {
                <h1>${item.courseName}</h1>
                <h2>${item.courseIntro}</h2>
                <h3>${item.teacherName}</h3>
-               <h4>${rateToStars(item.courseRate)}（${item.courseRate}）</h4>
+               <h4><span class="text-yellow-400">${rateToStars(
+                 item.courseRate
+               )}</span>（${item.courseRate}）</h4>
              </div>
              <div class="divPrice">
                <p>$${item.price}</p>
@@ -174,8 +180,7 @@ async function loadResults() {
                <div class="text-4xl text-end absolute bottom-4 right-8 z-10">
                <i onclick="addWishList(${item.courseId})" id="wish${
             item.courseId
-          }" class="bi bi-heart-fill text-white hover:text-red-400 duration-300 mr-2 cursor-pointer"></i>
-               
+          }" class="bi bi-heart-fill text-gray-100 hover:text-red-400 duration-300 mr-2 cursor-pointer"></i>
                </div>
           </div>`
         );
@@ -190,10 +195,12 @@ async function loadResults() {
       withCredentials: true,
     },
   }).done((data) => {
-    $.each(data, function (idx, item) {
-      $(`#wish${item.courseId}`).css("color", "rgb(248 113 113)");
-      $(`#wish${item.courseId}`).addClass("isWish");
-    });
+    if (data != 0) {
+      $.each(data, function (idx, item) {
+        $(`#wish${item.courseId}`).css("color", "rgb(248 113 113)");
+        $(`#wish${item.courseId}`).addClass("isWish");
+      });
+    }
   });
 }
 //查詢筆數

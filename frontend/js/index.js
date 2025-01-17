@@ -175,7 +175,6 @@ $(document).ready(function () {
     url: url("courses"),
     method: "GET",
   }).done((data) => {
-    console.log(data);
     $.each(data, function (idx, item) {
       let href = `/pages/course-details.html?course_id=${item.courseId}`;
       $(`#aCourse${idx + 1}`).prop("href", href);
@@ -184,7 +183,9 @@ $(document).ready(function () {
       $(`#teacherCourse${idx + 1}`).text(item.teacherName);
       $(`#studentsCourse${idx + 1}`).text(item.students);
       $(`#rateCourse${idx + 1}`).html(
-        `${rateToStars(item.courseRate)} (${item.courseRate})`
+        `<span class="text-yellow-400">${rateToStars(
+          item.courseRate
+        )}</span> (${item.courseRate})`
       );
       $(`#priceCourse${idx + 1}`).text(item.price);
     });
@@ -194,7 +195,6 @@ $(document).ready(function () {
     url: url("review"),
     method: "GET",
   }).done((data) => {
-    console.log(data);
     $.each(data, function (idx, item) {
       let href = `/pages/course-details.html?course_id=${item.courseId}`;
       $(`#aReview${idx + 1}`).prop("href", href);
@@ -279,7 +279,6 @@ async function aiApi(qs) {
     data: JSON.stringify(data),
   })
     .done((response) => {
-      console.log(response);
       $("#qsResults").append(`
             <div class="mb-4 flex justify-start">
             <img src="./imgs/customer-service.png" class="w-10 h-10 mr-2" />
@@ -327,6 +326,8 @@ $("#btnQs").on("click", () => {
 });
 
 // 關鍵字搜尋
+
+//防抖
 function debounce(fn, delay = 500) {
   let timer;
   return (...args) => {
@@ -336,7 +337,7 @@ function debounce(fn, delay = 500) {
     }, delay);
   };
 }
-
+let iskeywordNull = true;
 let updateDebounceText = debounce((text) => {
   if (text != "") {
     keyword(text);
@@ -345,16 +346,19 @@ let updateDebounceText = debounce((text) => {
   }
 }, 500);
 
-let hiddenKeyword = debounce(() => {
-  $("#keyword").addClass("hidden");
-}, 200);
-
 $("#inputSearch").on("input", function () {
   let searchText = $(this).val();
   updateDebounceText(searchText);
 });
-$("#inputSearch").on("change", function () {
-  hiddenKeyword();
+
+$("#inputSearch").on("blur", function () {
+  $("#keyword").addClass("hidden");
+});
+
+$("#inputSearch").on("focus", function () {
+  if (iskeywordNull == false) {
+    $("#keyword").removeClass("hidden");
+  }
 });
 async function keyword(key) {
   let data = {
@@ -392,11 +396,11 @@ async function keyword(key) {
     data: JSON.stringify(data),
   })
     .done((response) => {
-      console.log(response);
       $("#keyword").removeClass("hidden");
       $("#keyword").empty();
       $("#keyword").append(`${response.choices[0].message.content}
-`);
+        `);
+      iskeywordNull = false;
     })
     .fail((error) => {
       console.error("Error:", error);
