@@ -6,67 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Document</title>
-
+    <script src="../js/postClass.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>
+<div id="upload-overlay" class="upload-overlay hidden">
+        <div class="spinner"></div>
+        <p>上傳中，請稍候...</p>
+    </div>
 
-    <div class="bg-gray-100 w-[70vw] ">
-        <form class="bg-white mx-[10%] my-[5%] grid grid-cols-3 grid-row-1 gap-x-3  p-4" id="formContent">
-            <div class="space-y-4 col-span-2   p-2 " id="formRange">
-                <div id="dataInput">
-                <div
-                    class="flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  px-4 gap-x-1">
-                    <i class="hamburger-icon bi bi-list text-4xl focus:outline-none" data-id="1"></i>
-                    <input class="w-[80%]  h-[3rem] text-3xl bi bi-caret-down   outline-none  " placeholder="第1章 我要當老師">
-                    <button type="button" class=" absolute  right-6 w-12 flex focus:outline-none">
-                        <i class="bi bi-plus-square-dotted text-4xl focus:outline-none" onclick="plusInput()"></i>
-                        <i class="bi bi-trash text-4xl focus:outline-none" onclick="removeInput(dataInputCount)"></i>
-                    </button>
-                </div>
-                <div class="ml-auto w-[80%] flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  px-4 gap-x-1 ">
-                    <input class="w-full  h-[3rem] text-3xl bi bi-caret-down  outline-none   " placeholder="請上傳課程影片">
-                </div>
-                </div>
+    <div class="bg-gray-100 bg-opacity-80 w-[70vw] ">
+        <form class="bg-white  rounded-2xl mx-[10%] my-[5%] grid  grid-row-4 gap-x-3  p-4 sm:grid-cols-1 lg:grid-cols-3"
+            id="formContent">
+            <div class="sm:col-span-3 row-span-4 lg:col-span-2 space-y-4 p-2 " id="formRange">
+                <button type="button"
+                    class=" w-40 h-18 rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray  lg:text-3xl "
+                    style="background-color: #8b8f8b;" onclick="plusInput();changeAddClassButtonColor()"
+                    id="addClassButton">新增 章節
+                </button>
             </div>
-            <div class="grid bg-gray-100 p-2 h-[70vh] gap-y-8">
+            <div
+                class="grid bg-gray-100  rounded-2xl   md:h-[850px] text-base lg:h-[500px] text-2xl col-span-1 p-2 gap-y-5">
                 <div>
-                    <h2>編輯章節名稱</h2>
-                    <p>點選章節名稱，可以直接輸入每個章節的名稱，並且記得在每個章節上傳此章節的課程影片。</p>
+                    <i class="text-2xl"> ＊課程影片選擇完後，按下底下的課程上傳才會保存哦！！！</i>
                 </div>
                 <div>
-                    <i class="hamburger-icon bi bi-list "> 按住拖曳可以立即調整課程章節順序，不用在逐一輸入</i>
+                    <p class="text-2xl">＊章節名稱</p>
+                    <p class="text-2xl">點選章節名稱，可以直接輸入每個章節的名稱，並且記得在每個章節上傳此章節的課程影片。</p>
                 </div>
                 <div>
-                    <i class="bi bi-plus-square-dotted "> 直接新增一個新章節</i>
+                    <i class="hamburger-icon bi bi-list text-2xl"> 按住拖曳可以立即調整課程章節順序，不用在逐一輸入。</i>
                 </div>
                 <div>
-                    <i class="bi bi-trash"> 將此章節刪除</i>
+                    <i class="bi bi-plus-square-dotted text-2xl"> 直接新增一個新章節。</i>
                 </div>
-
+                <div>
+                    <i class="bi bi-trash text-2xl"> 將此章節刪除。</i>
+                </div>
+                <div class=" row-span-1 pl-5">
+                    <img src="../imgs/postClassComputer.png" class="w-[200px] h-[150px]">
+                </div>
             </div>
             <!-- 下一頁按鈕 -->
-            <div class="mt-6 flex items-center justify-end  col-span-3  ">
-                <button type="button" class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
-                    style="background-color: #7c807c;" onclick="step3()">下一步</button>
+            <div
+                class="items-center justify-end sm:flex sm:col-span-3 flex-col pt-1 lg:grid lg:col-span-3 gap-x-6 pt-[100px] text-xl ">
+                <div class="mt-8 grid   col-span-1  text-xl">
+                    <button type="button"
+                        class="rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray lg:text-xl"
+                        style="background-color: #7c807c;" onclick=" " id="uploadButton">影片上傳
+                    </button>
+                </div>
+                <div class="mt-8 grid  col-span-1  ">
+                    <button type="button"
+                        class="rounded-md px-3 py-2 font-semibold text-white shadow-sm bg-gray lg:text-xl"
+                        style="background-color: #7c807c;" onclick=" step1()" id="">上一步
+                    </button>
+                </div>
+                <div class="mt-8 grid  col-span-2  mr-0">
+                    <button type="button"
+                        class="rounded-md  px-3 py-2 font-semibold text-white shadow-sm bg-gray lg:text-xl"
+                        style="background-color: #7c807c;" onclick="step3()" id="nextToPostClass3">下一步
+                    </button>
+                </div>
             </div>
-    </div>
-    </div>
-
-    </form>
-    </div>
+        </form>
     </div>
     <div id="footer"></div>
-
     <script>
-
-
-
-
-
-
+        $(document).ready(checkIsLogin);
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
-
 </html>

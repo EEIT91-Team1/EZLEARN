@@ -13,5 +13,7 @@ public interface LessonsRepository extends JpaRepository<Lessons, Long> {
 	List<Lessons> findByCourses(Courses courses);
 	
 	Lessons findTop1ByCourses(Courses courses);
+	
+	List<Lessons> findByCoursesIsNull();
 
 }

@@ -9,79 +9,127 @@
   <link rel="stylesheet" href="../css/postClass.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <title>Document</title>
-
+  <script src="../js/postClass.js"></script>
 </head>
 
 <body>
 
-  <div class="bg-gray-100 w-[70vw] ">
+  <div class="bg-gray-100 bg-opacity-80 w-[70vw] ">
     <form
-      class="h-[100vh] bg-white mx-[10%] my-[5%] grid grid-cols-3 grid-row-2 gap-x-5 gap-y-8  p-4 place-items-center">
+      class=" bg-white rounded-2xl mx-[10%] my-[5%] grid grid-cols-3 grid-row-3 gap-x-5 gap-y-8  p-4 place-items-center">
       <!-- 各種檔案確認 -->
       <div class="col-span-3 row-span-1">
 
-        <label for="" class="block text-4xl font-medium text-gray-900">恭喜你，完成了所有課程所需的資訊</label>
+        
+        
         <label for="" class="block text-4xl font-medium text-gray-900">最後在確認一下還缺少甚麼?</label>
         <br>
         <div class="flex ">
-          <label for="username" class="block text-2xl font-medium text-gray-900 ">課程名稱</label>
+          <label class="block text-2xl font-medium text-gray-900 ">課程名稱</label>
           <div class="ml-auto">
-            <label for="username" class="block text-2xl font-medium text-red-200  ">尚未完成</label>
+         <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="name">尚未完成</a>
+            
           </div>
         </div>
         <div class="flex ">
-          <label for="username" class="block text-2xl font-medium text-gray-900">課程類別</label>
+          <label class="block text-2xl font-medium text-gray-900">課程類別</label>
           <div class="ml-auto">
-            <label for="username" class="block text-2xl font-medium text-red-200  ">尚未完成</label>
+            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="class">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
-          <label for="about" class="block text-2xl font-medium text-gray-900">課程介紹</label>
+          <label class="block text-2xl font-medium text-gray-900">課程介紹</label>
           <div class="ml-auto">
-            <label for="username" class="block text-2xl font-medium text-red-200  ">尚未完成</label>
+            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="intro">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
-          <label for="cover-photo" class="block text-2xl font-medium text-gray-900">課程封面</label>
+          <label  class="block text-2xl font-medium text-gray-900">課程總覽</label>
           <div class="ml-auto">
-            <label for="username" class="block text-2xl font-medium text-red-200  ">尚未完成</label>
+            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="summory">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
-          <label for="cover-photo" class="block text-2xl font-medium text-gray-900">章節名稱</label>
+          <label  class="block text-2xl font-medium text-gray-900">課程封面</label>
           <div class="ml-auto">
-            <label for="username" class="block text-2xl font-medium text-red-200  ">尚未完成</label>
+            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="image">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
-          <label for="cover-photo" class="block text-2xl font-medium text-gray-900">影片上傳</label>
+          <label  class="block text-2xl font-medium text-gray-900">章節名稱</label>
           <div class="ml-auto">
-            <label for="username" class="block text-2xl font-medium text-red-200  ">尚未完成</label>
+            <label id="lesson" class="block text-2xl font-medium text-[#87CEEB]  ">尚未完成</label>
+          </div>
+        </div>
+        <div class="flex ">
+          <label  class="block text-2xl font-medium text-gray-900">影片上傳</label>
+          <div class="ml-auto">
+            <label id="video" class="block text-2xl font-medium text-[#87CEEB]  ">尚未完成</label>
           </div>
         </div>
 
-
-
-
-
+      </div>
+      
+      <div class="mt-6 flex items-center justify-end  col-span-3 row-span-1 gap-x-3">
+        <button type="button"
+						class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
+						style="background-color: #7c807c;" onclick=" step2()"
+						id="">上一步</button>
+        <button type="button" class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
+          style="background-color: #7c807c;" id="saveToDatabase">課程提交審核</button>
       </div>
       <div class="col-span-3 row-span-1 ">
-        <img src="../imgs/Artboard 16_users.svg" class="w-[400px] h-[400px]">
+        <img src="../imgs/postClassOk.png" class="w-[400px] h-[400px]">
       </div>
       <!-- 下一頁按鈕 -->
-      <div class="mt-6 flex items-center justify-end  col-span-3  ">
-        <button type="button" class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
-          style="background-color: #7c807c;" onclick="step3()">完成課程設定</button>
-      </div>
-  </div>
+
+      
+      
 
 
   </form>
-
+  </div>
   <div id="footer"></div>
 
   <script>
+function lessonResultCheck(){
+		const Result = sessionStorage.getItem('uploadResult');
+		if(Result==="成功"){
+			
+			   	$('#lesson').text("已編輯");
+			   	$('#video').text("已編輯");
+			 
+			  }
+	}
+	  
+ 
+  document.getElementById("saveToDatabase").addEventListener("click", async function () {
+	  try {
+	    const response = await fetch("http://localhost:8080/orders10/savecoursetodatabase", {
+	      method: "POST",
+        credentials: 'include',
+	    });
 
+	    const result = await response.text();
+	    if (response.ok) {
+	      console.log("ok") // 成功訊息
+	    } 
+	  } catch (error) {
+	    console.error("Error:", error);
+	    
+	  }
+
+    alert("恭喜成功上傳所有課程資料，辛苦了。")
+    window.location.href = "teacher-mainJQ.html";
+	});
+  
+  
+  $(document).ready(function(){
+	  parameterIsNull();
+	  lessonResultCheck();
+  });
+
+  $(document).ready(checkIsLogin);
   </script>
 
 </body>
