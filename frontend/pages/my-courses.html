@@ -43,6 +43,127 @@
           id="course-list"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-12"
         ></div>
+
+        <!-- modal content -->
+        <div
+          class="review-modal relative z-20 hidden"
+          aria-labelledby="modal-title"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            class="fixed inset-0 bg-gray-500/75 transition-opacity"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="fixed inset-0 z-10 w-screen overflow-y-auto"
+          >
+            <div
+              class="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0"
+            >
+              <div
+                class="relative transform bg-white p-6 pt-5 text-left shadow-xl transition-all min-w-96 sm:my-8 sm:w-full sm:max-w-lg"
+              >
+                <div
+                  class="absolute right-0 top-0 pr-4 pt-4 sm:block"
+                >
+                  <button
+                    type="button"
+                    class="close-modal-btn rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-indigo-500"
+                  >
+                    <span class="sr-only">Close</span>
+                    <svg
+                      class="size-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                      data-slot="icon"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M6 18 18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="flex flex-col justify-center">
+                  <h1
+                    class="text-xl text-gray-700 font-bold text-center"
+                  >
+                    分享你的體驗
+                  </h1>
+                  <h1
+                    class="course-name text-gray-700 my-2 text-center"
+                  >
+                    　
+                  </h1>
+
+                  <h1 class="text-gray-700 text-center">
+                    你給此課程打多少分？
+                  </h1>
+                  <div
+                    class="flex justify-center space-x-2 my-2"
+                  >
+                    <button
+                      data-rating="1"
+                      class="text-3xl text-[#F69C08] rate-star"
+                    >
+                      <i class="bi bi-star"></i>
+                    </button>
+                    <button
+                      data-rating="2"
+                      class="text-3xl text-[#F69C08] rate-star"
+                    >
+                      <i class="bi bi-star"></i>
+                    </button>
+                    <button
+                      data-rating="3"
+                      class="text-3xl text-[#F69C08] rate-star"
+                    >
+                      <i class="bi bi-star"></i>
+                    </button>
+                    <button
+                      data-rating="4"
+                      class="text-3xl text-[#F69C08] rate-star"
+                    >
+                      <i class="bi bi-star"></i>
+                    </button>
+                    <button
+                      data-rating="5"
+                      class="text-3xl text-[#F69C08] rate-star"
+                    >
+                      <i class="bi bi-star"></i>
+                    </button>
+                  </div>
+
+                  <h1 class="text-gray-700 mb-2">評論</h1>
+                  <textarea
+                    rows="8"
+                    id="course-review"
+                    class="resize-none text-gray-700 border border-gray-400 p-2 focus:outline focus:outline-0"
+                    placeholder="留下評論..."
+                  ></textarea>
+                  <div
+                    class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse"
+                  >
+                    <button
+                      type="button"
+                      class="review-submit-btn inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto transition-all"
+                    >
+                      留下評價
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
