@@ -325,6 +325,9 @@ $(document).ready(function () {
     const data = await response.json();
     if (data.length > 0) {
       lessonId = data[0].lessonId; //default lessonId
+      //getProgressByLessonId(); // get progress
+      getLastView();
+
       $("#courseVideo").attr("src", data[0].videoUrl); // default video
       $(".lesson-name").text(data[0].lessonName); // default lesson
 
@@ -375,16 +378,6 @@ $(document).ready(function () {
           </details>
         </li>`);
       });
-
-      $.each(
-        $(`[data-id="${lessonId}"]`),
-        function (index, item) {
-          $(item).addClass("bg-gray-100 text-gray-700");
-          $(item).prepend(
-            `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
-          );
-        }
-      );
     }
   }
   getLessons();
@@ -394,6 +387,8 @@ $(document).ready(function () {
     ".course-video-link",
     function () {
       lessonId = $(this).data("id"); // change to current lessonId
+      getProgressByLessonId(); // get progress
+
       currentLesson =
         $(this)
           .closest("details")
@@ -776,5 +771,131 @@ $(document).ready(function () {
     $("#drawerPanel")
       .removeClass("translate-x-0")
       .addClass("translate-x-full");
+  });
+
+  // get progress by lessonId
+  async function getProgressByLessonId() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/lesson/${lessonId}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      $("#courseVideo")[0].currentTime = data.progressTime;
+    } catch (error) {
+      // data not found
+    }
+  }
+
+  // get last view by courseId
+  async function getLastView() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/courses/${courseId}/last-view`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+
+      lessonId = data.progressId.lessonId;
+      getProgressByLessonId();
+      const videoSrc = $(`div[data-id='${lessonId}']`).data(
+        "src"
+      );
+      $("#courseVideo").attr("src", videoSrc);
+
+      $.each(
+        $(`[data-id="${lessonId}"]`),
+        function (index, item) {
+          $(item).addClass("bg-gray-100 text-gray-700");
+          $(item).prepend(
+            `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
+          );
+        }
+      );
+    } catch (error) {
+      // data not found (first time)
+      $.each(
+        $(`[data-id="${lessonId}"]`),
+        function (index, item) {
+          $(item).addClass("bg-gray-100 text-gray-700");
+          $(item).prepend(
+            `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
+          );
+        }
+      );
+    }
+  }
+
+  // create progress
+  async function createProgress() {
+    const response = await fetch(
+      `http://localhost:8080/progress/lesson/${lessonId}`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          progressTime: Math.floor(
+            currenTime[0].currentTime
+          ),
+          totalDuration: Math.floor(currenTime[0].duration),
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Internal Error");
+    }
+
+    const data = await response.json();
+
+    console.log("progress saved...");
+  }
+
+  // event listener
+  let intervalId;
+  const currenTime = $("#courseVideo");
+
+  // save progress every 3s
+  $("#courseVideo").on("play", function () {
+    intervalId = setInterval(function () {
+      createProgress();
+    }, 3000);
+  });
+
+  // save progress when pause video
+  $("#courseVideo").on("pause", function () {
+    createProgress();
+    clearInterval(intervalId);
+  });
+
+  // save progress when video ended
+  $("#courseVideo").on("ended", function () {
+    createProgress();
+    clearInterval(intervalId);
   });
 });
