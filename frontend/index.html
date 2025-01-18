@@ -20,7 +20,7 @@
   <body>
     <div id="navbar"></div>
 
-    <main>
+    <main class="">
       <div class="flex flex-col justify-center items-center relative h-[32rem]">
         <form
           id="formSearch"
@@ -29,6 +29,7 @@
           <input
             id="inputSearch"
             type="text"
+            autocomplete="off"
             placeholder="今天想學點什麼？"
             class="pl-6 w-96 h-14 text-2xl border-y-2 border-l-2 border-cyan-500 rounded-l-full focus:outline-none"
           />
@@ -41,7 +42,7 @@
         </form>
         <div
           id="keyword"
-          class="hidden translate-y-1/2 relative top-7 border-2 shadow-md right-8 w-[23rem] bg-white text-gray-700 rounded-md"
+          class="hidden translate-y-1/2 relative top-7 border-2 shadow-md sm:right-8 sm:w-[23rem] bg-white text-gray-700 rounded-md right-6 w-[17rem]"
         >
           <!-- <a
             class="p-2 block hover:bg-gray-100"
@@ -76,7 +77,7 @@
         </div>
       </div>
       <div class="grid Recommed">
-        <div>
+        <div class="fadeIn">
           <h1 class="text-5xl text-center my-8">熱門課程推薦</h1>
         </div>
         <div class="fadeIn">
@@ -1237,6 +1238,16 @@
             送出
           </button>
         </form>
+      </div>
+      <div
+        id="phone"
+        class="fixed z-50 top-0 left-0 bg-opacity-80 bg-gray-500 w-0 h-0 flex justify-center items-center flex-col"
+      >
+        <img id="imgPhone" src="./imgs/phone.png" class="h-1/2" />
+        <p id="pPhone" class="hidden mt-4 text-xl text-white font-extrabold">
+          為提供最佳使用體驗，建議您將裝置切換為直立模式。
+        </p>
+        <p id="pPhone2" class="hidden mt-4 text-white">點擊任意處關閉提示</p>
       </div>
     </main>
 

@@ -2,10 +2,7 @@
 <html lang="zh-Hants">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EZLEARN</title>
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
@@ -25,12 +22,10 @@
 
     <main>
       <div class="flex justify-center relative h-72">
-        <form
-          action=""
-          class="flex items-center justify-center w-3/4"
-        >
+        <form action="" class="flex items-center justify-center w-3/4">
           <input
             type="text"
+            autocomplete="off"
             placeholder="想搜尋更多課程？"
             class="pl-6 w-96 h-14 text-2xl border-y-2 border-l-2 border-cyan-500 rounded-l-full focus:outline-none"
             id="inputSearch"
@@ -51,10 +46,7 @@
             id="searchPic7"
             class="hidden xl:block"
           />
-          <img
-            src="../imgs/searchPic5.png"
-            id="searchPic5"
-          />
+          <img src="../imgs/searchPic5.png" id="searchPic5" />
           <img
             src="../imgs/searchPic6.png"
             id="searchPic6"
@@ -70,9 +62,7 @@
       <div
         class="my-2 flex flex-wrap justify-between mx-8 lg:mx-16 xl:mx-32 2xl:mx-56 items-center"
       >
-        <p id="queryText" class="text-2xl sm:mx-12 my-8">
-          查無資料
-        </p>
+        <p id="queryText" class="text-2xl sm:mx-12 my-8">查無資料</p>
         <div class="mx-12 my-2 flex items-center ml-auto">
           <div class="flex justify-center items-center">
             <div
@@ -128,11 +118,9 @@
       >
         <div
           id="divLeft"
-          class="bg-white z-50 flex-col text-xl tracking-wide leading-10 fixed top-0 left-0 p-6 h-full shadow-lg hidden overflow-auto lg:flex lg:z-0 lg:static lg:shadow-none lg:overflow-visible"
+          class="bg-white z-40 flex-col text-xl tracking-wide leading-10 fixed top-0 -left-80 p-6 h-full shadow-lg overflow-auto lg:flex lg:z-0 lg:static lg:shadow-none lg:overflow-visible"
         >
-          <div
-            class="justify-between mb-10 text-xl flex lg:hidden"
-          >
+          <div class="justify-between mb-10 text-xl flex lg:hidden">
             <i class="bi bi-funnel"></i>篩選條件<i
               id="closeDivLeft"
               class="bi bi-x-lg cursor-pointer hover:text-blue-400 duration-300"
@@ -142,95 +130,40 @@
             class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
             id="theme"
           >
-            <span>主題</span
-            ><i class="bi bi-chevron-down"></i>
+            <span>主題</span><i class="bi bi-chevron-down"></i>
           </div>
           <div class="hidden" id="themeOption">
-            <input
-              type="radio"
-              name="type"
-              id="alltype"
-              value="all"
-              checked
-            />
+            <input type="radio" name="type" id="alltype" value="all" checked />
             <label for="alltype">全部課程</label>
             <br />
-            <input
-              type="radio"
-              name="type"
-              id="language"
-              value="語言學習"
-            />
+            <input type="radio" name="type" id="language" value="語言學習" />
             <label for="language"
-              >語言學習<span
-                id="languageLabel"
-                class="text-sm pl-2"
-              ></span
+              >語言學習<span id="languageLabel" class="text-sm pl-2"></span
             ></label>
             <br />
-            <input
-              type="radio"
-              name="type"
-              id="program"
-              value="程式設計"
-            />
+            <input type="radio" name="type" id="program" value="程式設計" />
             <label for="program"
-              >程式設計<span
-                id="programLabel"
-                class="text-sm pl-2"
-              ></span
+              >程式設計<span id="programLabel" class="text-sm pl-2"></span
             ></label>
             <br />
-            <input
-              type="radio"
-              name="type"
-              id="cook"
-              value="美食料理"
-            />
+            <input type="radio" name="type" id="cook" value="美食料理" />
             <label for="cook"
-              >美食料理<span
-                id="cookLabel"
-                class="text-sm pl-2"
-              ></span
+              >美食料理<span id="cookLabel" class="text-sm pl-2"></span
             ></label>
             <br />
-            <input
-              type="radio"
-              name="type"
-              id="art"
-              value="藝術創作"
-            />
+            <input type="radio" name="type" id="art" value="藝術創作" />
             <label for="art"
-              >藝術創作<span
-                id="artLabel"
-                class="text-sm pl-2"
-              ></span
+              >藝術創作<span id="artLabel" class="text-sm pl-2"></span
             ></label>
             <br />
-            <input
-              type="radio"
-              name="type"
-              id="sport"
-              value="運動健身"
-            />
+            <input type="radio" name="type" id="sport" value="運動健身" />
             <label for="sport"
-              >運動健身<span
-                id="sportLabel"
-                class="text-sm pl-2"
-              ></span
+              >運動健身<span id="sportLabel" class="text-sm pl-2"></span
             ></label>
             <br />
-            <input
-              type="radio"
-              name="type"
-              id="finance"
-              value="理財投資"
-            />
+            <input type="radio" name="type" id="finance" value="理財投資" />
             <label for="finance"
-              >理財投資<span
-                id="financeLabel"
-                class="text-sm pl-2"
-              ></span
+              >理財投資<span id="financeLabel" class="text-sm pl-2"></span
             ></label>
 
             <br />
@@ -239,63 +172,30 @@
             class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
             id="rate"
           >
-            <span>評分</span
-            ><i class="bi bi-chevron-down"></i>
+            <span>評分</span><i class="bi bi-chevron-down"></i>
           </div>
-          <div
-            class="hidden text-lg leading-10"
-            id="rateOption"
-          >
-            <input
-              type="radio"
-              name="rate"
-              id="allrate"
-              value="all"
-              checked
-            />
-            <label for="allrate" class="text-xl"
-              >全部評分</label
-            >
+          <div class="hidden text-lg leading-10" id="rateOption">
+            <input type="radio" name="rate" id="allrate" value="all" checked />
+            <label for="allrate" class="text-xl">全部評分</label>
             <br />
-            <input
-              type="radio"
-              name="rate"
-              id="rate4"
-              value="4"
-            />
+            <input type="radio" name="rate" id="rate4" value="4" />
             <label for="rate4"
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
               ><i class="bi bi-star"></i> （4.0以上）</label
             >
             <br />
-            <input
-              type="radio"
-              name="rate"
-              id="rate3"
-              value="3"
-            />
+            <input type="radio" name="rate" id="rate3" value="3" />
             <label for="rate3"
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star"></i
               ><i class="bi bi-star"></i> （3.0以上）</label
             >
             <br />
-            <input
-              type="radio"
-              name="rate"
-              id="rate2"
-              value="2"
-            />
+            <input type="radio" name="rate" id="rate2" value="2" />
             <label for="rate2"
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star-fill"></i
-              ><i class="bi bi-star"></i
-              ><i class="bi bi-star"></i
+              ><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i
+              ><i class="bi bi-star"></i><i class="bi bi-star"></i
               ><i class="bi bi-star"></i> （2.0以上）</label
             >
             <br />
@@ -304,8 +204,7 @@
             class="w-64 py-2 flex justify-between cursor-pointer border-y-2"
             id="price"
           >
-            <span>價格</span
-            ><i class="bi bi-chevron-down"></i>
+            <span>價格</span><i class="bi bi-chevron-down"></i>
           </div>
           <div id="priceOption" class="hidden">
             <input
@@ -317,12 +216,7 @@
             />
             <label for="allPrice">全部價格</label>
             <br />
-            <input
-              type="radio"
-              name="price"
-              id="choosePrice"
-              value="choose"
-            />
+            <input type="radio" name="price" id="choosePrice" value="choose" />
             <label for="choosePrice">自訂價格</label>
             <div class="hidden" id="divPriceRange">
               0<input
@@ -365,10 +259,7 @@
             </div>
           </div> -->
         </div>
-        <div
-          id="loadingSpinner"
-          style="display: none"
-        ></div>
+        <div id="loadingSpinner" style="display: none"></div>
       </div>
       <div class="flex justify-center">
         <button
@@ -377,9 +268,7 @@
         >
           ＜
         </button>
-        <span class="flex items-center m-4" id="pageNumber"
-          >1</span
-        >
+        <span class="flex items-center m-4" id="pageNumber">1</span>
         <button
           id="btnPageNext"
           class="bg-white p-3 rounded-md shadow-lg border focus:outline-none my-4 hover:bg-blue-400 hover:text-white duration-300"

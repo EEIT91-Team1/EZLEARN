@@ -5,6 +5,28 @@ function navRegister() {
 function navLogin() {
   window.location.href = "../pages/login.html";
 }
+//menu
+let isExpanded = false;
+
+$("#btnMenu").on("click", function () {
+  if (!isExpanded) {
+    $("#menu").removeClass("hidden");
+    $("#menu").animate({ left: "0" }, 300);
+  } else {
+    $("#menu").animate({ left: "-20rem" }, 300);
+  }
+  isExpanded = !isExpanded;
+});
+$("#closeMenu").on("click", function () {
+  if (!isExpanded) {
+    $("#menu").removeClass("hidden");
+    $("#menu").animate({ left: "0" }, 300);
+  } else {
+    $("#menu").animate({ left: "-20rem" }, 300);
+  }
+  isExpanded = !isExpanded;
+});
+
 //搜尋
 function search() {
   event.preventDefault();
@@ -153,11 +175,10 @@ async function loadLogin() {
     const loginData = await loginDataResponse.json();
 
     if (loginData.avatar !== "noImg") {
-      $("#navbarAvatar1").prop("src", loginData.avatar);
-      $("#navbarAvatar2").prop("src", loginData.avatar);
+      $(".navbarAvatar").prop("src", loginData.avatar);
     }
-    $("#navbarUserName").text(loginData.userName);
-    $("#navbarEmail").text(loginData.email);
+    $(".navbarUserName").text(loginData.userName);
+    $(".navbarEmail").text(loginData.email);
     notify();
   } else {
     navbarLog("Logout");

@@ -55,8 +55,21 @@ function show(btn, view) {
   });
 }
 show($("#sort"), $("#sortOption"));
-show($("#filter"), $("#divLeft"));
-show($("#closeDivLeft"), $("#divLeft"));
+let isExpanded2 = false;
+
+function expand(btn, view) {
+  $(btn).on("click", () => {
+    if (!isExpanded2) {
+      $(view).animate({ left: "0" }, 300);
+    } else {
+      $(view).animate({ left: "-20rem" }, 300);
+    }
+    isExpanded2 = !isExpanded2;
+  });
+}
+expand($("#filter"), $("#divLeft"), isExpanded2);
+expand($("#closeDivLeft"), $("#divLeft"), isExpanded2);
+
 //------------------------------------------------------------
 //圖片動畫
 window.addEventListener("scroll", () => {
@@ -171,7 +184,9 @@ async function loadResults() {
                <h3>${item.teacherName}</h3>
                <h4><span class="text-yellow-400">${rateToStars(
                  item.courseRate
-               )}</span>（${item.courseRate}）</h4>
+               )}</span><span class="block sm:inline-block">（${
+            item.courseRate
+          }）</span></h4>
              </div>
              <div class="divPrice">
                <p>$${item.price}</p>

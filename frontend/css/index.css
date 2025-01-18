@@ -11,6 +11,7 @@
     top: 1rem;
   }
 }
+
 #searchPic1 {
   animation: searchDiv1 3s linear infinite alternate;
 }
@@ -23,6 +24,30 @@
   animation: fadeIn 0.5s;
 }
 
+@keyframes rotate-left {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-90deg);
+  }
+}
+@media (max-height: 450px) {
+  #phone {
+    width: 100vw;
+    height: 100vh;
+  }
+  #pPhone {
+    display: block;
+  }
+  #pPhone2 {
+    display: block;
+  }
+}
+
+#imgPhone {
+  animation: rotate-left 2.5s ease infinite;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -33,15 +58,22 @@
     transform: translateY(0);
   }
 }
-.fadeIn {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+@media (max-height: 450px) {
+  #qsResults {
+    height: 75vh;
+  }
 }
+@media (min-height: 450px) {
+  .fadeIn {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
 
-.fadeIn.visible {
-  opacity: 1;
-  transform: translateY(0);
+  .fadeIn.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #bg1 {

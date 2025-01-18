@@ -94,6 +94,7 @@
       <input
         id="navbarInputSearch"
         placeholder="JAVA線上課程優惠中"
+        autocomplete="off"
         class="border-gray-400 border-y border-r text-lg rounded-r-3xl focus:outline-none pr-4 w-64 font-normal"
         type="search"
       />
@@ -155,12 +156,11 @@
       </div>
     </div>
 
-    <div class="relative group py-2 z-20">
+    <div class="relative group py-2 z-20 hidden sm:block">
       <a href="../pages/member-center.html" title="會員中心">
         <img
-          id="navbarAvatar1"
           src="../imgs/avatar.png"
-          class="mr-6 h-12 w-12 rounded-full border border-gray-300 object-cover"
+          class="mr-6 h-12 w-12 rounded-full border border-gray-300 object-cover navbarAvatar"
         />
       </a>
       <div
@@ -168,13 +168,12 @@
       >
         <div class="inline-flex w-full p-2 border border-gray-200 items-center">
           <img
-            id="navbarAvatar2"
             src="../imgs/avatar.png"
-            class="m-4 w-20 h-20 rounded-full border border-gray-300 object-cover"
+            class="m-4 w-20 h-20 rounded-full border border-gray-300 object-cover navbarAvatar"
           />
           <div class="p-2 overflow-auto">
-            <p class="text-lg" id="navbarUserName"></p>
-            <p class="text-sm" id="navbarEmail"></p>
+            <p class="text-lg navbarUserName"></p>
+            <p class="text-sm navbarEmail"></p>
           </div>
         </div>
         <ul class="py-2">
@@ -240,6 +239,9 @@
         </ul>
       </div>
     </div>
+    <div id="btnMenu">
+      <i class="bi bi-list text-3xl mr-6 sm:hidden cursor-pointer"></i>
+    </div>
   </div>
   <div class="mr-4 items-center hidden" id="navbarDivLogout">
     <div>
@@ -258,6 +260,93 @@
         註冊
       </button>
     </div>
+  </div>
+  <div
+    id="menu"
+    class="fixed z-50 top-0 -left-80 bg-white h-dvh w-80 shadow-lg border-2 sm:hidden cursor-pointer"
+  >
+    <div
+      class="inline-flex w-full p-2 border border-gray-200 items-center relative"
+    >
+      <img
+        src="../imgs/avatar.png"
+        class="mx-2 my-4 w-20 h-20 rounded-full border border-gray-300 object-cover navbarAvatar"
+      />
+      <div class="p-2 overflow-auto">
+        <p class="text-lg navbarUserName"></p>
+        <p class="text-sm navbarEmail"></p>
+      </div>
+    </div>
+    <ul class="py-2">
+      <li>
+        <a
+          href="../pages/member-center.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+        >
+          <i class="bi bi-person-vcard mx-2"></i>會員中心</a
+        >
+      </li>
+      <li>
+        <a
+          href="../pages/my-courses.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+          ><i class="bi bi-book mx-2"></i>我的學習</a
+        >
+      </li>
+      <li>
+        <a
+          href="../pages/cart.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+          ><i class="bi bi-cart mx-2"></i>購物車</a
+        >
+      </li>
+      <li>
+        <a
+          href="../pages/wish-list.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+        >
+          <i class="bi bi-heart mx-2"></i>願望清單</a
+        >
+      </li>
+      <li>
+        <a
+          href="../pages/teacher-mainJQ.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+          ><i class="bi bi-person-workspace mx-2"></i>我是老師</a
+        >
+      </li>
+      <li class="border-t border-gray-200">
+        <a
+          href="../pages/notify.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+        >
+          <i class="bi bi-bell mx-2"></i>通知</a
+        >
+      </li>
+      <li>
+        <a
+          href="../pages/order-history.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+          ><i class="bi bi-receipt mx-2"></i>訂單明細</a
+        >
+      </li>
+      <li class="border-t border-gray-200">
+        <a
+          href="../pages/profile.html"
+          class="block px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+          ><i class="bi bi-person-fill mx-2"></i>帳戶設定</a
+        >
+      </li>
+      <li>
+        <button
+          onclick="logout()"
+          class="w-full text-left px-4 py-2 hover:bg-gray-100 text-lg tracking-wider"
+        >
+          <i class="bi bi-box-arrow-left mx-2"></i>登出
+        </button>
+      </li>
+    </ul>
+    <i id="closeMenu" class="bi bi-x-lg text-2xl absolute right-3 top-2"></i>
   </div>
 </header>
 

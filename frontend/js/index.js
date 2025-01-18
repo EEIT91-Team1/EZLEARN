@@ -16,6 +16,10 @@ function timeCal(calTime) {
   }
   return timeText;
 }
+//防止手機橫屏
+$("#phone").on("click", () => {
+  $("#phone").addClass("hidden");
+});
 
 $(document).ready(function () {
   //課程推薦輪播
@@ -343,8 +347,10 @@ let updateDebounceText = debounce((text) => {
     keyword(text);
   } else {
     $("#keyword").addClass("hidden");
+    $("#keyword").empty();
+    iskeywordNull = true;
   }
-}, 500);
+}, 700);
 
 $("#inputSearch").on("input", function () {
   let searchText = $(this).val();
