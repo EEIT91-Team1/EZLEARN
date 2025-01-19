@@ -7,6 +7,7 @@ import org.ezlearn.model.ProgressId;
 import org.ezlearn.model.Users;
 import org.ezlearn.repository.CoursesRepository;
 import org.ezlearn.repository.LessonsRepository;
+import org.ezlearn.repository.ProgressRepository;
 import org.ezlearn.service.ProgressService;
 import org.ezlearn.service.PurchasedCoursesService;
 import org.ezlearn.service.UsersService;
@@ -43,6 +44,8 @@ public class ProgressController {
 	@Autowired
 	private CoursesRepository coursesRepository;
 	
+	@Autowired ProgressRepository progressRepository;
+	
 	@Autowired
 	private HttpSession httpSession;
 	
@@ -76,16 +79,12 @@ public class ProgressController {
 		}
 
 	    Users user = (Users) httpSession.getAttribute("user");
-	    Lessons lesson = lessonsRepository.findById(lessonId)
-	    	    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lesson not found"));
 	    
 	    ProgressId progressId = new ProgressId(user.getUserId(), lessonId);
 	    progress.setProgressId(progressId);
-	    progress.setUsers(user);
-	    progress.setLessons(lesson);
 	    progress.setProgressPercent((progress.getProgressTime() * 100) / progress.getTotalDuration());
 	    
-        return ResponseEntity.ok(progressService.saveProgress(progress));
+        return ResponseEntity.ok(progressService.updateProgress(progressId, progress.getProgressTime(), progress.getTotalDuration()));
 	}
 	
 	@PostMapping("lesson/{lessonId}")
@@ -103,6 +102,7 @@ public class ProgressController {
 	    progress.setUsers(user);
 	    progress.setLessons(lesson);
 	    progress.setProgressPercent((progress.getProgressTime() * 100) / progress.getTotalDuration());
+
 	    
         return ResponseEntity.ok(progressService.saveProgress(progress));
 	}
@@ -112,6 +112,20 @@ public class ProgressController {
 		Users user = (Users) httpSession.getAttribute("user");
 		Courses courses = coursesRepository.findByCourseId(courseId);
 		return ResponseEntity.ok(progressService.getLastView(user, courses));
+	}
+	
+	@PutMapping("lesson/{lessonId}/complete")
+	public ResponseEntity<?> markProgressAsCompleted(@PathVariable Long lessonId) {
+		if (usersService.islogin(httpSession) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
+		}
+
+	    Users user = (Users) httpSession.getAttribute("user");
+	    Lessons lesson = lessonsRepository.findById(lessonId)
+	    	    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lesson not found"));
+	    Progress progress = progressRepository.findByUsersAndLessons(user, lesson);
+	    progressService.markProgressAsCompleted(progress);
+        return ResponseEntity.ok().build();
 	}
 
 }

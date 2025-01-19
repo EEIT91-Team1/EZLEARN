@@ -16,6 +16,7 @@ public class Progress {
 	private Integer progressTime;
 	private Integer totalDuration;
 	private Integer progressPercent;
+	private Boolean isCompleted;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	
@@ -46,6 +47,14 @@ public class Progress {
 		this.progressPercent = progressPercent;
 	}
 	
+	public Boolean getIsCompleted() {
+		return isCompleted;
+	}
+
+	public void setIsCompleted(Boolean isCompleted) {
+		this.isCompleted = isCompleted;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}

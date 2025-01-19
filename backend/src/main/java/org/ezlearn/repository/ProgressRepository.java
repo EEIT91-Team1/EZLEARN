@@ -8,7 +8,11 @@ import org.ezlearn.model.Progress;
 import org.ezlearn.model.ProgressId;
 import org.ezlearn.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface ProgressRepository extends JpaRepository<Progress, ProgressId> {
@@ -18,5 +22,15 @@ public interface ProgressRepository extends JpaRepository<Progress, ProgressId> 
 	List<Progress> findByUsersAndLessonsCourses(Users users, Courses courses);
 	
     Progress findTopByUsersAndLessonsInOrderByUpdatedAtDesc(Users users, List<Lessons> lessons);
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE Progress p SET p.progressTime = :progressTime, " +
+    	       "p.totalDuration = :totalDuration, " +
+    	       "p.progressPercent = (:progressTime * 100) / :totalDuration " +
+    	       "WHERE p.progressId = :progressId")
+    int updateByUsersAndLessons(@Param("progressId") ProgressId progressId, 
+    							@Param("progressTime") Integer progressTime,
+            					@Param("totalDuration") Integer totalDuration);
 
 }
