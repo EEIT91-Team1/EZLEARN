@@ -346,7 +346,7 @@ $(document).ready(function () {
               <span class="lesson-index text-md font-medium">
                 章節 ${
                   index + 1
-                }<i class="bi bi-check-square-fill ml-2 hidden text-yellow-500"></i>
+                }<i class="bi bi-check2-square ml-2 hidden text-green-500"></i>
 
               </span>
               <span
@@ -375,7 +375,6 @@ $(document).ready(function () {
                   class="course-video-link flex items-center cursor-pointer w-full text-start rounded-lg px-4 py-2 my-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 >
                   <p>${item.lessonName}</p>
-                  <i class="bi bi-check-square-fill ml-2 hidden text-yellow-500"></i>
                 </div>
               </li>
             </ul>
