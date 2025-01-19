@@ -50,5 +50,9 @@ public class ProgressService {
         progress.setIsCompleted(true);
         progressRepository.save(progress);
     }
+	
+	public Double getCompletedPercentageByUserAndCourse(Long userId, Long courseId) {
+        return progressRepository.calculateCompletedPercentageByUserIdAndLessonsCourseId(userId, courseId);
+    }
 
 }

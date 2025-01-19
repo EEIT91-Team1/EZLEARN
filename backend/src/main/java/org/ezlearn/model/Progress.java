@@ -88,5 +88,9 @@ public class Progress {
 	public void setLessons(Lessons lessons) {
 		this.lessons = lessons;
 	}
+
+	public Lessons getLessons() {
+		return lessons;
+	}
 	
 }

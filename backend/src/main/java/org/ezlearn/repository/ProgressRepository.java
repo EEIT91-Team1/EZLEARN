@@ -32,5 +32,9 @@ public interface ProgressRepository extends JpaRepository<Progress, ProgressId> 
     int updateByUsersAndLessons(@Param("progressId") ProgressId progressId, 
     							@Param("progressTime") Integer progressTime,
             					@Param("totalDuration") Integer totalDuration);
+    
+    @Query("SELECT ROUND((COUNT(p) * 100.0) / (SELECT COUNT(l) FROM Lessons l WHERE l.courses.courseId = :courseId)) " +
+            "FROM Progress p WHERE p.isCompleted = true AND p.users.userId = :userId AND p.lessons.courses.courseId = :courseId")
+     Double calculateCompletedPercentageByUserIdAndLessonsCourseId(@Param("userId") Long userId, @Param("courseId") Long courseId);
 
 }

@@ -132,5 +132,17 @@ public class ProgressController {
 	    progressService.markProgressAsCompleted(progress);
         return ResponseEntity.ok().build();
 	}
+	
+	@GetMapping("/courses/{courseId}/completed-percentage")
+    public ResponseEntity<?> getCompletedPercentage(@PathVariable Long courseId) {
+		if (usersService.islogin(httpSession) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
+		}
+		
+		Users user = (Users) httpSession.getAttribute("user");
+        Double completedPercentage = progressService.getCompletedPercentageByUserAndCourse(user.getUserId(), courseId);
+        
+        return ResponseEntity.ok(completedPercentage);
+    }
 
 }
