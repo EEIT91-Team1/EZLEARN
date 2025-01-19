@@ -26,6 +26,7 @@ $(document).ready(function () {
   let lessonId = 0;
   let userId = 0;
   let currentLesson = "";
+  let isCompleted = false;
 
   async function getUser() {
     const response = await fetch(
@@ -300,6 +301,7 @@ $(document).ready(function () {
 
   // get lessons
   async function getLessons() {
+    $(".lesson-list").empty();
     const response = await fetch(
       `http://localhost:8080/courses/${courseId}/lessons`,
       {
@@ -325,7 +327,6 @@ $(document).ready(function () {
     const data = await response.json();
     if (data.length > 0) {
       lessonId = data[0].lessonId; //default lessonId
-      //getProgressByLessonId(); // get progress
       getLastView();
 
       $("#courseVideo").attr("src", data[0].videoUrl); // default video
@@ -342,10 +343,12 @@ $(document).ready(function () {
             <summary
               class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-4 my-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
             >
-              <span class="text-md font-medium">
-                章節 ${index + 1}
-              </span>
+              <span class="lesson-index text-md font-medium">
+                章節 ${
+                  index + 1
+                }<i class="bi bi-check-square-fill ml-2 hidden text-yellow-500"></i>
 
+              </span>
               <span
                 class="shrink-0 transition duration-300 group-open:-rotate-180"
               >
@@ -372,6 +375,7 @@ $(document).ready(function () {
                   class="course-video-link flex items-center cursor-pointer w-full text-start rounded-lg px-4 py-2 my-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 >
                   <p>${item.lessonName}</p>
+                  <i class="bi bi-check-square-fill ml-2 hidden text-yellow-500"></i>
                 </div>
               </li>
             </ul>
@@ -798,6 +802,71 @@ $(document).ready(function () {
     }
   }
 
+  // get all progress by course
+  async function getAllProgressByCourseId() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/courses/${courseId}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      if (data.length > 0) {
+        console.log(data);
+        $.each(data, function (index, item) {
+          if (item.isCompleted) {
+            $(`div[data-id="${item.progressId.lessonId}"]`)
+              .closest("details")
+              .find(".lesson-index")
+              .find("i")
+              .removeClass("hidden");
+          }
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  getAllProgressByCourseId();
+
+  async function isCreatedProgress() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/lesson/${lessonId}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const data = await response.json();
+      if (data != null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      return false;
+    }
+  }
+
   // get last view by courseId
   async function getLastView() {
     try {
@@ -850,30 +919,91 @@ $(document).ready(function () {
 
   // create progress
   async function createProgress() {
-    const response = await fetch(
-      `http://localhost:8080/progress/lesson/${lessonId}`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          progressTime: Math.floor(
-            currenTime[0].currentTime
-          ),
-          totalDuration: Math.floor(currenTime[0].duration),
-        }),
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/lesson/${lessonId}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            progressTime: Math.floor(
+              currenTime[0].currentTime
+            ),
+            totalDuration: Math.floor(
+              currenTime[0].duration
+            ),
+            isCompleted: isCompleted,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
       }
-    );
 
-    if (!response.ok) {
-      throw new Error("Internal Error");
+      const data = await response.json();
+
+      console.log("progress saved...");
+    } catch (error) {
+      console.log(error);
     }
+  }
 
-    const data = await response.json();
+  // update progress
+  async function updateProgress() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/lesson/${lessonId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            progressTime: Math.floor(
+              currenTime[0].currentTime
+            ),
+            totalDuration: Math.floor(
+              currenTime[0].duration
+            ),
+          }),
+        }
+      );
 
-    console.log("progress saved...");
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      console.log("progress saved...");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // mark complete
+  async function markProgressAsCompleted() {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/progress/lesson/${lessonId}/complete`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // event listener
@@ -881,21 +1011,42 @@ $(document).ready(function () {
   const currenTime = $("#courseVideo");
 
   // save progress every 3s
-  $("#courseVideo").on("play", function () {
+  $("#courseVideo").on("play", async function () {
+    const progressExists = await isCreatedProgress();
+    if (progressExists == false) {
+      await createProgress();
+    }
+
+    if (
+      currenTime[0].duration - 1 <
+      currenTime[0].currentTime
+    ) {
+      await markProgressAsCompleted();
+      await updateProgress();
+      $(`div[data-id="${lessonId}"]`)
+        .find("i")
+        .removeClass("hidden");
+    }
+    await updateProgress();
+    console.log("playing...");
     intervalId = setInterval(function () {
-      createProgress();
+      updateProgress();
     }, 3000);
   });
 
   // save progress when pause video
-  $("#courseVideo").on("pause", function () {
-    createProgress();
+  $("#courseVideo").on("pause", async function () {
+    await updateProgress();
+    console.log("pause");
     clearInterval(intervalId);
   });
 
   // save progress when video ended
-  $("#courseVideo").on("ended", function () {
-    createProgress();
+  $("#courseVideo").on("ended", async function () {
+    await markProgressAsCompleted();
+    await updateProgress();
+    await getAllProgressByCourseId();
+    console.log("ended");
     clearInterval(intervalId);
   });
 });
