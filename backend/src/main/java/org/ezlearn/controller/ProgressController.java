@@ -89,13 +89,18 @@ public class ProgressController {
 	
 	@PostMapping("lesson/{lessonId}")
 	public ResponseEntity<?> createProgress(@PathVariable Long lessonId, @RequestBody Progress progress) {
+
+		Users user = (Users) httpSession.getAttribute("user");
+		Lessons lesson = lessonsRepository.findById(lessonId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lesson not found"));
+		
 		if (usersService.islogin(httpSession) == false) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthenticated");
 		}
-
-	    Users user = (Users) httpSession.getAttribute("user");
-	    Lessons lesson = lessonsRepository.findById(lessonId)
-	    	    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Lesson not found"));
+		
+		if (purchasedCoursesService.isPurchased(httpSession, lesson.getCourses().getCourseId()) == false) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+		}
 	    
 	    ProgressId progressId = new ProgressId(user.getUserId(), lessonId);
 	    progress.setProgressId(progressId);
