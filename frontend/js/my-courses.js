@@ -21,7 +21,11 @@ $(document).ready(function () {
       if (data.length > 0) {
         console.log(data);
         $("#browseCourse").addClass("hidden");
-        $.each(data, function (index, item) {
+        $.each(data, async function (index, item) {
+          let percentage = await getCompletedPercentage(
+            item.courses.courseId
+          );
+
           $("#course-list").append(
             `
             <div class="purchased-course border-b border-[#AAAAAA] m-4">
@@ -43,11 +47,24 @@ $(document).ready(function () {
                   </div>
                 </div>
               </a>
-              
+              <div class="flex justify-center mt-2">
+                <span id="ProgressLabel" class="sr-only">Loading</span>
+
+                <span
+                  role="progressbar"
+                  aria-labelledby="ProgressLabel"
+                  aria-valuenow="${percentage}"
+                  class="block rounded-full w-[200px] bg-gray-200"
+                >
+                  <span class="block h-1 rounded-full bg-indigo-600" style="width: ${percentage}%"></span>
+                </span>
+              </div>
               <div class="flex justify-center">
-                <button data-cid="${
-                  item.courses.courseId
-                }" data-name="${
+                <div class="flex justify-between w-[200px] my-2">
+                <p class="text-xs text-gray-700 percentage">${percentage}%完成</p>
+                  <button data-cid="${
+                    item.courses.courseId
+                  }" data-name="${
               item.courses.courseName
             }" data-rate="${
               item.courseRate != null ? item.courseRate : 0
@@ -55,11 +72,12 @@ $(document).ready(function () {
               item.courseReview != null
                 ? item.courseReview
                 : ""
-            }" class="review-modal-open text-center text-xs text-indigo-500 hover:text-indigo-700 my-2">${
+            }" class="review-modal-open text-center text-xs text-indigo-500 hover:text-indigo-700">${
               item.courseRate != null
                 ? "修改評價"
                 : "留下評價"
             }</button>
+                </div>
               </div>
             </div>
             `
@@ -73,6 +91,25 @@ $(document).ready(function () {
     }
   }
   getMyCourse();
+
+  async function getCompletedPercentage(courseId) {
+    const response = await fetch(
+      `http://localhost:8080/progress/courses/${courseId}/completed-percentage`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Internal Error");
+    }
+    const data = await response.json();
+    return data;
+  }
 
   let selectedRating = 0;
   let currentRating = 0;
