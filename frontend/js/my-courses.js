@@ -21,50 +21,47 @@ $(document).ready(function () {
       if (data.length > 0) {
         console.log(data);
         $("#browseCourse").addClass("hidden");
-        $.each(data, async function (index, item) {
-          let percentage = await getCompletedPercentage(
-            item.courses.courseId
-          );
 
-          $("#course-list").append(
-            `
-            <div class="purchased-course border-b border-[#AAAAAA] m-4">
-              <a href="/pages/lecture.html?course_id=${
-                item.courses.courseId
-              }">
-                <div class="group relative flex flex-col justify-center items-center cursor-pointer">
-                  <img src="data:image/png;base64,${
-                    item.courses.courseImg
-                  }" class="h-[110px] w-[200px] object-cover">
-                  <h1 class="font-bold text-[#2D2F31] mt-2">${
-                    item.courses.courseName
-                  }</h1>
-                  <p class="text-xs text-[#494847]">老師：${
-                    item.courses.userInfo.userName
-                  }</p>
-                  <div class="absolute top-0 h-[110px] w-[200px] bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <i class="bi bi-play-circle-fill absolute top-1/2 left-1/2 text-gray-200 transform -translate-x-1/2 -translate-y-1/2 text-5xl"></i>
-                  </div>
-                </div>
-              </a>
-              <div class="flex justify-center mt-2">
-                <span id="ProgressLabel" class="sr-only">Loading</span>
+        // 先處理所有的 percentage，並且保存 course HTML 結構
+        const courseItems = await Promise.all(
+          data.map(async (item) => {
+            const percentage = await getCompletedPercentage(
+              item.courses.courseId
+            );
 
-                <span
-                  role="progressbar"
-                  aria-labelledby="ProgressLabel"
-                  aria-valuenow="${percentage}"
-                  class="block rounded-full w-[200px] bg-gray-200"
-                >
-                  <span class="block h-1 rounded-full bg-indigo-600" style="width: ${percentage}%"></span>
-                </span>
-              </div>
-              <div class="flex justify-center">
-                <div class="flex justify-between w-[200px] my-2">
-                <p class="text-xs text-gray-700 percentage">${percentage}%完成</p>
-                  <button data-cid="${
-                    item.courses.courseId
-                  }" data-name="${
+            return `
+                    <div class="purchased-course border-b border-[#AAAAAA] m-4">
+                        <a href="/pages/lecture.html?course_id=${
+                          item.courses.courseId
+                        }">
+                            <div class="group relative flex flex-col justify-center items-center cursor-pointer">
+                                <img src="data:image/png;base64,${
+                                  item.courses.courseImg
+                                }" class="h-[110px] w-[200px] object-cover">
+                                <h1 class="font-bold text-[#2D2F31] mt-2">${
+                                  item.courses.courseName
+                                }</h1>
+                                <p class="text-xs text-[#494847]">老師：${
+                                  item.courses.userInfo
+                                    .userName
+                                }</p>
+                                <div class="absolute top-0 h-[110px] w-[200px] bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <i class="bi bi-play-circle-fill absolute top-1/2 left-1/2 text-gray-200 transform -translate-x-1/2 -translate-y-1/2 text-5xl"></i>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="flex justify-center mt-2">
+                            <span id="ProgressLabel" class="sr-only">Loading</span>
+                            <span role="progressbar" aria-labelledby="ProgressLabel" aria-valuenow="${percentage}" class="block rounded-full w-[200px] bg-gray-200">
+                                <span class="block h-1 rounded-full bg-indigo-600" style="width: ${percentage}%"></span>
+                            </span>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="flex justify-between w-[200px] my-2">
+                                <p class="text-xs text-gray-700 percentage">${percentage}%完成</p>
+                                <button data-cid="${
+                                  item.courses.courseId
+                                }" data-name="${
               item.courses.courseName
             }" data-rate="${
               item.courseRate != null ? item.courseRate : 0
@@ -72,17 +69,22 @@ $(document).ready(function () {
               item.courseReview != null
                 ? item.courseReview
                 : ""
-            }" class="review-modal-open text-center text-xs text-indigo-500 hover:text-indigo-700">${
-              item.courseRate != null
-                ? "修改評價"
-                : "留下評價"
-            }</button>
-                </div>
-              </div>
-            </div>
-            `
-          );
-        });
+            }" class="review-modal-open text-center text-xs text-indigo-500 hover:text-indigo-700">
+                                    ${
+                                      item.courseRate !=
+                                      null
+                                        ? "修改評價"
+                                        : "留下評價"
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+          })
+        );
+
+        $("#course-list").append(courseItems.join(""));
       } else {
         $("#browseCourse").removeClass("hidden");
       }
