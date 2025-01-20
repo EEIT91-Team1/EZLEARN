@@ -99,10 +99,10 @@
 						<p class="mt-3 text-2xl text-gray-600">請描述所上之課程的簡介(建議不要超過50個字，讓學生們一看就明白)</p>
 					</div>
 					<div class="col-span-full">
-						<label for="courseSummory" class="block text-3xl  text-gray-900">課程總覽
+						<label for="courseSummary" class="block text-3xl  text-gray-900">課程總覽
 						</label>
 						<div class="mt-2">
-							<textarea name="courseSummory" id="courseSummory" rows="3"
+							<textarea name="courseSummary" id="courseSummary" rows="3"
 								class="block w-full rounded-md bg-white px-3 py-1.5 text-2xl text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300  focus:outline focus:outline-2 focus:-outline-offset-2 focus-within:outline-black ">
 									</textarea>
 						</div>
@@ -113,17 +113,14 @@
 					<div class="col-span-3 grid grid-cols-3 gap-y-6">
 						<!-- flex -->
 						<div class="col-span-3 grid grid-cols-3 sm:col-span-3 md:col-span-1">
-							<label class="col-span-3 block text-3xl font-medium text-gray-900">課程封面</label>
+							<label class="col-span-3 block text-3xl  text-gray-900">課程封面</label>
 							<!-- 上傳封面框 -->
 							<div
-								class="col-span-3  justify-center rounded-lg border border-dashed border-gray-900/25  bg-white ">
+								class="col-span-3   rounded-lg border border-dashed border-gray-900/25  bg-white ">
 
 								<div class=" text-center" id="oringImage">
-									<label for="courseImage"
-										class="relative cursor-pointer rounded-md bg-white font-semibold text-black text-2xl ">
-										<span>上傳課程封面照</span>
-										<input id="courseImage" name="courseImage" type="file"
-											accept=".jpg, .jpeg, .png" class="sr-only">
+									<label for="courseImage" class=" cursor-pointer rounded-md bg-white font-semibold text-black text-2xl">上傳課程封面照
+										<input id="courseImage" name="courseImage" type="file" accept=".jpg, .jpeg, .png" class="sr-only">
 									</label>
 								</div>
 
@@ -136,11 +133,11 @@
 
 						</div>
 						<!-- 間格的虛線 -->
-						<div class="hidden border-l border-l-dashed border-gray-900/25  border-black h-[336px] mx-[50%]  md:col-span-1 sm:col-span-3 sm:hidden md:block md:block"
+						<div class="hidden border-l border-l-dashed border-gray-900/25  border-black h-[250px] mx-[50%]  md:col-span-1 sm:col-span-3 sm:hidden lg:block"
 							></div>
 						<!-- 草稿框 -->
 						<div
-							class="  w-[250px] h-[336px]  overflow-hidden   rounded-lg border border-dashed border-gray-900/25  bg-white/50 sm:col-span-3 md:col-span-1">
+							class=" w-[223.25px] h-[124px] ml-4 mt-10 overflow-hidden   rounded-lg border border-dashed border-gray-900/25  bg-white/50 sm:col-span-3  md:col-span-1 ">
 							<img id="displayZone" class="w-full h-full object-cover">
 							
 						</div>
@@ -245,7 +242,7 @@
 		handleBlur('#courseClass', 'test13', 'courseClass');
 		handleBlur('#coursePrice', 'savecourseprice', 'coursePrice');
 		handleBlur('#courseIntro', 'test20', 'courseIntro');
-		handleBlur('#courseSummory', 'savecoursesummory', 'courseSummory');
+		handleBlur('#courseSummary', 'savecoursesummary', 'courseSummary');
 
 
 
@@ -260,7 +257,7 @@
 			loadName('#coursename', 'test11');
 			loadName('#courseClass', 'test14',);
 			loadName('#courseIntro', 'test21',);
-			loadName('#courseSummory', 'loadcoursesummory',);
+			loadName('#courseSummary', 'loadcoursesummary',);
 			loadName('#coursePrice', 'loadcourseprice');
 
 			loadImage();

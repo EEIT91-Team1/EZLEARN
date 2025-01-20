@@ -33,7 +33,7 @@ function step1() {
 			loadName("#coursename", "test11");
 			loadName("#courseClass", "test14");
 			loadName("#courseIntro", "test21");
-			loadName("#courseSummory", "loadcoursesummory");
+			loadName("#courseSummary", "loadcoursesummary");
 			loadName("#coursePrice", "loadcourseprice")
 			loadImage();
 		});
@@ -330,7 +330,7 @@ fetch('http://localhost:8080/check/allParameters',{
                  var courseClass = data.courseClass;
                  var coursePrice = data.coursePrice;
                  var courseIntro = data.courseIntro;
-                 var courseSummory = data.courseSummory;
+                 var courseSummary = data.courseSummary;
                  var courseImage = data.courseImage;
              
              
@@ -348,8 +348,8 @@ fetch('http://localhost:8080/check/allParameters',{
              if(courseIntro === "有值"){
                $('#intro').text("已編輯").removeAttr("href");  
              }
-             if(courseSummory === "有值"){
-               $('#summory').text("已編輯").removeAttr("href");  
+             if(courseSummary === "有值"){
+               $('#summary').text("已編輯").removeAttr("href");  
                           }
              if(courseImage === "有值"){
                $('#image').text("已編輯").removeAttr("href");  

@@ -46,7 +46,7 @@
         <div class="flex ">
           <label  class="block text-2xl font-medium text-gray-900">課程總覽</label>
           <div class="ml-auto">
-            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="summory">尚未完成</a>
+            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="summary">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
@@ -58,13 +58,13 @@
         <div class="flex ">
           <label  class="block text-2xl font-medium text-gray-900">章節名稱</label>
           <div class="ml-auto">
-            <label id="lesson" class="block text-2xl font-medium text-[#87CEEB]  ">尚未完成</label>
+            <a href="./post-class-step2.html" class="block text-2xl font-medium text-[#87CEEB]  " id="lesson">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
           <label  class="block text-2xl font-medium text-gray-900">影片上傳</label>
           <div class="ml-auto">
-            <label id="video" class="block text-2xl font-medium text-[#87CEEB]  ">尚未完成</label>
+            <a href="./post-class-step2.html" class="block text-2xl font-medium text-[#87CEEB]  " id="video">尚未完成</a>
           </div>
         </div>
 
@@ -95,30 +95,55 @@
 function lessonResultCheck(){
 		const Result = sessionStorage.getItem('uploadResult');
 		if(Result==="成功"){
-			
-			   	$('#lesson').text("已編輯");
-			   	$('#video').text("已編輯");
-			 
-			  }
+			 	$('#lesson').text("已編輯");
+				$('#video').text("已編輯");
+			}else{
+        $('#lesson').text("尚未完成");
+        $('#video').text("尚未完成");
+      }
 	}
 	  
  
   document.getElementById("saveToDatabase").addEventListener("click", async function () {
-	  try {
+	  
 	    const response = await fetch("http://localhost:8080/orders10/savecoursetodatabase", {
 	      method: "POST",
         credentials: 'include',
 	    });
-
-	    const result = await response.text();
+      const result = await response.text();
 	    if (response.ok) {
 	      console.log("ok") // 成功訊息
-	    } 
-	  } catch (error) {
-	    console.error("Error:", error);
-	    
-	  }
-
+	    }
+      
+      fetch('http://localhost:8080/orders10/refreshCourseName',{
+        method:'POST',
+        credentials: 'include'
+      })
+      fetch('http://localhost:8080/orders10/refreshCourseClass',{
+        method:'POST',
+        credentials: 'include'
+      })
+      fetch('http://localhost:8080/orders10/refreshCoursePrice',{
+        method:'POST',
+        credentials: 'include'
+      })
+      fetch('http://localhost:8080/orders10/refreshCourseIntro',{
+        method:'POST',
+        credentials: 'include'
+      })
+      fetch('http://localhost:8080/orders10/refreshCourseSummary',{
+        method:'POST',
+        credentials: 'include'
+      })
+      fetch('http://localhost:8080/orders10/refreshCourseImages',{
+        method:'POST',
+        credentials: 'include'
+      })
+      fetch('http://localhost:8080/orders10/refreshFormData',{
+        method:'POST',
+        credentials: 'include'
+      })
+      sessionStorage.setItem('uploadResult',"");
     alert("恭喜成功上傳所有課程資料，辛苦了。")
     window.location.href = "teacher-mainJQ.html";
 	});
