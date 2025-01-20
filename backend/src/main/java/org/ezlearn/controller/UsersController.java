@@ -98,6 +98,7 @@ public class UsersController {
 	public int test1(@RequestBody Users user) {
 		return usersService.tokenisExpired(user);
 	}
+	
 	@PostMapping("/registerfromgoogle")
 	@CrossOrigin(origins = "http://127.0.0.1:5500")
 	public boolean registerfromgoogle(@RequestBody Users user) {
@@ -105,10 +106,43 @@ public class UsersController {
 		System.out.println(n);
 		return n;
 	}
+	
 	@PostMapping("/loginfromgoogle")
 	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
 	public LoginResponse loginfromgoogle(@RequestBody Users user, HttpSession session) {
 		LoginResponse response = usersService.loginuserfromgoogle(user, session);
 		return response;
 	}
+
+	@PostMapping("/registerfromfacebook")
+	@CrossOrigin(origins = "http://127.0.0.1:5500")
+	public boolean registerfromfacebook(@RequestBody Users user) {
+		boolean n = usersService.adduserfromfacebook(user);	
+		System.out.println(n);
+		return n;
+	}
+	
+	@PostMapping("/loginfromfacebook")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public LoginResponse loginfromfacebook(@RequestBody Users user, HttpSession session) {
+		LoginResponse response = usersService.loginuserfromfacebook(user, session);
+		return response;
+	}
+	
+	@PostMapping("/mergetofacebook")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public LoginResponse mergefromgoogletofacebook(@RequestBody Users user, HttpSession session) {
+		LoginResponse response = usersService.newpasswordtofacebook(user, session);
+		System.out.println(response);
+		return response;
+	}
+	
+	@PostMapping("/mergetogoogle")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public LoginResponse mergefromfacebooktogoogle(@RequestBody Users user, HttpSession session) {
+		LoginResponse response = usersService.newpasswordtogoogle(user, session);
+		System.out.println(response);
+		return response;
+	}
+	
 }

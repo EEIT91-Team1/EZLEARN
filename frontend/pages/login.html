@@ -248,8 +248,19 @@
                 //console.log(data);
                 if (data.error == 1) {//轉google註冊
                   window.location.href = "./google-login-profile.html";
-                } else if (data.error == 2) {//轉FB或帳密合並
-                  //$("#errormesg").text("密碼錯誤");
+                } else if (data.error == 2) {//增加google密碼
+                  fetch("http://localhost:8080/user/mergetogoogle", {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(logindata),
+                    credentials: 'include'
+                  })
+                    .then((response) => response.json())
+                    .then((data) => {
+                      window.location.href = "../index.html";
+                    })
                 } else {//登入轉跳
                   window.location.href = "../index.html";
                 }
@@ -309,7 +320,6 @@
       FB.login(
         function (response) {
           var sessionData, fbName, fbEmail, userID;
-          //await (()=>{})
           if (response.status === "connected") {
             userID = response.authResponse.userID;
             sessionStorage.setItem("userID", userID);
@@ -321,6 +331,7 @@
                 await urlToBase64(imageUrl)
                   .then((base64Image) => {
                     sessionData = {
+                      userID: userID,
                       name: profileResponse.name,
                       email: profileResponse.email,
                       blobBase64: base64Image,
@@ -329,14 +340,50 @@
                       "userData",
                       JSON.stringify(sessionData)
                     );
-                    console.log(sessionData);
-                    console.log(sessionData.blobBase64);
+                    const logindata = {
+                      "email": profileResponse.email,
+                      "facebookPassword": userID,
+                    };
+                    console.log(logindata);
+                    fetch("http://localhost:8080/user/loginfromfacebook", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(logindata),
+                      credentials: "include",
+                    })
+                      .then((response) => response.json())
+                      .then((data) => {
+                        console.log(data);
+                        if (data.error == 1) {//轉FB註冊
+                          window.location.href = "./facebook-login-profile.html";
+                        } else if (data.error == 2) {//新增FB密碼
+                          fetch("http://localhost:8080/user/mergetofacebook", {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(logindata),
+                            credentials: 'include'
+                          })
+                            .then((response) => response.json())
+                            .then((data) => {
+                              window.location.href = "../index.html";
+                            })
+                        } else {//登入轉跳
+                          window.location.href = "../index.html";
+                        }
+                      })
+                    //console.log(sessionData);
+                    //console.log(sessionData.blobBase64);
                   })
                   .catch((error) =>
-                    console.error("Error converting image to Base64", error)
+                    console.error(
+                      "Error converting image to Base64",
+                      error
+                    )
                   );
-                // fb跳轉
-                window.location.href = "./fbloginprofile.html";
               }
             );
           } else {

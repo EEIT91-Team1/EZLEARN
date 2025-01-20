@@ -1,208 +1,158 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="../imgs/favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <title>個人檔案</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="../imgs/favicon.ico" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-  <body>
-    <div id="navbar"></div>
+  <title>facebook register & login</title>
+</head>
 
-    <main class="bg-blue-500">
-      <div class="flex justify-center items-center bg-red-600 min-h-full">
-        <div class="p-8 w-96 bg-yellow-400">
-          <h1 class="text-4xl" id="isThisYou"></h1>
-          <div class="mb-4 flex justify-center items-center">
-            <div>
-              <img
-                class="rounded-full mb-4 h-80 w-80"
-                src="../imgs/12-1.png"
-                alt="Avatar"
-                id="imgAvatar"
-              />
-            </div>
+<body>
+  <div id="navbar"></div>
+
+  <main class="flex justify-center relative" style="
+        min-height: 80vh;
+        background-image: url('../imgs/indexBg2.png'),
+          url('../imgs/indexBg1.png');
+        background-repeat: no-repeat, no-repeat;
+        background-position: right, left;
+        background-size: 500px, contain;
+      ">
+    <div class="flex justify-center items-center min-h-full">
+      <div class="p-8 w-96 border rounded-lg">
+        <h1 class="text-4xl" id="isThisYou"></h1>
+        <div class="mb-4 flex justify-center items-center">
+          <div>
+            <img class="rounded-full mb-4 h-80 w-80" src="../imgs/12-1.png" alt="Avatar" id="imgAvatar" />
           </div>
-          <form>
-            <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="username"
-              >
-                姓名
-              </label>
-              <div
-                class="block text-black text-xl font-bold mb-2"
-                id="username"
-              ></div>
-            </div>
-            <div class="mb-4">
-              <label
-                class="block text-gray-700 text-sm font-bold mb-2"
-                for="email"
-              >
-                電子郵件
-              </label>
-              <div
-                class="block text-black text-xl font-bold mb-2"
-                id="email"
-              ></div>
-            </div>
-            <div class="flex items-center">
-              <div class="mb-6 w-2/3">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="birthday"
-                >
-                  生日
-                </label>
-                <div
-                  class="block text-black text-xl font-bold mb-2"
-                  id="birthday"
-                ></div>
-              </div>
-              <div class="mb-6 ml-4 w-1/3">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="gender"
-                >
-                  性別
-                </label>
-                <div
-                  class="block text-black text-xl font-bold mb-2"
-                  id="gender"
-                ></div>
-              </div>
-            </div>
-            <p id="error"></p>
-            <div class="flex items-center justify-center">
-              <button
-                class="bg-orange-500 hover:bg-orange-700 text-white font-bold w-2/3 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                id="confirmInformation"
-              >
-                登入
-              </button>
-              <button
-                class="bg-orange-500 hover:bg-orange-700 text-white font-bold w-1/3 py-2 px-4 ml-5 rounded focus:outline-none focus:shadow-outline"
-                id="isNotMe"
-              >
-                不是我
-              </button>
-            </div>
-          </form>
         </div>
+        <form>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+              姓名
+            </label>
+            <div class="block text-black text-xl font-bold mb-2" id="username"></div>
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+              電子郵件
+            </label>
+            <div class="block text-black text-xl font-bold mb-2" id="email"></div>
+          </div>
+          <div class="flex items-center justify-center mb-4">
+            <p id="errormesg" class="text-red-600"></p>
+          </div>
+          <div class="flex items-center justify-center">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold w-2/3 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              id="confirmInformation">
+              註冊並登入
+            </button>
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold w-1/3 py-2 px-4 ml-5 rounded focus:outline-none focus:shadow-outline"
+              id="isNotMe">
+              不是我
+            </button>
+          </div>
+        </form>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <div id="footer"></div>
+  <div id="footer"></div>
+  <script src="../js/header-footer.js"></script>
+  <script>
 
-    <script>
-      var idFromFacebook, nameFromFacebook, emailFromFacebook;
+    var client_id =
+      "649255404146-k1di8e8iurqnjdei8hisnnhpdn37g0dl.apps.googleusercontent.com",
+      apiKey = "AIzaSyAWNx7NTP7Gdsrfn8rxLIRRfYgM7vxaTwQ",
+      scope =
+        "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/user.birthday.read",
+      personFields = "names,emailAddresses,photos,genders,birthdays",
+      discovery_doc =
+        "https://www.googleapis.com/discovery/v1/apis/people/v1/rest",
+      resourceName = "people/me",
+      $persoanl_info = $("#persoanl_info"),
+      tokenClient;
 
-      fetch("../components/navbar.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#navbar").html(data);
-        });
-
-      fetch("../components/footer.html")
-        .then((response) => response.text())
-        .then((data) => {
-          $("#footer").html(data);
-        });
-
-      const jsonData = JSON.parse(sessionStorage.getItem("userData"));
+    var idFromFacebook, nameFromFacebook, emailFromFacebook;
+    const jsonData = JSON.parse(sessionStorage.getItem("userData"));
+    if (jsonData == null) {
+      window.location.replace("../index.html");//防網址進入
+    } else {
       nameFromFacebook = jsonData.name;
       emailFromFacebook = jsonData.email;
-      idFromFacebook = JSON.parse(sessionStorage.getItem("userID"));
+      idFromFacebook = jsonData.userID;
 
-      $("#isThisYou").html("以 " + nameFromFacebook + " 登入嗎?");
+      $("#isThisYou").html("以 " + nameFromFacebook + " 註冊並登入嗎?");
       $("#username").html(nameFromFacebook);
       $("#email").html(emailFromFacebook);
       $("#imgAvatar").attr(
         "src",
         `data:image/png;base64,${jsonData.blobBase64}`
       );
+    }
 
-      $("#confirmInformation").click(function (e) {
-        e.preventDefault();
+    $("#confirmInformation").click(function (e) {
+      e.preventDefault();
+      //register
+      const data = {
+        "email": jsonData.email,
+        "facebookPassword": jsonData.userID,
+        "comfirmpassword": jsonData.userID,
+        "userInfo": {
+          "userName": jsonData.name,
+          "avatar": jsonData.blobBase64
+        }
+      };
 
-        const logindata = {
-          email: jsonData.email,
-          password: jsonData.userID,
-        };
-        fetch("http://localhost:8080/user/login", {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(logindata),
-          credentials: "include",
-        })
-          .then((response) => {
-            console.log(response);
-
-            response.json();
-          })
-          .then((logindata) => {
-            if (logindata.error == 1) {
-              //register
-              const data = {
-                email: jsonData.email,
-                password: jsonData.userID,
-                comfirmpassword: jsonData.userID,
-                userinfo: {
-                  userName: jsonData.name,
-                  birthday: jsonData.birthday,
-                  gender: jsonData.gender == "Male" ? "male" : "female",
-                  avatar: jsonData.blobBase64,
-                },
-              };
-
-              fetch("http://localhost:8080/user/register", {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-                credentials: "include",
+      fetch("http://localhost:8080/user/registerfromfacebook", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
+      })
+        .then((response) => response.text())
+        .then((result) => {
+          if (result == "true") {
+            sessionStorage.clear();
+            const logindata = {
+              "email": jsonData.email,
+              "facebookPassword": jsonData.userID
+            };
+            fetch("http://localhost:8080/user/loginfromfacebook", {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(logindata),
+              credentials: 'include'
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                window.location.href = "../index.html";
               })
-                .then((response) => response.text())
-                .then((result) => {
-                  if (result == "true") {
-                    sessionStorage.clear();
-                    $("#error").text("註冊成功，兩秒後將自動轉跳頁面");
-                    setTimeout(() => {
-                      window.location.href =
-                        "http://127.0.0.1:5500/pages/login.html";
-                    }, 2000);
-                  } else {
-                    $("#error").text("信箱已被註冊");
-                  }
-                });
-            } else if (logindata.error == 2) {
-              $("#errormesg").text("密碼錯誤"); //理論上不發生
-            } else {
-              window.location.href = "http://127.0.0.1:5500/test.html";
-            }
-          });
-      });
+          } else {
+            $("#errormesg").text("信箱已被註冊");//理論不發生
+          }
+        });
 
-      $("#isNotMe").click(function (e) {
-        e.preventDefault();
-        sessionStorage.clear();
-        window.location.replace("./login.html");
-      });
-    </script>
-  </body>
+    });
+
+    $("#isNotMe").click(function (e) {
+      e.preventDefault();
+      sessionStorage.clear();
+      window.location.replace("./login.html");
+    });
+  </script>
+</body>
+
 </html>

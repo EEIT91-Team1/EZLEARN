@@ -6,6 +6,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 import org.ezlearn.DTO.LoginResponse;
 import org.ezlearn.model.Users;
@@ -27,8 +28,11 @@ public class UsersService {
 		if (opt.isPresent()) {
 			return false;
 		}
-		
+		String randomString = generateRandomString(10); // 生成10碼的隨機字串
+		String randomString2 = generateRandomString(10);
 		registerUser.setPassword(BCrypt.hashpw(registerUser.getPassword(), BCrypt.gensalt()));
+		registerUser.setGooglePassword(BCrypt.hashpw(randomString, BCrypt.gensalt()));
+		registerUser.setFacebookPassword(BCrypt.hashpw(randomString2, BCrypt.gensalt()));
 		System.out.println(registerUser.getPassword()); 
 		usersRepository.save(registerUser);
 		return true;
@@ -140,12 +144,15 @@ public class UsersService {
 			return 2;
 		}
 	}
-		public boolean adduserfromgoogle(Users registerUser) {
+	public boolean adduserfromgoogle(Users registerUser) {
 		Optional<Users> opt = usersRepository.findByEmail(registerUser.getEmail());
 		if (opt.isPresent()) {
 			return false;
 		}
-		registerUser.setPassword(BCrypt.hashpw(registerUser.getGooglePassword(), BCrypt.gensalt()));
+		String randomString = generateRandomString(10); // 生成10碼的隨機字串
+		String randomString2 = generateRandomString(10); 
+		registerUser.setPassword(BCrypt.hashpw(randomString, BCrypt.gensalt()));
+		registerUser.setFacebookPassword(BCrypt.hashpw(randomString2, BCrypt.gensalt()));
 		registerUser.setGooglePassword(BCrypt.hashpw(registerUser.getGooglePassword(), BCrypt.gensalt()));
 		System.out.println(registerUser.getPassword()); 
 		usersRepository.save(registerUser);
@@ -173,4 +180,104 @@ public class UsersService {
 		}
 		return response;
 	}
+	
+	public boolean adduserfromfacebook(Users registerUser) {
+		Optional<Users> opt = usersRepository.findByEmail(registerUser.getEmail());
+		if (opt.isPresent()) {
+			return false;
+		}
+		String randomString = generateRandomString(10); // 生成10碼的隨機字串
+		String randomString2 = generateRandomString(10); 
+		registerUser.setPassword(BCrypt.hashpw(randomString, BCrypt.gensalt()));
+		registerUser.setGooglePassword(BCrypt.hashpw(randomString2, BCrypt.gensalt()));
+		registerUser.setFacebookPassword(BCrypt.hashpw(registerUser.getFacebookPassword(), BCrypt.gensalt()));
+		System.out.println(registerUser.getPassword()); 
+		usersRepository.save(registerUser);
+		return true;
+	}
+	
+	public LoginResponse loginuserfromfacebook(Users loginUser,HttpSession session) {
+		Optional<Users> opt = usersRepository.findByEmail(loginUser.getEmail());
+		Users user = new Users();
+		LoginResponse response = new LoginResponse();
+		try {
+			user = opt.get();
+			if(!BCrypt.checkpw(loginUser.getFacebookPassword(), user.getFacebookPassword())) {
+				response.setError(2);
+				response.setMsg("login failure");
+			}else{
+				response.setError(3);
+				response.setMsg("login success");
+				session.setAttribute("user", user);
+				System.out.println(user.getEmail());
+			}
+		} catch (Exception e) {
+			response.setError(1);
+			response.setMsg("account not found");
+		}
+		return response;
+	}
+	
+	public LoginResponse newpasswordtogoogle(Users loginUser,HttpSession session) {
+		Optional<Users> opt = usersRepository.findByEmail(loginUser.getEmail());
+		Users user = new Users();
+		LoginResponse response = new LoginResponse();
+		try {
+			user = opt.get();
+			if(!BCrypt.checkpw(loginUser.getGooglePassword(), user.getGooglePassword())) {
+				response.setError(2);
+				response.setMsg("set GooglePassword success");
+				loginUser.setGooglePassword(BCrypt.hashpw(loginUser.getGooglePassword(), BCrypt.gensalt()));
+				session.setAttribute("user", user);
+				System.out.println(user.getEmail());
+			}else{
+				response.setError(3);
+				response.setMsg("login success");
+				session.setAttribute("user", user);
+				System.out.println(user.getEmail());
+			}
+		} catch (Exception e) {
+			response.setError(1);
+			response.setMsg("account not found");
+		}
+		return response;
+	}
+	
+	public LoginResponse newpasswordtofacebook(Users loginUser,HttpSession session) {
+		Optional<Users> opt = usersRepository.findByEmail(loginUser.getEmail());
+		Users user = new Users();
+		LoginResponse response = new LoginResponse();
+		try {
+			user = opt.get();
+			if(!BCrypt.checkpw(loginUser.getFacebookPassword(), user.getFacebookPassword())) {
+				response.setError(2);
+				response.setMsg("set GooglePassword success");
+				loginUser.setFacebookPassword(BCrypt.hashpw(loginUser.getFacebookPassword(), BCrypt.gensalt()));
+				session.setAttribute("user", user);
+				System.out.println(user.getEmail());
+			}else{
+				response.setError(3);
+				response.setMsg("login success");
+				session.setAttribute("user", user);
+				System.out.println(user.getEmail());
+			}
+		} catch (Exception e) {
+			response.setError(1);
+			response.setMsg("account not found");
+		}
+		return response;
+	}
+	
+	private static String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            result.append(characters.charAt(index));
+        }
+
+        return result.toString();
+    }
 }
