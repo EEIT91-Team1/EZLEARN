@@ -43,6 +43,7 @@
 </body>
 
 <script>
+
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
 
@@ -65,15 +66,24 @@
                     `<h2 class='text-2xl font-bold mb-6 text-center text-gray-700'>修改密碼</h2>
                  <hr class="border-gray-700 mb-4" />
                  <form>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">輸入新密碼</label>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">輸入新密碼</label>
+                    <div class="relative">
                         <input class="rounded-lg appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
                             id="password" type="password" placeholder="" />
+                        <i
+                            id="switchpassword" name="switchpassword"
+                            class="bi bi-eye-slash-fill absolute right-3 top-1/2 transform -translate-y-1/2"
+                        ></i>
                     </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">確認新密碼</label>
+                    <br>
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">確認新密碼</label>
+                    <div class="relative">
                         <input class="rounded-lg appearance-none border w-full py-2 px-3 text-gray-700 leading-tight"
                             id="comfirmpassword" type="password" placeholder="" />
+                        <i
+                            id="switchcomfirmpassword" name="switchcomfirmpassword"
+                            class="bi bi-eye-slash-fill absolute right-3 top-1/2 transform -translate-y-1/2"
+                        ></i>
                     </div>  
                     <div class="flex items-center justify-center mb-4">
                         <p id="error" class="text-red-600"></p>
@@ -113,20 +123,51 @@
                 body: JSON.stringify(data),  // 將表單數據轉換為 JSON 字符串
                 credentials: 'include'
             })
-            .then((response) => response.text())
-            .then(result =>{
-                if(result == 'true'){
-                    $("#correct").text("修改成功，等待兩秒後進入登入頁面");
-                    setTimeout(() => {
-                    window.location.href = "./login.html";
-                    }, 2000);
-                }else{
-                    $("#error").text("修改密碼失敗，請稍後重試。");
-                }
-            })
+                .then((response) => response.text())
+                .then(result => {
+                    if (result == 'true') {
+                        $("#correct").text("修改成功，等待兩秒後進入登入頁面");
+                        setTimeout(() => {
+                            window.location.href = "./login.html";
+                        }, 2000);
+                    } else {
+                        $("#error").text("修改密碼失敗，請稍後重試。");
+                    }
+                })
 
         }
 
+    })
+
+    let passwordeyeopen = 0;
+    $('#content').on('click','i[name="switchpassword"]',function(){
+        if (passwordeyeopen == 0) {
+            $("#password").attr("type", "text");
+            $("#switchpassword").removeClass("bi-eye-slash-fill");
+            $("#switchpassword").addClass("bi-eye-fill");
+            passwordeyeopen = 1;
+        } else {
+            $("#password").attr("type", "password");
+            $("#switchpassword").removeClass("bi-eye-fill");
+            $("#switchpassword").addClass("bi-eye-slash-fill");
+            passwordeyeopen = 0;
+        }
+    })
+  
+
+    let comfirmpasswordeyeopen = 0;
+    $('#content').on('click','i[name="switchcomfirmpassword"]',function(){
+        if (comfirmpasswordeyeopen == 0) {
+            $("#comfirmpassword").attr("type", "text");
+            $("#switchcomfirmpassword").removeClass("bi-eye-slash-fill");
+            $("#switchcomfirmpassword").addClass("bi-eye-fill");
+            comfirmpasswordeyeopen = 1;
+        } else {
+            $("#comfirmpassword").attr("type", "password");
+            $("#switchcomfirmpassword").removeClass("bi-eye-fill");
+            $("#switchcomfirmpassword").addClass("bi-eye-slash-fill");
+            comfirmpasswordeyeopen = 0;
+        }
     })
 </script>
 

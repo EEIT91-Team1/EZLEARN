@@ -440,6 +440,20 @@
       .then((data) => {
         $("#footer").html(data);
       });
+
+    document.getElementById("email").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();  // 防止表單默認提交
+        document.getElementById("btn").click();  // 模擬點擊登入按鈕
+      }
+    });
+
+    document.getElementById("password").addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();  // 防止表單默認提交
+        document.getElementById("btn").click();  // 模擬點擊登入按鈕
+      }
+    });
   </script>
 </body>
 
