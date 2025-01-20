@@ -42,4 +42,5 @@ Thumbs.db
 .env                 
 *.bak                
 *.tmp     
-/.metadata/           
+/.metadata/     
+backend/src/main/resources/gcs-service-key.json
