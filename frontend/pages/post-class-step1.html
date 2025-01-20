@@ -112,18 +112,16 @@
 
 					<div class="col-span-3 grid grid-cols-3 gap-y-6">
 						<!-- flex -->
-						<div class="col-span-3 grid grid-cols-3 sm:col-span-3 md:col-span-1">
+						<div class=" col-span-3 grid grid-cols-3 sm:col-span-3 md:col-span-2 lg:col-span-1">
 							<label class="col-span-3 block text-3xl  text-gray-900">課程封面</label>
 							<!-- 上傳封面框 -->
-							<div
-								class="col-span-3   rounded-lg border border-dashed border-gray-900/25  bg-white ">
-
-								<div class=" text-center" id="oringImage">
-									<label for="courseImage" class=" cursor-pointer rounded-md bg-white font-semibold text-black text-2xl">上傳課程封面照
-										<input id="courseImage" name="courseImage" type="file" accept=".jpg, .jpeg, .png" class="sr-only">
-									</label>
-								</div>
-
+							<div class="col-span-3 text-center"
+								id="oringImage">
+								<label for="courseImage"
+									class="border  border-gray-900/25 cursor-pointer rounded-md bg-white font-semibold text-black text-3xl ">上傳課程封面照
+									<input id="courseImage" name="courseImage" type="file" accept=".jpg, .jpeg, .png"
+										class="sr-only">
+								</label>
 							</div>
 							<div class="mt-2 col-span-3">
 								<p class="text-xl mt-1 sm:text-xl md:text-2xl">建議照片比例為 336 : 250，</p>
@@ -133,15 +131,17 @@
 
 						</div>
 						<!-- 間格的虛線 -->
-						<div class="hidden border-l border-l-dashed border-gray-900/25  border-black h-[250px] mx-[50%]  md:col-span-1 sm:col-span-3 sm:hidden lg:block"
-							></div>
+						<div
+							class="hidden border-l border-l-dashed border-gray-900/25  border-black h-[250px] mx-[50%]  md:col-span-1 sm:col-span-3 sm:hidden lg:block">
+						</div>
 						<!-- 草稿框 -->
 						<div
-							class=" w-[223.25px] h-[124px] ml-4 mt-10 overflow-hidden   rounded-lg border border-dashed border-gray-900/25  bg-white/50 sm:col-span-3  md:col-span-1 ">
+							class=" w-[223.25px] h-[124px] ml-4  overflow-hidden   rounded-lg border border-dashed border-gray-900/25  bg-white/50 sm:col-span-3  md:col-span-3 lg:col-span-1 mt-10">
 							<img id="displayZone" class="w-full h-full object-cover">
-							
+
 						</div>
 					</div>
+
 
 
 				</div>

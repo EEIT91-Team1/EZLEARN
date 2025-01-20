@@ -16,13 +16,13 @@
 
   <div class="bg-gray-100 bg-opacity-80 w-[70vw] ">
     <form
-      class=" bg-white rounded-2xl mx-[10%] my-[5%] grid grid-cols-3 grid-row-3 gap-x-5 gap-y-8  p-4 place-items-center">
+      class=" bg-white/80 rounded-2xl mx-[10%] my-[5%] grid grid-cols-3 grid-row-3 gap-x-5 gap-y-8  p-4 place-items-center">
       <!-- 各種檔案確認 -->
-      <div class="col-span-3 row-span-1">
+      <div class="col-span-3 row-span-1 grid gap-y-4">
 
         
         
-        <label for="" class="block text-4xl font-medium text-gray-900">最後在確認一下還缺少甚麼?</label>
+        <label for="" class="block text-4xl font-medium text-gray-900 ">最後在確認一下還缺少甚麼?</label>
         <br>
         <div class="flex ">
           <label class="block text-2xl font-medium text-gray-900 ">課程名稱</label>
@@ -35,6 +35,12 @@
           <label class="block text-2xl font-medium text-gray-900">課程類別</label>
           <div class="ml-auto">
             <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="class">尚未完成</a>
+          </div>
+        </div>
+        <div class="flex ">
+          <label class="block text-2xl font-medium text-gray-900">課程價錢</label>
+          <div class="ml-auto">
+            <a href="./post-class-step1.html" class="block text-2xl font-medium text-[#87CEEB]  " id="price">尚未完成</a>
           </div>
         </div>
         <div class="flex ">
@@ -72,10 +78,10 @@
       
       <div class="mt-6 flex items-center justify-end  col-span-3 row-span-1 gap-x-3">
         <button type="button"
-						class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
+						class="rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray sm:text-xl md:text-2xl"
 						style="background-color: #7c807c;" onclick=" step2()"
 						id="">上一步</button>
-        <button type="button" class="rounded-md  px-3 py-2 text-sm font-semibold text-white shadow-sm bg-gray "
+        <button type="button" class="rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray sm:text-xl md:text-2xl"
           style="background-color: #7c807c;" id="saveToDatabase">課程提交審核</button>
       </div>
       <div class="col-span-3 row-span-1 ">
@@ -105,15 +111,23 @@ function lessonResultCheck(){
 	  
  
   document.getElementById("saveToDatabase").addEventListener("click", async function () {
-	  
-	    const response = await fetch("http://localhost:8080/orders10/savecoursetodatabase", {
-	      method: "POST",
+	  if($('#name').text()=="已編輯" &&
+       $('#class').text()=="已編輯" &&
+       $('#price').text()=="已編輯" &&
+       $('#intro').text()=="已編輯" &&
+       $('#summary').text()=="已編輯" &&
+       $('#image').text()=="已編輯" 
+
+  ){
+
+      const response = await fetch("http://localhost:8080/orders10/savecoursetodatabase", {
+        method: "POST",
         credentials: 'include',
-	    });
+      });
       const result = await response.text();
-	    if (response.ok) {
-	      console.log("ok") // 成功訊息
-	    }
+      if (response.ok) {
+        console.log("ok") // 成功訊息
+      }
       
       fetch('http://localhost:8080/orders10/refreshCourseName',{
         method:'POST',
@@ -146,6 +160,10 @@ function lessonResultCheck(){
       sessionStorage.setItem('uploadResult',"");
     alert("恭喜成功上傳所有課程資料，辛苦了。")
     window.location.href = "teacher-mainJQ.html";
+    }else{
+      alert("請確認所有資料都已填寫才能提交")
+    }
+
 	});
   
   
