@@ -20,7 +20,9 @@
 
     <main>
       <div class="flex mx-auto">
-        <aside class="min-h-full border-r-[1px] border-gray-400 p-0">
+        <aside
+          class="h-full border-r-[1px] border-gray-400 p-0 absolute -left-32 md:static z-10 bg-white"
+        >
           <div class="w-32 p-4">
             <ul class="space-y-2">
               <li>
@@ -56,6 +58,12 @@
             </ul>
           </div>
         </aside>
+        <div
+          id="rwdMenu"
+          class="absolute z-10 left-0 top-40 py-2 px-1 shadow-md border-2 bg-white md:hidden cursor-pointer"
+        >
+          <i class="bi bi-chevron-right text-2xl"></i>
+        </div>
         <div id="article" style="width: 100vw">
           <article class="flex-1 p-6" style="min-height: 80vh">
             <div
@@ -126,6 +134,20 @@
     <div id="footer"></div>
     <script src="../js/header-footer.js"></script>
     <script>
+      $("#rwdMenu").on("click", () => {
+        if ($("aside").hasClass("-left-32")) {
+          $("aside").addClass("left-0");
+          $("aside").removeClass("-left-32");
+          $("#rwdMenu").addClass("left-32");
+          $("#rwdMenu").html("<i class='bi bi-chevron-left text-2xl'></i>");
+        } else {
+          $("aside").removeClass("left-0");
+          $("aside").addClass("-left-32");
+          $("#rwdMenu").removeClass("left-32");
+          $("#rwdMenu").addClass("left-0");
+          $("#rwdMenu").html("<i class='bi bi-chevron-right text-2xl'></i>");
+        }
+      });
       $(function () {
         btn1.onclick = function () {
           $("#btn1").html(

@@ -2,27 +2,42 @@
   <div id="all">
     <div>
       <div class="flex">
-        <label class="block text-black text-2xl font-bold mb-2" for="choosecurse">
+        <label
+          class="block text-black text-2xl font-bold mb-2"
+          for="choosecurse"
+        >
           選擇課程
         </label>
-        <select class="border rounded ml-3 py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-          id="coursename"></select>
+        <select
+          class="border rounded ml-3 py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+          id="coursename"
+        ></select>
       </div>
       <h1 class="text-2xl font-bold mb-4">發布公告</h1>
       <div class="border border-black p-4 mb-8">
         <div class="mb-4">
           <label for="title" class="block font-medium mb-1">公告標題</label>
-          <input type="text" id="title" class="border border-gray-400 rounded-lg w-full px-3 py-2" />
+          <input
+            type="text"
+            id="title"
+            class="border border-gray-400 rounded-lg w-full px-3 py-2"
+          />
         </div>
         <div>
           <label for="content" class="block font-medium mb-1">公告內容</label>
-          <textarea id="content" class="border border-gray-400 rounded-lg w-full px-3 py-2 h-32"></textarea>
+          <textarea
+            id="content"
+            class="border border-gray-400 rounded-lg w-full px-3 py-2 h-32"
+          ></textarea>
         </div>
         <div>
           <p id="error"></p>
         </div>
         <div class="mt-4 text-right">
-          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="send">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            id="send"
+          >
             發布
           </button>
         </div>
@@ -31,7 +46,7 @@
 
     <div>
       <h2 class="text-2xl font-bold mb-4">已發布公告</h2>
-      <div class="border border-black p-4" id="getpost"></div>
+      <div class="border border-black p-4 overflow-x-auto" id="getpost"></div>
     </div>
   </div>
 </article>
@@ -43,7 +58,7 @@
     .then((response) => response.json())
     .then((data) => {
       if (data.length == 0) {
-        document.getElementById('all').innerHTML = "沒有課程不能發佈公告";
+        document.getElementById("all").innerHTML = "沒有課程不能發佈公告";
       }
       for (let i = 0; i < data.length; i++) {
         document.getElementById(
@@ -66,7 +81,7 @@
           } else {
             for (let i = 0; i < data.length; i++) {
               document.getElementById("getpost").innerHTML += `
-                  <div class="mb-4">
+                  <div class="mb-4 w-full">
                       <p class="text-3xl font-medium">${data[i].postTitle}</p>
                       <p>${data[i].postContent}</p>
                   </div>
