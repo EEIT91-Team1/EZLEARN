@@ -111,7 +111,8 @@
             <div id="divResult" class="hidden flex-col items-center md:block">
               <div class="flex justify-center w-full">
                 <div
-                  class="relative w-4/5 h-7 border-2 bg-gray-50 my-12 rounded-lg"
+                  id="divPersent"
+                  class="relative hidden w-4/5 h-7 border-2 bg-gray-50 my-12 rounded-lg"
                 >
                   <div
                     id="persent"
@@ -122,20 +123,19 @@
                     id="pPersent"
                     class="absolute -translate-x-1/2"
                     style="left: 0%"
-                  >
-                    0%
-                  </p>
+                  ></p>
                 </div>
               </div>
               <div class="text-lg w-4/5 mx-6">
-                <p>總進度：<span id="totalPersentage"></span></p>
-                <p>課程總數：<span id="totalCourse"></span></p>
-                <p>已完成課程數：<span id="completedCourse"></span></p>
+                <p id="totalPersentage"></p>
+                <p id="totalCourse"></p>
+                <p id="completedCourse"></p>
               </div>
               <div
                 id="results"
                 class="md:flex flex-wrap justify-center md:px-18 md:justify-start"
               >
+                <p id="noCourse" class="m-4 text-2xl">尚無課程</p>
                 <!-- <div class="m-4 max-w-72">
                 <img
                   src="../imgs/learnQA.png"

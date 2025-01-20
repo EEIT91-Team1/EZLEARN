@@ -73,11 +73,15 @@ $.ajax({
     }
     totalPersentage += parseInt(item.completedPercentage);
   });
-  totalPersentage = parseInt(totalPersentage / data.length);
-  $("#totalPersentage").text(totalPersentage + "%");
-  $("#totalCourse").text(data.length);
-  $("#completedCourse").text(completedCourse);
-  $("#persent").css("width", totalPersentage + "%");
-  $("#pPersent").text(totalPersentage + "%");
-  $("#pPersent").css("left", totalPersentage + "%");
+  if (data.length > 0) {
+    totalPersentage = parseInt(totalPersentage / data.length);
+    $("#totalPersentage").text("總進度：" + totalPersentage + "%");
+    $("#totalCourse").text("課程總數：" + data.length);
+    $("#completedCourse").text("已完成課程數：" + completedCourse);
+    $("#persent").css("width", totalPersentage + "%");
+    $("#pPersent").text(totalPersentage + "%");
+    $("#pPersent").css("left", totalPersentage + "%");
+    $("#divPersent").removeClass("hidden");
+    $("#noCourse").addClass("hidden");
+  }
 });
