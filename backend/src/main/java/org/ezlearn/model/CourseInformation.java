@@ -11,7 +11,7 @@ public class CourseInformation {
     private String courseClass;
     private Integer coursePrice;
     private String courseIntro;
-    private String courseSummory;
+    private String courseSummary;
     private String courseImage;
     private Map<String, String> data;
     private Map<String, String> lesson;
@@ -19,11 +19,11 @@ public class CourseInformation {
     
     
 	
-	public String getCourseSummory() {
-		return courseSummory;
+	public String getCourseSummary() {
+		return courseSummary;
 	}
-	public void setCourseSummory(String courseSummory) {
-		this.courseSummory = courseSummory;
+	public void setCourseSummary(String courseSummary) {
+		this.courseSummary = courseSummary;
 	}
 	public List<String> getLessonNamesList() {
 		return lessonNamesList;

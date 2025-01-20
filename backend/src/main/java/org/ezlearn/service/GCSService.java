@@ -1,7 +1,9 @@
 package org.ezlearn.service;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +37,12 @@ public class GCSService {
 
     public GCSService() throws IOException {
     	this.lessonsRepository=lessonsRepository;
+    	InputStream credentialsStream = getClass().getClassLoader().getResourceAsStream("testproject-446611-efc394333b99.json");
+        if (credentialsStream == null) {
+            throw new FileNotFoundException("GCS credentials file not found in resources.");
+        }
         storage = StorageOptions.newBuilder()
-                .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("C:\\\\Users\\\\xuanx\\\\eclipse-workspace\\\\testproject\\\\src\\\\main\\\\resources\\\\testproject-446611-efc394333b99.json")))
+                .setCredentials(ServiceAccountCredentials.fromStream(credentialsStream))
                 .setProjectId("testproject-446611")
                 .build()
                 .getService();
