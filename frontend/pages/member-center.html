@@ -108,11 +108,35 @@
                 id="btnProgress"
               ></i>
             </div>
-            <div
-              id="results"
-              class="hidden md:flex flex-wrap justify-center md:px-18 md:justify-start"
-            >
-              <!-- <div class="m-4 max-w-72">
+            <div id="divResult" class="hidden flex-col items-center md:block">
+              <div class="flex justify-center w-full">
+                <div
+                  class="relative w-4/5 h-7 border-2 bg-gray-50 my-12 rounded-lg"
+                >
+                  <div
+                    id="persent"
+                    class="h-full bg-indigo-600 rounded-lg"
+                    style="width: 0"
+                  ></div>
+                  <p
+                    id="pPersent"
+                    class="absolute -translate-x-1/2"
+                    style="left: 0%"
+                  >
+                    0%
+                  </p>
+                </div>
+              </div>
+              <div class="text-lg w-4/5 mx-6">
+                <p>總進度：<span id="totalPersentage"></span></p>
+                <p>課程總數：<span id="totalCourse"></span></p>
+                <p>已完成課程數：<span id="completedCourse"></span></p>
+              </div>
+              <div
+                id="results"
+                class="md:flex flex-wrap justify-center md:px-18 md:justify-start"
+              >
+                <!-- <div class="m-4 max-w-72">
                 <img
                   src="../imgs/learnQA.png"
                   class="h-44 w-72 object-cover border-2"
@@ -120,11 +144,12 @@
                 />
                 <p class="text-xl">2024-JAVA軟體工程師全教學</p>
                 <p class="text-gray-400">Peter</p>
-                <div class="h-4 w-52 border-4 rounded-md">
-                  <div class="h-full bg-green-100" style="width: 70%"></div>
+                <div class="h-4 w-52 border-2 rounded-md">
+                  <div class="h-full bg-indigo-600" style="width: 70%"></div>
                 </div>
                 完成進度：70%
               </div> -->
+              </div>
             </div>
           </div>
         </div>

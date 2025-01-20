@@ -1,9 +1,13 @@
 package org.ezlearn.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.ezlearn.model.Courses;
 import org.ezlearn.model.Lessons;
 import org.ezlearn.model.Progress;
 import org.ezlearn.model.ProgressId;
+import org.ezlearn.model.UserInfo;
 import org.ezlearn.model.Users;
 import org.ezlearn.repository.CoursesRepository;
 import org.ezlearn.repository.LessonsRepository;
@@ -144,5 +148,13 @@ public class ProgressController {
         
         return ResponseEntity.ok(completedPercentage);
     }
+	
+	@GetMapping("/user")
+    public ResponseEntity<?> getUserProgress(HttpSession session) {
 
+		Users user = (Users) session.getAttribute("user");
+		List<Map<String,String>> res= progressService.getUserProgress(user);
+        
+        return ResponseEntity.ok(res);
+    }
 }

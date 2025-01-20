@@ -136,6 +136,56 @@ $(document).ready(function () {
 
   //-------------------------------------------------------------------------
   //後端
+  //繼續學習
+  function progress() {
+    $.ajax({
+      url: "http://localhost:8080/progress/user",
+      method: "GET",
+      xhrFields: {
+        withCredentials: true,
+      },
+    }).done((data) => {
+      console.log(data);
+      $.each(data, (idx, item) => {
+        if (data.length > 0) {
+          $(".Progress").removeClass("hidden");
+          if (idx < 4) {
+            $("#progressResult").append(
+              ` <a href="http://127.0.0.1:5500/pages/lecture.html?course_id=${item.courseId}" class="m-4 mx-auto group">
+          <div class=" max-w-72">
+          <div class="h-44 w-72 border-2 border-black bg-white overflow-hidden">
+              <img
+                src="${item.courseImg}"
+                class=" object-cover h-full w-full group-hover:scale-105 duration-300"
+              />
+          </div>
+              <p class="text-xl my-2 group-hover:underline">${item.courseName}</p>
+              <p class="text-gray-500">${item.teacher}</p>
+              <div class="h-3 w-full border-2 rounded-md">
+                <div
+                  class="h-full bg-indigo-600 rounded-md"
+                  style="width: ${item.completedPercentage}%"
+                ></div>
+              </div>
+              ${item.completedPercentage}%完成
+            </div>
+            </a>`
+            );
+          }
+        }
+      });
+    });
+  }
+  fetch("http://localhost:8080/user/islogin", {
+    method: "get",
+    credentials: "include",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      if (data == "true") {
+        progress();
+      }
+    });
 
   function url(api) {
     return `http://localhost:8080/index/${api}`;
