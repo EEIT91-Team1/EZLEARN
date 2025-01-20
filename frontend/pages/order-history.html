@@ -70,14 +70,16 @@
           const result = await response.json();
           
           if (result.code === 200) {
+            console.log('訂單資料:', result.data);
             displayOrders(result.data);
           } else if (result.code === 401) {
             window.location.href = 'login.html';
           } else {
+            console.log('無訂單資料:', result);
             showNoOrders();
           }
         } catch (error) {
-          console.error('Error:', error);
+          console.error('載入訂單歷史失敗:', error);
           showNoOrders();
         }
       }
@@ -87,13 +89,34 @@
         const noOrders = document.getElementById('noOrders');
 
         if (!orders || orders.length === 0) {
+          console.log('無訂單資料');
           showNoOrders();
           return;
         }
 
+        console.log('開始顯示訂單:', orders);
         noOrders.classList.add('hidden');
         orderList.innerHTML = orders.map(order => {
           const isPending = order.orderStatus === 'PENDING';
+          const isCancelled = order.orderStatus === 'CANCELLED';
+          
+          // 設定狀態樣式
+          let statusClass = '';
+          let statusText = '';
+          switch(order.orderStatus) {
+            case 'PENDING':
+              statusClass = 'bg-yellow-100 text-yellow-800';
+              statusText = '待付款';
+              break;
+            case 'COMPLETE':
+              statusClass = 'bg-green-100 text-green-800';
+              statusText = '已完成';
+              break;
+            case 'CANCELLED':
+              statusClass = 'bg-red-100 text-red-800';
+              statusText = '已取消';
+              break;
+          }
           
           const orderCard = `
             <div class="bg-white rounded-lg shadow-md p-6 ${isPending ? 'cursor-pointer hover:shadow-lg transition-shadow' : ''}" 
@@ -103,8 +126,8 @@
                   <h2 class="text-xl font-bold">訂單編號：${order.orderId}</h2>
                   <p class="text-gray-500">${new Date(order.createdAt).toLocaleString()}</p>
                 </div>
-                <span class="px-4 py-2 rounded-full ${order.statusClass}">
-                  ${order.statusText}
+                <span class="px-4 py-2 rounded-full ${statusClass}">
+                  ${statusText}
                 </span>
               </div>
 
@@ -128,6 +151,10 @@
                   <button onclick="handleOrderClick('${order.orderId}')" class="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition">
                     繼續付款
                   </button>
+                </div>
+              ` : isCancelled ? `
+                <div class="mt-4 text-center">
+                  <p class="text-red-600">此訂單已取消，無法付款</p>
                 </div>
               ` : ''}
             </div>

@@ -2,9 +2,9 @@ package org.ezlearn.controller;
 
 import org.ezlearn.service.CheckoutOrderService;
 import org.ezlearn.service.CartService;
-import org.ezlearn.model.dto.CheckoutResponseDTO;
-import org.ezlearn.model.dto.CheckoutRequest;
-import org.ezlearn.model.dto.ApiResponse;
+import org.ezlearn.DTO.ApiResponse;
+import org.ezlearn.DTO.CheckoutRequest;
+import org.ezlearn.DTO.CheckoutResponseDTO;
 import org.ezlearn.service.UsersService;
 import org.ezlearn.model.Users;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,9 @@
 package org.ezlearn.mapper;
 
-import org.ezlearn.model.dto.CheckoutItemDTO;
-import org.ezlearn.model.entity.CheckoutOrder;
-import org.ezlearn.model.entity.CheckoutOrderDetail;
-import org.ezlearn.model.dto.CheckoutResponseDTO;
+import org.ezlearn.DTO.CheckoutItemDTO;
+import org.ezlearn.DTO.CheckoutResponseDTO;
+import org.ezlearn.model.CheckoutOrder;
+import org.ezlearn.model.CheckoutOrderDetail;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface CheckoutOrderMapper {
     @Select("<script>" +
-            "SELECT c.course_id, c.course_name, c.course_intro, c.course_img, c.price " +
+            "SELECT c.course_id, c.course_name, c.course_intro, TO_BASE64(c.course_img) as course_img, c.price " +
             "FROM courses c " +
             "WHERE c.course_id IN " +
             "<foreach item='id' collection='list' open='(' separator=',' close=')'>" +
@@ -57,13 +57,15 @@ public interface CheckoutOrderMapper {
     })
     CheckoutOrder getOrderDetails(@Param("orderId") String orderId);
 
-    @Select("SELECT d.course_id, c.course_name, d.price " +
+    @Select("SELECT d.course_id, c.course_name, c.course_intro, TO_BASE64(c.course_img) as course_img, d.price " +
             "FROM checkout_order_details d " +
             "JOIN courses c ON d.course_id = c.course_id " +
             "WHERE d.order_id = #{orderId}")
     @Results({
         @Result(property = "courseId", column = "course_id"),
         @Result(property = "courseName", column = "course_name"),
+        @Result(property = "courseIntro", column = "course_intro"),
+        @Result(property = "courseImg", column = "course_img"),
         @Result(property = "price", column = "price")
     })
     List<CheckoutItemDTO> getOrderItems(@Param("orderId") String orderId);

@@ -1,4 +1,4 @@
-package org.ezlearn.model.dto;
+package org.ezlearn.DTO;
 
 import lombok.Data;
 
@@ -10,4 +10,5 @@ public class CartResponseDTO {
     private Integer totalPrice;
     private Integer selectedCount;
     private Boolean isAllSelected;
+    private List<String> messages;
 } 

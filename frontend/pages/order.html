@@ -214,10 +214,20 @@
             expiryDate.addEventListener('input', function(e) {
                 console.log('到期日輸入中...');
                 let value = e.target.value.replace(/\D/g, '');
-                if (value.length >= 2) {
-                    value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                
+                // 處理刪除操作
+                if (e.inputType === 'deleteContentBackward' && value.length === 2) {
+                    e.target.value = value;
+                    return;
                 }
-                e.target.value = value;
+                
+                // 處理正常輸入
+                if (value.length > 0) {
+                    if (value.length >= 2) {
+                        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                    }
+                    e.target.value = value;
+                }
             });
 
             cvv.addEventListener('input', function(e) {

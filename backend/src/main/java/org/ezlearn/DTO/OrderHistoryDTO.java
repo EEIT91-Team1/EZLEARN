@@ -1,16 +1,16 @@
-package org.ezlearn.model.dto;
+package org.ezlearn.DTO;
 
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class CheckoutResponseDTO {
+public class OrderHistoryDTO {
     private String orderId;
     private Integer totalAmount;
     private String orderStatus;
-    private List<CheckoutItemDTO> items;
     private LocalDateTime createdAt;
+    private List<CheckoutItemDTO> items;
     
     // 獲取狀態顯示文字
     public String getStatusText() {

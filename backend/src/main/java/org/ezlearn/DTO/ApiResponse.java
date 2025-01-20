@@ -1,4 +1,4 @@
-package org.ezlearn.model.dto;
+package org.ezlearn.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

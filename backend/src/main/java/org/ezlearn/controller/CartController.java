@@ -1,9 +1,10 @@
 package org.ezlearn.controller;
 
-import org.ezlearn.model.dto.ApiResponse;
 import org.ezlearn.service.CartService;
-import org.ezlearn.model.dto.CartResponseDTO;
-import org.ezlearn.model.dto.CheckoutRequest;
+import org.ezlearn.DTO.ApiResponse;
+import org.ezlearn.DTO.CartResponseDTO;
+import org.ezlearn.DTO.CheckoutRequest;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

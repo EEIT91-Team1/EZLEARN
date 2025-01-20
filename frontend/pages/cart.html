@@ -19,6 +19,9 @@
     <main class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-8">購物車</h1>
       
+      <!-- 新增訊息提示區域 -->
+      <div id="messageContainer" class="mb-6"></div>
+      
       <div class="flex flex-col lg:flex-row gap-8">
         <div class="lg:w-2/3">
           <div class="bg-white rounded-lg shadow p-6">
@@ -126,19 +129,47 @@
                 const cartItems = result.data.items;
                 console.log('購物車項目：', cartItems);
                 const cartItemsContainer = document.getElementById('cartItems');
+                const messageContainer = document.getElementById('messageContainer');
+                
+                // 顯示消息（如果有的話）
+                if (result.data.messages && result.data.messages.length > 0) {
+                    messageContainer.innerHTML = result.data.messages.map(msg => `
+                        <div class="flex items-center p-4 mb-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                            <div class="flex-shrink-0">
+                                <i class="bi bi-info-circle text-yellow-500 text-xl mr-3"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-yellow-700">${msg}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    // 5秒後自動淡出訊息
+                    setTimeout(() => {
+                        const messages = messageContainer.querySelectorAll('div');
+                        messages.forEach(msg => {
+                            msg.style.transition = 'opacity 0.5s ease-out';
+                            msg.style.opacity = '0';
+                        });
+                        setTimeout(() => {
+                            messageContainer.innerHTML = '';
+                        }, 500);
+                    }, 5000);
+                }
                 
                 // 如果購物車為空
                 if (!result.data.items || result.data.items.length === 0) {
                   cartItemsContainer.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                      購物車是空的
+                    <div class="text-center py-8">
+                      <i class="bi bi-cart text-gray-400 text-5xl mb-4"></i>
+                      <p class="text-gray-500">購物車是空的</p>
                     </div>
                   `;
                   return;
                 }
                 
                 // 顯示購物車項目
-                cartItemsContainer.innerHTML = result.data.items.map(item => `
+                cartItemsContainer.innerHTML += result.data.items.map(item => `
                   <div class="flex items-center" data-course-id="${item.courseId}">
                     <input type="checkbox" class="cart-item mr-4" onchange="updateOrderSummary()">
                     <div class="flex-grow flex items-center">
