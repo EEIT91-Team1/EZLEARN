@@ -27,6 +27,8 @@ $(document).ready(function () {
   let userId = 0;
   let currentLesson = "";
   let isCompleted = false;
+  let lessonUrls = [];
+  let currentIndex = 0;
 
   async function getUser() {
     const response = await fetch(
@@ -325,6 +327,8 @@ $(document).ready(function () {
     }
 
     const data = await response.json();
+    lessonUrls = data.map((lesson) => lesson.videoUrl);
+
     if (data.length > 0) {
       lessonId = data[0].lessonId; //default lessonId
       getLastView();
@@ -346,8 +350,7 @@ $(document).ready(function () {
               <span class="lesson-index text-md font-medium">
                 章節 ${
                   index + 1
-                }<i class="bi bi-check-square-fill ml-2 hidden text-yellow-500"></i>
-
+                }<i class="bi bi-check2-square ml-2 hidden text-green-500"></i>
               </span>
               <span
                 class="shrink-0 transition duration-300 group-open:-rotate-180"
@@ -370,12 +373,12 @@ $(document).ready(function () {
             <ul class="mt-2 space-y-1 px-4">
               <li>
                 <div
+                  id="${index}"
                   data-id="${item.lessonId}"
                   data-src="${item.videoUrl}"
                   class="course-video-link flex items-center cursor-pointer w-full text-start rounded-lg px-4 py-2 my-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 >
                   <p>${item.lessonName}</p>
-                  <i class="bi bi-check-square-fill ml-2 hidden text-yellow-500"></i>
                 </div>
               </li>
             </ul>
@@ -399,6 +402,8 @@ $(document).ready(function () {
           .find("summary span:first")
           .text() + this.innerText;
 
+      currentIndex = $(this).attr("id");
+
       $(".lesson-name").text(this.innerText);
 
       $(".course-video-link").removeClass(
@@ -408,6 +413,11 @@ $(document).ready(function () {
 
       const videoSrc = $(this).data("src");
       $("#courseVideo").attr("src", videoSrc);
+      $("#courseVideo").attr("autoplay", true);
+      resetCountdownUI();
+      clearInterval(autoSaveProgress);
+      clearInterval(countdown);
+      $(".completed-course-message").remove();
 
       $.each(
         $(`[data-id="${lessonId}"]`),
@@ -796,7 +806,12 @@ $(document).ready(function () {
       }
 
       const data = await response.json();
-      $("#courseVideo")[0].currentTime = data.progressTime;
+      if (data.progressTime == data.totalDuration) {
+        $("#courseVideo")[0].currentTime = 0;
+      } else {
+        $("#courseVideo")[0].currentTime =
+          data.progressTime;
+      }
     } catch (error) {
       // data not found
     }
@@ -822,7 +837,6 @@ $(document).ready(function () {
 
       const data = await response.json();
       if (data.length > 0) {
-        console.log(data);
         $.each(data, function (index, item) {
           if (item.isCompleted) {
             $(`div[data-id="${item.progressId.lessonId}"]`)
@@ -945,8 +959,6 @@ $(document).ready(function () {
       }
 
       const data = await response.json();
-
-      console.log("progress saved...");
     } catch (error) {
       console.log(error);
     }
@@ -977,8 +989,6 @@ $(document).ready(function () {
       if (!response.ok) {
         throw new Error("Internal Error");
       }
-
-      console.log("progress saved...");
     } catch (error) {
       console.log(error);
     }
@@ -1007,7 +1017,7 @@ $(document).ready(function () {
   }
 
   // event listener
-  let intervalId;
+  let autoSaveProgress;
   const currenTime = $("#courseVideo");
 
   // save progress every 3s
@@ -1028,8 +1038,7 @@ $(document).ready(function () {
         .removeClass("hidden");
     }
     await updateProgress();
-    console.log("playing...");
-    intervalId = setInterval(function () {
+    autoSaveProgress = setInterval(function () {
       updateProgress();
     }, 3000);
   });
@@ -1037,16 +1046,78 @@ $(document).ready(function () {
   // save progress when pause video
   $("#courseVideo").on("pause", async function () {
     await updateProgress();
-    console.log("pause");
-    clearInterval(intervalId);
+    clearInterval(autoSaveProgress);
   });
+
+  let countdown;
+  let countdownTime = 3;
+  let isCancelled = false;
 
   // save progress when video ended
   $("#courseVideo").on("ended", async function () {
+    currentIndex++;
     await markProgressAsCompleted();
     await updateProgress();
     await getAllProgressByCourseId();
-    console.log("ended");
-    clearInterval(intervalId);
+    if (currentIndex < lessonUrls.length) {
+      showAutoplayNotification();
+
+      isCancelled = false;
+
+      countdown = setInterval(function () {
+        if (countdownTime > 0) {
+          countdownTime--;
+          updateCountdownUI(countdownTime);
+        } else {
+          clearInterval(countdown);
+          resetCountdownUI();
+
+          if (!isCancelled) {
+            $(`#${currentIndex}.course-video-link`).click();
+          }
+        }
+      }, 1000);
+    } else {
+      $(".video-container").append(
+        `
+        <div class="completed-course-message absolute inset-0 bg-white flex flex-col justify-center items-center">  
+        <p class="text-xl font-bold">恭喜 🙌</p>
+        <p class="text-xl font-bold">您已經完成本課程的最後一堂課！</p>
+        </div>
+        `
+      );
+    }
+    clearInterval(autoSaveProgress);
   });
+
+  $(document).on("click", "#cancel-autoplay", function () {
+    currentIndex--;
+    isCancelled = true;
+    clearInterval(countdown);
+    resetCountdownUI();
+  });
+
+  function showAutoplayNotification() {
+    const notificationHTML = `
+    <div id="autoplay-notification" class="absolute flex flex-col justify-center items-center inset-0 bg-black bg-opacity-50">
+      <p class="text-white text-sm font-medium">接下來</p>  
+      <p id="countdown-text" class="text-white">即將在 ${countdownTime} 秒後跳轉至下一部影片...</p>
+      <button id="cancel-autoplay" class="text-white mt-2">
+        取消
+      </button>
+    </div>
+  `;
+    $(".video-container").append(notificationHTML);
+  }
+
+  function updateCountdownUI(time) {
+    $("#countdown-text").text(
+      `即將在 ${time} 秒後跳轉至下一部影片...`
+    );
+  }
+
+  function resetCountdownUI() {
+    $("#autoplay-notification").remove();
+    countdownTime = 3;
+  }
 });
