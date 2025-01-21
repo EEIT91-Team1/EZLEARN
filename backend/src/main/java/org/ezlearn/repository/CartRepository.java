@@ -27,11 +27,11 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
                   "JOIN courses co ON c.course_id = co.course_id " +
                   "LEFT JOIN purchased_courses pc ON c.course_id = pc.course_id AND pc.user_id = c.user_id " +
                   "WHERE c.user_id = :userId")
-    List<CartItemDTO> findCartItemsByUserId(@Param("userId") Integer userId);
+    List<CartItemDTO> findCartItemsByUserId(@Param("userId") Long userId);
     
     // 檢查項目是否存在
-    @Query("SELECT COUNT(c) > 0 FROM Cart c WHERE c.userId = :userId AND c.courseId = :courseId")
-    boolean existsByUserIdAndCourseId(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+    @Query("SELECT COUNT(c) > 0 FROM Cart c WHERE c.cartId.userId = :userId AND c.cartId.courseId = :courseId")
+    boolean existsByUserIdAndCourseId(@Param("userId") Long userId, @Param("courseId") Long courseId);
     
     // 獲取選中的課程
     @Query(nativeQuery = true,
@@ -44,17 +44,17 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
                   "0 as isPurchased " +
                   "FROM courses c " +
                   "WHERE c.course_id IN :courseIds")
-    List<CartItemDTO> findSelectedCourses(@Param("courseIds") List<Integer> courseIds);
+    List<CartItemDTO> findSelectedCourses(@Param("courseIds") List<Long> courseIds);
     
     // 刪除已結帳的課程
     @Modifying
-    @Query("DELETE FROM Cart c WHERE c.userId = :userId AND c.courseId IN :courseIds")
-    int deleteCheckedOutCourses(@Param("userId") Integer userId, 
-                               @Param("courseIds") List<Integer> courseIds);
+    @Query("DELETE FROM Cart c WHERE c.cartId.userId = :userId AND c.cartId.courseId IN :courseIds")
+    int deleteCheckedOutCourses(@Param("userId") Long userId, 
+                               @Param("courseIds") List<Long> courseIds);
     
     // 從購物車移除單一課程
     @Modifying
-    @Query("DELETE FROM Cart c WHERE c.userId = :userId AND c.courseId = :courseId")
-    int deleteByUserIdAndCourseId(@Param("userId") Integer userId, 
-                                 @Param("courseId") Integer courseId);
+    @Query("DELETE FROM Cart c WHERE c.cartId.userId = :userId AND c.cartId.courseId = :courseId")
+    int deleteByUserIdAndCourseId(@Param("userId") Long userId, 
+                                 @Param("courseId") Long courseId);
 } 

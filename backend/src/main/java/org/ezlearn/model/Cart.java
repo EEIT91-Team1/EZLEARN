@@ -1,9 +1,6 @@
 package org.ezlearn.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,32 +8,78 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "carts")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@IdClass(CartId.class)
 public class Cart {
-    @Id
-    @Column(name = "user_id")
-    private Integer userId;
+    @EmbeddedId
+    private CartId cartId;
 
-    @Id
-    @Column(name = "course_id")
-    private Integer courseId;
+    public CartId geCartId(){
+        return cartId;
+    }
+    public void setCartId(CartId cartId){
+        this.cartId=cartId;
+    }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private Users user;
+    @ManyToOne
+	@MapsId("userId")
+	@JoinColumn(name = "user_id")
+	private Users users;
+	
+	public Users getUsers() {
+		return users;
+	}
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+	
+	@ManyToOne
+	@MapsId("courseId")
+	@JoinColumn(name = "course_id")
+	private Courses courses;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id", insertable = false, updatable = false)
-    private Courses course;
+	public Courses getCourses() {
+		return courses;
+	}
+	public void setCourses(Courses courses) {
+		this.courses = courses;
+	}
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+
+    @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    // 建構式
+    public Cart() {
+    }
+
+    public Cart(Long userId, Long courseId, Users user, Courses course) {
+        this.users = user;
+        this.courses = course;
+    }
+
+
+
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    // Setters
+
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 } 

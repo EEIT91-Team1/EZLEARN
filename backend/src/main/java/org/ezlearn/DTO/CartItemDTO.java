@@ -2,9 +2,7 @@ package org.ezlearn.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 public class CartItemDTO {
     private Long courseId;
     private String courseName;
@@ -13,6 +11,10 @@ public class CartItemDTO {
     private Integer price;
     private boolean selected;
     private boolean isPurchased;
+
+    // 無參數建構式
+    public CartItemDTO() {
+    }
 
     @JsonCreator
     public CartItemDTO(

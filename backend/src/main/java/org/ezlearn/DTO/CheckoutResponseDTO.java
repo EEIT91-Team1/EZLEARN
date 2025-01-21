@@ -1,17 +1,71 @@
 package org.ezlearn.DTO;
 
-import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
 public class CheckoutResponseDTO {
     private String orderId;
     private Integer totalAmount;
     private String orderStatus;
     private List<CheckoutItemDTO> items;
     private LocalDateTime createdAt;
-    
+
+    // 無參數建構式
+    public CheckoutResponseDTO() {
+    }
+
+    // 全參數建構式
+    public CheckoutResponseDTO(String orderId, Integer totalAmount, String orderStatus,
+                               List<CheckoutItemDTO> items, LocalDateTime createdAt) {
+        this.orderId = orderId;
+        this.totalAmount = totalAmount;
+        this.orderStatus = orderStatus;
+        this.items = items;
+        this.createdAt = createdAt;
+    }
+
+    // Getters
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public Integer getTotalAmount() {
+        return totalAmount;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public List<CheckoutItemDTO> getItems() {
+        return items;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    // Setters
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setItems(List<CheckoutItemDTO> items) {
+        this.items = items;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     // 獲取狀態顯示文字
     public String getStatusText() {
         switch (orderStatus) {
@@ -21,7 +75,7 @@ public class CheckoutResponseDTO {
             default: return orderStatus;
         }
     }
-    
+
     // 獲取狀態樣式類
     public String getStatusClass() {
         switch (orderStatus) {

@@ -1,15 +1,37 @@
 package org.ezlearn.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import jakarta.persistence.Embeddable;
 import java.io.Serializable;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Embeddable
 public class CartId implements Serializable {
     private Integer userId;
-    private Integer courseId;
+    private Long courseId;
+
+    // 建構式
+    public CartId() {
+    }
+
+    public CartId(Integer userId, Long courseId) {
+        this.userId = userId;
+        this.courseId = courseId;
+    }
+
+    // Getters
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    // Setters
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
 } 

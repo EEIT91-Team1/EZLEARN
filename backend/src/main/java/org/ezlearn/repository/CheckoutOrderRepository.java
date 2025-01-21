@@ -1,14 +1,12 @@
 package org.ezlearn.repository;
 
 import org.ezlearn.DTO.CheckoutItemDTO;
-import org.ezlearn.DTO.CheckoutResponseDTO;
 import org.ezlearn.model.CheckoutOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.ezlearn.DTO.CartItemDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,14 +16,14 @@ public interface CheckoutOrderRepository extends JpaRepository<CheckoutOrder, St
     
     // 獲取選中的課程
     @Query(nativeQuery = true,
-           value = "SELECT c.course_id as courseId, " +
+           value = "SELECT CAST(c.course_id AS SIGNED) as courseId, " +
                   "c.course_name as courseName, " +
                   "c.course_intro as courseIntro, " +
-                  "c.course_img as courseImg, " +
+                  "TO_BASE64(c.course_img) as courseImg, " +
                   "c.price as price " +
                   "FROM courses c " +
                   "WHERE c.course_id IN :courseIds")
-    List<CheckoutItemDTO> findSelectedCourses(@Param("courseIds") List<Integer> courseIds);
+    List<CheckoutItemDTO> findSelectedCourses(@Param("courseIds") List<Long> courseIds);
     
     // 獲取下一個訂單序號
     @Query(value = "SELECT IFNULL(MAX(CAST(RIGHT(order_id, 4) AS UNSIGNED)), 0) + 1 " +
@@ -45,7 +43,8 @@ public interface CheckoutOrderRepository extends JpaRepository<CheckoutOrder, St
     @Modifying
     @Query("UPDATE CheckoutOrder o SET o.orderStatus = :status, o.updatedAt = CURRENT_TIMESTAMP " +
            "WHERE o.orderId = :orderId")
-    void updateOrderStatus(@Param("orderId") String orderId, @Param("status") String status);
+    void updateOrderStatus(@Param("orderId") String orderId, 
+                         @Param("status") CheckoutOrder.OrderStatus status);
     
     // 獲取訂單歷史
     @Query("SELECT o FROM CheckoutOrder o " +
@@ -68,14 +67,14 @@ public interface CheckoutOrderRepository extends JpaRepository<CheckoutOrder, St
            "WHERE NOT EXISTS (SELECT 1 FROM purchased_courses WHERE course_id = :courseId AND user_id = :userId)", 
            nativeQuery = true)
     @Modifying
-    void insertPurchasedCourse(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+    void insertPurchasedCourse(@Param("userId") Long userId, @Param("courseId") Long courseId);
     
     @Query("SELECT COUNT(w) FROM WishList w WHERE w.userId = :userId AND w.courseId = :courseId")
-    int countCourseInWishList(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+    int countCourseInWishList(@Param("userId") Long userId, @Param("courseId") Long courseId);
     
     @Modifying
     @Query("DELETE FROM WishList w WHERE w.userId = :userId AND w.courseId = :courseId")
-    void deleteCourseFromWishList(@Param("userId") Integer userId, @Param("courseId") Integer courseId);
+    void deleteCourseFromWishList(@Param("userId") Long userId, @Param("courseId") Long courseId);
     
     @Query(value = "SELECT COUNT(1) FROM checkout_orders o " +
            "JOIN checkout_order_details d ON o.order_id = d.order_id " +
@@ -84,9 +83,9 @@ public interface CheckoutOrderRepository extends JpaRepository<CheckoutOrder, St
            "AND d.course_id IN " +
            "(SELECT d2.course_id FROM checkout_order_details d2 WHERE d2.order_id = :orderId)",
            nativeQuery = true)
-    Long countPaidOrderWithSameCourses(@Param("userId") Integer userId, 
+    Long countPaidOrderWithSameCourses(@Param("userId") Long userId, 
                                      @Param("orderId") String orderId);
     
     // 根據訂單狀態查詢訂單
-    List<CheckoutOrder> findByOrderStatus(String orderStatus);
+    List<CheckoutOrder> findByOrderStatus(CheckoutOrder.OrderStatus orderStatus);
 } 
