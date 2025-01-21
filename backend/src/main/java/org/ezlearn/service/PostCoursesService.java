@@ -53,6 +53,11 @@ public class PostCoursesService {
             throw new IllegalArgumentException("表單數據不能為空");
         }
     }
+    public void refreshFormData() {
+    	formData="";
+    	System.out.println("refreshFormData");
+    	
+    }
 
 
     public String getFormData() {
@@ -66,6 +71,11 @@ public class PostCoursesService {
         System.out.println("已新增課程名稱：" + coursename); // 後端日誌
         
     }
+    public void refreshCourseName() {
+    	courseName="";
+    	System.out.println("refreshName");
+    	System.out.println(courseName);
+    }
 
 
     public String getCourseName() {
@@ -77,6 +87,12 @@ public class PostCoursesService {
     	courseClasse=courseClass;
     	System.out.println("已新增課程種類：" + courseClass); // 後端日誌
     	}
+    
+    public void refreshCourseClasse() {
+    	courseClasse="";
+    	System.out.println("refreshClasse");
+    	System.out.println(courseClasse);
+    }
     public String getCourseClasse() {
     	return courseClasse;
     }
@@ -86,27 +102,35 @@ public class PostCoursesService {
         System.out.println("已新增課程名稱：" + courseprice); // 後端日誌
         
     }
-
+    public void refreshCoursePrice() {
+    	coursePrice=null;
+    	System.out.println("coursePrice");
+    	 }
 
     public Integer getCoursePrice() {
         return coursePrice;
     }
-    
-    
-    
     public void saveCourseIntro(String courseintro) {
     	courseIntro=courseintro;
     	System.out.println("已新增課程介紹：" + courseIntro); // 後端日誌
     	
     }
+    public void refreshCourseIntro() {
+    	courseIntro="";
+    	System.out.println("courseIntro");
+    	 }
     public String getCourseIntro() {
     	return courseIntro;
     }
-    public void saveCourseSummory(String coursesummary) {
+    public void saveCourseSummary(String coursesummary) {
     	courseSummary=coursesummary;
     	System.out.println("已新增課程總覽：" + courseSummary); // 後端日誌
     	
     }
+    public void refreshCourseSummary() {
+    	courseSummary="";
+    	System.out.println("courseSummary");
+    	 }
     public String getCourseSummary() {
     	return courseSummary;
     }
@@ -116,6 +140,10 @@ public class PostCoursesService {
     	System.out.println("已新增課程介紹：" + courseImages); // 後端日誌
     	
     }
+    public void refreshCourseImages() {
+    	courseImages.clear();
+    	System.out.println("courseImages");
+    	 }
     public List<byte[]> getCourseImages() {
     	return courseImages;
     }

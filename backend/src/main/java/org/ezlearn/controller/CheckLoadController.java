@@ -34,7 +34,7 @@ public class CheckLoadController {
 		System.out.println("courseClass: " + postCoursesService.getCourseClasse());
 		System.out.println("coursePrice: " + postCoursesService.getCoursePrice());
 		System.out.println("courseIntro: " + postCoursesService.getCourseIntro());
-		System.out.println("courseSummory: " + postCoursesService.getCourseSummary());
+		System.out.println("courseSummary: " + postCoursesService.getCourseSummary());
 		System.out.println("courseImage: " + postCoursesService.getCourseImages());
 
 		Map<String, String> result = new HashMap<>();
@@ -44,7 +44,7 @@ public class CheckLoadController {
 	    result.put("courseClass", StringUtils.isNotEmpty(postCoursesService.getCourseClasse()) ? "有值" : "無值");
 	    result.put("coursePrice", postCoursesService.getCoursePrice() != null ? "有值" : "無值");
 	    result.put("courseIntro", StringUtils.isNotEmpty(postCoursesService.getCourseIntro()) ? "有值" : "無值");
-	    result.put("courseSummory", StringUtils.isNotEmpty(postCoursesService.getCourseSummary()) ? "有值" : "無值");
+	    result.put("courseSummary", StringUtils.isNotEmpty(postCoursesService.getCourseSummary()) ? "有值" : "無值");
 
 	    // 處理 List 判斷
 	    result.put("courseImage", (postCoursesService.getCourseImages() != null && !postCoursesService.getCourseImages().isEmpty()) ? "有值" : "無值");

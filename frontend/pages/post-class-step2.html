@@ -22,12 +22,12 @@
             <div class="sm:col-span-3 row-span-4 lg:col-span-2 space-y-4 p-2 " id="formRange">
                 <button type="button"
                     class=" w-40 h-18 rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray  lg:text-3xl "
-                    style="background-color: #8b8f8b;" onclick="plusInput();changeAddClassButtonColor()"
+                    style="background-color: #8b8f8b;" onclick="plusInput();changeAddClassButtonDisplay()"
                     id="addClassButton">新增 章節
                 </button>
             </div>
             <div
-                class="grid bg-gray-100  rounded-2xl   md:h-[850px] text-base lg:h-[500px] text-2xl col-span-1 p-2 gap-y-5">
+                class="grid bg-gray-100  rounded-2xl   md:h-[850px] text-base lg:h-[650px] text-2xl col-span-1 p-2 gap-y-5">
                 <div>
                     <i class="text-2xl"> ＊課程影片選擇完後，按下底下的課程上傳才會保存哦！！！</i>
                 </div>
@@ -50,20 +50,20 @@
             </div>
             <!-- 下一頁按鈕 -->
             <div
-                class="items-center justify-end sm:flex sm:col-span-3 flex-col pt-1 lg:grid lg:col-span-3 gap-x-6 pt-[100px] text-xl ">
-                <div class="mt-8 grid   col-span-1  text-xl">
+                class="mt-[50px]  pt-1  gap-x-6 text-xl sm:flex sm:justify-end sm:items-center sm:col-span-3 md:mt-0  lg:col-span-3">
+                <div class="mt-8 text-xl">
                     <button type="button"
                         class="rounded-md  px-3 py-2  font-semibold text-white shadow-sm bg-gray lg:text-xl"
                         style="background-color: #7c807c;" onclick=" " id="uploadButton">影片上傳
                     </button>
                 </div>
-                <div class="mt-8 grid  col-span-1  ">
+                <div class="mt-8   ">
                     <button type="button"
                         class="rounded-md px-3 py-2 font-semibold text-white shadow-sm bg-gray lg:text-xl"
                         style="background-color: #7c807c;" onclick=" step1()" id="">上一步
                     </button>
                 </div>
-                <div class="mt-8 grid  col-span-2  mr-0">
+                <div class="mt-8   mr-0">
                     <button type="button"
                         class="rounded-md  px-3 py-2 font-semibold text-white shadow-sm bg-gray lg:text-xl"
                         style="background-color: #7c807c;" onclick="step3()" id="nextToPostClass3">下一步
