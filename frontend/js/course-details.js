@@ -275,6 +275,7 @@ $(document).ready(function () {
         );
 
         if (!response.ok) {
+          window.location.href = "/pages/login.html";
           throw new Error("Internal Error");
         }
 
@@ -323,6 +324,10 @@ $(document).ready(function () {
         }
       );
 
+      if (response.status === 401) {
+        window.location.href = "/pages/login.html";
+      }
+
       if (response.status == 400) {
         // 購物車內已存在商品
         window.location.href = "/pages/cart.html";
@@ -370,6 +375,10 @@ $(document).ready(function () {
           }),
         }
       );
+
+      if (response.status === 401) {
+        window.location.href = "/pages/login.html";
+      }
 
       if (!response.ok) {
         throw new Error("Internal Error");
