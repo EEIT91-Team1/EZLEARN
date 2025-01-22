@@ -310,6 +310,82 @@ $(document).ready(function () {
     }
   });
 
+  $(".add-to-cart").on("click", async function () {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/cart?courseId=${courseId}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status == 400) {
+        // 購物車內已存在商品
+        window.location.href = "/pages/cart.html";
+      }
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      } else {
+        window.location.href = "/pages/cart.html";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  $(".buy-now").on("click", async function () {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/cart?courseId=${courseId}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/checkout/create`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            courseIds: [courseId],
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Internal Error");
+      }
+
+      const result = await response.json();
+      if (result.code === 200) {
+        window.location.href = `order.html?orderId=${result.data.orderId}`;
+      } else {
+        alert("伺服器錯誤：" + result.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   //isPurchased ? watch purchased course
   async function isPurchasedCourse() {
     try {
