@@ -327,8 +327,7 @@ async function aiApi(qs) {
     method: "POST",
     contentType: "application/json",
     headers: {
-      Authorization:
-        "Bearer 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",
+      Authorization: "",
     },
     data: JSON.stringify(data),
   })
@@ -401,6 +400,9 @@ let updateDebounceText = debounce((text) => {
     iskeywordNull = true;
   }
 }, 700);
+let blurHidden = debounce(() => {
+  $("#keyword").addClass("hidden");
+}, 100);
 
 $("#inputSearch").on("input", function () {
   let searchText = $(this).val();
@@ -408,7 +410,7 @@ $("#inputSearch").on("input", function () {
 });
 
 $("#inputSearch").on("blur", function () {
-  $("#keyword").addClass("hidden");
+  blurHidden();
 });
 
 $("#inputSearch").on("focus", function () {
@@ -446,8 +448,7 @@ async function keyword(key) {
     method: "POST",
     contentType: "application/json",
     headers: {
-      Authorization:
-        "Bearer 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",
+      Authorization: "",
     },
     data: JSON.stringify(data),
   })

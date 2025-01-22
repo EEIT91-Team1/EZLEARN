@@ -36,7 +36,7 @@ public class GCSService {
     public GCSService() throws IOException {
     	this.lessonsRepository=lessonsRepository;
         storage = StorageOptions.newBuilder()
-                .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("C:\\Users\\xuanx\\Downloads\\EZLEARN-wenhong (2)\\EZLEARN-wenhong\\backend\\src\\main\\resources\\testproject-446611-bf5434d6753f.json")))
+                .setCredentials(ServiceAccountCredentials.fromStream(new FileInputStream("src/main/resources/gcs-service-key.json")))
                 .setProjectId("testproject-446611")
                 .build()
                 .getService();

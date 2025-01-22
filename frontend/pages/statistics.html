@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-Hants">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EZLEARN</title>
+    <link rel="icon" href="../imgs/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      .target {
+        background-color: rgb(229, 231, 235);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <main>
+      <div class="flex relative min-h-[50rem]">
+        <div
+          class="md:static z-[1] bg-white w-72 min-h-full border-2 shadow-xl text-2xl px-4 pt-6 pb-40 absolute -left-72"
+          id="statisticsMenu"
+        >
+          <div class="text-xl p-2 mb-6">
+            <select
+              name="course"
+              id="course"
+              class="border-2 p-1 rounded-md w-full"
+            ></select>
+          </div>
+          <div
+            id="overview"
+            class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md target"
+          >
+            <i class="bi bi-columns-gap"></i> 課程總覽
+          </div>
+          <!-- <div
+            class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
+          >
+            <i class="bi bi-bar-chart-line"></i> 課程統計
+          </div> -->
+          <div
+            class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
+          >
+            <i class="bi bi-cash-coin"></i> 課程收入
+          </div>
+          <div
+            id="studentList"
+            class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
+          >
+            <i class="bi bi-person-standing"></i> 學生列表
+          </div>
+          <div
+            class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
+          >
+            <i class="bi bi-wrench"></i> 課程管理
+          </div>
+          <div
+            class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
+            id="analyze"
+          >
+            <i class="bi bi-graph-up"></i> 數據分析
+          </div>
+        </div>
+        <div
+          class="absolute py-2 bg-white border-2 shadow-lg z-[1] left-0 top-8 text-xl md:hidden btnStatisticsMenu"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </div>
+        <div class="w-full">
+          <div class="">
+            <div class="flex w-full bg-black text-white p-2 md:p-6">
+              <img
+                id="courseImg"
+                class="w-48 h-28 object-cover border-2 border-black bg-white hidden md:block"
+              />
+              <div class="flex flex-col justify-center m-4">
+                <p id="courseName" class="text-3xl">2</p>
+              </div>
+            </div>
+            <div id="page" class="text-lg p-2">
+              <div class="m-2 border-2">
+                <h1 class="text-3xl font-bold border-b-2 p-2">銷售狀況</h1>
+                <p class="p-2">
+                  <i class="bi bi-cash-stack px-1"></i>收入：<span
+                    id="income"
+                  ></span>
+                </p>
+                <p class="p-2">
+                  <i class="bi bi-person px-1"></i>學生數：<span
+                    id="students"
+                  ></span>
+                </p>
+              </div>
+              <div class="m-2 border-2">
+                <h1 class="text-3xl font-bold border-b-2 p-2">學生回饋</h1>
+                <p class="p-2">
+                  <i class="bi bi-stars px-1"></i>評價：<span
+                    id="reviews"
+                  ></span>
+                </p>
+                <p class="p-2">
+                  <i class="bi bi-chat px-1"></i>互動數：<span id="qa"></span>
+                </p>
+                <p class="p-2">
+                  <i class="bi bi-trophy px-1"></i>完成數：<span id="completed"
+                    >0</span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="mask"
+        class="fixed top-0 left-0 h-full w-full bg-white z-50"
+      ></div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="../js/header-footer.js"></script>
+    <script type="text/javascript">
+      let url = "http://localhost:8080";
+      google.charts.load("current", { packages: ["corechart"] });
+      let nowPage = "overview";
+
+      $("#analyze").click(function () {
+        nowPage = "analyze";
+        $("#courseImg").removeClass("md:block");
+        $("#courseName").text("教師數據分析");
+        $("#page").empty();
+        $("#page").html(`
+        <div class="flex flex-wrap">
+          <div id="chart" class="w-full max-w-[800px]"></div>
+          <div id="chart2" class="w-full max-w-[800px]"></div>
+          <div id="chart3" class="w-full max-w-[800px]"></div>
+          <div id="chart4" class="w-full max-w-[800px]"></div>
+          </div>`);
+        $(".target").removeClass("target");
+        $(this).addClass("target");
+        getCoursesDataAndDrawChart();
+        google.charts.setOnLoadCallback(getCoursesDataAndDrawChart);
+      });
+      $("#studentList").click(function () {
+        nowPage = "studentList";
+        $("#courseImg").addClass("md:block");
+        $("#page").empty();
+        $("#page").html(`
+        <table id="studentTable" class="text-2xl m-2 p-2">
+          <tr>
+          <th>學生</th>
+          <th>完成進度</th>
+          </tr>
+          </table>
+          `);
+        $(".target").removeClass("target");
+        $(this).addClass("target");
+        studentList();
+      });
+      $("#overview").click(function () {
+        nowPage = "overview";
+        $("#courseImg").addClass("md:block");
+        $("#page").empty();
+        $("#page").html(`
+                 <div class="m-2 border-2">
+                  <h1 class="text-3xl font-bold border-b-2 p-2">銷售狀況</h1>
+                  <p class="p-2">
+                    <i class="bi bi-cash-stack px-1"></i>收入：<span
+                      id="income"
+                    ></span>
+                  </p>
+                  <p class="p-2">
+                    <i class="bi bi-person px-1"></i>學生數：<span
+                      id="students"
+                    ></span>
+                  </p>
+                </div>
+                <div class="m-2 border-2">
+                  <h1 class="text-3xl font-bold border-b-2 p-2">學生回饋</h1>
+                  <p class="p-2">
+                    <i class="bi bi-stars px-1"></i>評價：<span
+                      id="reviews"
+                    ></span>
+                  </p>
+                  <p class="p-2">
+                    <i class="bi bi-chat px-1"></i>互動數：<span id="qa"></span>
+                  </p>
+                  <p class="p-2">
+                    <i class="bi bi-trophy px-1"></i>完成數：<span
+                      id="completed"
+                    >0</span>
+                  </p>
+                </div>
+          `);
+        $(".target").removeClass("target");
+        $(this).addClass("target");
+        overview();
+      });
+
+      async function overview() {
+        $("#completed").text("0");
+        let courseId = $("#course").val();
+        await $.ajax({
+          url: url + `/purchased-courses/${courseId}`,
+          method: "GET",
+        }).done((data) => {
+          $("#students").text(data.length);
+          let totalRate = 0;
+          let student = 0;
+          $.each(data, (idx, item) => {
+            if (item.courseRate != null) {
+              totalRate += item.courseRate;
+              student += 1;
+            }
+            console.log(item);
+            $.ajax({
+              url: url + `/progress/${item.users.userId}/${courseId}`,
+              method: "GET",
+            }).done((data) => {
+              let com = $("#completed").text();
+              if (data == 100) {
+                com = parseInt(com) + 1;
+                $("#completed").text(com);
+              }
+            });
+          });
+          $("#reviews").text((totalRate / student).toFixed(1));
+        });
+        await $.ajax({
+          url: url + `/questions/teacher/${courseId}`,
+          method: "GET",
+        }).done((data) => {
+          $("#qa").text(data.length);
+        });
+        await $.ajax({
+          url: url + `/questions/teacher/${courseId}`,
+          method: "GET",
+        });
+        changeTitle();
+      }
+
+      function studentList() {
+        $.ajax({
+          url: url + `/purchased-courses/${$("#course").val()}`,
+          method: "GET",
+          xhrFields: {
+            withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+          },
+        }).done((data) => {
+          $.each(data, (idx, item) => {
+            $.ajax({
+              url: url + `/progress/${item.users.userId}/${$("#course").val()}`,
+              method: "GET",
+            }).done((data) => {
+              if (item.users.userInfo.avatar != null) {
+                $("#studentTable").append(`
+          <tr class="m-2 p-2">
+            <td class="flex items-center m-2 p-2">
+            <img src="data:image/png;base64,${item.users.userInfo.avatar}" class="w-14 h-14 rounded-full object-cover border-2" />
+            <p class="ml-2">${item.users.userInfo.userName}</p>
+            </td>
+            <td>
+            <div class="h-4 w-36 border-2 rounded-md ml-2">
+            <div
+              class="h-full bg-indigo-600 rounded-md"
+              style="width: ${data}%"
+            ></div>
+            </div>
+            </td>
+            </tr>
+          `);
+              } else {
+                $("#studentTable").append(`
+              <tr class="m-2 p-2">
+            <td class="flex items-center m-2 p-2">
+            <img src="../imgs/avatar.png" class="w-14 h-14 rounded-full object-cover border-2" />
+            <p class="ml-2">${item.users.userInfo.userName}</p>
+            </td>
+            <td>
+            <div class="h-4 w-36 border-2 rounded-md ml-2">
+            <div
+              class="h-full bg-indigo-600 rounded-md"
+              style="width: ${data}%"
+            ></div>
+            </div>
+            </td>
+            </tr>
+          `);
+              }
+            });
+          });
+        });
+        changeTitle();
+      }
+
+      function changeTitle() {
+        $.ajax({
+          url: url + `/courses/${$("#course").val()}`,
+          method: "GET",
+          xhrFields: {
+            withCredentials: true,
+          },
+        }).done((data) => {
+          $("#courseName").text(data.courseName);
+          $("#courseImg").prop(
+            "src",
+            "data:image/png;base64," + data.courseImg
+          );
+        });
+      }
+
+      function getCoursesDataAndDrawChart() {
+        $.ajax({
+          url: url + "/courses/getCourses",
+          method: "GET",
+          xhrFields: {
+            withCredentials: true,
+          },
+          success: function (data) {
+            console.log(data);
+            let language = 0;
+            let program = 0;
+            let cook = 0;
+            let art = 0;
+            let sport = 0;
+            let finance = 0;
+
+            let chartData2 = new google.visualization.DataTable();
+            chartData2.addColumn("string", "課程名稱");
+            chartData2.addColumn("number", "價格");
+
+            let chartData3 = new google.visualization.DataTable();
+            chartData3.addColumn("string", "課程名稱");
+            chartData3.addColumn("number", "學生人數");
+
+            let chartData4 = new google.visualization.DataTable();
+            chartData4.addColumn("string", "課程名稱");
+            chartData4.addColumn("number", "平均分數");
+
+            $.each(data, (idx, item) => {
+              chartData2.addRow([item.courseName, item.price]);
+              switch (item.courseType) {
+                case "語言學習":
+                  language += 1;
+                  break;
+                case "程式設計":
+                  program += 1;
+                  break;
+                case "美食料理":
+                  cook += 1;
+                  break;
+                case "藝術創作":
+                  art += 1;
+                  break;
+                case "運動健身":
+                  sport += 1;
+                  break;
+                case "理財投資":
+                  finance += 1;
+                  break;
+                default:
+                  break;
+              }
+
+              $.ajax({
+                url: url + `/purchased-courses/${item.courseId}`,
+                method: "GET",
+                xhrFields: {
+                  withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+                },
+              }).done((data) => {
+                //學生人數
+                chartData3.addRow([data[0].courses.courseName, data.length]);
+                const chart3 = new google.visualization.ColumnChart(
+                  document.getElementById("chart3")
+                );
+                const options3 = {
+                  title: "學生人數",
+                  width: "100%",
+                  height: 400,
+                  hAxis: { title: "課程名稱" },
+                  vAxis: { title: "學生人數" },
+                  legend: { position: "none" },
+                  titleTextStyle: {
+                    fontSize: 24,
+                    fontWeight: "700",
+                    fontName: "Roboto",
+                  },
+                };
+                chart3.draw(chartData3, options3);
+              });
+
+              $.ajax({
+                url: url + `/purchased-courses/${item.courseId}/average-rate`,
+                method: "GET",
+                xhrFields: {
+                  withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+                },
+              }).done((data) => {
+                chartData4.addRow([item.courseName, data]);
+                //評價
+                const options4 = {
+                  title: "平均分數",
+                  width: "100%",
+                  height: 400,
+                  hAxis: { title: "課程名稱" },
+                  vAxis: {
+                    title: "評價",
+                    viewWindow: {
+                      min: 0,
+                      max: 5.0,
+                    },
+                  },
+                  legend: { position: "none" },
+                  titleTextStyle: {
+                    fontSize: 24,
+                    fontWeight: "700",
+                    fontName: "Roboto",
+                  },
+                };
+
+                const chart4 = new google.visualization.ColumnChart(
+                  document.getElementById("chart4")
+                );
+                chart4.draw(chartData4, options4);
+              });
+
+              let chartData = google.visualization.arrayToDataTable([
+                ["課程類別", "數量"],
+                ["語言學習", language],
+                ["程式設計", program],
+                ["美食料理", cook],
+                ["藝術創作", art],
+                ["運動健身", sport],
+                ["理財投資", finance],
+              ]);
+              //主題
+              const options = {
+                title: "課程主題",
+                width: "100%",
+                height: 400,
+                titleTextStyle: {
+                  fontSize: 24,
+                  fontWeight: "700",
+                  fontName: "Roboto",
+                },
+                colors: [
+                  "#005AB5",
+                  "#0072E3",
+                  "#2828FF",
+                  "#6A6AFF",
+                  "#9393FF",
+                  "#66B3FF",
+                ],
+              };
+              //價格
+              const options2 = {
+                title: "價格分佈",
+                width: "100%",
+                height: 400,
+                hAxis: { title: "課程名稱" },
+                vAxis: { title: "價格" },
+                legend: { position: "none" },
+                titleTextStyle: {
+                  fontSize: 24,
+                  fontWeight: "700",
+                  fontName: "Roboto",
+                },
+              };
+
+              const chart = new google.visualization.PieChart(
+                document.getElementById("chart")
+              );
+              chart.draw(chartData, options);
+
+              const chart2 = new google.visualization.ColumnChart(
+                document.getElementById("chart2")
+              );
+              chart2.draw(chartData2, options2);
+            });
+          },
+        });
+      }
+
+      function getCourseAndDrawChart() {
+        $.ajax({
+          url: url + `/courses/${$("#course").val()}`,
+          method: "GET",
+        }).done((data) => {});
+      }
+
+      $("#course").on("change", () => {
+        switch (nowPage) {
+          case "studentList":
+            $("#studentTable").empty();
+            $("#studentTable").append(`
+          <tr>
+          <th>學生</th>
+          <th>完成進度</th>
+          </tr>
+          `);
+            studentList();
+            break;
+          case "analyze":
+            break;
+          case "overview":
+            overview();
+            break;
+          default:
+            changeTitle();
+            break;
+        }
+      });
+
+      async function load() {
+        await $.ajax({
+          url: url + "/courses/getCourses",
+          method: "GET",
+          xhrFields: {
+            withCredentials: true,
+          },
+        }).done((data) => {
+          if (data.length == 0) {
+            window.location.href = "../index.html";
+          }
+          $.each(data, (idx, item) => {
+            $("#courseName").text(data[0].courseName);
+            $("#courseImg").prop(
+              "src",
+              "data:image/png;base64," + data[0].courseImg
+            );
+            $("#course").append(`
+                    <option value="${item.courseId}">${item.courseName}</option>
+                    `);
+          });
+        });
+      }
+      let isMenuExpanded = false;
+      $(".btnStatisticsMenu").on("click", function () {
+        if (!isMenuExpanded) {
+          $("#statisticsMenu").removeClass("hidden");
+          $("#statisticsMenu").animate({ left: "0" }, 300);
+          $(".btnStatisticsMenu").animate({ left: "18rem" }, 300);
+          $(".btnStatisticsMenu").html(`<i class="bi bi-chevron-left"></i>`);
+        } else {
+          $("#statisticsMenu").animate({ left: "-18rem" }, 300);
+          $(".btnStatisticsMenu").animate({ left: "0" }, 300);
+          $(".btnStatisticsMenu").html(`<i class="bi bi-chevron-right"></i>`);
+        }
+        isMenuExpanded = !isMenuExpanded;
+      });
+      load();
+      $(document).ready(function () {
+        setTimeout("overview()", 100);
+        setTimeout('$("#mask").remove();', 100);
+      });
+
+      async function islogin() {
+        const isLoginResponse = await fetch(url + "/user/islogin", {
+          method: "GET",
+          credentials: "include",
+        });
+        const isLoggedIn = await isLoginResponse.text();
+        if (isLoggedIn != "true") {
+          window.location.href = "../index.html";
+        } else {
+          res();
+        }
+      }
+      islogin();
+    </script>
+  </body>
+</html>

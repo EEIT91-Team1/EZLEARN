@@ -157,4 +157,11 @@ public class ProgressController {
         
         return ResponseEntity.ok(res);
     }
+	
+	@GetMapping("/{userId}/{courseId}")
+    public ResponseEntity<?> getUserProgress(@PathVariable Long userId,@PathVariable Long courseId) {
+		Double completedPercentage = progressService.getCompletedPercentageByUserAndCourse(userId, courseId);
+
+        return ResponseEntity.ok(completedPercentage);
+    }
 }

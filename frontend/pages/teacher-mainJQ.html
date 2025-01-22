@@ -21,7 +21,7 @@
     <main>
       <div class="flex mx-auto">
         <aside
-          class="h-full border-r-[1px] border-gray-400 p-0 absolute -left-32 md:static z-10 bg-white"
+          class="h-lvh border-r-[1px] border-gray-400 p-0 absolute -left-32 md:left-0 md:relative z-[1] bg-white"
         >
           <div class="w-32 p-4">
             <ul class="space-y-2">
@@ -53,6 +53,18 @@
                 >
                   <i id="i3" class="bi bi-megaphone-fill left-2 absolute"></i>
                   公告
+                </button>
+              </li>
+              <li>
+                <button
+                  id="btn5"
+                  class="block py-3 w-24 border border-black rounded bg-gray-100 hover:bg-gray-300 relative"
+                >
+                  報表
+                  <i
+                    id="i5"
+                    class="bi bi-bar-chart-line-fill left-2 absolute"
+                  ></i>
                 </button>
               </li>
             </ul>
@@ -188,6 +200,9 @@
             .then((data) => {
               $("#article").html(data);
             });
+        };
+        btn5.onclick = function () {
+          window.location.href = "./statistics.html";
         };
       });
 
