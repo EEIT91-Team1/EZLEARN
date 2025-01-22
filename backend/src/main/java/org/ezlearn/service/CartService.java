@@ -71,16 +71,17 @@ public class CartService {
         }
         
         // 創建並保存購物車項目
-        Cart cart = new Cart();
+        Courses course = coursesRepository.findByCourseId(courseId); 
+        Cart cart = new Cart(userId, courseId, user, course);
         
         cart.setUsers(user);
-        Courses course = coursesRepository.findByCourseId(courseId); 
         cart.setCourses(course);
         
         try {
             cartRepository.save(cart);
             return true;
         } catch (Exception e) {
+        	System.out.println(e);
             return false;
         }
     }

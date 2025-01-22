@@ -67,6 +67,7 @@ public class CartController {
                     .body(ApiResponse.error(400, "課程已在購物車中"));
             }
         } catch (Exception e) {
+        	System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(ApiResponse.error(500, "加入購物車失敗"));
         }

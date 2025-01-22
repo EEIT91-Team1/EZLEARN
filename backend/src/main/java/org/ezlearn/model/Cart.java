@@ -57,6 +57,7 @@ public class Cart {
     }
 
     public Cart(Long userId, Long courseId, Users user, Courses course) {
+    	this.cartId = new CartId(userId, courseId);
         this.users = user;
         this.courses = course;
     }
