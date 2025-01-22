@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
+import org.ezlearn.model.Courses;
 import org.ezlearn.model.Posts;
 import org.ezlearn.model.Questions;
+import org.ezlearn.repository.CoursesRepository;
 import org.ezlearn.service.NotifyService;
 import org.ezlearn.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,11 @@ public class TeacherController {
 	public List<Posts> teachergetpost(@PathVariable Long courseid) {
 		List<Posts> postlist = teacherservice.getpost(courseid);
 		return postlist;
+	}
+	
+	@PutMapping("/editcourse")
+	@CrossOrigin(origins = "http://127.0.0.1:5500",allowCredentials = "true")
+	public void editcourse(@RequestBody Courses course) {
+		teacherservice.editcoursedetail(course);
 	}
 }

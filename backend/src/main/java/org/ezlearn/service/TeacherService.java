@@ -48,6 +48,10 @@ public class TeacherService {
 			byte[] imgfile = course.getCourseImg();
 			String imgbase64 = Base64.getEncoder().encodeToString(imgfile);
 			test.put("courseName",course.getCourseName());
+			test.put("price",course.getPrice());
+			test.put("courseSummary",course.getCourseSummary());
+			test.put("courseIntro",course.getCourseIntro());
+			test.put("courseType",course.getCourseType());
 			test.put("courseImgbase64", imgbase64);
 			test.put("courseid",course.getCourseId());
 			detaillist.add(test);
@@ -97,5 +101,16 @@ public class TeacherService {
 		course.setCourseId(courseid);
 		List<Posts> postlist = postsRepository.findByCourses(course);
 		return postlist;
+	}
+	
+	public void editcoursedetail(Courses course) {
+		Courses editcourse = coursesrepository.findByCourseId(course.getCourseId());
+		editcourse.setCourseName(course.getCourseName());
+		editcourse.setPrice(course.getPrice());
+		editcourse.setCourseType(course.getCourseType());
+		editcourse.setCourseSummary(course.getCourseSummary());
+		editcourse.setCourseIntro(course.getCourseIntro());
+		editcourse.setCourseImg(course.getCourseImg());
+		coursesrepository.save(editcourse);
 	}
 }

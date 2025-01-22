@@ -195,3 +195,29 @@ $("#btnNavSearch").on("click", () => {
     $("#navbarFormSearch").removeClass("flex");
   }
 });
+
+//購物車
+function loadNavbarCart() {
+  $.ajax({
+    url: "http://localhost:8080/api/cart",
+    method: "GET",
+    xhrFields: {
+      withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
+    },
+  }).done((data) => {
+    let carts = data.data.items;
+    $(".cartCount").remove();
+    if (carts.length > 0 && carts.length < 10) {
+      $("#cart").append(`
+      <p class="rounded-full h-5 w-5 text-sm text-center tracking-tighter text-white bg-red-500 absolute -top-1 right-4 cartCount">
+      ${carts.length}
+      </p>`);
+    } else if (carts.length >= 10) {
+      $("#cart").append(`
+        <p class="rounded-full h-5 w-5 text-sm text-center tracking-tighter text-white bg-red-500 absolute -top-1 right-4 cartCount">
+        9+
+        </p>`);
+    }
+  });
+}
+loadNavbarCart();

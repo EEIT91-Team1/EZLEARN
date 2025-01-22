@@ -73,5 +73,10 @@ public class PurchasedCoursesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
+	
+	 @GetMapping("/isPurchased/{courseId}")
+	 public boolean isPurchased(HttpSession session,@PathVariable Long courseId) {
+		 Users users = (Users)session.getAttribute("user");
+		 return purchasedCoursesService.isPurchased(session,courseId);
+	 }
 }
