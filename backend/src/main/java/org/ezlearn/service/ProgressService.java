@@ -71,6 +71,9 @@ public class ProgressService {
 		for(PurchasedCourses course : purchasedCourses ) {
 		Map<String, String> map=new HashMap<String, String>();
 		Double completedPercentage= progressRepository.calculateCompletedPercentageByUserIdAndLessonsCourseId(user.getUserId(), course.getCourses().getCourseId());
+		if (completedPercentage == null) {
+			completedPercentage = 0.0;
+		}
 		map.put("courseId",course.getCourses().getCourseId()+"");
 		map.put("courseName",course.getCourses().getCourseName());
 		map.put("teacher",course.getCourses().getUserInfo().getUserName());
