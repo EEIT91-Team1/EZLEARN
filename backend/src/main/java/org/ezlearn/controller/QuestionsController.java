@@ -35,6 +35,12 @@ public class QuestionsController {
 	@Autowired
 	private HttpSession httpSession;
 	
+	@GetMapping("teacher/{courseId}")
+	public ResponseEntity<?> getByCourseId(@PathVariable Long courseId) {
+		
+		return ResponseEntity.ok(questionsService.getQuestionsByCourseId(courseId));
+	}
+	
 	@GetMapping("courses/{courseId}")
 	public ResponseEntity<?> getQuestionsByCourseId(@PathVariable Long courseId) {
 		if (usersService.islogin(httpSession) == false) {

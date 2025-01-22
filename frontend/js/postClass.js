@@ -33,7 +33,7 @@ function step1() {
 			loadName("#coursename", "test11");
 			loadName("#courseClass", "test14");
 			loadName("#courseIntro", "test21");
-			loadName("#courseSummory", "loadcoursesummory");
+			loadName("#courseSummary", "loadcoursesummary");
 			loadName("#coursePrice", "loadcourseprice")
 			loadImage();
 		});
@@ -103,7 +103,7 @@ function updatFormSteps(params) {
 	formSteps[formStepsNum].classList.add("active");
 }
 
-function changeAddClassButtonColor() {
+function changeAddClassButtonDisplay() {
 	$("#addClassButton").css("display", "none");
 }
 
@@ -118,15 +118,15 @@ function plusInput() {
                 <div
                     class="flex w-full focus-within:outline-black relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  lg:col-span-2 px-4 gap-x-1">
                     <i class="hamburger-icon bi bi-list focus:outline-none  md:text-3xl lg:text-4xl" data-id="1"></i>
-                    <input class=" w-[80%] h-[3rem] outline-none sm:text-sm pl-5 md:text-lg lg:text-3xl " placeholder="${placeHoderText}" type="text" name="courseName${courseIndex}" autocomplete="off">
+                    <input class=" w-[80%] h-[3rem] outline-none sm:text-sm pl-5 md:text-lg md:pt-1 lg:text-4xl " placeholder="${placeHoderText}" type="text" name="courseName${courseIndex}" autocomplete="off">
                     <button type="button" class="  flex absolute focus:outline-none sm:  md:right-4 lg:right-2 ">
                         <i class="bi bi-plus-square-dotted focus:outline-none  md:text-3xl lg:text-4xl" onclick="plusInput(dataInputCount)"></i>
                         <i class="bi bi-trash focus:outline-none md:text-3xl lg:text-4xl" onclick="removeInput(${dataInputCount})"></i>
                     </button>
                 </div>
-                <div class="mt-1 ml-auto w-[80%] flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 -outline-offset-1 outline-gray-300  px-4  gap-x-1 ">
+                <div class="mt-1 ml-auto w-[80%] flex  focus-within:outline-black col-span-2 relative  items-center rounded-md bg-white  outline outline-1 outline-offset-1 outline-gray-300  px-4  gap-x-1 ">
                     <input type="file" accept="video/mp4" class="sr-only w-full  h-[3rem] text-2xl   outline-none  pt-1 " id="lessonLoad${dataInputCount}" name="courseVideo${courseIndex}" onchange="updateFileName(${dataInputCount})">
-					<label for="lessonLoad${dataInputCount}" class="w-full h-[3rem] outline-none cursor-pointer text-gray-400 pt-1 md:text-base pt-3 lg:text-3xl   " id="fileLabel${dataInputCount}" >請上傳課程影片
+					<label for="lessonLoad${dataInputCount}" class="w-full h-[3rem] outline-none cursor-pointer text-gray-400 pt-1  md:text-base md:pt-2 lg:text-4xl   " id="fileLabel${dataInputCount}" >請上傳課程影片
 					
                 </div>
                 </div>`);
@@ -330,7 +330,7 @@ fetch('http://localhost:8080/check/allParameters',{
                  var courseClass = data.courseClass;
                  var coursePrice = data.coursePrice;
                  var courseIntro = data.courseIntro;
-                 var courseSummory = data.courseSummory;
+                 var courseSummary = data.courseSummary;
                  var courseImage = data.courseImage;
              
              
@@ -348,8 +348,8 @@ fetch('http://localhost:8080/check/allParameters',{
              if(courseIntro === "有值"){
                $('#intro').text("已編輯").removeAttr("href");  
              }
-             if(courseSummory === "有值"){
-               $('#summory').text("已編輯").removeAttr("href");  
+             if(courseSummary === "有值"){
+               $('#summary').text("已編輯").removeAttr("href");  
                           }
              if(courseImage === "有值"){
                $('#image').text("已編輯").removeAttr("href");  
