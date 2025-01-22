@@ -22,6 +22,9 @@
     <main class="container mx-auto px-4 py-8">
       <h1 class="text-3xl font-bold mb-8">購物車</h1>
 
+      <!-- 新增訊息提示區域 -->
+      <div id="messageContainer" class="mb-6"></div>
+
       <div class="flex flex-col lg:flex-row gap-8">
         <div class="lg:w-2/3">
           <div class="bg-white rounded-lg shadow p-6">
@@ -36,66 +39,47 @@
               <span class="w-16"></span>
             </div>
 
-            <div class="border-t py-4">
-              <div class="flex items-center">
-                <input
-                  type="checkbox"
-                  class="cart-item mr-4"
-                  onchange="updateOrderSummary()"
-                />
-                <div class="flex-grow flex items-center">
-                  <img
-                    src="../imgs/course-placeholder.jpg"
-                    alt="課程圖片"
-                    class="w-32 h-24 object-cover rounded mr-4"
-                  />
-                  <div>
-                    <h3 class="text-lg font-medium">
-                      課程名稱
-                    </h3>
-                    <div class="text-gray-600">
-                      課程資訊/優惠資訊
-                    </div>
-                  </div>
-                </div>
-                <span class="w-32 text-right price"
-                  >NT$ 9999</span
-                >
-                <button
-                  onclick="removeItem(this)"
-                  class="w-16 text-right text-gray-500 hover:text-red-500"
-                >
-                  刪除
-                </button>
-              </div>
+            <div class="border-t py-4" id="cartItems">
+              <!-- 這裡會動態插入購物車項目 -->
             </div>
           </div>
         </div>
 
         <div class="lg:w-1/3">
-          <div class="bg-white rounded-lg shadow p-6">
+          <div
+            class="bg-white rounded-lg shadow p-6 sticky top-4"
+          >
             <h2 class="text-xl font-bold mb-4">訂單明細</h2>
-            <div class="flex justify-between mb-2">
-              <span
-                ><span id="selectedItemCount">0</span>
-                件商品</span
+
+            <div class="border-t border-b py-4 space-y-2">
+              <div class="flex justify-between mb-2">
+                <span
+                  ><span id="selectedItemCount">0</span>
+                  件商品</span
+                >
+                <span
+                  >NT$ <span id="subtotal">0</span></span
+                >
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div
+                class="flex justify-between font-bold text-xl"
               >
-              <span>NT$ <span id="subtotal">0</span></span>
+                <span>總計</span>
+                <span>NT$ <span id="total">0</span></span>
+              </div>
+
+              <button
+                id="checkoutButton"
+                onclick="proceedToCheckout()"
+                class="w-full mt-4 bg-black text-white py-3 rounded-lg hover:bg-gray-800 disabled:bg-gray-400"
+                disabled
+              >
+                前往結帳
+              </button>
             </div>
-            <div
-              class="flex justify-between text-2xl font-bold mb-6"
-            >
-              <span>總計</span>
-              <span>NT$ <span id="total">0</span> 元</span>
-            </div>
-            <button
-              onclick="proceedToCheckout()"
-              class="w-full bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition"
-              id="checkoutButton"
-              disabled
-            >
-              結帳
-            </button>
           </div>
         </div>
       </div>
@@ -104,17 +88,295 @@
     <div id="footer"></div>
     <script src="../js/header-footer.js"></script>
     <script>
-      function toggleAllItems(checkbox) {
-        document
-          .querySelectorAll(".cart-item")
-          .forEach((item) => {
-            item.checked = checkbox.checked;
-          });
-        updateOrderSummary();
+      const API_BASE_URL = "http://localhost:8080";
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        async function () {
+          // 載入 navbar 和 footer
+          $("#navbar").load(
+            "../components/navbar.html",
+            function () {
+              // navbar 載入完成後檢查登入
+              checkLoginAndLoadCart();
+            }
+          );
+          $("#footer").load("../components/footer.html");
+        }
+      );
+
+      // 分離登入檢查和購物車載入邏輯
+      async function checkLoginAndLoadCart() {
+        try {
+          console.log("開始檢查登入狀態...");
+          const response = await fetch(
+            `${API_BASE_URL}/user/islogin`,
+            {
+              credentials: "include",
+            }
+          );
+
+          console.log("登入檢查回應:", response);
+          const isLoggedIn = await response.text();
+          console.log("登入狀態:", isLoggedIn);
+
+          if (isLoggedIn === "false") {
+            console.log("用戶未登入，準備跳轉到登入頁面");
+            window.location.href = "login.html";
+            return;
+          }
+
+          console.log("用戶已登入，準備載入購物車");
+          await loadCartItems();
+        } catch (error) {
+          console.error("檢查登入狀態失敗：", error);
+          window.location.href = "login.html";
+        }
       }
 
-      function removeItem(button) {
-        button.closest(".border-t").remove();
+      async function loadCartItems() {
+        try {
+          console.log("開始獲取購物車資料...");
+          const response = await fetch(
+            `${API_BASE_URL}/api/cart`,
+            {
+              credentials: "include",
+            }
+          );
+
+          console.log("購物車API回應:", response);
+          if (!response.ok) {
+            console.log("回應狀態:", response.status);
+            throw new Error(
+              `HTTP error! status: ${response.status}`
+            );
+          }
+
+          const result = await response.json();
+          console.log("購物車數據：", result);
+
+          if (result.code === 200) {
+            const cartItems = result.data.items;
+            console.log("購物車項目：", cartItems);
+            const cartItemsContainer =
+              document.getElementById("cartItems");
+            const messageContainer =
+              document.getElementById("messageContainer");
+
+            // 顯示消息（如果有的話）
+            if (
+              result.data.messages &&
+              result.data.messages.length > 0
+            ) {
+              messageContainer.innerHTML =
+                result.data.messages
+                  .map(
+                    (msg) => `
+                        <div class="flex items-center p-4 mb-4 bg-yellow-100 border-l-4 border-yellow-500 rounded-lg">
+                            <div class="flex-shrink-0">
+                                <i class="bi bi-info-circle text-yellow-500 text-xl mr-3"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-yellow-700">${msg}</p>
+                            </div>
+                        </div>
+                    `
+                  )
+                  .join("");
+
+              // 5秒後自動淡出訊息
+              setTimeout(() => {
+                const messages =
+                  messageContainer.querySelectorAll("div");
+                messages.forEach((msg) => {
+                  msg.style.transition =
+                    "opacity 0.5s ease-out";
+                  msg.style.opacity = "0";
+                });
+                setTimeout(() => {
+                  messageContainer.innerHTML = "";
+                }, 500);
+              }, 5000);
+            }
+
+            // 如果購物車為空
+            if (
+              !result.data.items ||
+              result.data.items.length === 0
+            ) {
+              cartItemsContainer.innerHTML = `
+                    <div class="text-center py-8">
+                      <i class="bi bi-cart text-gray-400 text-5xl mb-4"></i>
+                      <p class="text-gray-500">購物車是空的</p>
+                    </div>
+                  `;
+              return;
+            }
+
+            // 顯示購物車項目
+            cartItemsContainer.innerHTML +=
+              result.data.items
+                .map(
+                  (item) => `
+                  <div class="flex items-center" data-course-id="${
+                    item.courseId
+                  }">
+                    <input type="checkbox" class="cart-item mr-4" onchange="updateOrderSummary()">
+                    <div class="flex-grow flex items-center">
+                      <img src="${item.courseImg}" alt="${
+                    item.courseName
+                  }" 
+                           class="w-32 h-24 object-cover rounded mr-4">
+                      <div class="flex-1 min-w-0 mr-8 max-w-[calc(100%-200px)]">
+                        <h3 class="text-lg font-medium truncate">${
+                          item.courseName
+                        }</h3>
+                        <div class="text-gray-600 line-clamp-3 text-sm">
+                            ${item.courseIntro}
+                        </div>
+                      </div>
+                    </div>
+                    <span class="w-32 text-right price shrink-0">NT$ ${item.price.toLocaleString()}</span>
+                    <button onclick="removeItem(this)" class="w-16 text-right text-gray-500 hover:text-red-500 shrink-0">
+                      刪除
+                    </button>
+                  </div>
+                `
+                )
+                .join("");
+          } else {
+            throw new Error(
+              result.message || "獲取購物車失敗"
+            );
+          }
+        } catch (error) {
+          console.error("獲取購物車失敗：", error);
+          const cartItemsContainer =
+            document.getElementById("cartItems");
+          cartItemsContainer.innerHTML = `
+                <div class="text-center py-8 text-gray-500">
+                    載入購物車時發生錯誤
+                </div>
+            `;
+        }
+      }
+
+      async function removeItem(button) {
+        const itemContainer = button.closest(".flex");
+        const courseId = itemContainer.dataset.courseId;
+
+        try {
+          const response = await fetch(
+            `${API_BASE_URL}/api/cart/${courseId}`,
+            {
+              method: "DELETE",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (response.ok) {
+            itemContainer.remove();
+            updateOrderSummary();
+          } else {
+            alert("刪除失敗");
+          }
+        } catch (error) {
+          console.error("刪除失敗：", error);
+          alert("刪除失敗，請稍後再試");
+        }
+      }
+
+      async function proceedToCheckout() {
+        const checkedItems = document.querySelectorAll(
+          ".cart-item:checked"
+        );
+        if (checkedItems.length === 0) {
+          alert("請選擇要購買的課程");
+          return;
+        }
+
+        const courseIds = Array.from(checkedItems).map(
+          (item) => {
+            const itemContainer = item.closest(".flex");
+            return parseInt(itemContainer.dataset.courseId);
+          }
+        );
+
+        try {
+          // 1. 先驗證價格
+          const verifyResponse = await fetch(
+            `${API_BASE_URL}/api/cart/verify`,
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ courseIds }),
+            }
+          );
+
+          const verifyResult = await verifyResponse.json();
+          console.log("價格驗證結果：", verifyResult); // 添加日誌
+
+          if (verifyResult.code === 200) {
+            const displayedTotal = parseInt(
+              document
+                .getElementById("total")
+                .textContent.replace(/[^\d]/g, "")
+            );
+            const serverTotal =
+              verifyResult.data.totalAmount;
+
+            if (displayedTotal !== serverTotal) {
+              alert("價格資訊已更新，請重新確認");
+              location.reload(); // 只在價格不符時重新載入
+              return;
+            }
+
+            // 2. 創建訂單
+            console.log(
+              "開始創建訂單，courseIds:",
+              courseIds
+            ); // 添加日誌
+            const response = await fetch(
+              `${API_BASE_URL}/api/checkout/create`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ courseIds }),
+              }
+            );
+
+            const result = await response.json();
+            console.log("創建訂單結果：", result); // 添加日誌
+
+            if (result.code === 200) {
+              window.location.href = `order.html?orderId=${result.data.orderId}`;
+            } else {
+              alert("結帳失敗：" + result.message);
+            }
+          } else {
+            alert("價格驗證失敗：" + verifyResult.message);
+          }
+        } catch (error) {
+          console.error("結帳失敗：", error);
+          alert("結帳失敗，請稍後再試");
+        }
+      }
+
+      function toggleAllItems(checkbox) {
+        const cartItems =
+          document.querySelectorAll(".cart-item");
+        cartItems.forEach((item) => {
+          item.checked = checkbox.checked;
+        });
         updateOrderSummary();
       }
 
@@ -126,53 +388,31 @@
           "selectedItemCount"
         ).textContent = checkedItems.length;
 
+        // 計算選中項目的總價
         let total = 0;
-        const selectedItems = [];
-
         checkedItems.forEach((item) => {
           const itemContainer = item.closest(".flex");
           const priceElement =
             itemContainer.querySelector(".price");
-          const titleElement =
-            itemContainer.querySelector("h3");
           const price = parseInt(
             priceElement.textContent
               .replace("NT$ ", "")
               .replace(",", "")
           );
-
-          selectedItems.push({
-            title: titleElement.textContent,
-            price: price,
-          });
-
           total += price;
         });
 
+        // 更新顯示金額
         document.getElementById("subtotal").textContent =
           total.toLocaleString();
         document.getElementById("total").textContent =
           total.toLocaleString();
 
+        // 更新結帳按鈕狀態
         const checkoutButton = document.getElementById(
           "checkoutButton"
         );
         checkoutButton.disabled = checkedItems.length === 0;
-
-        localStorage.setItem(
-          "cartItems",
-          JSON.stringify(selectedItems)
-        );
-        localStorage.setItem("cartTotal", total);
-      }
-
-      function proceedToCheckout() {
-        const checkedItems = document.querySelectorAll(
-          ".cart-item:checked"
-        );
-        if (checkedItems.length > 0) {
-          window.location.href = "order.html";
-        }
       }
     </script>
   </body>
