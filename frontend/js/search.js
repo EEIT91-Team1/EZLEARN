@@ -1,3 +1,30 @@
+//購物車
+async function addCart(id) {
+  if ($(`#cart${id}`).hasClass("isCart")) {
+    const url = `http://localhost:8080/api/cart/${id}`;
+    await $.ajax({
+      url: url,
+      method: "DELETE",
+      contentType: "application/json",
+      xhrFields: {
+        withCredentials: true,
+      },
+    });
+  } else {
+    const url = `http://localhost:8080/api/cart?courseId=${id}`;
+    await $.ajax({
+      url: url,
+      method: "POST",
+      contentType: "application/json",
+      xhrFields: {
+        withCredentials: true,
+      },
+    });
+  }
+  loadResults();
+  loadNavbarCart();
+}
+
 //願望清單
 async function addWishList(id) {
   if ($(`#wish${id}`).hasClass("isWish")) {
@@ -193,6 +220,9 @@ async function loadResults() {
                </div>
           </div></a>
                <div class="text-4xl text-end absolute bottom-4 right-8 z-10">
+               <i onclick="addCart(${item.courseId})" id="cart${
+            item.courseId
+          }" class="bi bi-cart-fill text-gray-100 hover:text-blue-400 duration-300 mr-2 cursor-pointer"></i>
                <i onclick="addWishList(${item.courseId})" id="wish${
             item.courseId
           }" class="bi bi-heart-fill text-gray-100 hover:text-red-400 duration-300 mr-2 cursor-pointer"></i>
@@ -201,6 +231,23 @@ async function loadResults() {
         );
       }
     });
+  });
+
+  await $.ajax({
+    url: "http://localhost:8080/api/cart",
+    method: "GET",
+    xhrFields: {
+      withCredentials: true,
+    },
+  }).done((data) => {
+    let carts = data.data.items;
+    console.log(carts);
+    if (carts.length != 0) {
+      $.each(carts, function (idx, item) {
+        $(`#cart${item.courseId}`).css("color", "rgb(96 165 250)");
+        $(`#cart${item.courseId}`).addClass("isCart");
+      });
+    }
   });
 
   await $.ajax({
