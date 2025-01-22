@@ -44,3 +44,4 @@ Thumbs.db
 *.tmp     
 /.metadata/     
 backend/src/main/resources/gcs-service-key.json
+frontend/token.json

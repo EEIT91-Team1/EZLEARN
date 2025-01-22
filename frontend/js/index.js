@@ -322,13 +322,15 @@ async function aiApi(qs) {
     top_p: 1,
   };
 
+  const response = await fetch("./token.json");
+  const headers = await response.json();
+  console.log(headers[0]);
+  console.log(headers[1]);
   await $.ajax({
     url: "https://models.inference.ai.azure.com/chat/completions",
     method: "POST",
     contentType: "application/json",
-    headers: {
-      Authorization: "",
-    },
+    headers: headers[0],
     data: JSON.stringify(data),
   })
     .done((response) => {
@@ -364,8 +366,11 @@ $("#btnCustomerService").on("click", () => {
 
 $("#btnQs").on("click", () => {
   event.preventDefault();
-  $("#btnQs").prop("disabled", true).text("回覆中");
   let qs = $("#qs").val();
+  if (qs == "") {
+    return;
+  }
+  $("#btnQs").prop("disabled", true).text("回覆中");
   $("#qsResults").append(`
             <div class="relative mb-4 max-w-[80%] py-2 px-3 bg-gray-200 text-gray-800 rounded-lg border border-gray-300 self-end"              style="
                 word-wrap: break-word;
@@ -443,13 +448,14 @@ async function keyword(key) {
     top_p: 1,
   };
 
+  const response = await fetch("./token.json");
+  const headers = await response.json();
+
   await $.ajax({
     url: "https://models.inference.ai.azure.com/chat/completions",
     method: "POST",
     contentType: "application/json",
-    headers: {
-      Authorization: "",
-    },
+    headers: headers[1],
     data: JSON.stringify(data),
   })
     .done((response) => {
