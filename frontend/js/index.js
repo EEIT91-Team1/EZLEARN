@@ -322,14 +322,15 @@ async function aiApi(qs) {
     top_p: 1,
   };
 
+  const response = await fetch("./token.json");
+  const headers = await response.json();
+  console.log(headers[0]);
+  console.log(headers[1]);
   await $.ajax({
     url: "https://models.inference.ai.azure.com/chat/completions",
     method: "POST",
     contentType: "application/json",
-    headers: {
-      Authorization:
-        "Bearer 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",
-    },
+    headers: headers[0],
     data: JSON.stringify(data),
   })
     .done((response) => {
@@ -365,8 +366,11 @@ $("#btnCustomerService").on("click", () => {
 
 $("#btnQs").on("click", () => {
   event.preventDefault();
-  $("#btnQs").prop("disabled", true).text("回覆中");
   let qs = $("#qs").val();
+  if (qs == "") {
+    return;
+  }
+  $("#btnQs").prop("disabled", true).text("回覆中");
   $("#qsResults").append(`
             <div class="relative mb-4 max-w-[80%] py-2 px-3 bg-gray-200 text-gray-800 rounded-lg border border-gray-300 self-end"              style="
                 word-wrap: break-word;
@@ -401,6 +405,9 @@ let updateDebounceText = debounce((text) => {
     iskeywordNull = true;
   }
 }, 700);
+let blurHidden = debounce(() => {
+  $("#keyword").addClass("hidden");
+}, 100);
 
 $("#inputSearch").on("input", function () {
   let searchText = $(this).val();
@@ -408,7 +415,7 @@ $("#inputSearch").on("input", function () {
 });
 
 $("#inputSearch").on("blur", function () {
-  $("#keyword").addClass("hidden");
+  blurHidden();
 });
 
 $("#inputSearch").on("focus", function () {
@@ -441,14 +448,14 @@ async function keyword(key) {
     top_p: 1,
   };
 
+  const response = await fetch("./token.json");
+  const headers = await response.json();
+
   await $.ajax({
     url: "https://models.inference.ai.azure.com/chat/completions",
     method: "POST",
     contentType: "application/json",
-    headers: {
-      Authorization:
-        "Bearer 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",
-    },
+    headers: headers[1],
     data: JSON.stringify(data),
   })
     .done((response) => {

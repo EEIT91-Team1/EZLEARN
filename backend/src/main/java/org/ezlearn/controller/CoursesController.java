@@ -7,6 +7,7 @@ import java.util.Map;
 import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.ezlearn.model.Courses;
 import org.ezlearn.model.UserInfo;
+import org.ezlearn.model.Users;
 import org.ezlearn.service.CoursesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/courses")
@@ -41,5 +44,12 @@ public class CoursesController {
 	@GetMapping("/getAllNameId")
 	public List<Map<String,String>> getAll(){
 	return coursesService.getAllNameId();		
+	}
+	@GetMapping("/getCourses")
+	public List<Courses> getCoursesByTeacherId(HttpSession session) {
+		Users user = (Users) session.getAttribute("user");
+		UserInfo userInfo = new UserInfo();
+		userInfo.setUserId(user.getUserId());
+		return coursesService.getCoursesByUsers(userInfo);
 	}
 }

@@ -146,7 +146,7 @@ public class ProgressController {
 		Users user = (Users) httpSession.getAttribute("user");
         Double completedPercentage = progressService.getCompletedPercentageByUserAndCourse(user.getUserId(), courseId);
         
-        return ResponseEntity.ok(completedPercentage);
+        return ResponseEntity.ok(completedPercentage != null ? completedPercentage : 0.0);
     }
 	
 	@GetMapping("/user")
@@ -156,5 +156,12 @@ public class ProgressController {
 		List<Map<String,String>> res= progressService.getUserProgress(user);
         
         return ResponseEntity.ok(res);
+    }
+	
+	@GetMapping("/{userId}/{courseId}")
+    public ResponseEntity<?> getUserProgress(@PathVariable Long userId,@PathVariable Long courseId) {
+		Double completedPercentage = progressService.getCompletedPercentageByUserAndCourse(userId, courseId);
+
+        return ResponseEntity.ok(completedPercentage);
     }
 }
