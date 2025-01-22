@@ -1,56 +1,105 @@
+let url = "http://localhost:8080";
+
 //購物車
 async function addCart(id) {
-  if ($(`#cart${id}`).hasClass("isCart")) {
-    const url = `http://localhost:8080/api/cart/${id}`;
-    await $.ajax({
-      url: url,
-      method: "DELETE",
-      contentType: "application/json",
-      xhrFields: {
-        withCredentials: true,
-      },
-    });
+  let hasCourse = false;
+  await $.ajax({
+    url: url + `/purchased-courses/isPurchased/${id}`,
+    method: "GET",
+    xhrFields: {
+      withCredentials: true,
+    },
+  }).done((data) => {
+    if (data == true) {
+      hasCourse = true;
+    }
+  });
+  if (hasCourse == false) {
+    if ($(`#cart${id}`).hasClass("isCart")) {
+      await $.ajax({
+        url: url + `/api/cart/${id}`,
+        method: "DELETE",
+        contentType: "application/json",
+        xhrFields: {
+          withCredentials: true,
+        },
+      });
+    } else {
+      let check = false;
+      await $.ajax({
+        url: url + "/courses/getCourses",
+        method: "GET",
+        contentType: "application/json",
+        xhrFields: {
+          withCredentials: true,
+        },
+      }).done((data) => {
+        $.each(data, (idx, item) => {
+          if (item.courseId == id) {
+            check = true;
+          }
+        });
+      });
+      if (check == true) {
+        alert("無法將自己的課程加入購物車");
+      } else {
+        await $.ajax({
+          url: url + `/api/cart?courseId=${id}`,
+          method: "POST",
+          contentType: "application/json",
+          xhrFields: {
+            withCredentials: true,
+          },
+        });
+      }
+    }
+    loadResults();
+    loadNavbarCart();
   } else {
-    const url = `http://localhost:8080/api/cart?courseId=${id}`;
-    await $.ajax({
-      url: url,
-      method: "POST",
-      contentType: "application/json",
-      xhrFields: {
-        withCredentials: true,
-      },
-    });
+    alert("你已擁有該課程");
   }
-  loadResults();
-  loadNavbarCart();
 }
 
 //願望清單
 async function addWishList(id) {
-  if ($(`#wish${id}`).hasClass("isWish")) {
-    const url = `http://localhost:8080/wishList/delete?courseId=${id}`;
-    await $.ajax({
-      url: url,
-      method: "POST",
-      xhrFields: {
-        withCredentials: true,
-      },
-    });
+  let hasCourse = false;
+  await $.ajax({
+    url: url + `/purchased-courses/isPurchased/${id}`,
+    method: "GET",
+    xhrFields: {
+      withCredentials: true,
+    },
+  }).done((data) => {
+    if (data == true) {
+      hasCourse = true;
+    }
+  });
+  if (hasCourse == false) {
+    if ($(`#wish${id}`).hasClass("isWish")) {
+      await $.ajax({
+        url: url + `/wishList/delete?courseId=${id}`,
+        method: "POST",
+        xhrFields: {
+          withCredentials: true,
+        },
+      });
+    } else {
+      await $.ajax({
+        url: url + `/wishList/add?courseId=${id}`,
+        method: "POST",
+        xhrFields: {
+          withCredentials: true,
+        },
+      }).done((data) => {
+        if (data == "isTeacher") {
+          alert("無法將自己的課程加入願望清單");
+        }
+      });
+    }
+    loadResults();
   } else {
-    const url = `http://localhost:8080/wishList/add?courseId=${id}`;
-    await $.ajax({
-      url: url,
-      method: "POST",
-      xhrFields: {
-        withCredentials: true,
-      },
-    }).done((data) => {
-      if (data == "isTeacher") {
-        alert("無法將自己的課程加入願望清單");
-      }
-    });
+    alert("你已擁有該課程");
   }
-  loadResults();
 }
 
 //篩選列隱藏
@@ -140,8 +189,11 @@ function getSearchParams() {
     pageNumber,
   };
 }
-function setUrl(url, params) {
-  return `http://localhost:8080/search/${url}?query=${params.query}${params.page}${params.type}${params.price}${params.rate}${params.sort}`;
+function setUrl(urls, params) {
+  return (
+    url +
+    `/search/${urls}?query=${params.query}${params.page}${params.type}${params.price}${params.rate}${params.sort}`
+  );
 }
 function rateToStars(rate) {
   let stars =
@@ -182,12 +234,12 @@ let hasNextPage = false;
 async function loadResults() {
   hasNextPage = true;
   const params = getSearchParams();
-  const url = setUrl("search", params);
+  const urls = setUrl("search", params);
   $("#pageNumber").text(params.pageNumber);
   $("#divRight").empty();
 
   await $.ajax({
-    url: url,
+    url: urls,
     method: "GET",
   }).done((data) => {
     if (data.length <= 10) {
@@ -234,7 +286,7 @@ async function loadResults() {
   });
 
   await $.ajax({
-    url: "http://localhost:8080/api/cart",
+    url: url + "/api/cart",
     method: "GET",
     xhrFields: {
       withCredentials: true,
@@ -251,7 +303,7 @@ async function loadResults() {
   });
 
   await $.ajax({
-    url: "http://localhost:8080/wishList/get",
+    url: url + "/wishList/get",
     method: "GET",
     xhrFields: {
       withCredentials: true,
@@ -268,9 +320,9 @@ async function loadResults() {
 //查詢筆數
 function getCount() {
   const params = getSearchParams();
-  const url = setUrl("searchCount", params);
+  const urls = setUrl("searchCount", params);
   $.ajax({
-    url: url,
+    url: urls,
     method: "GET",
   }).done((data) => {
     if (params.query == "") {

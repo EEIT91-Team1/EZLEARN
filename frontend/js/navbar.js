@@ -206,13 +206,17 @@ function loadNavbarCart() {
     },
   }).done((data) => {
     let carts = data.data.items;
-    if (carts.length > 0) {
+    $(".cartCount").remove();
+    if (carts.length > 0 && carts.length < 10) {
       $("#cart").append(`
       <p class="rounded-full h-5 w-5 text-sm text-center tracking-tighter text-white bg-red-500 absolute -top-1 right-4 cartCount">
       ${carts.length}
       </p>`);
-    } else {
-      $(".cartCount").remove();
+    } else if (carts.length >= 10) {
+      $("#cart").append(`
+        <p class="rounded-full h-5 w-5 text-sm text-center tracking-tighter text-white bg-red-500 absolute -top-1 right-4 cartCount">
+        9+
+        </p>`);
     }
   });
 }
