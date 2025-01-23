@@ -1,7 +1,22 @@
 let url = "http://localhost:8080";
 
+async function checkLogin() {
+  fetch(url + "/user/islogin", {
+    method: "get",
+    credentials: "include",
+  })
+    .then((response) => response.text())
+    .then((data) => {
+      if (data != "true") {
+        alert("請先登入");
+        window.location.href = "./login.html";
+      }
+    });
+}
+
 //購物車
 async function addCart(id) {
+  checkLogin();
   let hasCourse = false;
   await $.ajax({
     url: url + `/purchased-courses/isPurchased/${id}`,
@@ -62,6 +77,7 @@ async function addCart(id) {
 
 //願望清單
 async function addWishList(id) {
+  checkLogin();
   let hasCourse = false;
   await $.ajax({
     url: url + `/purchased-courses/isPurchased/${id}`,
