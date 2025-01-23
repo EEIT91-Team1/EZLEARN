@@ -50,6 +50,7 @@
             <i class="bi bi-bar-chart-line"></i> 課程統計
           </div> -->
           <div
+            id="courseIncome"
             class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
           >
             <i class="bi bi-cash-coin"></i> 課程收入
@@ -61,6 +62,7 @@
             <i class="bi bi-person-standing"></i> 學生列表
           </div>
           <div
+            id="set"
             class="my-2 p-4 border-2 shadow-sm cursor-pointer hover:bg-gray-200 duration-300 rounded-md"
           >
             <i class="bi bi-wrench"></i> 課程管理
@@ -88,7 +90,7 @@
                 <p id="courseName" class="text-3xl">2</p>
               </div>
             </div>
-            <div id="page" class="text-lg p-2">
+            <div id="page" class="text-lg p-4">
               <div class="m-2 border-2">
                 <h1 class="text-3xl font-bold border-b-2 p-2">銷售狀況</h1>
                 <p class="p-2">
@@ -118,6 +120,8 @@
                   >
                 </p>
               </div>
+
+              <div id="chart" class="w-full"></div>
             </div>
           </div>
         </div>
@@ -142,12 +146,12 @@
         $("#courseName").text("教師數據分析");
         $("#page").empty();
         $("#page").html(`
-        <div class="flex flex-wrap">
-          <div id="chart" class="w-full max-w-[800px]"></div>
-          <div id="chart2" class="w-full max-w-[800px]"></div>
-          <div id="chart3" class="w-full max-w-[800px]"></div>
-          <div id="chart4" class="w-full max-w-[800px]"></div>
-          </div>`);
+              <div class="flex flex-wrap">
+                <div id="chart" class="w-full max-w-[800px]"></div>
+                <div id="chart2" class="w-full max-w-[800px]"></div>
+                <div id="chart3" class="w-full max-w-[800px]"></div>
+                <div id="chart4" class="w-full max-w-[800px]"></div>
+                </div>`);
         $(".target").removeClass("target");
         $(this).addClass("target");
         getCoursesDataAndDrawChart();
@@ -158,13 +162,13 @@
         $("#courseImg").addClass("md:block");
         $("#page").empty();
         $("#page").html(`
-        <table id="studentTable" class="text-2xl m-2 p-2">
-          <tr>
-          <th>學生</th>
-          <th>完成進度</th>
-          </tr>
-          </table>
-          `);
+              <table id="studentTable" class="text-2xl m-2 p-2">
+                <tr>
+                <th>學生</th>
+                <th>完成進度</th>
+                </tr>
+                </table>
+                `);
         $(".target").removeClass("target");
         $(this).addClass("target");
         studentList();
@@ -174,39 +178,78 @@
         $("#courseImg").addClass("md:block");
         $("#page").empty();
         $("#page").html(`
-                 <div class="m-2 border-2">
-                  <h1 class="text-3xl font-bold border-b-2 p-2">銷售狀況</h1>
-                  <p class="p-2">
-                    <i class="bi bi-cash-stack px-1"></i>收入：<span
-                      id="income"
-                    ></span>
-                  </p>
-                  <p class="p-2">
-                    <i class="bi bi-person px-1"></i>學生數：<span
-                      id="students"
-                    ></span>
-                  </p>
-                </div>
-                <div class="m-2 border-2">
-                  <h1 class="text-3xl font-bold border-b-2 p-2">學生回饋</h1>
-                  <p class="p-2">
-                    <i class="bi bi-stars px-1"></i>評價：<span
-                      id="reviews"
-                    ></span>
-                  </p>
-                  <p class="p-2">
-                    <i class="bi bi-chat px-1"></i>互動數：<span id="qa"></span>
-                  </p>
-                  <p class="p-2">
-                    <i class="bi bi-trophy px-1"></i>完成數：<span
-                      id="completed"
-                    >0</span>
-                  </p>
-                </div>
-          `);
+                       <div class="m-2 border-2">
+                        <h1 class="text-3xl font-bold border-b-2 p-2">銷售狀況</h1>
+                        <p class="p-2">
+                          <i class="bi bi-cash-stack px-1"></i>收入：<span
+                            id="income"
+                          ></span>
+                        </p>
+                        <p class="p-2">
+                          <i class="bi bi-person px-1"></i>學生數：<span
+                            id="students"
+                          ></span>
+                        </p>
+                      </div>
+                      <div class="m-2 border-2">
+                        <h1 class="text-3xl font-bold border-b-2 p-2">學生回饋</h1>
+                        <p class="p-2">
+                          <i class="bi bi-stars px-1"></i>評價：<span
+                            id="reviews"
+                          ></span>
+                        </p>
+                        <p class="p-2">
+                          <i class="bi bi-chat px-1"></i>互動數：<span id="qa"></span>
+                        </p>
+                        <p class="p-2">
+                          <i class="bi bi-trophy px-1"></i>完成數：<span
+                            id="completed"
+                          >0</span>
+                        </p>
+                      </div>
+                `);
         $(".target").removeClass("target");
         $(this).addClass("target");
         overview();
+      });
+      $("#courseIncome").click(function () {
+        nowPage = "courseIncome";
+        $("#courseImg").addClass("md:block");
+        $("#page").empty();
+        $("#page").html(`
+                    <div class="flex justify-between flex-wrap">
+                      <div class="p-2 flex items-center">
+                        <i class="fa-solid fa-sack-dollar text-5xl"></i>
+                        <h1 class="text-2xl ml-4">
+                          總收入：<span id="totalIncome">0</span>
+                        </h1>
+                      </div>
+                      <div class="p-2 flex items-center">
+                        <i class="bi bi-cash-stack text-5xl"></i>
+                        <h1 class="text-2xl ml-4">
+                          課程收入：<span id="income"></span>
+                        </h1>
+                      </div>
+                      <div class="p-2 flex items-center">
+                        <i class="fa-solid fa-coins text-5xl"></i>
+
+                        <h1 class="text-2xl ml-4" id="dateDate">課程近7天收入：</h1>
+                      </div>
+                      <div class="flex items-center text-xl">
+                        <select id="date" class="border-2 py-2 px-6">
+                          <option value="7">7日內資料</option>
+                          <option value="30">30日內資料</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div id="chart" class="w-full"></div>
+                `);
+        $(".target").removeClass("target");
+        $(this).addClass("target");
+        getCourseAndDrawChart();
+      });
+      $("#set").click(() => {
+        window.location.href = "./teacher-mainJQ.html";
       });
 
       async function overview() {
@@ -224,7 +267,6 @@
               totalRate += item.courseRate;
               student += 1;
             }
-            console.log(item);
             $.ajax({
               url: url + `/progress/${item.users.userId}/${courseId}`,
               method: "GET",
@@ -245,8 +287,14 @@
           $("#qa").text(data.length);
         });
         await $.ajax({
-          url: url + `/questions/teacher/${courseId}`,
+          url: url + `/api/checkout/course/${courseId}`,
           method: "GET",
+        }).done((data) => {
+          let totalPrice = 0;
+          $.each(data, (idx, item) => {
+            totalPrice += parseInt(item.price);
+          });
+          $("#income").text(totalPrice);
         });
         changeTitle();
       }
@@ -266,38 +314,38 @@
             }).done((data) => {
               if (item.users.userInfo.avatar != null) {
                 $("#studentTable").append(`
-          <tr class="m-2 p-2">
-            <td class="flex items-center m-2 p-2">
-            <img src="data:image/png;base64,${item.users.userInfo.avatar}" class="w-14 h-14 rounded-full object-cover border-2" />
-            <p class="ml-2">${item.users.userInfo.userName}</p>
-            </td>
-            <td>
-            <div class="h-4 w-36 border-2 rounded-md ml-2">
-            <div
-              class="h-full bg-indigo-600 rounded-md"
-              style="width: ${data}%"
-            ></div>
-            </div>
-            </td>
-            </tr>
-          `);
+                <tr class="m-2 p-2">
+                  <td class="flex items-center m-2 p-2">
+                  <img src="data:image/png;base64,${item.users.userInfo.avatar}" class="w-14 h-14 rounded-full object-cover border-2" />
+                  <p class="ml-2">${item.users.userInfo.userName}</p>
+                  </td>
+                  <td>
+                  <div class="h-4 w-36 border-2 rounded-md ml-2">
+                  <div
+                    class="h-full bg-indigo-600 rounded-md"
+                    style="width: ${data}%"
+                  ></div>
+                  </div>
+                  </td>
+                  </tr>
+                `);
               } else {
                 $("#studentTable").append(`
-              <tr class="m-2 p-2">
-            <td class="flex items-center m-2 p-2">
-            <img src="../imgs/avatar.png" class="w-14 h-14 rounded-full object-cover border-2" />
-            <p class="ml-2">${item.users.userInfo.userName}</p>
-            </td>
-            <td>
-            <div class="h-4 w-36 border-2 rounded-md ml-2">
-            <div
-              class="h-full bg-indigo-600 rounded-md"
-              style="width: ${data}%"
-            ></div>
-            </div>
-            </td>
-            </tr>
-          `);
+                    <tr class="m-2 p-2">
+                  <td class="flex items-center m-2 p-2">
+                  <img src="../imgs/avatar.png" class="w-14 h-14 rounded-full object-cover border-2" />
+                  <p class="ml-2">${item.users.userInfo.userName}</p>
+                  </td>
+                  <td>
+                  <div class="h-4 w-36 border-2 rounded-md ml-2">
+                  <div
+                    class="h-full bg-indigo-600 rounded-md"
+                    style="width: ${data}%"
+                  ></div>
+                  </div>
+                  </td>
+                  </tr>
+                `);
               }
             });
           });
@@ -329,7 +377,6 @@
             withCredentials: true,
           },
           success: function (data) {
-            console.log(data);
             let language = 0;
             let program = 0;
             let cook = 0;
@@ -494,11 +541,99 @@
         });
       }
 
-      function getCourseAndDrawChart() {
-        $.ajax({
-          url: url + `/courses/${$("#course").val()}`,
+      async function incomeChart(day) {
+        await $.ajax({
+          url: url + `/api/checkout/course/${$("#course").val()}`,
           method: "GET",
-        }).done((data) => {});
+        }).done((datas) => {
+          const dateCounts = datas.reduce((acc, item) => {
+            const date = item.createdAt.split("T")[0];
+            const revenue = parseFloat(item.price);
+            acc[date] = (acc[date] || 0) + revenue;
+            return acc;
+          }, {});
+
+          const today = new Date();
+          const lastDays = Array.from({ length: day }, (_, i) => {
+            const date = new Date();
+            date.setDate(today.getDate() - i);
+            return date.toISOString().split("T")[0];
+          }).reverse();
+          let totalRevenue = 0;
+
+          lastDays.forEach((date) => {
+            const dailyRevenue = dateCounts[date] || 0;
+            totalRevenue += dailyRevenue;
+          });
+          $("#dateDate").text(`課程近${day}日收入：${totalRevenue}`);
+
+          const chartData = [["日期", "收入"]];
+          lastDays.forEach((date) => {
+            chartData.push([date, dateCounts[date] || 0]);
+          });
+
+          const data = google.visualization.arrayToDataTable(chartData);
+
+          const options = {
+            title: `近${day}天收入`,
+            hAxis: { title: "日期", format: "yyyy-MM-dd", slantedText: true },
+            vAxis: {
+              title: "收入",
+              viewWindow: {
+                min: 0,
+              },
+            },
+            legend: "none",
+            curveType: "function",
+            height: 600,
+          };
+          const chart = new google.visualization.LineChart(
+            document.getElementById("chart")
+          );
+          chart.draw(data, options);
+        });
+      }
+
+      function getCourseAndDrawChart(day = 7) {
+        $.ajax({
+          url: url + `/api/checkout/course/${$("#course").val()}`,
+          method: "GET",
+        }).done((data) => {
+          let totalPrice = 0;
+          $.each(data, (idx, item) => {
+            totalPrice += parseInt(item.price);
+          });
+          $("#income").text(totalPrice);
+        });
+
+        async function calprice(id) {
+          let courseIncome = 0;
+          const datas = await $.ajax({
+            url: url + `/api/checkout/course/${id}`,
+            method: "GET",
+          });
+          $.each(datas, (idx, item) => {
+            courseIncome += parseInt(item.price);
+          });
+          return courseIncome;
+        }
+
+        $.ajax({
+          url: url + "/courses/getCourses",
+          method: "GET",
+          xhrFields: {
+            withCredentials: true,
+          },
+        }).done(async (data) => {
+          let totalIncome = 0;
+          for (const item of data) {
+            totalIncome += await calprice(item.courseId);
+          }
+          $("#totalIncome").text(totalIncome);
+        });
+
+        incomeChart(day);
+        changeTitle();
       }
 
       $("#course").on("change", () => {
@@ -506,11 +641,11 @@
           case "studentList":
             $("#studentTable").empty();
             $("#studentTable").append(`
-          <tr>
-          <th>學生</th>
-          <th>完成進度</th>
-          </tr>
-          `);
+                <tr>
+                <th>學生</th>
+                <th>完成進度</th>
+                </tr>
+                `);
             studentList();
             break;
           case "analyze":
@@ -518,10 +653,16 @@
           case "overview":
             overview();
             break;
+          case "courseIncome":
+            getCourseAndDrawChart();
+            break;
           default:
             changeTitle();
             break;
         }
+      });
+      $(document).on("click", "#date", () => {
+        getCourseAndDrawChart($("#date").val());
       });
 
       async function load() {
@@ -533,6 +674,7 @@
           },
         }).done((data) => {
           if (data.length == 0) {
+            alert("請先建立課程");
             window.location.href = "../index.html";
           }
           $.each(data, (idx, item) => {
@@ -542,8 +684,8 @@
               "data:image/png;base64," + data[0].courseImg
             );
             $("#course").append(`
-                    <option value="${item.courseId}">${item.courseName}</option>
-                    `);
+                          <option value="${item.courseId}">${item.courseName}</option>
+                          `);
           });
         });
       }
@@ -575,8 +717,6 @@
         const isLoggedIn = await isLoginResponse.text();
         if (isLoggedIn != "true") {
           window.location.href = "../index.html";
-        } else {
-          res();
         }
       }
       islogin();

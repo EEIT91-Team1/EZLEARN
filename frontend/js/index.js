@@ -145,13 +145,14 @@ $(document).ready(function () {
         withCredentials: true,
       },
     }).done((data) => {
-      console.log(data);
+      let count = 0;
       $.each(data, (idx, item) => {
         if (data.length > 0) {
           $(".Progress").removeClass("hidden");
-          if (idx < 4) {
-            $("#progressResult").append(
-              ` <a href="http://127.0.0.1:5500/pages/lecture.html?course_id=${item.courseId}" class="m-4 mx-auto group">
+          if (count < 4) {
+            if (item.completedPercentage != 100) {
+              $("#progressResult").append(
+                ` <a href="http://127.0.0.1:5500/pages/lecture.html?course_id=${item.courseId}" class="m-4 mx-auto group">
           <div class=" max-w-72">
           <div class="h-44 w-72 border-2 border-black bg-white overflow-hidden">
               <img
@@ -161,7 +162,7 @@ $(document).ready(function () {
           </div>
               <p class="text-xl my-2 group-hover:underline">${item.courseName}</p>
               <p class="text-gray-500">${item.teacher}</p>
-              <div class="h-3 w-full border-2 rounded-md">
+              <div class="h-3 w-full border-2 rounded-md bg-white">
                 <div
                   class="h-full bg-indigo-600 rounded-md"
                   style="width: ${item.completedPercentage}%"
@@ -170,7 +171,9 @@ $(document).ready(function () {
               ${item.completedPercentage}%完成
             </div>
             </a>`
-            );
+              );
+              count += 1;
+            }
           }
         }
       });

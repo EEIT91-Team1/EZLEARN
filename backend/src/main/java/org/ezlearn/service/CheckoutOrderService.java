@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
@@ -302,4 +304,19 @@ public class CheckoutOrderService {
             purchasedCoursesRepository.save(purchasedCourse);
         }
     }
+    
+    public List<Map<String, String>> getOrderHistoryByCourseId(Long courseId){
+		List<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
+		List<CheckoutOrderDetail> list =  checkoutOrderDetailRepository.findByCourseId(courseId);
+		for(CheckoutOrderDetail order : list) {
+		Map<String,String> map =new HashMap<String, String>();
+		map.put("orderId",order.getOrderId());
+ 		map.put("price",order.getPrice()+"");
+ 		map.put("courseId",order.getCourseId()+"");
+ 		map.put("createdAt",order.getCreatedAt()+"");
+ 		dataList.add(map);
+	}
+	return dataList;
+}
+
 } 
