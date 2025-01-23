@@ -77,68 +77,7 @@
           <i class="bi bi-chevron-right text-2xl"></i>
         </div>
         <div id="article" style="width: 100vw">
-          <article class="flex-1 p-6" style="min-height: 80vh">
-            <div
-              class="mb-6 border-black border px-14 py-2 w-auto h-36 relative"
-            >
-              <span
-                class="border-black border px-2 py-2 bottom-3 left-3 absolute"
-              >
-                <a
-                  class="text-xl font-bold mb-4"
-                  href="../pages/post-class-step1.html"
-                  >建立課程</a
-                >
-              </span>
-              <img
-                src="../imgs/searchPic1.png"
-                alt=""
-                class="w-40 right-3 absolute hidden sm:block"
-              />
-            </div>
-
-            <div class="mb-6">
-              <h1 class="text-2xl font-bold mb-4">如何開始？</h1>
-              <div class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal">
-                <div class="border border-black p-4 flex col-span-2">
-                  <img
-                    src="../imgs/searchPic2.png"
-                    alt=""
-                    class="h-20 my-auto hidden sm:block"
-                  />
-                  <p class="my-auto font-black text-lg">創建引人入勝的課程</p>
-                </div>
-                <div
-                  class="border border-black p-4 row-span-2 flex items-center justify-center"
-                  style="text-align: center"
-                >
-                  <div>
-                    <img
-                      src="../imgs/searchPic3.png"
-                      alt=""
-                      class="h-24 m-auto hidden sm:block"
-                    />
-                    <p class="font-black text-lg">建立您的受眾</p>
-                  </div>
-                </div>
-                <div class="border border-black p-4 flex col-span-2">
-                  <img
-                    src="../imgs/searchPic5.png"
-                    alt=""
-                    class="h-20 my-auto hidden sm:block"
-                  />
-                  <p class="my-auto font-black text-lg">開始學習影片</p>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h1 class="text-2xl font-bold mb-4">我的課程</h1>
-              <div class="border border-black p-4">
-                <div class="items-center" id="courselist"></div>
-              </div>
-            </div>
-          </article>
+          <div id="coursepage"></div>
         </div>
       </div>
     </main>
@@ -206,25 +145,12 @@
         };
       });
 
-      fetch("http://localhost:8080/teacher/teachercourse", {
-        method: "GET",
-        credentials: "include",
-      })
-        .then((response) => response.json())
+        fetch("../components/course.html")
+        .then((response) => response.text())
         .then((data) => {
-          if (data.length == 0) {
-            document.getElementById("courselist").innerHTML = "暫無課程";
-          } else {
-            for (let i = 0; i < data.length; i++) {
-              document.getElementById(
-                "courselist"
-              ).innerHTML += `<div class="flex m-2 border border-black">
-                      <img class="h-16 m-2" src=data:image/png;base64,${data[i].courseImgbase64}></img>
-                      <p class="my-auto text-lg font-black">${data[i].courseName}</p>
-                  </div>`;
-            }
-          }
+          $("#coursepage").html(data);
         });
+
     </script>
   </body>
 </html>

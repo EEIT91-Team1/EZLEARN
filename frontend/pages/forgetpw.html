@@ -56,6 +56,7 @@
 <script>
     btn.onclick = function () {
         $('#error').text('');
+        $('#correct').text('');
         let api = "http://localhost:8080/user/forget/" + $('#email').val();
         fetch(api, {
             method: 'get',

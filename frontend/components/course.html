@@ -257,7 +257,10 @@
 
                 .then((response) => response.text())
                 .then((result) => {
-
+                  $('#success').text('修改成功，兩秒後倒回課程頁面')
+                  setTimeout(() => {
+                            window.location.href = "../pages/teacher-mainJQ.html";
+                        }, 2000);
                 });
             })
           }

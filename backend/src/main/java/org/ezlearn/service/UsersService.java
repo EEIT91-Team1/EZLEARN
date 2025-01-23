@@ -122,6 +122,8 @@ public class UsersService {
 		Users user1 = usersRepository.findByresetToken(changeuser.getResetToken());
 		if(user1 != null) {
 			user1.setPassword(BCrypt.hashpw(changeuser.getPassword(), BCrypt.gensalt()));
+			user1.setResetToken(null);
+			user1.setResetTokenExpiry(null);
 			usersRepository.save(user1);
 			return true;   
 		}else{
