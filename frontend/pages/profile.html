@@ -388,7 +388,7 @@
     save.onclick = function (e) {
       e.preventDefault();
       if ($("#imgAvatar").attr("src") == "../imgs/12-1.png") {
-        base64String = "";
+        base64String = null;
       } else {
         var base64Index = $("#imgAvatar").attr("src").indexOf(",");
         var base64String = $("#imgAvatar").attr("src").substring(base64Index + 1);
