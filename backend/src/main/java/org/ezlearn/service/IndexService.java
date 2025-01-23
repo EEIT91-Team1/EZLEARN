@@ -41,7 +41,10 @@ public class IndexService {
 		for (Object[] course : list) {
 			Map<String, String> courseMap = new HashMap<>();
 			courseMap.put("courseId", course[0] + "");
-			String imgBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString((byte[]) course[1]);
+			String imgBase64 = "noImg";
+			if((byte[]) course[1]!=null &&!(Base64.getEncoder().encodeToString((byte[]) course[1])).isEmpty()) {
+				imgBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString((byte[]) course[1]);				
+				}
 			courseMap.put("avatar", imgBase64);
 			courseMap.put("userName", (String) course[2]);
 			courseMap.put("review", (String) course[3]);

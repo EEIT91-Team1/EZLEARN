@@ -255,7 +255,11 @@ $(document).ready(function () {
     $.each(data, function (idx, item) {
       let href = `/pages/course-details.html?course_id=${item.courseId}`;
       $(`#aReview${idx + 1}`).prop("href", href);
-      $(`#imgReview${idx + 1}`).prop("src", item.avatar);
+      if (item.avatar != "noImg") {
+        $(`#imgReview${idx + 1}`).prop("src", item.avatar);
+      } else {
+        $(`#imgReview${idx + 1}`).prop("src", "./imgs/avatar.png");
+      }
       $(`#courseNameReview${idx + 1}`).text(item.courseName);
       $(`#userNameReview${idx + 1}`).text(item.userName);
       $(`#rateReview${idx + 1}`).html(rateToStars(item.rate));
