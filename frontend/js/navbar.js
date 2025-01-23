@@ -174,7 +174,7 @@ async function loadLogin() {
     );
     const loginData = await loginDataResponse.json();
 
-    if (loginData.avatar !== "noImg") {
+    if (loginData.avatar != "noImg") {
       $(".navbarAvatar").prop("src", loginData.avatar);
     }
     $(".navbarUserName").text(loginData.userName);

@@ -77,9 +77,14 @@ public class UsersService {
 		data.put("userName",user.getUserInfo().getUserName());
 		data.put("email", user.getEmail());
 		String imgBase64 = "noImg";
-		if(user.getUserInfo().getAvatar()!=null&&Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar())	!="") {
+		if(user.getUserInfo().getAvatar()!=null &&!(Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar())).isEmpty()) {
+			System.out.println(Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar()));
 		 imgBase64 = "data:image/png;base64," + Base64.getEncoder().encodeToString(user.getUserInfo().getAvatar());
+			if(imgBase64 =="data:image/png;base64,") {
+				imgBase64 ="noImg";
+			}
 		}
+
 		data.put("avatar", imgBase64);
 		
 		return data;
