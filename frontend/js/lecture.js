@@ -449,10 +449,14 @@ $(document).ready(function () {
     }
 
     const data = await response.json();
-    $(".avatar").attr(
-      "src",
-      `data:image/png;base64,${data.userInfo.avatar}`
-    );
+    $(".avatar")
+      .attr(
+        "src",
+        `data:image/png;base64,${data.userInfo.avatar}`
+      )
+      .on("error", function () {
+        $(this).attr("src", "../imgs/12-1.png");
+      });
   }
   getProfile();
 
@@ -518,6 +522,7 @@ $(document).ready(function () {
                         src="data:image/png;base64,${
                           item.userInfo.avatar
                         }"
+                        onerror="this.onerror=null; this.src='../imgs/12-1.png';"
                       />
                     </div>
 

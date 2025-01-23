@@ -91,6 +91,7 @@ $(document).ready(function () {
                   item.users.userInfo.avatar
                 }"
                 alt=""
+                onerror="this.onerror=null; this.src='../imgs/12-1.png';"
               />
             </div>
             <div>
