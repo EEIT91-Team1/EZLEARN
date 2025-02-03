@@ -1,5 +1,5 @@
 //檢查是否登入
-fetch("http://localhost:8080/user/islogin", {
+fetch("http://127.0.0.1:8080/user/islogin", {
   method: "get",
   credentials: "include",
 })
@@ -11,7 +11,7 @@ fetch("http://localhost:8080/user/islogin", {
   });
 
 $.ajax({
-  url: "http://localhost:8080/user/logindata",
+  url: "http://127.0.0.1:8080/user/logindata",
   method: "GET",
   xhrFields: {
     withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
@@ -41,7 +41,7 @@ $("#btnProgress").on("click", function () {
 });
 
 $.ajax({
-  url: "http://localhost:8080/progress/user",
+  url: "http://127.0.0.1:8080/progress/user",
   method: "GET",
   xhrFields: {
     withCredentials: true,

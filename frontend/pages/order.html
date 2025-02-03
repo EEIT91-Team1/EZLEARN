@@ -2,10 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -22,14 +19,10 @@
       <div class="max-w-4xl mx-auto">
         <div class="flex flex-col lg:flex-row gap-8">
           <div class="lg:w-2/3">
-            <div
-              class="bg-white rounded-lg shadow-md p-6 mb-6"
-            >
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 class="text-2xl font-bold mb-4">
                 購買明細
-                <span class="text-gray-500 text-base"
-                  >總共 0 件</span
-                >
+                <span class="text-gray-500 text-base">總共 0 件</span>
               </h2>
 
               <div class="mb-4" id="orderItems">
@@ -37,24 +30,18 @@
               </div>
             </div>
 
-            <div
-              class="bg-white rounded-lg shadow-md p-6 mb-6"
-            >
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 class="text-2xl font-bold mb-4">
                 <i class="bi bi-credit-card mr-2"></i>
                 信用卡/簽帳金融卡付款
-                <button
-                  class="float-right text-gray-500 text-base"
-                >
+                <button class="float-right text-gray-500 text-base">
                   刪除
                 </button>
               </h2>
 
               <div class="bg-gray-50 p-6 rounded-lg">
                 <div class="mb-4">
-                  <label class="block text-gray-700 mb-2"
-                    >信用卡卡號</label
-                  >
+                  <label class="block text-gray-700 mb-2">信用卡卡號</label>
                   <input
                     type="text"
                     id="cardNumber"
@@ -90,9 +77,7 @@
                     </div>
                   </div>
                   <div>
-                    <label class="block text-gray-700 mb-2"
-                      >安全識別碼</label
-                    >
+                    <label class="block text-gray-700 mb-2">安全識別碼</label>
                     <input
                       type="text"
                       id="cvv"
@@ -100,10 +85,7 @@
                       placeholder="CVV/CVC"
                       maxlength="3"
                     />
-                    <div
-                      class="text-red-500 text-sm mt-1 hidden"
-                      id="cvvError"
-                    >
+                    <div class="text-red-500 text-sm mt-1 hidden" id="cvvError">
                       請輸入3位數字
                     </div>
                   </div>
@@ -114,33 +96,18 @@
 
           <div class="lg:w-1/3">
             <div class="bg-white rounded-lg shadow-md p-6">
-              <h2 class="text-xl font-bold mb-4">
-                訂單明細
-              </h2>
+              <h2 class="text-xl font-bold mb-4">訂單明細</h2>
               <div class="border-b pb-4 mb-4">
                 <div class="flex justify-between mb-2">
-                  <span
-                    ><span id="itemCount">0</span>
-                    件商品</span
-                  >
+                  <span><span id="itemCount">0</span> 件商品</span>
                 </div>
-                <div
-                  class="flex justify-between text-gray-600"
-                >
+                <div class="flex justify-between text-gray-600">
                   <span>價格統計</span>
-                  <span
-                    >NT$
-                    <span id="totalPrice">0</span> 元</span
-                  >
+                  <span>NT$ <span id="totalPrice">0</span> 元</span>
                 </div>
               </div>
-              <div
-                class="flex justify-between text-2xl font-bold mb-6"
-              >
-                <span
-                  >總計：NT$
-                  <span id="finalTotal">0</span> 元</span
-                >
+              <div class="flex justify-between text-2xl font-bold mb-6">
+                <span>總計：NT$ <span id="finalTotal">0</span> 元</span>
               </div>
 
               <button
@@ -160,16 +127,13 @@
     <script src="../js/header-footer.js"></script>
 
     <script>
-      const API_BASE_URL = "http://localhost:8080";
+      const API_BASE_URL = "http://127.0.0.1:8080";
 
       async function checkLogin() {
         try {
-          const response = await fetch(
-            `${API_BASE_URL}/user/islogin`,
-            {
-              credentials: "include",
-            }
-          );
+          const response = await fetch(`${API_BASE_URL}/user/islogin`, {
+            credentials: "include",
+          });
           const isLoggedIn = await response.text();
 
           if (isLoggedIn === "false") {
@@ -184,124 +148,90 @@
         }
       }
 
-      document.addEventListener(
-        "DOMContentLoaded",
-        async function () {
-          console.log("頁面載入開始");
+      document.addEventListener("DOMContentLoaded", async function () {
+        console.log("頁面載入開始");
 
-          const urlParams = new URLSearchParams(
-            window.location.search
-          );
-          const orderId = urlParams.get("orderId");
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get("orderId");
 
-          if (!orderId) {
-            console.log("訂單ID不存在");
-            alert("訂單ID不存在");
-            window.location.href = "cart.html";
-            return;
-          }
-
-          console.log("訂單ID:", orderId);
-
-          await loadOrderDetails(orderId);
-
-          const submitButton = document.querySelector(
-            'button[type="submit"]'
-          );
-          submitButton.addEventListener(
-            "click",
-            async function (e) {
-              e.preventDefault();
-              console.log("付款按鈕被點擊");
-
-              try {
-                const urlParams = new URLSearchParams(
-                  window.location.search
-                );
-                const orderId = urlParams.get("orderId");
-                console.log("準備處理訂單:", orderId);
-
-                // 1. 驗證信用卡資訊
-                const cardNumber = document
-                  .getElementById("cardNumber")
-                  .value.replace(/\s/g, "");
-                const expiryDate =
-                  document.getElementById(
-                    "expiryDate"
-                  ).value;
-                const cvv =
-                  document.getElementById("cvv").value;
-
-                console.log("信用卡資訊:", {
-                  cardNumber: cardNumber.slice(-4), // 只顯示後四碼
-                  expiryDate,
-                  cvv: "***",
-                });
-
-                if (
-                  !validateCreditCardInfo(
-                    cardNumber,
-                    expiryDate,
-                    cvv
-                  )
-                ) {
-                  console.log("信用卡驗證失敗");
-                  return;
-                }
-
-                // 2. 驗證訂單金額
-                console.log("開始驗證訂單金額");
-                const verifyResponse = await fetch(
-                  `${API_BASE_URL}/api/checkout/${orderId}/verify`
-                );
-
-                if (!verifyResponse.ok) {
-                  throw new Error("訂單金額驗證請求失敗");
-                }
-
-                const verifyResult =
-                  await verifyResponse.json();
-                console.log(
-                  "訂單金額驗證結果:",
-                  verifyResult
-                );
-
-                if (verifyResult.code !== 200) {
-                  throw new Error(
-                    verifyResult.message ||
-                      "訂單金額驗證失敗"
-                  );
-                }
-
-                // 3. 更新訂單狀態
-                console.log("開始更新訂單狀態為 COMPLETE");
-                await updateOrderStatus(
-                  orderId,
-                  "COMPLETE"
-                );
-                console.log("訂單狀態更新成功");
-
-                // 4. 付款成功，跳轉到結果頁面
-                console.log("付款成功，準備跳轉");
-                window.location.href = `payment-result.html?orderId=${orderId}`;
-              } catch (error) {
-                console.error("付款處理失敗：", error);
-                window.location.href = `payment-result.html?status=failed&error=${encodeURIComponent(
-                  error.message
-                )}`;
-              }
-            }
-          );
-
-          setupCardValidation();
+        if (!orderId) {
+          console.log("訂單ID不存在");
+          alert("訂單ID不存在");
+          window.location.href = "cart.html";
+          return;
         }
-      );
+
+        console.log("訂單ID:", orderId);
+
+        await loadOrderDetails(orderId);
+
+        const submitButton = document.querySelector('button[type="submit"]');
+        submitButton.addEventListener("click", async function (e) {
+          e.preventDefault();
+          console.log("付款按鈕被點擊");
+
+          try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get("orderId");
+            console.log("準備處理訂單:", orderId);
+
+            // 1. 驗證信用卡資訊
+            const cardNumber = document
+              .getElementById("cardNumber")
+              .value.replace(/\s/g, "");
+            const expiryDate = document.getElementById("expiryDate").value;
+            const cvv = document.getElementById("cvv").value;
+
+            console.log("信用卡資訊:", {
+              cardNumber: cardNumber.slice(-4), // 只顯示後四碼
+              expiryDate,
+              cvv: "***",
+            });
+
+            if (!validateCreditCardInfo(cardNumber, expiryDate, cvv)) {
+              console.log("信用卡驗證失敗");
+              return;
+            }
+
+            // 2. 驗證訂單金額
+            console.log("開始驗證訂單金額");
+            const verifyResponse = await fetch(
+              `${API_BASE_URL}/api/checkout/${orderId}/verify`
+            );
+
+            if (!verifyResponse.ok) {
+              throw new Error("訂單金額驗證請求失敗");
+            }
+
+            const verifyResult = await verifyResponse.json();
+            console.log("訂單金額驗證結果:", verifyResult);
+
+            if (verifyResult.code !== 200) {
+              throw new Error(verifyResult.message || "訂單金額驗證失敗");
+            }
+
+            // 3. 更新訂單狀態
+            console.log("開始更新訂單狀態為 COMPLETE");
+            await updateOrderStatus(orderId, "COMPLETE");
+            console.log("訂單狀態更新成功");
+
+            // 4. 付款成功，跳轉到結果頁面
+            console.log("付款成功，準備跳轉");
+            window.location.href = `payment-result.html?orderId=${orderId}`;
+          } catch (error) {
+            console.error("付款處理失敗：", error);
+            window.location.href = `payment-result.html?status=failed&error=${encodeURIComponent(
+              error.message
+            )}`;
+          }
+        });
+
+        setupCardValidation();
+      });
 
       function setupCardValidation() {
-        const cardNumber =
-          document.getElementById("cardNumber");
-        const expiryDate =
-          document.getElementById("expiryDate");
+        const cardNumber = document.getElementById("cardNumber");
+        const expiryDate = document.getElementById("expiryDate");
         const cvv = document.getElementById("cvv");
 
         cardNumber.addEventListener("input", function (e) {
@@ -316,10 +246,7 @@
           let value = e.target.value.replace(/\D/g, "");
 
           // 處理刪除操作
-          if (
-            e.inputType === "deleteContentBackward" &&
-            value.length === 2
-          ) {
+          if (e.inputType === "deleteContentBackward" && value.length === 2) {
             e.target.value = value;
             return;
           }
@@ -327,8 +254,7 @@
           // 處理正常輸入
           if (value.length > 0) {
             if (value.length >= 2) {
-              value =
-                value.slice(0, 2) + "/" + value.slice(2, 4);
+              value = value.slice(0, 2) + "/" + value.slice(2, 4);
             }
             e.target.value = value;
           }
@@ -336,10 +262,7 @@
 
         cvv.addEventListener("input", function (e) {
           console.log("CVV輸入中...");
-          e.target.value = e.target.value.replace(
-            /\D/g,
-            ""
-          );
+          e.target.value = e.target.value.replace(/\D/g, "");
         });
       }
 
@@ -360,25 +283,17 @@
         return isValid;
       }
 
-      function validateCreditCardInfo(
-        cardNumber,
-        expiryDate,
-        cvv
-      ) {
+      function validateCreditCardInfo(cardNumber, expiryDate, cvv) {
         console.log("開始驗證信用卡資訊");
         let isValid = true;
 
         // 1. 驗證卡號（16位數字）
         if (!/^\d{16}$/.test(cardNumber)) {
           console.log("卡號驗證失敗");
-          document
-            .getElementById("cardNumberError")
-            .classList.remove("hidden");
+          document.getElementById("cardNumberError").classList.remove("hidden");
           isValid = false;
         } else {
-          document
-            .getElementById("cardNumberError")
-            .classList.add("hidden");
+          document.getElementById("cardNumberError").classList.add("hidden");
         }
 
         // 2. 驗證有效期（MM/YY 格式）
@@ -393,44 +308,30 @@
           parseInt(month) < 1 ||
           parseInt(month) > 12 ||
           parseInt(year) < currentYear ||
-          (parseInt(year) === currentYear &&
-            parseInt(month) < currentMonth)
+          (parseInt(year) === currentYear && parseInt(month) < currentMonth)
         ) {
           console.log("有效期驗證失敗");
-          document
-            .getElementById("expiryDateError")
-            .classList.remove("hidden");
+          document.getElementById("expiryDateError").classList.remove("hidden");
           isValid = false;
         } else {
-          document
-            .getElementById("expiryDateError")
-            .classList.add("hidden");
+          document.getElementById("expiryDateError").classList.add("hidden");
         }
 
         // 3. 驗證 CVV（3位數字）
         if (!/^\d{3}$/.test(cvv)) {
           console.log("CVV驗證失敗");
-          document
-            .getElementById("cvvError")
-            .classList.remove("hidden");
+          document.getElementById("cvvError").classList.remove("hidden");
           isValid = false;
         } else {
-          document
-            .getElementById("cvvError")
-            .classList.add("hidden");
+          document.getElementById("cvvError").classList.add("hidden");
         }
 
-        console.log(
-          "信用卡驗證結果:",
-          isValid ? "成功" : "失敗"
-        );
+        console.log("信用卡驗證結果:", isValid ? "成功" : "失敗");
         return isValid;
       }
 
       async function loadOrderDetails() {
-        const urlParams = new URLSearchParams(
-          window.location.search
-        );
+        const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get("orderId");
 
         if (!orderId) {
@@ -439,10 +340,7 @@
         }
 
         try {
-          console.log(
-            "開始獲取訂單詳情，orderId:",
-            orderId
-          ); // 添加日誌
+          console.log("開始獲取訂單詳情，orderId:", orderId); // 添加日誌
           const response = await fetch(
             `${API_BASE_URL}/api/checkout/${orderId}`
           );
@@ -463,12 +361,9 @@
             const itemCountSpan = document.querySelector(
               ".text-gray-500.text-base"
             );
-            const orderItems =
-              document.getElementById("orderItems");
-            const totalPriceElement =
-              document.getElementById("totalPrice");
-            const finalTotalElement =
-              document.getElementById("finalTotal");
+            const orderItems = document.getElementById("orderItems");
+            const totalPriceElement = document.getElementById("totalPrice");
+            const finalTotalElement = document.getElementById("finalTotal");
 
             if (
               !itemCountSpan ||
@@ -519,10 +414,7 @@
       }
 
       // 確保 DOM 完全載入後才執行
-      document.addEventListener(
-        "DOMContentLoaded",
-        loadOrderDetails
-      );
+      document.addEventListener("DOMContentLoaded", loadOrderDetails);
 
       async function updateOrderStatus(orderId, status) {
         try {
@@ -535,9 +427,7 @@
 
           const result = await response.json();
           if (result.code !== 200) {
-            throw new Error(
-              result.message || "更新訂單狀態失敗"
-            );
+            throw new Error(result.message || "更新訂單狀態失敗");
           }
         } catch (error) {
           console.error("更新訂單狀態失敗：", error);

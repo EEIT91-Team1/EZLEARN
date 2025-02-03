@@ -54,7 +54,7 @@ function timeCal(calTime) {
 //通知
 function notify() {
   $.ajax({
-    url: "http://localhost:8080/notify/get",
+    url: "http://127.0.0.1:8080/notify/get",
     method: "GET",
     xhrFields: {
       withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
@@ -120,7 +120,7 @@ function navbarLog(log) {
   $(`#navbarDiv${log}`).addClass("flex");
 }
 function logout() {
-  fetch("http://localhost:8080/user/logout", {
+  fetch("http://127.0.0.1:8080/user/logout", {
     method: "POST",
     credentials: "include",
   }).then(() => {
@@ -143,7 +143,7 @@ $(document).on("click", ".aNotify", function () {
   let courseVal = $(this).find(".courseId").val();
   async function api() {
     await $.ajax({
-      url: `http://localhost:8080/notify/checkedNotify?notifyId=${notifyVal}`,
+      url: `http://127.0.0.1:8080/notify/checkedNotify?notifyId=${notifyVal}`,
       method: "PUT",
       xhrFields: {
         withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie
@@ -156,7 +156,7 @@ $(document).on("click", ".aNotify", function () {
 });
 //讀取登入後導覽列資料
 async function loadLogin() {
-  const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {
+  const isLoginResponse = await fetch("http://127.0.0.1:8080/user/islogin", {
     method: "GET",
     credentials: "include",
   });
@@ -166,7 +166,7 @@ async function loadLogin() {
     navbarLog("Login");
 
     const loginDataResponse = await fetch(
-      "http://localhost:8080/user/logindata",
+      "http://127.0.0.1:8080/user/logindata",
       {
         method: "GET",
         credentials: "include",
@@ -199,7 +199,7 @@ $("#btnNavSearch").on("click", () => {
 //購物車
 function loadNavbarCart() {
   $.ajax({
-    url: "http://localhost:8080/api/cart",
+    url: "http://127.0.0.1:8080/api/cart",
     method: "GET",
     xhrFields: {
       withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie

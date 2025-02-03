@@ -1,495 +1,609 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../imgs/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.min.css"
+    />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="../imgs/favicon.ico" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      *:disabled {
+        background-color: rgb(212, 212, 212);
+        color: rgb(55, 65, 81);
+        opacity: 1;
+      }
+    </style>
+    <title>個人檔案</title>
+  </head>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <style>
-    *:disabled {
-      background-color: rgb(212, 212, 212);
-      color: rgb(55, 65, 81);
-      opacity: 1;
-    }
-  </style>
-  <title>個人檔案</title>
-</head>
+  <body>
+    <div id="navbar"></div>
 
-<body>
-  <div id="navbar"></div>
-
-  <main style="
+    <main
+      style="
         background-image: url('../imgs/indexBg2.png'),
           url('../imgs/indexBg1.png');
         background-repeat: no-repeat, no-repeat;
         background-position: right, left;
         background-size: 500px, contain;
-      ">
-    <div class="flex justify-center items-center min-h-full">
-      <div class="p-8 w-96 border">
-        <div class="mb-4 flex justify-center items-center">
-          <div>
-            <img class="rounded-full mb-4 h-40 w-40" src="../imgs/12-1.png" alt="Avatar" id="imgAvatar" />
-            <div class="text-sm text-black text-center">
-              <label for="file-upload" class="cursor-pointer">
-                <span class="font-medium px-2 py-1 border-1 border-black rounded-md">
-                  變更大頭貼
-                </span>
-                <input id="file-upload" type="file" class="hidden" accept="image/*" />
-              </label>
+      "
+    >
+      <div class="flex justify-center items-center min-h-full">
+        <div class="p-8 w-96 border">
+          <div class="mb-4 flex justify-center items-center">
+            <div>
+              <img
+                class="rounded-full mb-4 h-40 w-40"
+                src="../imgs/12-1.png"
+                alt="Avatar"
+                id="imgAvatar"
+              />
+              <div class="text-sm text-black text-center">
+                <label for="file-upload" class="cursor-pointer">
+                  <span
+                    class="font-medium px-2 py-1 border-1 border-black rounded-md"
+                  >
+                    變更大頭貼
+                  </span>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    class="hidden"
+                    accept="image/*"
+                  />
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <form>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-              姓名
-            </label>
-            <input
-              class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-300 h-9 focus:outline-none"
-              id="username" type="text" readonly /><button type="button"
-              class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
-              onclick="toggleEdit('username')">
-              <a class="bi bi-pencil"></a>
-            </button>
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-              電子郵件
-            </label>
-            <input class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 h-9 focus:outline-none"
-              id="email" type="email" readonly />
-          </div>
-          <div class="flex items-center">
-            <div class="mb-6 w-7/12">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="birthday">
-                生日
+          <form>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="username"
+              >
+                姓名
               </label>
               <input
-                class="appearance-none border rounded w-5/6 py-2 px-3 text-gray-700 bg-neutral-300 h-9 focus:outline-none"
-                id="birthday" type="date" value="1900-01-01" readonly /><button type="button"
-                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/6 rounded"
-                onclick="toggleEdit('birthday')">
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-300 h-9 focus:outline-none"
+                id="username"
+                type="text"
+                readonly
+              /><button
+                type="button"
+                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
+                onclick="toggleEdit('username')"
+              >
                 <a class="bi bi-pencil"></a>
               </button>
             </div>
-            <div class="mb-6 ml-4 w-5/12">
-              <label class="block text-gray-700 text-sm font-bold mb-2" for="gender">
-                性別
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="email"
+              >
+                電子郵件
               </label>
-              <select
-                class="appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 bg-neutral-300 leading-tight focus:outline-none focus:shadow-outline"
-                id="gender" disabled>
-                <option value="male" id="male">男性</option>
-                <option value="female" id="female">女性</option>
-              </select><button type="button"
-                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/4 rounded"
-                onclick="toggleEditSelect()">
+              <input
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 h-9 focus:outline-none"
+                id="email"
+                type="email"
+                readonly
+              />
+            </div>
+            <div class="flex items-center">
+              <div class="mb-6 w-7/12">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="birthday"
+                >
+                  生日
+                </label>
+                <input
+                  class="appearance-none border rounded w-5/6 py-2 px-3 text-gray-700 bg-neutral-300 h-9 focus:outline-none"
+                  id="birthday"
+                  type="date"
+                  value="1900-01-01"
+                  readonly
+                /><button
+                  type="button"
+                  class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/6 rounded"
+                  onclick="toggleEdit('birthday')"
+                >
+                  <a class="bi bi-pencil"></a>
+                </button>
+              </div>
+              <div class="mb-6 ml-4 w-5/12">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="gender"
+                >
+                  性別
+                </label>
+                <select
+                  class="appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 bg-neutral-300 leading-tight focus:outline-none focus:shadow-outline"
+                  id="gender"
+                  disabled
+                >
+                  <option value="male" id="male">男性</option>
+                  <option value="female" id="female">女性</option></select
+                ><button
+                  type="button"
+                  class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/4 rounded"
+                  onclick="toggleEditSelect()"
+                >
+                  <a class="bi bi-pencil"></a>
+                </button>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="phone"
+              >
+                電話
+              </label>
+              <input
+                class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-300 h-9 focus:outline-none"
+                id="phone"
+                type="tel"
+                placeholder="0912345678"
+                readonly
+              /><button
+                type="button"
+                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
+                onclick="toggleEdit('phone')"
+              >
                 <a class="bi bi-pencil"></a>
               </button>
             </div>
-          </div>
-          <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
-              電話
-            </label>
-            <input
-              class="appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 bg-neutral-300 h-9 focus:outline-none"
-              id="phone" type="tel" placeholder="0912345678" readonly /><button type="button"
-              class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-9 w-1/12 rounded"
-              onclick="toggleEdit('phone')">
-              <a class="bi bi-pencil"></a>
-            </button>
-          </div>
-          <div class="mb-6">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="userIntro">
-              自我介紹
-            </label>
-            <div class="flex position: relative">
-              <textarea
-                class="appearance-none border rounded py-2 px-3 text-gray-700 bg-neutral-300 w-full focus:outline-none"
-                id="userIntro" rows="3" placeholder="大家好！我的名字是王小明。" readonly></textarea>
-              <button type="button"
-                class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-6 w-1/12 rounded position: absolute bottom-0 right-0"
-                onclick="toggleEdit('userIntro')">
-                <a class="bi bi-pencil bottom-0"></a>
+            <div class="mb-6">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="userIntro"
+              >
+                自我介紹
+              </label>
+              <div class="flex position: relative">
+                <textarea
+                  class="appearance-none border rounded py-2 px-3 text-gray-700 bg-neutral-300 w-full focus:outline-none"
+                  id="userIntro"
+                  rows="3"
+                  placeholder="大家好！我的名字是王小明。"
+                  readonly
+                ></textarea>
+                <button
+                  type="button"
+                  class="bg-blue-300 hover:bg-blue-500 active:bg-blue-700 text-white font-bold h-6 w-1/12 rounded position: absolute bottom-0 right-0"
+                  onclick="toggleEdit('userIntro')"
+                >
+                  <a class="bi bi-pencil bottom-0"></a>
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-center mb-4">
+              <p id="error" class="text-red-600"></p>
+              <p id="success"></p>
+            </div>
+
+            <div class="flex items-center justify-center">
+              <button
+                id="save"
+                class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                儲存
               </button>
             </div>
-          </div>
-
-          <div class="flex items-center justify-center mb-4">
-            <p id="error" class="text-red-600"></p>
-            <p id="success"></p>
-          </div>
-
-          <div class="flex items-center justify-center">
-            <button id="save"
-              class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
-              type="submit">
-              儲存
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
-    <!-- Main modal -->
-    <div id="defaultmodal" tabindex="-1" aria-hidden="true"
-      class="hidden overflow-y-auto overflow-x-hidden fixed left-1/2 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-      <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <!-- Modal header -->
-          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <span class="text-3xl font-semibold text-gray-900 dark:text-white">圖片選取</span>
-            <button type="button" id="closeModal"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-hide="defaultmodal">
-              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-              </svg>
-              <span class="sr-only">Close modal</span>
-            </button>
-          </div>
-          <!-- Modal body -->
-          <div class="p-4 md:p-5 space-y-4">
-            <canvas id="canvas" class="m-auto"></canvas><br />
-            <span class="text-2xl font-semibold text-gray-900 dark:text-white">選取預覽:</span>
-            <img class="min-h-36" id="cropped-image" class="m-auto" />
-          </div>
-          <!-- Modal footer -->
-          <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-            <button data-modal-hide="defaultmodal" id="acceptModal" type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              儲存</button>
+      <!-- Main modal -->
+      <div
+        id="defaultmodal"
+        tabindex="-1"
+        aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed left-1/2 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      >
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div
+              class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
+            >
+              <span class="text-3xl font-semibold text-gray-900 dark:text-white"
+                >圖片選取</span
+              >
+              <button
+                type="button"
+                id="closeModal"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="defaultmodal"
+              >
+                <svg
+                  class="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 14 14"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                  />
+                </svg>
+                <span class="sr-only">Close modal</span>
+              </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+              <canvas id="canvas" class="m-auto"></canvas><br />
+              <span class="text-2xl font-semibold text-gray-900 dark:text-white"
+                >選取預覽:</span
+              >
+              <img class="min-h-36" id="cropped-image" class="m-auto" />
+            </div>
+            <!-- Modal footer -->
+            <div
+              class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600"
+            >
+              <button
+                data-modal-hide="defaultmodal"
+                id="acceptModal"
+                type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                儲存
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <div id="footer"></div>
-  <script src="../js/header-footer.js"></script>
-  <script>
-    let nowdate = new Date();
-    let year = nowdate.getFullYear();
-    let month = nowdate.getMonth();
-    let day = nowdate.getDate();
-    month = month + 1 < 10 ? "0" + (month + 1) : month + 1;
-    day = day < 10 ? "0" + day : day;
-    $("#birthday").attr("max", year + "-" + month + "-" + day);
+    <div id="footer"></div>
+    <script src="../js/header-footer.js"></script>
+    <script>
+      let nowdate = new Date();
+      let year = nowdate.getFullYear();
+      let month = nowdate.getMonth();
+      let day = nowdate.getDate();
+      month = month + 1 < 10 ? "0" + (month + 1) : month + 1;
+      day = day < 10 ? "0" + day : day;
+      $("#birthday").attr("max", year + "-" + month + "-" + day);
 
-    const fileInput = document.getElementById("file-upload");
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    const cropButton = document.getElementById("crop-button");
-    const croppedImage = document.getElementById("cropped-image");
+      const fileInput = document.getElementById("file-upload");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const cropButton = document.getElementById("crop-button");
+      const croppedImage = document.getElementById("cropped-image");
 
-    let img = new Image();
-    let cropArea = {
-      startX: 50,
-      startY: 50,
-      width: 100,
-      height: 100,
-    };
-
-    fileInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (file && file.type.startsWith("image/")) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          img.onload = () => {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-      openModal()
-    });
-
-    canvas.addEventListener("mousedown", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const startX = e.clientX - rect.left;
-      const startY = e.clientY - rect.top;
-
-      cropArea.startX = startX;
-      cropArea.startY = startY;
-
-      canvas.addEventListener("mousemove", drawCropArea);
-      canvas.addEventListener("mouseup", () => {
-        canvas.removeEventListener("mousemove", drawCropArea);
-      });
-    });
-
-    canvas.addEventListener("mouseup", () => {//生成選取區域
-      drawCropAreaToBase64();
-    });
-
-    function drawCropArea(e) {//畫布&選取圈設定
-      const rect = canvas.getBoundingClientRect();
-      const endX = e.clientX - rect.left;
-      const endY = e.clientY - rect.top;
-
-      const centerX = (cropArea.startX + endX) / 2;
-      const centerY = (cropArea.startY + endY) / 2;
-      const radius =
-        Math.sqrt(
-          Math.pow(endX - cropArea.startX, 2) +
-          Math.pow(endY - cropArea.startY, 2)
-        ) / 2;
-
-      cropArea.radius = radius;
-      cropArea.centerX = centerX;
-      cropArea.centerY = centerY;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0);
-
-      ctx.save();
-      ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-      ctx.beginPath();
-      ctx.rect(0, 0, canvas.width, canvas.height);
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
-      ctx.strokeStyle = "blue";
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-
-    function drawCropAreaToBase64() {//選取區轉成Base64
-      const croppedCanvas = document.createElement("canvas");
-      const croppedCtx = croppedCanvas.getContext("2d", {
-        alpha: true,
-      });
-
-      const diameter = cropArea.radius * 2;
-      croppedCanvas.width = diameter;
-      croppedCanvas.height = diameter;
-
-      croppedCtx.beginPath();
-      croppedCtx.arc(
-        cropArea.radius,
-        cropArea.radius,
-        cropArea.radius,
-        0,
-        Math.PI * 2,
-        true
-      );
-      croppedCtx.clip();
-
-      croppedCtx.drawImage(
-        canvas,
-        cropArea.centerX - cropArea.radius,
-        cropArea.centerY - cropArea.radius,
-        diameter,
-        diameter,
-        0,
-        0,
-        diameter,
-        diameter
-      );
-
-      croppedCanvas.toBlob((blob) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          const base64 = reader.result.split(",")[1];
-          croppedImage.src = `data:image/png;base64,${base64}`;
-          sessionStorage.setItem("Blob", base64);
-          //console.log(base64);
-        };
-        reader.readAsDataURL(blob);
-      }, "image/png");
-    }
-
-    function toggleEdit(a) {//鎖定&解除輸入框
-      const btnToggleEdit = document.getElementById(a);
-      if (btnToggleEdit.readOnly) {
-        btnToggleEdit.readOnly = false;
-        btnToggleEdit.style.backgroundColor = "#ffffff";
-      } else {
-        btnToggleEdit.readOnly = true;
-        btnToggleEdit.style.backgroundColor = "rgb(212,212,212)";
-      }
-      btnToggleEdit.addEventListener("keydown", function (event) {
-        if (event.key === "Enter" && a != "userIntro") {
-          event.preventDefault();
-          toggleEdit(a);
-        }
-      });
-    }
-
-    function toggleEditSelect() {//鎖定&解除 選擇輸入框
-      const btnToggleEdit = document.getElementById("gender");
-      if (btnToggleEdit.disabled) {
-        btnToggleEdit.disabled = false;
-        btnToggleEdit.style.backgroundColor = "#ffffff";
-      } else {
-        btnToggleEdit.disabled = true;
-        btnToggleEdit.style.backgroundColor = "rgb(212,212,212)";
-      }
-      btnToggleEdit.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-          event.preventDefault();
-          toggleEditSelect();
-        }
-      });
-    }
-
-    function removeBackdrop() {// 移除遮罩層
-      const backdrop = document.querySelector("body > div[modal-backdrop]");
-      backdrop?.remove();
-    }
-
-    function addBackdrop() {// 新增遮罩層
-      const backdrop = document.createElement("div");
-      backdrop.setAttribute("modal-backdrop", "");
-      backdrop.className = "bg-black opacity-50 fixed inset-0 z-40"; // Flowbite 默认样式
-      document.body.appendChild(backdrop);
-    }
-
-    function openModal() {
-      $("#defaultmodal").show();
-      addBackdrop();
-    }
-
-    function validatetel(tel) {
-      const re = /^[0][0-9][0-9]{8}$/;
-      return re.test(tel);
-    }
-
-    closeModal.onclick = function () {
-      $("#defaultmodal").hide();
-      removeBackdrop();
-    }
-    acceptModal.onclick = function () {//讀取前端sessionBlob    
-      $("#defaultmodal").hide();
-      removeBackdrop();
-      var blobBase64 = sessionStorage.getItem("Blob");
-      if (blobBase64) {
-        $("#imgAvatar").attr("src", `data:image/png;base64,${blobBase64}`);
-      }
-      console.log();
-    };
-
-    save.onclick = function (e) {
-      e.preventDefault();
-      if ($("#imgAvatar").attr("src") == "../imgs/12-1.png") {
-        base64String = null;
-      } else {
-        var base64Index = $("#imgAvatar").attr("src").indexOf(",");
-        var base64String = $("#imgAvatar").attr("src").substring(base64Index + 1);
-      }
-      const data = {
-        avatar: base64String,
-        userName: $("#username").val(),
-        birthday: $("#birthday").val(),
-        gender: $("#gender").val(),
-        phone: $("#phone").val(),
-        userIntro: $("#userIntro").val(),
+      let img = new Image();
+      let cropArea = {
+        startX: 50,
+        startY: 50,
+        width: 100,
+        height: 100,
       };
 
-      if (!validatetel($("#phone").val()) && $("#phone").val() != "") {
-        $("#error").text("電話格式錯誤!");
-      } else {
-        fetch("http://localhost:8080/user/updateinfo", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
+      fileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            img.onload = () => {
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.drawImage(img, 0, 0);
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+        openModal();
+      });
+
+      canvas.addEventListener("mousedown", (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const startX = e.clientX - rect.left;
+        const startY = e.clientY - rect.top;
+
+        cropArea.startX = startX;
+        cropArea.startY = startY;
+
+        canvas.addEventListener("mousemove", drawCropArea);
+        canvas.addEventListener("mouseup", () => {
+          canvas.removeEventListener("mousemove", drawCropArea);
+        });
+      });
+
+      canvas.addEventListener("mouseup", () => {
+        //生成選取區域
+        drawCropAreaToBase64();
+      });
+
+      function drawCropArea(e) {
+        //畫布&選取圈設定
+        const rect = canvas.getBoundingClientRect();
+        const endX = e.clientX - rect.left;
+        const endY = e.clientY - rect.top;
+
+        const centerX = (cropArea.startX + endX) / 2;
+        const centerY = (cropArea.startY + endY) / 2;
+        const radius =
+          Math.sqrt(
+            Math.pow(endX - cropArea.startX, 2) +
+              Math.pow(endY - cropArea.startY, 2)
+          ) / 2;
+
+        cropArea.radius = radius;
+        cropArea.centerX = centerX;
+        cropArea.centerY = centerY;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        ctx.save();
+        ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+        ctx.beginPath();
+        ctx.rect(0, 0, canvas.width, canvas.height);
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      function drawCropAreaToBase64() {
+        //選取區轉成Base64
+        const croppedCanvas = document.createElement("canvas");
+        const croppedCtx = croppedCanvas.getContext("2d", {
+          alpha: true,
+        });
+
+        const diameter = cropArea.radius * 2;
+        croppedCanvas.width = diameter;
+        croppedCanvas.height = diameter;
+
+        croppedCtx.beginPath();
+        croppedCtx.arc(
+          cropArea.radius,
+          cropArea.radius,
+          cropArea.radius,
+          0,
+          Math.PI * 2,
+          true
+        );
+        croppedCtx.clip();
+
+        croppedCtx.drawImage(
+          canvas,
+          cropArea.centerX - cropArea.radius,
+          cropArea.centerY - cropArea.radius,
+          diameter,
+          diameter,
+          0,
+          0,
+          diameter,
+          diameter
+        );
+
+        croppedCanvas.toBlob((blob) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = reader.result.split(",")[1];
+            croppedImage.src = `data:image/png;base64,${base64}`;
+            sessionStorage.setItem("Blob", base64);
+            //console.log(base64);
+          };
+          reader.readAsDataURL(blob);
+        }, "image/png");
+      }
+
+      function toggleEdit(a) {
+        //鎖定&解除輸入框
+        const btnToggleEdit = document.getElementById(a);
+        if (btnToggleEdit.readOnly) {
+          btnToggleEdit.readOnly = false;
+          btnToggleEdit.style.backgroundColor = "#ffffff";
+        } else {
+          btnToggleEdit.readOnly = true;
+          btnToggleEdit.style.backgroundColor = "rgb(212,212,212)";
+        }
+        btnToggleEdit.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" && a != "userIntro") {
+            event.preventDefault();
+            toggleEdit(a);
+          }
+        });
+      }
+
+      function toggleEditSelect() {
+        //鎖定&解除 選擇輸入框
+        const btnToggleEdit = document.getElementById("gender");
+        if (btnToggleEdit.disabled) {
+          btnToggleEdit.disabled = false;
+          btnToggleEdit.style.backgroundColor = "#ffffff";
+        } else {
+          btnToggleEdit.disabled = true;
+          btnToggleEdit.style.backgroundColor = "rgb(212,212,212)";
+        }
+        btnToggleEdit.addEventListener("keydown", function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            toggleEditSelect();
+          }
+        });
+      }
+
+      function removeBackdrop() {
+        // 移除遮罩層
+        const backdrop = document.querySelector("body > div[modal-backdrop]");
+        backdrop?.remove();
+      }
+
+      function addBackdrop() {
+        // 新增遮罩層
+        const backdrop = document.createElement("div");
+        backdrop.setAttribute("modal-backdrop", "");
+        backdrop.className = "bg-black opacity-50 fixed inset-0 z-40"; // Flowbite 默认样式
+        document.body.appendChild(backdrop);
+      }
+
+      function openModal() {
+        $("#defaultmodal").show();
+        addBackdrop();
+      }
+
+      function validatetel(tel) {
+        const re = /^[0][0-9][0-9]{8}$/;
+        return re.test(tel);
+      }
+
+      closeModal.onclick = function () {
+        $("#defaultmodal").hide();
+        removeBackdrop();
+      };
+      acceptModal.onclick = function () {
+        //讀取前端sessionBlob
+        $("#defaultmodal").hide();
+        removeBackdrop();
+        var blobBase64 = sessionStorage.getItem("Blob");
+        if (blobBase64) {
+          $("#imgAvatar").attr("src", `data:image/png;base64,${blobBase64}`);
+        }
+        console.log();
+      };
+
+      save.onclick = function (e) {
+        e.preventDefault();
+        if ($("#imgAvatar").attr("src") == "../imgs/12-1.png") {
+          base64String = null;
+        } else {
+          var base64Index = $("#imgAvatar").attr("src").indexOf(",");
+          var base64String = $("#imgAvatar")
+            .attr("src")
+            .substring(base64Index + 1);
+        }
+        const data = {
+          avatar: base64String,
+          userName: $("#username").val(),
+          birthday: $("#birthday").val(),
+          gender: $("#gender").val(),
+          phone: $("#phone").val(),
+          userIntro: $("#userIntro").val(),
+        };
+
+        if (!validatetel($("#phone").val()) && $("#phone").val() != "") {
+          $("#error").text("電話格式錯誤!");
+        } else {
+          fetch("http://127.0.0.1:8080/user/updateinfo", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+            credentials: "include",
+          })
+            .then((response) => response.text())
+            .then((result) => {
+              console.log(result);
+
+              if (result == "UserInfo updated successfully") {
+                $("#error").text("資料更新成功，兩秒後重新載入頁面");
+                setTimeout(() => {
+                  window.location.href =
+                    "http://127.0.0.1:5500/pages/profile.html";
+                }, 2000);
+              } else {
+                $("#error").text("資料更新失敗");
+              }
+            });
+        }
+      };
+
+      window.onload = function () {
+        fetch("http://127.0.0.1:8080/user/getprofile", {
+          method: "get",
           credentials: "include",
         })
-          .then((response) => response.text())
-          .then((result) => {
-            console.log(result);
-
-            if (result == "UserInfo updated successfully") {
-              $("#error").text("資料更新成功，兩秒後重新載入頁面");
-              setTimeout(() => {
-                window.location.href =
-                  "http://127.0.0.1:5500/pages/profile.html";
-              }, 2000);
-            } else {
-              $("#error").text("資料更新失敗");
+          .then((response) => {
+            return response.json();
+          })
+          .then((response) => {
+            // console.log(response);
+            // console.log(typeof (response));
+            console.log(response.userInfo.avatar);
+            $("#username").attr("value", response.userInfo.userName);
+            $("#email").attr("value", response.email);
+            $("#birthday").attr("value", response.userInfo.birthday);
+            $("#phone").attr("value", response.userInfo.phone);
+            response.userInfo.gender == "male"
+              ? $("#gender option[value=male]").attr("selected", "selected")
+              : $("#gender option[value=female]").attr("selected", "selected");
+            $("#userIntro").attr(
+              "placeholder",
+              `大家好！我的名字是${response.userInfo.userName}。`
+            );
+            $("#userIntro").val(response.userInfo.userIntro);
+            var avatarIndex = response.userInfo.avatar.indexOf(",");
+            var avatarString = response.userInfo.avatar.substring(
+              avatarIndex + 1
+            );
+            console.log(avatarString);
+            if (avatarString != "" && avatarString != "null") {
+              $("#imgAvatar").attr(
+                "src",
+                `data:image/png;base64,${avatarString}`
+              );
             }
+          })
+          .catch((error) => {
+            console.log(`Error: ${error}`);
           });
-      }
-    };
+      };
 
-    window.onload = function () {
-      fetch("http://localhost:8080/user/getprofile", {
+      fetch("http://127.0.0.1:8080/user/islogin", {
         method: "get",
         credentials: "include",
       })
-        .then((response) => {
-          return response.json();
-        })
-        .then((response) => {
-          // console.log(response);
-          // console.log(typeof (response));
-          console.log(response.userInfo.avatar);
-          $("#username").attr("value", response.userInfo.userName);
-          $("#email").attr("value", response.email);
-          $("#birthday").attr("value", response.userInfo.birthday);
-          $("#phone").attr("value", response.userInfo.phone);
-          response.userInfo.gender == "male"
-            ? $("#gender option[value=male]").attr("selected", "selected")
-            : $("#gender option[value=female]").attr("selected", "selected");
-          $("#userIntro").attr("placeholder", `大家好！我的名字是${response.userInfo.userName}。`);
-          $("#userIntro").val(response.userInfo.userIntro);
-          var avatarIndex = response.userInfo.avatar.indexOf(",");
-          var avatarString = response.userInfo.avatar.substring(avatarIndex + 1);
-          console.log(avatarString);
-          if (avatarString != "" && avatarString != "null") {
-            $("#imgAvatar").attr(
-              "src", `data:image/png;base64,${avatarString}`
-            );
+        .then((response) => response.text())
+        .then((data) => {
+          if (data != "true") {
+            window.location.href = "login.html";
           }
-        })
-        .catch((error) => {
-          console.log(`Error: ${error}`);
         });
-    };
 
-    fetch("http://localhost:8080/user/islogin", {
-      method: "get",
-      credentials: "include",
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        if (data != "true") {
-          window.location.href = "login.html";
-        }
-      });
+      fetch("../components/navbar.html")
+        .then((response) => response.text())
+        .then((data) => {
+          $("#navbar").html(data);
+        });
 
-    fetch("../components/navbar.html")
-      .then((response) => response.text())
-      .then((data) => {
-        $("#navbar").html(data);
-      });
-
-    fetch("../components/footer.html")
-      .then((response) => response.text())
-      .then((data) => {
-        $("#footer").html(data);
-      });
-  </script>
-  <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
-
-</body>
-
+      fetch("../components/footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          $("#footer").html(data);
+        });
+    </script>
+    <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
+  </body>
 </html>

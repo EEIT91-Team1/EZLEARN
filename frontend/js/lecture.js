@@ -32,7 +32,7 @@ $(document).ready(function () {
 
   async function getUser() {
     const response = await fetch(
-      `http://localhost:8080/user/getprofile`,
+      `http://127.0.0.1:8080/user/getprofile`,
       {
         method: "GET",
         credentials: "include",
@@ -55,7 +55,7 @@ $(document).ready(function () {
   async function getPosts() {
     try {
       const response = await fetch(
-        `http://localhost:8080/courses/${courseId}/posts`,
+        `http://127.0.0.1:8080/courses/${courseId}/posts`,
         {
           method: "GET",
           credentials: "include",
@@ -106,7 +106,7 @@ $(document).ready(function () {
     $(".note-list").empty();
     try {
       const response = await fetch(
-        `http://localhost:8080/courses/${courseId}/notes`,
+        `http://127.0.0.1:8080/courses/${courseId}/notes`,
         {
           method: "GET",
           credentials: "include",
@@ -169,7 +169,7 @@ $(document).ready(function () {
   // add note
   async function addNote() {
     const response = await fetch(
-      `http://localhost:8080/courses/notes`,
+      `http://127.0.0.1:8080/courses/notes`,
       {
         method: "POST",
         credentials: "include",
@@ -206,7 +206,7 @@ $(document).ready(function () {
       let noteId = $(this).closest(".note").attr("id");
       $(this).closest(".note").remove();
       await fetch(
-        `http://localhost:8080/courses/notes/${noteId}`,
+        `http://127.0.0.1:8080/courses/notes/${noteId}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -226,7 +226,7 @@ $(document).ready(function () {
       if ($(this).find("i").hasClass("bi-floppy")) {
         let noteId = $(this).closest(".note").attr("id");
         const response = await fetch(
-          `http://localhost:8080/courses/notes/${noteId}`,
+          `http://127.0.0.1:8080/courses/notes/${noteId}`,
           {
             method: "PUT",
             credentials: "include",
@@ -282,7 +282,7 @@ $(document).ready(function () {
   // get course info
   async function getCourse() {
     const response = await fetch(
-      `http://localhost:8080/courses/${courseId}`,
+      `http://127.0.0.1:8080/courses/${courseId}`,
       {
         method: "GET",
         credentials: "include",
@@ -305,7 +305,7 @@ $(document).ready(function () {
   async function getLessons() {
     $(".lesson-list").empty();
     const response = await fetch(
-      `http://localhost:8080/courses/${courseId}/lessons`,
+      `http://127.0.0.1:8080/courses/${courseId}/lessons`,
       {
         method: "GET",
         credentials: "include",
@@ -438,7 +438,7 @@ $(document).ready(function () {
   //get profile
   async function getProfile() {
     const response = await fetch(
-      `http://localhost:8080/user/getprofile`,
+      `http://127.0.0.1:8080/user/getprofile`,
       {
         method: "GET",
         credentials: "include",
@@ -467,7 +467,7 @@ $(document).ready(function () {
   //add question
   async function addQuestion() {
     const response = await fetch(
-      `http://localhost:8080/questions/create`,
+      `http://127.0.0.1:8080/questions/create`,
       {
         method: "POST",
         credentials: "include",
@@ -498,7 +498,7 @@ $(document).ready(function () {
   async function getQuestions() {
     $(".question-list").empty();
     const response = await fetch(
-      `http://localhost:8080/questions/courses/${courseId}`,
+      `http://127.0.0.1:8080/questions/courses/${courseId}`,
       {
         method: "GET",
         credentials: "include",
@@ -710,7 +710,7 @@ $(document).ready(function () {
     ".question-edit-save",
     async function () {
       const response = await fetch(
-        `http://localhost:8080/questions/update`,
+        `http://127.0.0.1:8080/questions/update`,
         {
           method: "PUT",
           credentials: "include",
@@ -756,7 +756,7 @@ $(document).ready(function () {
         .closest(".question")
         .attr("id");
       const response = await fetch(
-        `http://localhost:8080/questions/${questionId}/delete`,
+        `http://127.0.0.1:8080/questions/${questionId}/delete`,
         {
           method: "DELETE",
           credentials: "include",
@@ -800,7 +800,7 @@ $(document).ready(function () {
   async function getProgressByLessonId() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "GET",
           credentials: "include",
@@ -830,7 +830,7 @@ $(document).ready(function () {
   async function getAllProgressByCourseId() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/courses/${courseId}`,
+        `http://127.0.0.1:8080/progress/courses/${courseId}`,
         {
           method: "GET",
           credentials: "include",
@@ -865,7 +865,7 @@ $(document).ready(function () {
   async function isCreatedProgress() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "GET",
           credentials: "include",
@@ -894,7 +894,7 @@ $(document).ready(function () {
   async function getLastView() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/courses/${courseId}/last-view`,
+        `http://127.0.0.1:8080/progress/courses/${courseId}/last-view`,
         {
           method: "GET",
           credentials: "include",
@@ -944,7 +944,7 @@ $(document).ready(function () {
   async function createProgress() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "POST",
           credentials: "include",
@@ -977,7 +977,7 @@ $(document).ready(function () {
   async function updateProgress() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -1007,7 +1007,7 @@ $(document).ready(function () {
   async function markProgressAsCompleted() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}/complete`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}/complete`,
         {
           method: "PUT",
           credentials: "include",

@@ -139,7 +139,7 @@ $(document).ready(function () {
   //繼續學習
   function progress() {
     $.ajax({
-      url: "http://localhost:8080/progress/user",
+      url: "http://127.0.0.1:8080/progress/user",
       method: "GET",
       xhrFields: {
         withCredentials: true,
@@ -179,7 +179,7 @@ $(document).ready(function () {
       });
     });
   }
-  fetch("http://localhost:8080/user/islogin", {
+  fetch("http://127.0.0.1:8080/user/islogin", {
     method: "get",
     credentials: "include",
   })
@@ -191,7 +191,7 @@ $(document).ready(function () {
     });
 
   function url(api) {
-    return `http://localhost:8080/index/${api}`;
+    return `http://127.0.0.1:8080/index/${api}`;
   }
 
   function rateToStars(rate) {
@@ -280,7 +280,7 @@ $("#btnSearch").on("click", (event) => {
 CoursesData = "";
 function getCourseNameId() {
   $.ajax({
-    url: "http://localhost:8080/courses/getAllNameId",
+    url: "http://127.0.0.1:8080/courses/getAllNameId",
     method: "GET",
   }).done((data) => {
     $.each(data, (idx, item) => {
@@ -391,7 +391,58 @@ $("#btnQs").on("click", () => {
 });
 
 // 關鍵字搜尋
+let preference = "";
+fetch("http://127.0.0.1:8080/user/islogin", {
+  method: "get",
+  credentials: "include",
+})
+  .then((response) => response.text())
+  .then((data) => {
+    if (data == "true") {
+      $.ajax({
+        url: "http://127.0.0.1:8080/purchased-courses/my-courses",
+        method: "GET",
+        xhrFields: {
+          withCredentials: true,
+        },
+      }).done((data) => {
+        console.log(data);
+        let lang = 0;
+        let program = 0;
+        let cook = 0;
+        let art = 0;
+        let sport = 0;
+        let finance = 0;
+        $.each(data, (idx, item) => {
+          console.log(item.courses.courseType);
 
+          switch (item.courses.courseType) {
+            case "語言學習":
+              lang += 1;
+              break;
+            case "程式設計":
+              program += 1;
+              break;
+            case "美食料理":
+              cook += 1;
+              break;
+            case "藝術創作":
+              art += 1;
+              break;
+            case "運動健身":
+              sport += 1;
+              break;
+            case "理財投資":
+              finance += 1;
+              break;
+            default:
+              break;
+          }
+        });
+        preference = `語言學習：${lang},程式設計：${program},美食料理：${cook},藝術創作：${art},運動健身：${sport},理財投資：${finance}`;
+      });
+    }
+  });
 //防抖
 function debounce(fn, delay = 500) {
   let timer;
@@ -411,7 +462,7 @@ let updateDebounceText = debounce((text) => {
     $("#keyword").empty();
     iskeywordNull = true;
   }
-}, 700);
+}, 500);
 let blurHidden = debounce(() => {
   $("#keyword").addClass("hidden");
 }, 100);
@@ -431,6 +482,7 @@ $("#inputSearch").on("focus", function () {
   }
 });
 async function keyword(key) {
+  console.log(preference);
   let data = {
     messages: [
       {
@@ -441,6 +493,7 @@ async function keyword(key) {
     一次最多提供五個關鍵字
     你的回覆格式為：<a class='p-2 block hover:bg-gray-100' href='../pages/search.html?query=關鍵字'>關鍵字</a>
     你的回覆只能是我提供的格式，不能有其他文字
+    用戶已購買課程數${preference}
     如果使用者輸入的字皆與課程列表無關，你可以隨意提供課程相關的關鍵字但前幾個字也是要跟使用者輸入的相同。
     `,
       },

@@ -3,7 +3,7 @@ async function loadNavbar() {
   const navbarHtml = await navbarResponse.text();
   $("#navbar").html(navbarHtml);
 
-  const isLoginResponse = await fetch("http://localhost:8080/user/islogin", {
+  const isLoginResponse = await fetch("http://127.0.0.1:8080/user/islogin", {
     method: "GET",
     credentials: "include",
   });
@@ -13,7 +13,7 @@ async function loadNavbar() {
     navbarLog("Login");
 
     const loginDataResponse = await fetch(
-      "http://localhost:8080/user/logindata",
+      "http://127.0.0.1:8080/user/logindata",
       {
         method: "GET",
         credentials: "include",

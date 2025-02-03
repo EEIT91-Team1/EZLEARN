@@ -2,10 +2,7 @@
 <html lang="zh-Hant">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="../imgs/favicon.ico" />
     <link
       rel="stylesheet"
@@ -28,9 +25,7 @@
         </div>
 
         <div id="noOrders" class="hidden text-center py-12">
-          <i
-            class="bi bi-inbox text-4xl text-gray-400 mb-4"
-          ></i>
+          <i class="bi bi-inbox text-4xl text-gray-400 mb-4"></i>
           <p class="text-gray-500">目前沒有任何訂單記錄</p>
         </div>
       </div>
@@ -41,16 +36,13 @@
     <script src="../js/header-footer.js"></script>
 
     <script>
-      const API_BASE_URL = "http://localhost:8080";
+      const API_BASE_URL = "http://127.0.0.1:8080";
 
       async function checkLogin() {
         try {
-          const response = await fetch(
-            `${API_BASE_URL}/user/islogin`,
-            {
-              credentials: "include",
-            }
-          );
+          const response = await fetch(`${API_BASE_URL}/user/islogin`, {
+            credentials: "include",
+          });
           const isLoggedIn = await response.text();
 
           if (isLoggedIn === "false") {
@@ -65,22 +57,16 @@
         }
       }
 
-      document.addEventListener(
-        "DOMContentLoaded",
-        async function () {
-          if (!(await checkLogin())) return;
-          loadOrderHistory();
-        }
-      );
+      document.addEventListener("DOMContentLoaded", async function () {
+        if (!(await checkLogin())) return;
+        loadOrderHistory();
+      });
 
       async function loadOrderHistory() {
         try {
-          const response = await fetch(
-            `${API_BASE_URL}/api/checkout/history`,
-            {
-              credentials: "include",
-            }
-          );
+          const response = await fetch(`${API_BASE_URL}/api/checkout/history`, {
+            credentials: "include",
+          });
           const result = await response.json();
 
           if (result.code === 200) {
@@ -99,10 +85,8 @@
       }
 
       function displayOrders(orders) {
-        const orderList =
-          document.getElementById("orderList");
-        const noOrders =
-          document.getElementById("noOrders");
+        const orderList = document.getElementById("orderList");
+        const noOrders = document.getElementById("noOrders");
 
         if (!orders || orders.length === 0) {
           console.log("無訂單資料");
@@ -114,18 +98,15 @@
         noOrders.classList.add("hidden");
         orderList.innerHTML = orders
           .map((order) => {
-            const isPending =
-              order.orderStatus === "PENDING";
-            const isCancelled =
-              order.orderStatus === "CANCELLED";
+            const isPending = order.orderStatus === "PENDING";
+            const isCancelled = order.orderStatus === "CANCELLED";
 
             // 設定狀態樣式
             let statusClass = "";
             let statusText = "";
             switch (order.orderStatus) {
               case "PENDING":
-                statusClass =
-                  "bg-yellow-100 text-yellow-800";
+                statusClass = "bg-yellow-100 text-yellow-800";
                 statusText = "待付款";
                 break;
               case "COMPLETE":
@@ -151,9 +132,7 @@
                  }>
               <div class="flex justify-between items-center mb-4">
                 <div>
-                  <h2 class="text-xl font-bold">訂單編號：${
-                    order.orderId
-                  }</h2>
+                  <h2 class="text-xl font-bold">訂單編號：${order.orderId}</h2>
                   <p class="text-gray-500">${new Date(
                     order.createdAt
                   ).toLocaleString()}</p>
@@ -168,9 +147,7 @@
                   .map(
                     (item) => `
                   <div class="flex justify-between items-center mb-2">
-                    <span class="text-lg">${
-                      item.courseName
-                    }</span>
+                    <span class="text-lg">${item.courseName}</span>
                     <span class="text-lg">NT$ ${item.price.toLocaleString()} 元</span>
                   </div>
                 `
@@ -212,9 +189,7 @@
 
       function showNoOrders() {
         document.getElementById("orderList").innerHTML = "";
-        document
-          .getElementById("noOrders")
-          .classList.remove("hidden");
+        document.getElementById("noOrders").classList.remove("hidden");
       }
 
       function handleOrderClick(orderId) {
