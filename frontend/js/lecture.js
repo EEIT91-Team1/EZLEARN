@@ -5,12 +5,8 @@ $(document).ready(function () {
 
     $(".tab-content").addClass("hidden");
 
-    $(".tab-link").removeClass(
-      "border-indigo-500 text-indigo-600"
-    );
-    $(".tab-link").addClass(
-      "border-transparent text-gray-500"
-    );
+    $(".tab-link").removeClass("border-indigo-500 text-indigo-600");
+    $(".tab-link").addClass("border-transparent text-gray-500");
 
     var target = $(this).data("target");
     $("#" + target).removeClass("hidden");
@@ -19,9 +15,7 @@ $(document).ready(function () {
     $(this).addClass("border-indigo-500 text-indigo-600");
   });
 
-  let courseId = new URLSearchParams(
-    window.location.search
-  ).get("course_id");
+  let courseId = new URLSearchParams(window.location.search).get("course_id");
 
   let lessonId = 0;
   let userId = 0;
@@ -31,16 +25,13 @@ $(document).ready(function () {
   let currentIndex = 0;
 
   async function getUser() {
-    const response = await fetch(
-      `http://localhost:8080/user/getprofile`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`http://127.0.0.1:8080/user/getprofile`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Internal Error");
@@ -55,7 +46,7 @@ $(document).ready(function () {
   async function getPosts() {
     try {
       const response = await fetch(
-        `http://localhost:8080/courses/${courseId}/posts`,
+        `http://127.0.0.1:8080/courses/${courseId}/posts`,
         {
           method: "GET",
           credentials: "include",
@@ -75,9 +66,7 @@ $(document).ready(function () {
         $.each(data, function (index, item) {
           let postTitle = $("<h1>")
             .text(item.postTitle)
-            .addClass(
-              "text-lg font-bold mb-2 text-gray-800"
-            );
+            .addClass("text-lg font-bold mb-2 text-gray-800");
 
           let postContent = $("<p>")
             .text(item.postContent)
@@ -106,7 +95,7 @@ $(document).ready(function () {
     $(".note-list").empty();
     try {
       const response = await fetch(
-        `http://localhost:8080/courses/${courseId}/notes`,
+        `http://127.0.0.1:8080/courses/${courseId}/notes`,
         {
           method: "GET",
           credentials: "include",
@@ -168,23 +157,20 @@ $(document).ready(function () {
 
   // add note
   async function addNote() {
-    const response = await fetch(
-      `http://localhost:8080/courses/notes`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(`http://127.0.0.1:8080/courses/notes`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        noteTitle: $("#add-note-title").val(),
+        noteContent: $("#add-note-content").val(),
+        lessons: {
+          lessonId: lessonId,
         },
-        body: JSON.stringify({
-          noteTitle: $("#add-note-title").val(),
-          noteContent: $("#add-note-content").val(),
-          lessons: {
-            lessonId: lessonId,
-          },
-        }),
-      }
-    );
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("Internal Error");
@@ -199,98 +185,70 @@ $(document).ready(function () {
   });
 
   // delete note
-  $(document).on(
-    "click",
-    ".note-delete-btn",
-    async function (e) {
+  $(document).on("click", ".note-delete-btn", async function (e) {
+    let noteId = $(this).closest(".note").attr("id");
+    $(this).closest(".note").remove();
+    await fetch(`http://127.0.0.1:8080/courses/notes/${noteId}`, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  });
+
+  // edit note
+  $(document).on("click", ".note-edit-btn", async function () {
+    if ($(this).find("i").hasClass("bi-floppy")) {
       let noteId = $(this).closest(".note").attr("id");
-      $(this).closest(".note").remove();
-      await fetch(
-        `http://localhost:8080/courses/notes/${noteId}`,
+      const response = await fetch(
+        `http://127.0.0.1:8080/courses/notes/${noteId}`,
         {
-          method: "DELETE",
+          method: "PUT",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            noteTitle: $(this).closest(".note").find(".note-title").val(),
+
+            noteContent: $(this).closest(".note").find(".note-content").val(),
+          }),
         }
       );
     }
-  );
 
-  // edit note
-  $(document).on(
-    "click",
-    ".note-edit-btn",
-    async function () {
-      if ($(this).find("i").hasClass("bi-floppy")) {
-        let noteId = $(this).closest(".note").attr("id");
-        const response = await fetch(
-          `http://localhost:8080/courses/notes/${noteId}`,
-          {
-            method: "PUT",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              noteTitle: $(this)
-                .closest(".note")
-                .find(".note-title")
-                .val(),
+    $(this).find("i").toggleClass("bi-pencil-square bi-floppy");
 
-              noteContent: $(this)
-                .closest(".note")
-                .find(".note-content")
-                .val(),
-            }),
-          }
-        );
-      }
+    $(this)
+      .closest(".note")
+      .find(".note-title")
+      .toggleClass("text-gray-700 text-gray-400")
+      .prop(
+        "disabled",
+        !$(this).closest(".note").find(".note-title").prop("disabled")
+      )
+      .focus();
 
-      $(this)
-        .find("i")
-        .toggleClass("bi-pencil-square bi-floppy");
-
-      $(this)
-        .closest(".note")
-        .find(".note-title")
-        .toggleClass("text-gray-700 text-gray-400")
-        .prop(
-          "disabled",
-          !$(this)
-            .closest(".note")
-            .find(".note-title")
-            .prop("disabled")
-        )
-        .focus();
-
-      $(this)
-        .closest(".note")
-        .find(".note-content")
-        .toggleClass("text-gray-700 text-gray-400")
-        .prop(
-          "disabled",
-          !$(this)
-            .closest(".note")
-            .find(".note-content")
-            .prop("disabled")
-        );
-    }
-  );
+    $(this)
+      .closest(".note")
+      .find(".note-content")
+      .toggleClass("text-gray-700 text-gray-400")
+      .prop(
+        "disabled",
+        !$(this).closest(".note").find(".note-content").prop("disabled")
+      );
+  });
 
   // get course info
   async function getCourse() {
-    const response = await fetch(
-      `http://localhost:8080/courses/${courseId}`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`http://127.0.0.1:8080/courses/${courseId}`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Internal Error");
@@ -305,7 +263,7 @@ $(document).ready(function () {
   async function getLessons() {
     $(".lesson-list").empty();
     const response = await fetch(
-      `http://localhost:8080/courses/${courseId}/lessons`,
+      `http://127.0.0.1:8080/courses/${courseId}/lessons`,
       {
         method: "GET",
         credentials: "include",
@@ -315,10 +273,7 @@ $(document).ready(function () {
       }
     );
 
-    if (
-      response.status === 401 ||
-      response.status === 400
-    ) {
+    if (response.status === 401 || response.status === 400) {
       window.location.href = "/pages/login.html";
     }
 
@@ -337,9 +292,7 @@ $(document).ready(function () {
       $(".lesson-name").text(data[0].lessonName); // default lesson
 
       $.each(data, function (index, item) {
-        $(
-          ".lesson-list"
-        ).append(`<li class="border-b border-gray-400">
+        $(".lesson-list").append(`<li class="border-b border-gray-400">
           <details
             class="group [&_summary::-webkit-details-marker]:hidden"
             open
@@ -389,91 +342,71 @@ $(document).ready(function () {
   }
   getLessons();
 
-  $(document).on(
-    "click",
-    ".course-video-link",
-    function () {
-      lessonId = $(this).data("id"); // change to current lessonId
-      getProgressByLessonId(); // get progress
+  $(document).on("click", ".course-video-link", function () {
+    lessonId = $(this).data("id"); // change to current lessonId
+    getProgressByLessonId(); // get progress
 
-      currentLesson =
-        $(this)
-          .closest("details")
-          .find("summary span:first")
-          .text() + this.innerText;
+    currentLesson =
+      $(this).closest("details").find("summary span:first").text() +
+      this.innerText;
 
-      currentIndex = $(this).attr("id");
+    currentIndex = $(this).attr("id");
 
-      $(".lesson-name").text(this.innerText);
+    $(".lesson-name").text(this.innerText);
 
-      $(".course-video-link").removeClass(
-        "bg-gray-100 text-gray-700"
+    $(".course-video-link").removeClass("bg-gray-100 text-gray-700");
+    $(".course-video-link img").remove();
+
+    const videoSrc = $(this).data("src");
+    $("#courseVideo").attr("src", videoSrc);
+    $("#courseVideo").attr("autoplay", true);
+    resetCountdownUI();
+    clearInterval(autoSaveProgress);
+    clearInterval(countdown);
+    $(".completed-course-message").remove();
+
+    $.each($(`[data-id="${lessonId}"]`), function (index, item) {
+      $(item).addClass("bg-gray-100 text-gray-700");
+      $(item).prepend(
+        `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
       );
-      $(".course-video-link img").remove();
-
-      const videoSrc = $(this).data("src");
-      $("#courseVideo").attr("src", videoSrc);
-      $("#courseVideo").attr("autoplay", true);
-      resetCountdownUI();
-      clearInterval(autoSaveProgress);
-      clearInterval(countdown);
-      $(".completed-course-message").remove();
-
-      $.each(
-        $(`[data-id="${lessonId}"]`),
-        function (index, item) {
-          $(item).addClass("bg-gray-100 text-gray-700");
-          $(item).prepend(
-            `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
-          );
-        }
-      );
-    }
-  );
+    });
+  });
 
   //get profile
   async function getProfile() {
-    const response = await fetch(
-      `http://localhost:8080/user/getprofile`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`http://127.0.0.1:8080/user/getprofile`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error("Internal Error");
     }
 
     const data = await response.json();
-    $(".avatar").attr(
-      "src",
-      `data:image/png;base64,${data.userInfo.avatar}`
-    );
+    $(".avatar").attr("src", `data:image/png;base64,${data.userInfo.avatar}`);
   }
   getProfile();
 
   //add question
   async function addQuestion() {
-    const response = await fetch(
-      `http://localhost:8080/questions/create`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
+    const response = await fetch(`http://127.0.0.1:8080/questions/create`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: $("#student-question").val(),
+        lesson: {
+          lessonId: lessonId,
         },
-        body: JSON.stringify({
-          question: $("#student-question").val(),
-          lesson: {
-            lessonId: lessonId,
-          },
-        }),
-      }
-    );
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("Internal Error");
@@ -490,7 +423,7 @@ $(document).ready(function () {
   async function getQuestions() {
     $(".question-list").empty();
     const response = await fetch(
-      `http://localhost:8080/questions/courses/${courseId}`,
+      `http://127.0.0.1:8080/questions/courses/${courseId}`,
       {
         method: "GET",
         credentials: "include",
@@ -515,9 +448,7 @@ $(document).ready(function () {
                     <div class="shrink-0">
                       <img
                         class="avatar inline-block size-10 rounded-full object-cover"
-                        src="data:image/png;base64,${
-                          item.userInfo.avatar
-                        }"
+                        src="data:image/png;base64,${item.userInfo.avatar}"
                       />
                     </div>
 
@@ -547,9 +478,7 @@ $(document).ready(function () {
                       <!-- answer -->
                       <details
                         class="${
-                          item.answer == null
-                            ? "hidden"
-                            : "none"
+                          item.answer == null ? "hidden" : "none"
                         } group [&_summary::-webkit-details-marker]:hidden inline-block"
                       >
                         <summary
@@ -592,9 +521,7 @@ $(document).ready(function () {
                     <!-- open dropdown -->
                     <button
                       class="${
-                        item.userInfo.userId != userId
-                          ? "hidden"
-                          : "none"
+                        item.userInfo.userId != userId ? "hidden" : "none"
                       } question-open-dropdown absolute right-0 top-0 w-8 h-8 group text-gray-700 rounded-full"
                     >
                       <i
@@ -652,32 +579,22 @@ $(document).ready(function () {
   autoResizeTextarea($(".auto-resize"));
 
   // open dropdown
-  $(document).on(
-    "click",
-    ".question-open-dropdown",
-    function () {
-      $(this)
-        .parent()
-        .find("div[role^='menu']")
-        .toggleClass("hidden none");
-    }
-  );
+  $(document).on("click", ".question-open-dropdown", function () {
+    $(this).parent().find("div[role^='menu']").toggleClass("hidden none");
+  });
 
   // edit question
-  $(document).on(
-    "click",
-    ".question-edit-btn",
-    function () {
-      $(".question-dropdown").addClass("hidden");
+  $(document).on("click", ".question-edit-btn", function () {
+    $(".question-dropdown").addClass("hidden");
 
-      $(this)
-        .closest(".question")
-        .find("textarea")
-        .addClass("border-b border-gray-200")
-        .removeAttr("disabled")
-        .focus();
+    $(this)
+      .closest(".question")
+      .find("textarea")
+      .addClass("border-b border-gray-200")
+      .removeAttr("disabled")
+      .focus();
 
-      $(`
+    $(`
         <div class="question-edit-save-and-cancel flex justify-end space-x-2 mt-2">
           <button class="question-edit-save w-8 h-8 justify-end rounded-md text-orange-500 hover:text-orange-700 font-semibold">
             <i class="bi bi-check text-[24px] "></i>
@@ -686,78 +603,50 @@ $(document).ready(function () {
             <i class="bi bi-x text-[24px] "></i>
           </button>
         </div>
-        `).insertAfter(
-        $(this)
-          .closest(".question")
-          .find("textarea")
-          .parent()
-      );
-    }
-  );
+        `).insertAfter($(this).closest(".question").find("textarea").parent());
+  });
 
   // edit save
-  $(document).on(
-    "click",
-    ".question-edit-save",
-    async function () {
-      const response = await fetch(
-        `http://localhost:8080/questions/update`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            questionId: $(this)
-              .closest(".question")
-              .attr("id"),
-            question: $(this)
-              .closest(".question")
-              .find("textarea")
-              .val(),
-          }),
-        }
-      );
+  $(document).on("click", ".question-edit-save", async function () {
+    const response = await fetch(`http://127.0.0.1:8080/questions/update`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        questionId: $(this).closest(".question").attr("id"),
+        question: $(this).closest(".question").find("textarea").val(),
+      }),
+    });
 
-      if (!response.ok) {
-        throw new Error("Internal Error");
-      } else {
-        getQuestions();
-      }
-    }
-  );
-
-  // edit cancel
-  $(document).on(
-    "click",
-    ".question-edit-cancel",
-    function () {
+    if (!response.ok) {
+      throw new Error("Internal Error");
+    } else {
       getQuestions();
     }
-  );
+  });
+
+  // edit cancel
+  $(document).on("click", ".question-edit-cancel", function () {
+    getQuestions();
+  });
 
   // delete question
-  $(document).on(
-    "click",
-    ".question-delete-btn",
-    async function () {
-      $(this).closest(".question").remove();
-      let questionId = $(this)
-        .closest(".question")
-        .attr("id");
-      const response = await fetch(
-        `http://localhost:8080/questions/${questionId}/delete`,
-        {
-          method: "DELETE",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    }
-  );
+  $(document).on("click", ".question-delete-btn", async function () {
+    $(this).closest(".question").remove();
+    let questionId = $(this).closest(".question").attr("id");
+    const response = await fetch(
+      `http://127.0.0.1:8080/questions/${questionId}/delete`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  });
 
   $(".tab-link").on("click", function (e) {
     autoResizeTextarea($(".auto-resize"));
@@ -766,32 +655,24 @@ $(document).ready(function () {
   // 開啟 Slide Over
   $("#openDrawer").on("click", function () {
     $("#drawer").removeClass("hidden");
-    $("#backdrop")
-      .removeClass("opacity-0")
-      .addClass("opacity-100");
+    $("#backdrop").removeClass("opacity-0").addClass("opacity-100");
 
-    $("#drawerPanel")
-      .removeClass("translate-x-full")
-      .addClass("translate-x-0");
+    $("#drawerPanel").removeClass("translate-x-full").addClass("translate-x-0");
   });
 
   // 關閉 Slide Over
   $("#closeDrawer").on("click", function () {
     $("#drawer").addClass("hidden");
-    $("#backdrop")
-      .removeClass("opacity-100")
-      .addClass("opacity-0");
+    $("#backdrop").removeClass("opacity-100").addClass("opacity-0");
 
-    $("#drawerPanel")
-      .removeClass("translate-x-0")
-      .addClass("translate-x-full");
+    $("#drawerPanel").removeClass("translate-x-0").addClass("translate-x-full");
   });
 
   // get progress by lessonId
   async function getProgressByLessonId() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "GET",
           credentials: "include",
@@ -809,8 +690,7 @@ $(document).ready(function () {
       if (data.progressTime == data.totalDuration) {
         $("#courseVideo")[0].currentTime = 0;
       } else {
-        $("#courseVideo")[0].currentTime =
-          data.progressTime;
+        $("#courseVideo")[0].currentTime = data.progressTime;
       }
     } catch (error) {
       // data not found
@@ -821,7 +701,7 @@ $(document).ready(function () {
   async function getAllProgressByCourseId() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/courses/${courseId}`,
+        `http://127.0.0.1:8080/progress/courses/${courseId}`,
         {
           method: "GET",
           credentials: "include",
@@ -856,7 +736,7 @@ $(document).ready(function () {
   async function isCreatedProgress() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "GET",
           credentials: "include",
@@ -885,7 +765,7 @@ $(document).ready(function () {
   async function getLastView() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/courses/${courseId}/last-view`,
+        `http://127.0.0.1:8080/progress/courses/${courseId}/last-view`,
         {
           method: "GET",
           credentials: "include",
@@ -903,31 +783,23 @@ $(document).ready(function () {
 
       lessonId = data.progressId.lessonId;
       getProgressByLessonId();
-      const videoSrc = $(`div[data-id='${lessonId}']`).data(
-        "src"
-      );
+      const videoSrc = $(`div[data-id='${lessonId}']`).data("src");
       $("#courseVideo").attr("src", videoSrc);
 
-      $.each(
-        $(`[data-id="${lessonId}"]`),
-        function (index, item) {
-          $(item).addClass("bg-gray-100 text-gray-700");
-          $(item).prepend(
-            `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
-          );
-        }
-      );
+      $.each($(`[data-id="${lessonId}"]`), function (index, item) {
+        $(item).addClass("bg-gray-100 text-gray-700");
+        $(item).prepend(
+          `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
+        );
+      });
     } catch (error) {
       // data not found (first time)
-      $.each(
-        $(`[data-id="${lessonId}"]`),
-        function (index, item) {
-          $(item).addClass("bg-gray-100 text-gray-700");
-          $(item).prepend(
-            `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
-          );
-        }
-      );
+      $.each($(`[data-id="${lessonId}"]`), function (index, item) {
+        $(item).addClass("bg-gray-100 text-gray-700");
+        $(item).prepend(
+          `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
+        );
+      });
     }
   }
 
@@ -935,7 +807,7 @@ $(document).ready(function () {
   async function createProgress() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "POST",
           credentials: "include",
@@ -943,12 +815,8 @@ $(document).ready(function () {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            progressTime: Math.floor(
-              currenTime[0].currentTime
-            ),
-            totalDuration: Math.floor(
-              currenTime[0].duration
-            ),
+            progressTime: Math.floor(currenTime[0].currentTime),
+            totalDuration: Math.floor(currenTime[0].duration),
             isCompleted: isCompleted,
           }),
         }
@@ -968,7 +836,7 @@ $(document).ready(function () {
   async function updateProgress() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -976,12 +844,8 @@ $(document).ready(function () {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            progressTime: Math.floor(
-              currenTime[0].currentTime
-            ),
-            totalDuration: Math.floor(
-              currenTime[0].duration
-            ),
+            progressTime: Math.floor(currenTime[0].currentTime),
+            totalDuration: Math.floor(currenTime[0].duration),
           }),
         }
       );
@@ -998,7 +862,7 @@ $(document).ready(function () {
   async function markProgressAsCompleted() {
     try {
       const response = await fetch(
-        `http://localhost:8080/progress/lesson/${lessonId}/complete`,
+        `http://127.0.0.1:8080/progress/lesson/${lessonId}/complete`,
         {
           method: "PUT",
           credentials: "include",
@@ -1027,15 +891,10 @@ $(document).ready(function () {
       await createProgress();
     }
 
-    if (
-      currenTime[0].duration - 1 <
-      currenTime[0].currentTime
-    ) {
+    if (currenTime[0].duration - 1 < currenTime[0].currentTime) {
       await markProgressAsCompleted();
       await updateProgress();
-      $(`div[data-id="${lessonId}"]`)
-        .find("i")
-        .removeClass("hidden");
+      $(`div[data-id="${lessonId}"]`).find("i").removeClass("hidden");
     }
     await updateProgress();
     autoSaveProgress = setInterval(function () {
@@ -1111,9 +970,7 @@ $(document).ready(function () {
   }
 
   function updateCountdownUI(time) {
-    $("#countdown-text").text(
-      `即將在 ${time} 秒後跳轉至下一部影片...`
-    );
+    $("#countdown-text").text(`即將在 ${time} 秒後跳轉至下一部影片...`);
   }
 
   function resetCountdownUI() {

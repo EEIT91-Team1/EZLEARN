@@ -35,7 +35,7 @@ function href(page) {
   window.location.href = page;
 }
 async function deleteWishList(id) {
-  const url = `http://localhost:8080/wishList/delete?courseId=${id}`;
+  const url = `http://127.0.0.1:8080/wishList/delete?courseId=${id}`;
   await $.ajax({
     url: url,
     method: "POST",
@@ -47,7 +47,7 @@ async function deleteWishList(id) {
 }
 
 //檢查是否登入
-fetch("http://localhost:8080/user/islogin", {
+fetch("http://127.0.0.1:8080/user/islogin", {
   method: "get",
   credentials: "include",
 })
@@ -62,7 +62,7 @@ fetch("http://localhost:8080/user/islogin", {
 async function getWishList() {
   $("#divResults").empty();
   await $.ajax({
-    url: "http://localhost:8080/wishList/get",
+    url: "http://127.0.0.1:8080/wishList/get",
     method: "GET",
     xhrFields: {
       withCredentials: true, // 設置為 true 以支持跨域請求時攜帶 cookie

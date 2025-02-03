@@ -1,26 +1,47 @@
 <article class="flex-1 p-6" style="min-height: 80vh" id="page">
   <div class="mb-6 border-black border px-14 py-2 w-auto h-36 relative">
     <span class="border-black border px-2 py-2 bottom-3 left-3 absolute">
-      <a class="text-xl font-bold mb-4" href="../pages/post-class-step1.html">建立課程</a>
+      <a class="text-xl font-bold mb-4" href="../pages/post-class-step1.html"
+        >建立課程</a
+      >
     </span>
-    <img src="../imgs/searchPic1.png" alt="" class="w-40 right-3 absolute hidden sm:block" />
+    <img
+      src="../imgs/searchPic1.png"
+      alt=""
+      class="w-40 right-3 absolute hidden sm:block"
+    />
   </div>
 
   <div class="mb-6">
     <h1 class="text-2xl font-bold mb-4">如何開始？</h1>
     <div class="grid grid-cols-3 gap-3 grid-rows-2 whitespace-normal">
       <div class="border border-black p-4 flex col-span-2">
-        <img src="../imgs/searchPic2.png" alt="" class="h-20 my-auto hidden sm:block" />
+        <img
+          src="../imgs/searchPic2.png"
+          alt=""
+          class="h-20 my-auto hidden sm:block"
+        />
         <p class="my-auto font-black text-lg">創建引人入勝的課程</p>
       </div>
-      <div class="border border-black p-4 row-span-2 flex items-center justify-center" style="text-align: center">
+      <div
+        class="border border-black p-4 row-span-2 flex items-center justify-center"
+        style="text-align: center"
+      >
         <div>
-          <img src="../imgs/searchPic3.png" alt="" class="h-24 m-auto hidden sm:block" />
+          <img
+            src="../imgs/searchPic3.png"
+            alt=""
+            class="h-24 m-auto hidden sm:block"
+          />
           <p class="font-black text-lg">建立您的受眾</p>
         </div>
       </div>
       <div class="border border-black p-4 flex col-span-2">
-        <img src="../imgs/searchPic5.png" alt="" class="h-20 my-auto hidden sm:block" />
+        <img
+          src="../imgs/searchPic5.png"
+          alt=""
+          class="h-20 my-auto hidden sm:block"
+        />
         <p class="my-auto font-black text-lg">開始學習影片</p>
       </div>
     </div>
@@ -34,7 +55,8 @@
   </div>
 </article>
 <script>
-  function toggleEdit(a) {//鎖定&解除輸入框
+  function toggleEdit(a) {
+    //鎖定&解除輸入框
     const btnToggleEdit = document.getElementById(a);
     if (btnToggleEdit.readOnly) {
       btnToggleEdit.readOnly = false;
@@ -51,7 +73,7 @@
     });
   }
 
-  fetch("http://localhost:8080/teacher/teachercourse", {
+  fetch("http://127.0.0.1:8080/teacher/teachercourse", {
     method: "GET",
     credentials: "include",
   })
@@ -72,7 +94,7 @@
       }
     });
   $("#courselist").on("click", 'button[name="editbtn"]', function () {
-    fetch("http://localhost:8080/teacher/teachercourse", {
+    fetch("http://127.0.0.1:8080/teacher/teachercourse", {
       method: "GET",
       credentials: "include",
     })
@@ -80,7 +102,7 @@
       .then((data) => {
         for (let i = 0; i < data.length; i++) {
           if ($(this).attr("id") == data[i].courseid) {
-            document.getElementById('page').innerHTML = `
+            document.getElementById("page").innerHTML = `
             <button name="back" class="my-3"><i class="bi bi-chevron-double-left "></i>上一頁</button>
             					<div class="col-span-3 grid grid-cols-3 gap-y-6">
 						<!-- flex -->
@@ -237,16 +259,16 @@
             $("#page").on("click", 'button[name="save"]', function () {
               const updatedata = {
                 courseId: data[i].courseid,
-                courseName: $('#coursename').val(),
-                price: $('#price').val(),
-                courseType: $('#coursetype').val(),
-                courseSummary: $('#coursesummary').val(),
-                courseIntro: $('#courseIntro').val(),
-                courseImg:$('#displayZone').attr('src').split(',')[1]
-              }
+                courseName: $("#coursename").val(),
+                price: $("#price").val(),
+                courseType: $("#coursetype").val(),
+                courseSummary: $("#coursesummary").val(),
+                courseIntro: $("#courseIntro").val(),
+                courseImg: $("#displayZone").attr("src").split(",")[1],
+              };
               console.log(updatedata);
-              
-              fetch("http://localhost:8080/teacher/editcourse", {
+
+              fetch("http://127.0.0.1:8080/teacher/editcourse", {
                 method: "PUT",
                 headers: {
                   "Content-Type": "application/json",
@@ -254,37 +276,31 @@
                 body: JSON.stringify(updatedata),
                 credentials: "include",
               })
-
                 .then((response) => response.text())
                 .then((result) => {
-                  $('#success').text('修改成功，兩秒後倒回課程頁面')
+                  $("#success").text("修改成功，兩秒後倒回課程頁面");
                   setTimeout(() => {
-                            window.location.href = "../pages/teacher-mainJQ.html";
-                        }, 2000);
+                    window.location.href = "../pages/teacher-mainJQ.html";
+                  }, 2000);
                 });
-            })
+            });
           }
         }
-
       });
-  })
+  });
 
-  $('#page').on('change','input[name="courseImage"]' ,function () {
-			const file = this.files[0]; // 修正錯誤
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = function (e) {
-					// 更新圖片預覽區域
-					$('#displayZone').attr('src', e.target.result);
-					$('#previewText').addClass('hidden');
-			  }
-        reader.readAsDataURL(file);
-      }
-		});
-
-
-
-
+  $("#page").on("change", 'input[name="courseImage"]', function () {
+    const file = this.files[0]; // 修正錯誤
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        // 更新圖片預覽區域
+        $("#displayZone").attr("src", e.target.result);
+        $("#previewText").addClass("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 
   $("#page").on("click", 'button[name="back"]', function () {
     fetch("../components/course.html")
@@ -292,7 +308,5 @@
       .then((result) => {
         $("#article").html(result);
       });
-  })
-
-
+  });
 </script>

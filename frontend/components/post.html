@@ -51,7 +51,7 @@
   </div>
 </article>
 <script>
-  fetch("http://localhost:8080/teacher/teachercourse", {
+  fetch("http://127.0.0.1:8080/teacher/teachercourse", {
     method: "GET",
     credentials: "include",
   })
@@ -66,7 +66,7 @@
         ).innerHTML += `<option value="${data[i].courseid}" id="${data[i].courseid}">${data[i].courseName}</option>`;
       }
       fetch(
-        `http://localhost:8080/teacher/teachergetpost/${$(
+        `http://127.0.0.1:8080/teacher/teachergetpost/${$(
           "#coursename"
         ).val()}`,
         {
@@ -105,7 +105,7 @@
           courseId: $("#coursename").val(),
         },
       };
-      fetch("http://localhost:8080/teacher/teachersendpost", {
+      fetch("http://127.0.0.1:8080/teacher/teachersendpost", {
         method: "post",
         headers: {
           "Content-Type": "application/json", // 設置請求內容類型為 JSON
@@ -121,7 +121,7 @@
             $("#title").val("");
             $("#content").val("");
             fetch(
-              `http://localhost:8080/teacher/teachergetpost/${$(
+              `http://127.0.0.1:8080/teacher/teachergetpost/${$(
                 "#coursename"
               ).val()}`,
               {
@@ -157,7 +157,7 @@
   coursename.onchange = function () {
     document.getElementById("getpost").innerHTML = "";
     fetch(
-      `http://localhost:8080/teacher/teachergetpost/${$("#coursename").val()}`,
+      `http://127.0.0.1:8080/teacher/teachergetpost/${$("#coursename").val()}`,
       {
         method: "GET",
         credentials: "include",

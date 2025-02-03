@@ -255,7 +255,7 @@
               phone: $("#phone").val(),
             },
           };
-          fetch("http://localhost:8080/user/register", {
+          fetch("http://127.0.0.1:8080/user/register", {
             method: "POST",
             headers: {
               "Content-Type": "application/json", // 設置請求內容類型為 JSON
@@ -284,7 +284,7 @@
         const re = /^[0][0-9][0-9]{8}$/;
         return re.test(tel);
       }
-      fetch("http://localhost:8080/user/islogin", {
+      fetch("http://127.0.0.1:8080/user/islogin", {
         method: "get",
         credentials: "include",
       })
