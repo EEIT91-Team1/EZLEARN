@@ -406,6 +406,10 @@ $(document).ready(function () {
 
       $(".lesson-name").text(this.innerText);
 
+      $(".play-pause")
+        .find("i")
+        .removeClass("bi-play-fill ")
+        .addClass("bi-stop-fill");
       $(".course-video-link").removeClass(
         "bg-gray-100 text-gray-700"
       );
