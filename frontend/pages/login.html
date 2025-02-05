@@ -452,9 +452,9 @@
           .then((response) => response.json())
           .then((data) => {
             if (data.error == 1) {
-              $("#errormesg").text("帳號或密碼錯誤");
+              $("#errormesg").text("帳號不存在");
             } else if (data.error == 2) {
-              $("#errormesg").text("帳號或密碼錯誤");
+              $("#errormesg").text("密碼錯誤");
             } else {
               window.location.href = "../index.html";
             }
