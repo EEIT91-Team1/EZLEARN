@@ -924,6 +924,7 @@ $(document).ready(function () {
           $(item).prepend(
             `<img class="playing-gif w-4 h-4 mr-2" src="../imgs/playing.gif" class="w-4 h-4 mr-2">`
           );
+          $(".lesson-name").text($(item).find("p").text());
         }
       );
     } catch (error) {

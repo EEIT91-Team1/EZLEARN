@@ -16,8 +16,12 @@ $(document).ready(function () {
   $(".tab-link").on("click", function (e) {
     //e.preventDefault();
 
-    $(".tab-link").removeClass("border-indigo-500 text-indigo-600");
-    $(".tab-link").addClass("border-transparent text-gray-500");
+    $(".tab-link").removeClass(
+      "border-indigo-500 text-indigo-600"
+    );
+    $(".tab-link").addClass(
+      "border-transparent text-gray-500"
+    );
 
     $(this).removeClass("border-transparent text-gray-500");
     $(this).addClass("border-indigo-500 text-indigo-600");
@@ -29,20 +33,31 @@ $(document).ready(function () {
     let windowHeight = $(window).height();
 
     if ($(window).scrollTop() > 80) {
-      $("#productCard").addClass("fixed top-6").removeClass("absolute top-4");
+      $("#productCard")
+        .addClass("fixed top-6")
+        .removeClass("absolute top-4");
       if (scrollTop + windowHeight - 68 >= footerTop) {
         $("#productCard")
           .removeClass("top-6")
-          .css("bottom", `${scrollTop + windowHeight - footerTop}px`);
+          .css(
+            "bottom",
+            `${scrollTop + windowHeight - footerTop}px`
+          );
       } else {
-        $("#productCard").css("bottom", "").addClass("top-6");
+        $("#productCard")
+          .css("bottom", "")
+          .addClass("top-6");
       }
     } else {
-      $("#productCard").removeClass("fixed top-6").addClass("absolute top-4");
+      $("#productCard")
+        .removeClass("fixed top-6")
+        .addClass("absolute top-4");
     }
   });
 
-  let courseId = new URLSearchParams(window.location.search).get("course_id");
+  let courseId = new URLSearchParams(
+    window.location.search
+  ).get("course_id");
 
   //get course review and course rate
   async function getPurchasedCourses() {
@@ -69,10 +84,12 @@ $(document).ready(function () {
             $(".course-review").prepend(`<div
             class="flex items-center mr-8 border-b border-gray-300 p-4"
           >
-            <div class="mr-4 w-24 h-24">
+            <div class="mr-4 w-24 h-24 shrink-0">
               <img
                 class="rounded-full w-full h-full object-cover"
-                src="data:image/png;base64,${item.users.userInfo.avatar}"
+                src="data:image/png;base64,${
+                  item.users.userInfo.avatar
+                }"
                 alt=""
                 onerror="this.onerror=null; this.src='../imgs/12-1.png';"
               />
@@ -86,7 +103,11 @@ $(document).ready(function () {
                 ${item.users.userInfo.userName}
               </p>
               <p class="text-[#495057]">
-                ${item.courseReview ? item.courseReview : "　"}
+                ${
+                  item.courseReview
+                    ? item.courseReview
+                    : "　"
+                }
               </p>
             </div>
           </div>`);
@@ -126,9 +147,15 @@ $(document).ready(function () {
       $(".course-name").text(data.courseName);
       $(".course-summary").text(data.courseSummary);
       $(".course-intro").text(data.courseIntro);
-      $(".course-img").attr("src", `data:image/png;base64,${data.courseImg}`);
+      $(".course-img").attr(
+        "src",
+        `data:image/png;base64,${data.courseImg}`
+      );
       $(".user-name").text(data.userInfo.userName);
-      $(".avatar").attr("src", `data:image/png;base64,${data.userInfo.avatar}`);
+      $(".avatar").attr(
+        "src",
+        `data:image/png;base64,${data.userInfo.avatar}`
+      );
       $(".user-intro").text(data.userInfo.userIntro);
       $(".price").text(data.price);
       $(".updated-at").text(data.updatedAt);
@@ -147,15 +174,21 @@ $(document).ready(function () {
     const emptyStars = 5 - fullStars - halfStar;
 
     for (let i = 0; i < fullStars; i++) {
-      $(`.rate-star-${index}`).append('<i class="bi bi-star-fill"></i>');
+      $(`.rate-star-${index}`).append(
+        '<i class="bi bi-star-fill"></i>'
+      );
     }
 
     if (halfStar) {
-      $(`.rate-star-${index}`).append('<i class="bi bi-star-half"></i>');
+      $(`.rate-star-${index}`).append(
+        '<i class="bi bi-star-half"></i>'
+      );
     }
 
     for (let i = 0; i < emptyStars; i++) {
-      $(`.rate-star-${index}`).append('<i class="bi bi-star"></i>');
+      $(`.rate-star-${index}`).append(
+        '<i class="bi bi-star"></i>'
+      );
     }
   }
 
@@ -189,13 +222,16 @@ $(document).ready(function () {
 
   async function isInWishlist() {
     try {
-      const response = await fetch(`http://127.0.0.1:8080/wishList/get`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://127.0.0.1:8080/wishList/get`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Internal Error");
@@ -206,10 +242,14 @@ $(document).ready(function () {
         return item.courseId == courseId;
       });
       if (result.length > 0) {
-        $(".add-to-wish-list").find("i").addClass("bi-heart-fill");
+        $(".add-to-wish-list")
+          .find("i")
+          .addClass("bi-heart-fill");
         return true;
       } else {
-        $(".add-to-wish-list").find("i").addClass("bi-heart");
+        $(".add-to-wish-list")
+          .find("i")
+          .addClass("bi-heart");
         return false;
       }
     } catch (error) {
@@ -220,7 +260,9 @@ $(document).ready(function () {
 
   //add to wish list or cancel
   $(".add-to-wish-list").on("click", async function () {
-    if ($(".add-to-wish-list").find("i").hasClass("bi-heart")) {
+    if (
+      $(".add-to-wish-list").find("i").hasClass("bi-heart")
+    ) {
       try {
         const response = await fetch(
           `http://127.0.0.1:8080/wishList/add?courseId=${courseId}`,
@@ -238,7 +280,9 @@ $(document).ready(function () {
           throw new Error("Internal Error");
         }
 
-        $(this).find("i").toggleClass("bi-heart bi-heart-fill");
+        $(this)
+          .find("i")
+          .toggleClass("bi-heart bi-heart-fill");
       } catch (error) {
         console.log(error);
       }
@@ -259,7 +303,9 @@ $(document).ready(function () {
           throw new Error("Internal Error");
         }
 
-        $(this).find("i").toggleClass("bi-heart bi-heart-fill");
+        $(this)
+          .find("i")
+          .toggleClass("bi-heart bi-heart-fill");
       } catch (error) {
         console.log(error);
       }
